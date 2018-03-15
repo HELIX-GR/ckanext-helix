@@ -10,7 +10,8 @@ from lxml import etree
 # Fixme: Replace with native parser
 from owslib.iso import MD_Metadata
 
-from ckan.plugins.toolkit import toolkit
+#from ckan.plugins.toolkit import toolkit
+import ckan.plugins.toolkit as toolkit
 from ckan.lib.base import model
 
 from ckanext.publicamundi import reference_data

@@ -15,7 +15,7 @@
     <b>Template path</b>: {{ info.template_path }}
     <b>Template type</b>: {{ info.template_type }}
     <b>Renderer</b>: {{ info.renderer }}
-    {% set debug_info = h.debug_full_info_as_list(info) %}
+  {##  {% set debug_info = h.debug_full_info_as_list(info) %} ##}
     {% if debug_info %}
     <a class="toggle-debug-vars" style="color:#333; cursor:pointer"><b>Variables [toggle]</b></a>
     {#

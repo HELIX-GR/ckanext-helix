@@ -1,6 +1,6 @@
 import sqlalchemy
 
-import ckan.new_authz as new_authz
+import ckan.authz as new_authz
 import ckan.logic.auth.create as create_auth
 import ckan.lib.dictization.model_dictize as model_dictize
 import ckan.plugins as p

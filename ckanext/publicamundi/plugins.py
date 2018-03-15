@@ -13,13 +13,26 @@ import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 
+
 import ckanext.publicamundi.model as ext_model
 import ckanext.publicamundi.lib.metadata as ext_metadata
 import ckanext.publicamundi.lib.metadata.validators as ext_validators
 import ckanext.publicamundi.lib.actions as ext_actions
 import ckanext.publicamundi.lib.template_helpers as ext_template_helpers
 import ckanext.publicamundi.lib.languages as ext_languages
-import ckanext.publicamundi.lib.pycsw_sync as ext_pycsw_sync
+#import ckanext.publicamundi.lib.pycsw_sync as ext_pycsw_sync
+from ckan.lib.base import BaseController
+import ckan.lib.plugins
+from ckan.common import _, json, request, c, g, response
+import ckan.lib.base as base
+import ckan.lib.dictization.model_dictize as model_dictize
+import ckan.lib.navl.dictization_functions as dict_fns
+import cgi
+import ckan.lib.helpers as h
+#from home import CACHE_PARAMETERS
+CACHE_PARAMETERS = ['__cache', '__no_cache__']
+
+#new new_Save
 
 from ckanext.publicamundi.lib.metadata import class_for_metadata
 from ckanext.publicamundi.lib.util import (to_json, random_name)
@@ -30,6 +43,275 @@ aslist = toolkit.aslist
 url_for = toolkit.url_for
 
 log1 = logging.getLogger(__name__)
+
+render = base.render
+abort = base.abort
+#redirect = base.redirect
+
+NotFound = logic.NotFound
+NotAuthorized = logic.NotAuthorized
+ValidationError = logic.ValidationError
+check_access = logic.check_access
+get_action = logic.get_action
+tuplize_dict = logic.tuplize_dict
+clean_dict = logic.clean_dict
+parse_params = logic.parse_params
+flatten_to_string_key = logic.flatten_to_string_key
+lookup_package_plugin = ckan.lib.plugins.lookup_package_plugin
+
+
+class ExtrametadataController(BaseController):
+
+    def _package_form(self, package_type=None):
+        return lookup_package_plugin(package_type).package_form()
+
+    def _setup_template_variables(self, context, data_dict, package_type=None):
+        return lookup_package_plugin(package_type).\
+            setup_template_variables(context, data_dict)
+
+    def _new_template(self, package_type):
+        return lookup_package_plugin(package_type).new_template()
+
+    def _guess_package_type(self, expecting_name=False):
+        """
+            Guess the type of package from the URL handling the case
+            where there is a prefix on the URL (such as /data/package)
+        """
+
+        # Special case: if the rot URL '/' has been redirected to the package
+        # controller (e.g. by an IRoutes extension) then there's nothing to do
+        # here.
+        if request.path == '/':
+            return 'dataset'
+
+        parts = [x for x in request.path.split('/') if x]
+
+        idx = -1
+        if expecting_name:
+            idx = -2
+
+        pt = parts[idx]
+        if pt == 'package':
+            pt = 'dataset'
+
+        return pt
+    def _get_package_type(self, id):
+        """
+        Given the id of a package this method will return the type of the
+        package, or 'dataset' if no type is currently set
+        """
+        pkg = model.Package.get(id)
+        if pkg:
+            return pkg.type or 'dataset'
+        return None    
+
+    def _form_save_redirect(self, pkgname, action, package_type=None):
+        '''This redirects the user to the CKAN package/read page,
+        unless there is request parameter giving an alternate location,
+        perhaps an external website.
+        @param pkgname - Name of the package just edited
+        @param action - What the action of the edit was
+        '''
+        assert action in ('new', 'edit')
+        url = request.params.get('return_to') or \
+            config.get('package_%s_return_url' % action)
+        if url:
+            url = url.replace('<NAME>', pkgname)
+        else:
+            if package_type is None or package_type == 'dataset':
+                url = h.url_for(controller='package', action='read', id=pkgname)
+            else:
+                url = h.url_for('{0}_read'.format(package_type), id=pkgname)
+        h.redirect_to(url)
+
+    def _tag_string_to_list(self, tag_string):
+        ''' This is used to change tags from a sting to a list of dicts '''
+        out = []
+        for tag in tag_string.split(','):
+            tag = tag.strip()
+            if tag:
+                out.append({'name': tag,
+                            'state': 'active'})
+        return out
+
+    def new_resource(self, id, data=None, errors=None, error_summary=None):
+        ''' FIXME: This is a temporary action to allow styling of the
+        forms. '''
+        log1.debug('IN NEW RESOURCE')
+        if request.method == 'POST' and not data:
+            save_action = request.params.get('save')
+            data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
+                request.POST))))
+            # we don't want to include save as it is part of the form
+            del data['save']
+            resource_id = data['id']
+            del data['id']
+
+            context = {'model': model, 'session': model.Session,
+                       'user': c.user or c.author, 'auth_user_obj': c.userobj}
+            
+            # see if we have any data that we are trying to save
+            data_provided = False
+            for key, value in data.iteritems():
+                if ((value or isinstance(value, cgi.FieldStorage))
+                    and key != 'resource_type'):
+                    data_provided = True
+                    break
+
+            if not data_provided and save_action != "go-dataset-complete":
+                if save_action == 'go-dataset':
+                    # go to final stage of adddataset
+                    h.redirect_to(h.url_for(controller='package',
+                                       action='edit', id=id))
+                # see if we have added any resources
+                try:
+                    data_dict = get_action('package_show')(context, {'id': id})
+                except NotAuthorized:
+                    abort(401, _('Unauthorized to update dataset'))
+                except NotFound:
+                    abort(404,
+                      _('The dataset {id} could not be found.').format(id=id))
+                if not len(data_dict['resources']):
+                    # no data so keep on page
+                    msg = _('You must add at least one data resource')
+                    # On new templates do not use flash message
+                    if g.legacy_templates:
+                        h.flash_error(msg)
+                        h.redirect_to(h.url_for(controller='ckanext.publicamundi.plugins:ExtrametadataController',
+                                           action='new_resource', id=id))
+                    else:
+                        errors = {}
+                        error_summary = {_('Error'): msg}
+                        return self.new_resource(id, data, errors, error_summary)
+                # we have a resource so let them add metadata
+                h.redirect_to(controller='ckanext.publicamundi.plugins:ExtrametadataController',
+                                  action='new_metadata', id=id)
+                '''extra_vars = {'data': data, 'errors': errors, 'error_summary': error_summary}
+                extra_vars['pkg_name'] = id
+                package_type = self._get_package_type(id)
+                self._setup_template_variables(context, {}, package_type=package_type)
+                return render('package/new_package_metadata.html', extra_vars=extra_vars)'''
+
+            data['package_id'] = id
+            try:
+                if resource_id:
+                    data['id'] = resource_id
+                    get_action('resource_update')(context, data)
+                else:
+                    get_action('resource_create')(context, data)
+            except ValidationError, e:
+                errors = e.error_dict
+                error_summary = e.error_summary
+                return self.new_resource(id, data, errors, error_summary)
+            except NotAuthorized:
+                abort(401, _('Unauthorized to create a resource'))
+            except NotFound:
+                abort(404,
+                    _('The dataset {id} could not be found.').format(id=id))
+            if save_action == 'go-metadata':
+                # go to final stage of add dataset
+                h.redirect_to(h.url_for(controller='ckanext.publicamundi.plugins:ExtrametadataController',
+                                   action='new_metadata', id=id))
+            elif save_action == 'go-dataset':
+                # go to first stage of add dataset
+                h.redirect_to(h.url_for(controller='package',
+                                   action='edit', id=id))
+            elif save_action == 'go-dataset-complete':
+                # go to first stage of add dataset
+                h.redirect_to(h.url_for(controller='package',
+                                   action='read', id=id))
+            else:
+                # add more resources
+                h.redirect_to(h.url_for(controller='ckanext.publicamundi.plugins:ExtrametadataController',
+                                   action='new_resource', id=id))
+        errors = errors or {}
+        error_summary = error_summary or {}
+        vars = {'data': data, 'errors': errors,
+                'error_summary': error_summary, 'action': 'new'}
+        vars['pkg_name'] = id
+        # get resources for sidebar
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user or c.author, 'auth_user_obj': c.userobj}
+        try:
+            pkg_dict = get_action('package_show')(context, {'id': id})
+        except NotFound:
+            abort(404, _('The dataset {id} could not be found.').format(id=id))
+        try:
+            check_access('resource_create', context, pkg_dict)
+        except NotAuthorized:
+            abort(401, _('Unauthorized to create a resource for this package'))
+
+        # required for nav menu
+        vars['pkg_dict'] = pkg_dict
+        template = 'package/new_resource_not_draft.html'
+        if pkg_dict['state'] == 'draft':
+            vars['stage'] = ['complete', 'active']
+            template = 'package/new_resource.html'
+        elif pkg_dict['state'] == 'draft-complete':
+            vars['stage'] = ['complete', 'active', 'complete']
+            template = 'package/new_resource.html'
+        elif pkg_dict['state'] == 'active':
+            vars['stage'] = ['complete', 'active', 'complete']
+            template = 'package/new_resource.html'
+        return render(template, extra_vars=vars)
+
+    def new_metadata(self, id, data=None, errors=None, error_summary=None):
+        ''' FIXME: This is a temporary action to allow styling of the
+        forms. '''
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user or c.author, 'auth_user_obj': c.userobj}
+        log1.debug('IN NEW METADATA')
+        if request.method == 'POST' and not data:
+            save_action = request.params.get('save')
+            data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
+                request.POST))))
+            # we don't want to include save as it is part of the form
+            del data['save']
+
+            data_dict = get_action('package_show')(context, {'id': id})
+
+            data_dict['id'] = id
+            # update the state
+            if save_action == 'finish':
+                # we want this to go live when saved
+                data_dict['state'] = 'active'
+            elif save_action in ['go-resources', 'go-dataset']:
+                data_dict['state'] = 'draft-complete'
+            # allow the state to be changed
+            context['allow_state_change'] = True
+            data_dict.update(data)
+            try:
+                get_action('package_update')(context, data_dict)
+            except ValidationError, e:
+                errors = e.error_dict
+                error_summary = e.error_summary
+                return self.new_metadata(id, data, errors, error_summary)
+            except NotAuthorized:
+                abort(401, _('Unauthorized to update dataset'))
+            if save_action == 'go-resources':
+                # we want to go back to the add resources form stage
+                h.redirect_to(h.url_for(controller='ckanext.publicamundi.plugins:ExtrametadataController',
+                                   action='new_resource', id=id))
+            elif save_action == 'go-dataset':
+                # we want to go back to the add dataset stage
+                h.redirect_to(h.url_for(controller='package',
+                                   action='edit', id=id))
+
+            h.redirect_to(h.url_for(controller='package', action='read', id=id))
+
+        if not data:
+            data = get_action('package_show')(context, {'id': id})
+        errors = errors or {}
+        error_summary = error_summary or {}
+        vars = {'data': data, 'errors': errors, 'error_summary': error_summary}
+        vars['pkg_name'] = id
+
+        package_type = self._get_package_type(id)
+        self._setup_template_variables(context, {},
+                                       package_type=package_type)
+
+        return render('package/new_package_metadata.html', extra_vars=vars)
+        
 
 class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     '''Override the default dataset form.
@@ -52,8 +334,114 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     _extra_fields = None
     
+    RESOURCE_TYPES = ['Audiovisual', 'Collection', 'DataPaper', 'Event', 'Image', 'InteractiveResource', 'Model', 'PhysicalObject', 'Service', 'Software', 'Sound', 'Text', 'Workflow', 'Other']
+    
+    TITLE_TYPES = ['Alternative Title', 'Subtitle', 'Translated Title', 'Other']
+    
+    
     ## Define helper methods ## 
+    
+    @classmethod
+    def create_resource_types(cls):
+        '''Create resource type vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        try:
+            data = {'id': 'resource_types'}
+            toolkit.get_action ('vocabulary_show') (context, data)
+            log1.info("The resource-types vocabulary already exists. Skipping.")
+        except toolkit.ObjectNotFound:
+            log1.info("Creating vocab 'resource_types'")
+            data = {'name': 'resource_types'}
+            vocab = toolkit.get_action ('vocabulary_create') (context, data)
+            for tag in cls.RESOURCE_TYPES:
+                log1.info("Adding tag {0} to vocab 'resource_types'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                toolkit.get_action ('tag_create') (context, data)
+    
+    @classmethod
+    def resource_types(cls):
+        '''Return the list of all existing types from the resource_types vocabulary.'''
+        cls.create_resource_types()
+        try:
+            resource_types = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'resource_types'})
+            return resource_types
+        except toolkit.ObjectNotFound:
+            return None
 
+    @classmethod
+    def resource_types_options(cls):
+        ''' This generator method is only useful for creating select boxes.'''
+        for name in cls.resource_types():
+            yield { 'value': name, 'text': name }
+
+    @classmethod
+    def create_title_types(cls):
+        '''Create title type vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        try:
+            data = {'id': 'title_types'}
+            toolkit.get_action ('vocabulary_show') (context, data)
+            log1.info("The title-types vocabulary already exists. Skipping.")
+        except toolkit.ObjectNotFound:
+            log1.info("Creating vocab 'title_types'")
+            data = {'name': 'title_types'}
+            vocab = toolkit.get_action ('vocabulary_create') (context, data)
+            for tag in cls.TITLE_TYPES:
+                log1.info("Adding tag {0} to vocab 'title_types'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                toolkit.get_action ('tag_create') (context, data)
+    
+    @classmethod
+    def title_types(cls):
+        '''Return the list of all existing types from the resource_types vocabulary.'''
+        cls.create_title_types()
+        try:
+            title_types = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'title_types'})
+            return title_types
+        except toolkit.ObjectNotFound:
+            return None
+
+    @classmethod
+    def title_types_options(cls):
+        ''' This generator method is only useful for creating select boxes.'''
+        for name in cls.title_types():
+            yield { 'value': name, 'text': name }
+
+    @classmethod
+    def organization_list_objects(cls, org_names = []):
+        ''' Make a action-api call to fetch the a list of full dict objects (for each organization) '''
+        context = {
+            'model': model,
+            'session': model.Session,
+            'user': toolkit.c.user,
+        }
+
+        options = { 'all_fields': True }
+        if org_names and len(org_names):
+            t = type(org_names[0])
+            if   t is str:
+                options['organizations'] = org_names
+            elif t is dict:
+                options['organizations'] = map(lambda org: org.get('name'), org_names)
+
+        return logic.get_action('organization_list') (context, options)
+
+    @classmethod
+    def organization_dict_objects(cls, org_names = []):
+        ''' Similar to organization_list_objects but returns a dict keyed to the organization name. '''
+        results = {}
+        for org in cls.organization_list_objects(org_names):
+            results[org['name']] = org
+        return results
+    
     @classmethod
     def dataset_types(cls):
         '''Provide a dict of supported dataset types'''
@@ -88,7 +476,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'get_primary_metadata_url': ext_template_helpers.get_primary_metadata_url,
             'get_ingested_raster': ext_template_helpers.get_ingested_raster,
             'get_ingested_vector': ext_template_helpers.get_ingested_vector,
-            'transform_to_iso_639_2': ext_template_helpers.transform_to_iso_639_2
+            'transform_to_iso_639_2': ext_template_helpers.transform_to_iso_639_2,
+            'resource_types': self.resource_types,
+            'resource_types_options': self.resource_types_options,
+            'title_types': self.title_types,
+            'title_types_options': self.title_types_options,
+            'organization_list_objects': self.organization_list_objects,
+            'organization_dict_objects': self.organization_dict_objects,
         }
 
     ## IConfigurer interface ##
@@ -234,6 +628,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             '/dataset/import_metadata',
             controller=package_controller,
             action='import_metadata')
+        
+    
+        mapper.connect('new_resource', '/dataset/new_resource/{id}',
+            controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new_resource') 
+        mapper.connect('new_metadata', '/dataset/new_metadata/{id}',
+            controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new_metadata')        
+        log1.debug('AFTER CONNECT')
        
         tests_controller = 'ckanext.publicamundi.controllers.tests:Controller'
 
@@ -291,18 +692,46 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     def __modify_package_schema(self, schema):
         '''Define modify schema for both create/update operations.
         '''
-
+        log1.debug('IN MODIFY PACKAGE START')
         check_not_empty = toolkit.get_validator('not_empty')
         ignore_missing = toolkit.get_validator('ignore_missing')
         ignore_empty = toolkit.get_validator('ignore_empty')
         convert_to_extras = toolkit.get_converter('convert_to_extras')
         default = toolkit.get_validator('default')
+
+        def music_title_converter_1(key, data, errors, context):
+            ''' Demo of a typical behaviour inside a validator/converter '''
+
+            ## Stop processing on this key and signal the validator with another error (an instance of Invalid) 
+            #raise Invalid('The music title (%s) is invalid' %(data.get(key,'<none>')))
+
+            ## Stop further processing on this key, but not an error
+            #raise StopOnError
+            pass
+
+        def music_title_converter_2(value, context):
+            ''' Demo of another style of validator/converter. The return value is considered as 
+            the converted value for this field. '''
+            
+            #raise Exception ('Breakpoint music_title_converter_2')
+            #raise Invalid('The music title is malformed')
+            from string import capitalize
+            return capitalize(value)
+
+        def identifier_validator(value):
+            ''' Demo of a typical behaviour inside a validator/converter '''
+
+            #if not value.isdigit():
+            #     raise Invalid("must include numbers only")
+            return value
+            pass
         
         # Add dataset-type, the field that distinguishes metadata formats
 
         is_dataset_type = ext_validators.is_dataset_type
         schema['dataset_type'] = [
-            default('ckan'), convert_to_extras, is_dataset_type,
+            default('ckan'), convert_to_extras, 
+            is_dataset_type,
         ]
        
         # Add package field-level validators/converters
@@ -323,14 +752,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         
         # Add before/after package-level processors
 
-        preprocess_dataset = ext_validators.preprocess_dataset_for_edit
-        postprocess_dataset = ext_validators.postprocess_dataset_for_edit
+        #preprocess_dataset = ext_validators.preprocess_dataset_for_edit
+        #postprocess_dataset = ext_validators.postprocess_dataset_for_edit
         
-        schema['__before'].insert(-1, preprocess_dataset)
+        #schema['__before'].insert(-1, preprocess_dataset)
 
-        if not '__after' in schema:
-            schema['__after'] = []
-        schema['__after'].append(postprocess_dataset)
+        #if not '__after' in schema:
+        #    schema['__after'] = []
+        #schema['__after'].append(postprocess_dataset)
         
         # Add extra top-level fields (i.e. not bound to a schema)
         
@@ -339,16 +768,84 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         
         # Add or replace resource field-level validators/converters
 
-        guess_resource_type = ext_validators.guess_resource_type_if_empty
+        #guess_resource_type = ext_validators.guess_resource_type_if_empty
 
-        schema['resources'].update({
-            'resource_type': [
-                guess_resource_type, string.lower, unicode],
-            'format': [
-                check_not_empty, string.lower, unicode],
-        })
+        #schema['resources'].update({
+         #   'resource_type': [
+          #      guess_resource_type, string.lower, unicode],
+           # 'format': [
+            #    check_not_empty, string.lower, unicode],
+        #})
 
         # Done, return updated schema
+
+        # Update default validation schema (inherited from DefaultDatasetForm)
+
+        schema.update({
+            # Add our "identifier" metadata field to the schema, this one will use
+            # convert_to_extras instead of convert_to_tags.
+            'title_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'identifier': [
+                toolkit.get_validator('ignore_missing'),
+                identifier_validator,
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'identifier_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_name_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_name_identifier': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_name_identifier_scheme': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_name_identifier_scheme_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'creator_affiliation': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'publisher': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'publication_year': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'resource_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+            'resource_type_general': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_tags')('resource_types'),
+            ],
+            'contributor': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras'),
+            ],
+        })        
 
         return schema
 
@@ -388,20 +885,89 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
           
         # Add before/after package-level processors
         
-        preprocess_dataset = ext_validators.preprocess_dataset_for_read
-        postprocess_dataset = ext_validators.postprocess_dataset_for_read
+       # preprocess_dataset = ext_validators.preprocess_dataset_for_read
+       # postprocess_dataset = ext_validators.postprocess_dataset_for_read
 
-        schema['__before'].insert(-1, preprocess_dataset)
+        #schema['__before'].insert(-1, preprocess_dataset)
         
-        if not '__after' in schema:
-            schema['__after'] = []
-        schema['__after'].append(postprocess_dataset)
+        #if not '__after' in schema:
+         #   schema['__after'] = []
+        #schema['__after'].append(postprocess_dataset)
         
         # Add extra top-level fields (i.e. not under a schema)
         
         for field_name in self._extra_fields:
             schema[field_name] = [convert_from_extras, ignore_missing]
 
+        # Don't show vocab tags mixed in with normal 'free' tags
+        # (e.g. on dataset pages, or on the search page)
+        schema['tags']['__extras'].append(toolkit.get_converter('free_tags_only'))
+
+        schema.update({
+           
+            # Add our extra field to the dataset schema.
+            'title_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'identifier': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'identifier_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_name_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_name_identifier': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_name_identifier_scheme': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_name_identifier_scheme_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_affiliation': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'publisher': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'publication_year': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'resource_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'resource_type_general': [
+                toolkit.get_converter('convert_from_tags')('resource_types'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+        })
+        
         # Done, return updated schema
 
         return schema
@@ -624,6 +1190,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             pass
         return facets_dict
 
+
+
 class PackageController(p.SingletonPlugin):
     '''Hook into the package controller
     '''
@@ -658,7 +1226,7 @@ class PackageController(p.SingletonPlugin):
             'ckanext.publicamundi.pycsw.service_endpoint', 
             '%s/csw' % (site_url.rstrip('/')))
         
-        ext_pycsw_sync.setup(site_url, self._pycsw_config_file)
+        #ext_pycsw_sync.setup(site_url, self._pycsw_config_file)
 
         return
 
@@ -674,7 +1242,7 @@ class PackageController(p.SingletonPlugin):
         '''
         
         log1.debug('A package was created: %s', pkg_dict['id'])
-        self._create_or_update_csw_record(context['session'], pkg_dict)
+        #self._create_or_update_csw_record(context['session'], pkg_dict)
         pass
 
     def after_update(self, context, pkg_dict):
@@ -685,7 +1253,7 @@ class PackageController(p.SingletonPlugin):
         '''
         
         log1.debug('A package was updated: %s', pkg_dict['id'])
-        self._create_or_update_csw_record(context['session'], pkg_dict)
+        #self._create_or_update_csw_record(context['session'], pkg_dict)
         pass
 
     def after_delete(self, context, pkg_dict):
@@ -694,7 +1262,7 @@ class PackageController(p.SingletonPlugin):
         '''
 
         log1.debug('A package was deleted: %s', pkg_dict['id'])
-        self._delete_csw_record(context['session'], pkg_dict)
+        #self._delete_csw_record(context['session'], pkg_dict)
         pass
 
     def after_show(self, context, pkg_dict):
@@ -851,7 +1419,7 @@ class PackageController(p.SingletonPlugin):
                 'Skipped sync of non-active dataset %s to CSW record' % (pkg_id))
             return
 
-        record = ext_pycsw_sync.create_or_update_record(session, pkg_dict)
+        #record = ext_pycsw_sync.create_or_update_record(session, pkg_dict)
         if record: 
             log1.info('Saved CswRecord %s (%s)', record.identifier, record.title)
         else:
@@ -861,7 +1429,7 @@ class PackageController(p.SingletonPlugin):
 
     def _delete_csw_record(self, session, pkg_dict):
         '''Delete CSW record'''
-        record = ext_pycsw_sync.delete_record(session, pkg_dict)
+        #record = ext_pycsw_sync.delete_record(session, pkg_dict)
         if record:
             log1.info('Deleted CswRecord for dataset %s', pkg_dict['id'])  
         return
@@ -1149,4 +1717,5 @@ class MultilingualDatasetForm(DatasetForm):
             language = language[0] if language else 'en'
 
         return language
+
 

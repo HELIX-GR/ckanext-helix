@@ -254,7 +254,7 @@ class GeodataThemePlugin(plugins.SingletonPlugin):
         _maps_url = config.get('ckanext.publicamundi.themes.geodata.maps_url')
         
         # Initialize maps db
-        _maps_db = mapsdb.MapsRecords()
+       # _maps_db = mapsdb.MapsRecords()
         #self.mapsdb = db.MapsRecords()
         #self.mapsdb._initialize_session()
         #self.mapsdb._initialize_model()

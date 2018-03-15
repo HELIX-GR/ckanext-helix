@@ -94,16 +94,18 @@
 
 {%- set is_draft = data.get('state', 'draft') == 'draft' -%}
 
-{% set dt = data.get('dataset_type') -%}
-{% set dt_prefix = dt -%}
-{% set obj = data.get(dt_prefix) or h.make_metadata(dt) -%}
+{#{% set dt = data.get('dataset_type') -%} #}
+{% set dt = 'foo'%} 
+{##{% set dt = 'ckan' %} ##}
+{% set dt_prefix = dt %}
+{% set obj = data.get(dt_prefix) or h.make_metadata(dt) -%}  
 
-{# A workaround for bug #36 #}
+{# { A workaround for bug 36 } #}
 {% if is_draft -%}
 {{ form.hidden('dataset_type', dt) }} 
 {% endif -%}
 
-{% if errors -%}
+{% if errors -%} 
 {% set loader_opts = {
      'update': 'deep', 
      'unserialize-keys': true, 
@@ -111,14 +113,16 @@
      'unserialize-values': 'default', 
    } 
 %}
+
 {% do obj.from_dict(data, is_flat=true, opts=loader_opts) %}
-{% endif -%} {# if errors #}
+{% endif -%} {# { if errors } #} 
+
 {{ 
     h.markup_for('edit:datasetform', obj, 
         errors=errors, 
         name_prefix=dt_prefix, 
         data={ 'pkg_dict': data }) 
-}}
+}} 
 
 {% endblock %} {# dataset_fields #}
 

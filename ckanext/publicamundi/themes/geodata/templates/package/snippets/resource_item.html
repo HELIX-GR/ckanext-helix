@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
-{% set raster_resources = h.get_ingested_raster(pkg,res) %}
-{% set vector_resources = h.get_ingested_vector(pkg,res) %}
+{#{% set raster_resources = h.get_ingested_raster(pkg,res) %}
+{% set vector_resources = h.get_ingested_vector(pkg,res) %} #}
 
 {% block resource_item_title %}
 {{ super() }}
@@ -11,16 +11,16 @@
 {% block resource_item_file %}
 {{ super() }}
 
-    {% for raster_res in raster_resources %}
+  {###  {% for raster_res in raster_resources %}
         {% if raster_res.format == 'wms' %}
         <div class="action-button"><a class="btn" href={{ h.get_maps_url(package_id=pkg.id, resource_id=raster_res.id)}} >
                     <i class="icon-medium icon-globe"></i> {{ _('Map')}}
                 </a>
         </div>
         {% endif %}
-        {% endfor %}
+        {% endfor %} ###}
 
-    {% for vector_res in  vector_resources %}
+  {###  {% for vector_res in  vector_resources %}
         {% if vector_res.format == 'wms' %}
         <div class="action-button"><a class="btn" href={{ h.get_maps_url(package_id=pkg.id, resource_id=vector_res.id)}} >
                     <i class="icon-medium icon-globe"></i> {{ _('Map')}}
@@ -41,13 +41,13 @@
             {% endwith %}
         {% endif %}
         {% endif %}
-    {% endfor %}
+    {% endfor %}        ###}
 
 {% endblock %}
 
 {% block resource_item_service %}
 
- {% if (res.vectorstorer_resource or res.rasterstorer_resource) and res.format == 'wms' %}
+{### {% if (res.vectorstorer_resource or res.rasterstorer_resource) and res.format == 'wms' %}
     <div class="action-button">            
             <a class="btn" data-toggle="modal" data-target="#endpoint_wms_dialog" >
                                 <i class="icon-beaker"></i>
@@ -61,7 +61,7 @@
                                 <i class="icon-beaker"></i>
                                     {{ _('Endpoint') }}
                                 </a>
-                            </div>
+                            </div>  
 {% snippet 'package/snippets/endpoint_wfs_dialog.html', pkg=pkg, res=res %}
 {% else %}
     <div class="action-button">            
@@ -71,5 +71,5 @@
                                 </a>
                             </div>
 
-{% endif %}
+{% endif %}  ###}
 {% endblock %}

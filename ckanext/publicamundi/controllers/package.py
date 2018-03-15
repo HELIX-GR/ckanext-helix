@@ -174,3 +174,21 @@ class Controller(BaseController):
         c.pkg_dict = pkg
 
         return render('package/translate_metadata.html')
+
+
+    '''@authenticated
+    def extra_metadata(self, **kwargs):
+        log1.debug('IN EXTRA METADATA')
+        if request.method == 'POST':
+            redirect_url = h.url_for(controller='package',
+                                action='extra_metadata',
+                                id=pkg_dict['name'])
+            redirect(redirect_url)
+        else:
+            c.group_id = request.params.get('group')
+            c.error_summary = session.pop('error_summary', None)
+            c.errors = session.pop('errors', None)
+            c.result = session.pop('result', None)
+        return render('package/snippets/package_extra_metadata.html')  
+    '''
+ 

@@ -6,7 +6,9 @@
 
 <form id="package-form" class="dataset-form dataset-resource-form form-horizontal" method="post" data-module="basic-form">
   {{ h.snippet('package/snippets/stages.html', stages=['complete', 'complete', 'active'], pkg_name=pkg_name) }}
-  
+
+   <input name="id" value="{{ data.id }}" type="hidden"/>
+
   {% block errors %}
   {{ markup_helpers.error_messages(errors) }}
   {% endblock %}
@@ -20,6 +22,6 @@
   <div class="form-actions">
     <button id="btn-save-go-resources" class="btn" name="save" value="go-resources" type="submit">{{ _('Previous') }}</button>
     <button id="btn-save-finish" class="btn btn-primary" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
-  </div>
+  </div> 
 
 </form>

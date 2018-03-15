@@ -101,7 +101,7 @@ def make_metadata(dtype, pkg_dict=None):
     If param `pkg_dict` is given, we attempt to load the newly created metadata
     object from a flattened dict with serialized key/values.
     '''
-    
+       
     obj = factory_for_metadata(dtype)()
     if pkg_dict:
         opts = {

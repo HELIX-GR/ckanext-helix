@@ -1,19 +1,23 @@
 {% import 'macros/form.html' as form %}
+{% import 'macros/accordion.html' as accordion -%}
 
 {% set is_new = data.get('id') is none %}
 {% set is_draft = data.get('state', 'draft') == 'draft' %}
 
 {% block package_basic_fields_dataset_type %}
-
+{##
 {% snippet 'package/snippets/edit-dataset_type.html', 
     data=data, is_new=is_new, is_draft=is_draft,
     description=_('Specify the metadata schema the dataset aligns to.')
-%}
+%} 
+  ##}
+{% endblock %}  {# package_basic_fields_dataset_type #} 
 
-{% endblock %} {# package_basic_fields_dataset_type #}
+
 
 {% block package_basic_fields_title %}
-{{ 
+ 
+{{  
     form.input(
         'title', 
         id = 'field-title', 
@@ -115,4 +119,58 @@
     orgs_available=h.organizations_available('create_dataset')
 %}
 {% endif %}
+{% endblock %}
+
+{% block package_basic_fields_custom %}    
+    {{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
+        value=data.get('publisher'), error=errors.get('publisher'), classes=['control-medium']) 
+    }} 
+    
+    
+    {{ form.input('publication_year', label=_('Publication year'), id='field-publication_year', placeholder=_('e.g. 2003'),
+               value=data.get('publication_year'), error=errors.get('publication_year'), classes=['control-medium']) 
+    }}
+
+    {{ form.input('creator', label=_('Creator'), id='field-creator', placeholder=_('corporate/institutional or personal name'),
+        value=data.get('creator'), error=errors.get('creator'), classes=['control-medium']) 
+    }} 
+    
+    
+    <div class="accordion" id="accordion">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#creator-accordion"
+                  >Creator details</a>
+          </div>
+          <div id="creator-accordion" class="panel-collapse collapse  ">
+               <div class="panel-body">
+              {{ form.input('creator_name', label=_('Creator name'), id='field-creator_name', placeholder=_('full name of the creator'),
+                value=data.get('creator_name'), error=errors.get('creator_name'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_name_type', label=_('Creator name type'), id='field-creator_name_type', placeholder=_('Organisational/ Personal'),
+                value=data.get('creator_name_type'), error=errors.get('creator_name_type'), classes=['control-medium']) 
+              }}
+              {{ form.input('creator_name_identifier', label=_('Creator name identifier'), id='field-creator_name_identifier', placeholder=_('name identifier'),
+                value=data.get('creator_name_identifier'), error=errors.get('creator_name_identifier'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_name_identifier_scheme', label=_('Name identifier scheme'), id='field-creator_name_identifier_scheme', placeholder=_('name identifier scheme'),
+                value=data.get('creator_name_identifier_scheme'), error=errors.get('creator_name_identifier_scheme'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_name_identifier_scheme_uri', label=_('Name identifier scheme uri'), id='field-creator_name_identifier_scheme_uri', placeholder=_('name identifier scheme_uri'),
+                value=data.get('creator_name_identifier_scheme_uri'), error=errors.get('creator_name_identifier_scheme_uri'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_affiliation', label=_('Creator affiliation'), id='field-creator_affiliation', placeholder=_('organisational or institutional affiliation'),
+                value=data.get('creator_affiliation'), error=errors.get('creator_affiliation'), classes=['control-medium']) 
+              }}  
+               </div>
+          </div>
+      </div>
+     
+    </div>
+
+
+    
+    
+   
 {% endblock %}

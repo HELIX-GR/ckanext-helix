@@ -953,6 +953,7 @@ p a{
 [role=main] .secondary {
     width: 239px;
     font-color: #666666;
+    float: left;         /* edit (added) */
     //border: 1px #4E59A4 solid;
     //border: 1px #666666 solid;
 }
@@ -988,7 +989,7 @@ p a{
 .secondary .module-content{
     text-align: left;
 }
-.secondary .module-footer, .module-narrow #dataset-map-attribution{
+/.secondary .module-footer, .module-narrow #dataset-map-attribution{
     background: #F6F6F6;
     margin:0;
     padding: 5px 8px;
@@ -1911,6 +1912,10 @@ iframe{
     min-height: 450px;
 }
 /* New package */
+.stages li {
+    width: 33.33%;  /* edit (added) *?
+}
+
 .stages li button.highlight {
     padding: 5px 52px;
     line-height: 20px;

@@ -137,9 +137,10 @@ def preprocess_dataset_for_edit(key, data, errors, context):
     # as it is far more natural to the JSON format. Still, this format option is
     # not restricted to api requests (it is possible to be used even by form-based
     # requests).
-    
+   
     key_prefix = dtype = received_data.get(('dataset_type',))
     r = unexpected_data.get(dtype) if dtype else None
+   
     if isinstance(r, dict) and (dtype in ext_metadata.dataset_types):
         # Looks like a nested dict keyed at key_prefix
         debug('Trying to flatten input at %s' %(key_prefix))
