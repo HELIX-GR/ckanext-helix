@@ -1,4 +1,4 @@
-/* Body */
+I/* Body */
 @font-face { 
     font-family: 'ACMuli';
     src: url('../fonts/ACMuli/AC-Muli.ttf') format('truetype');
@@ -26,15 +26,27 @@ textarea, input{
     padding-top:5px;
 }
 
+ac{
+    color: #4E59A4;
+}
+.module ac{
+    font-weight: bold;
+}
+
 a {
     color: #4E59A4;
+    font-weight: bold;
 }
 p a{
     //font-weight: bold;
 }
 .module a{
-    font-weight: normal;
+    font-weight: bold;
 }
+
+
+
+ 
 .heading, h1, h2, h3, h4, h5, h6{
     font-family: 'ACMuli', Helvetica, Arial, sans-serif;
 }
@@ -989,7 +1001,7 @@ p a{
 .secondary .module-content{
     text-align: left;
 }
-/.secondary .module-footer, .module-narrow #dataset-map-attribution{
+.secondary .module-footer, .module-narrow #dataset-map-attribution{
     background: #F6F6F6;
     margin:0;
     padding: 5px 8px;
@@ -1832,6 +1844,7 @@ a.tag:hover{
 }
 .accordion a{
     color: #4E59A4;
+    font-weight: bold;
 }
 .accordion-group:hover{
     background: #F6F6F6;

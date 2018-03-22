@@ -63,9 +63,13 @@ class IMetadata(IBaseMetadata):
     title.setTaggedValue('links-to', 'title')
     title.setTaggedValue('translatable', True)
 
-    identifier = zope.schema.NativeStringLine(
-        title=u'Identifier', required=True, min_length=3)
-    identifier.setTaggedValue('links-to', 'id')
+    #identifier = zope.schema.NativeStringLine(
+    #    title=u'Identifier', required=True, min_length=3)
+    #identifier.setTaggedValue('links-to', 'id')
+
+    
+
+    
 
 # Import actual interfaces into schemata
 

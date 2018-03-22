@@ -40,18 +40,16 @@
       {% set format_attrs = {'data-module': 'autocomplete', 'data-module-source': '/api/2/util/resource/format_autocomplete?incomplete=?'} %}
       {% call form.input('format', id='field-format', label=_('Format'), placeholder=_('eg. CSV, XML or JSON'), value=data.format, error=errors.format, classes=['control-medium'], attrs=format_attrs) %}
         <span class="info-block info-block-small">
-          <i class="fa fa-info-circle"></i>                         {{extra_url}}
-          {{ _('This will be guessed automatically. Leave blank if you wish:') }}  {{stage}}      {{action}}
+          <i class="fa fa-info-circle"></i>                        
+          {{ _('This will be guessed automatically. Leave blank if you wish:') }} {# {{stage}}   {{extra_url}}    {{action}} #}
         </span>
       {% endcall %}
     {% endblock %}
   {% endblock basic_fields %}
 
-  {% block metadata_fields %}
-    {% if include_metadata %}
-      {# TODO: Where do these come from, they don't exist in /package/new_package_form.html #}
-      {# {{ form.select('resource_type', id='field-type', label=_('Resource Type'), options=[{'value': 'empty', 'text': _('Select a type…')}], selected="empty", error=errors.type) }} #}
-
+  {% block metadata_fields %} 
+  {##  {% if include_metadata %}
+      
       {{ form.input('last_modified', id='field-last-modified', label=_('Last Modified'), placeholder=_('eg. 2012-06-05'), value=data.last_modified, error=errors.last_modified, classes=[]) }}
 
       {{ form.input('size', id='field-size', label=_('File Size'), placeholder=_('eg. 1024'), value=data.size, error=errors.size, classes=[]) }}
@@ -66,7 +64,8 @@
         <input type="hidden" id="field-{{name}}" name="{{name}}" value="{{value if value else ''}}" />
         {% endfor %}  
         </div>
-    {% endif %} {# include_metadata #}
+    {% endif %} 
+    ##}
     {% endblock %} {# metadata_fields #}
     
   <div class="form-actions">

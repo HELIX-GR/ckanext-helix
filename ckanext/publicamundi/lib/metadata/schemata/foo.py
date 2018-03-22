@@ -15,6 +15,13 @@ class IFooMetadata(IMetadata):
     url = zope.schema.URI(
         title = u'URL',
         required = True)
+   
+    creator = zope.schema.TextLine(
+        title=u'Creator',
+        required=False, 
+        min_length=3)
+    creator.setTaggedValue('links-to', 'creator')
+
 
     thematic_category = zope.schema.Choice(
         vocabulary = SimpleVocabulary((

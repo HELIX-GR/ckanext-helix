@@ -721,8 +721,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         def identifier_validator(value):
             ''' Demo of a typical behaviour inside a validator/converter '''
 
-            #if not value.isdigit():
-            #     raise Invalid("must include numbers only")
+            if not value.isdigit():
+                 raise Invalid("must include numbers only")
             return value
             pass
         
@@ -782,70 +782,201 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Update default validation schema (inherited from DefaultDatasetForm)
 
         schema.update({
-            # Add our "identifier" metadata field to the schema, this one will use
-            # convert_to_extras instead of convert_to_tags.
+           
+            # Add our extra field to the dataset schema.
             'title_type': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'identifier': [
                 toolkit.get_validator('ignore_missing'),
-                identifier_validator,
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'identifier_type': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
-            ],
-            'creator_name': [
-                toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator_name_type': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'creator_family_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'creator_given_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator_name_identifier': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator_name_identifier_scheme': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator_name_identifier_scheme_uri': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'creator_affiliation': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'publisher': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'publication_year': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
-            'resource_type': [
+            'subject': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
-            'resource_type_general': [
+            'subject_scheme': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_tags')('resource_types'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'subject_scheme_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')                
+            ],
+            'subject_value_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'contributor': [
                 toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras'),
+                toolkit.get_converter('convert_to_extras')
             ],
-        })        
+            'contributor_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_family_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_given_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_name_identifier': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_name_identifier_scheme': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_name_identifier_scheme_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'contributor_affiliation': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'date': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            #'date_type': [
+             #   toolkit.get_converter('convert_to_tags')('resource_types'),
+              #  toolkit.get_validator('ignore_missing')
+            #],
+            'date_information': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'language': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'resource_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'resource_type_general': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_tags')('resource_types')
+            ],
+            'alternate_identifier': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'alternate_identifier_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'related_identifier': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'related_identifier_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'relation_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'related_metadata_scheme': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'related_metadata_scheme_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'related_metadata_scheme_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'license_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'funding_reference': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'funder_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'funder_identifier': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'funder_identifier_type': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'award_number': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'award_uri': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'award_title': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
+        })   
 
         return schema
 
@@ -922,11 +1053,15 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
-            'creator_name': [
+            'creator_name_type': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
-            'creator_name_type': [
+            'creator_family_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_given_name': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
@@ -954,6 +1089,74 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing'),
             ],
+            'subject': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'subject_scheme': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'subject_scheme_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'subject_value_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_family_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_given_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_name_identifier': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_name_identifier_scheme': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_name_identifier_scheme_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'contributor_affiliation': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'date': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+            #'date_type': [
+             #   toolkit.get_converter('convert_from_tags')('resource_types'),
+             #   toolkit.get_validator('ignore_missing')
+            #],
+            'date_information': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'language': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
             'resource_type': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing'),
@@ -962,11 +1165,72 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_tags')('resource_types'),
                 toolkit.get_validator('ignore_missing')
             ],
-            'contributor': [
+            'alternate_identifier': [
                 toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'alternate_identifier_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'related_identifier': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'related_identifier_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'relation_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'related_metadata_scheme': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'related_metadata_scheme_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'related_metadata_scheme_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'license_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'funding_reference': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'funder_name': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'funder_identifier': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'funder_identifier_type': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'award_number': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'award_uri': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'award_title': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
             ],
         })
+        log1.debug('AFTER SCHEMA UPDATE')
         
         # Done, return updated schema
 
@@ -1420,10 +1684,10 @@ class PackageController(p.SingletonPlugin):
             return
 
         #record = ext_pycsw_sync.create_or_update_record(session, pkg_dict)
-        if record: 
-            log1.info('Saved CswRecord %s (%s)', record.identifier, record.title)
-        else:
-            log1.warning('Failed to save CswRecord for dataset %s' %(pkg_id))
+        #if record: 
+        #    log1.info('Saved CswRecord %s (%s)', record.identifier, record.title)
+        #else:
+        #    log1.warning('Failed to save CswRecord for dataset %s' %(pkg_id))
         
         return
 
@@ -1545,7 +1809,7 @@ class MultilingualDatasetForm(DatasetForm):
                 yf = tr.get(lang) if tr else None
                 if yf:
                     pkg[k] = yf.context.value
-                    translated = True
+                    translated = True  
             # If at least one translation was found, mark as translated
             if translated:
                 pkg['translated_to_language'] = lang

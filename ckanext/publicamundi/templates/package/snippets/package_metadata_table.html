@@ -88,11 +88,16 @@
                 'value': pkg_dict.version,
                 'attrs': {},  
             },
+            { 'key': 'identifier', 'title': _('Identifier'), 'value': pkg_dict.identifier, 'attrs': {}, },
+
+            { 'key': 'identifier_type', 'title': _('Identifier type'), 'value': pkg_dict.identifier_type, 'attrs': {}, },
+            
+            { 'key': 'resource_type', 'title': _('Resource type'), 'value': pkg_dict.resource_type, 'attrs': {}, },
         ] 
      } 
   %}
-  {{ h.markup_for('read:table', md, errors=none, name_prefix='', data=data) }}
-  {% endwith %} {# data #}
+  {{ h.markup_for('read:table', md, errors=none, name_prefix='', data=data) }} 
+  {% endwith %}  {# data #}
 
   {%- endif -%} {# md #}
   {%- endwith -%} {# md #}

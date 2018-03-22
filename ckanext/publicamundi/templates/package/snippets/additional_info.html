@@ -51,7 +51,7 @@
             <th scope="row" class="dataset-label">{{ _("State") }}</th>
             <td class="dataset-details">{{ pkg_dict.state }}</td>
           </tr>
-        {% endif %}
+        {% endif %}  
 
       {% block extras scoped %}
         {% for extra in h.sorted_extras(pkg_dict.extras) %}
@@ -93,6 +93,6 @@
   {{ h.markup_for('read:table', obj, errors=none, name_prefix='', data={ 'max_depth': 2 }) }}
   
   {%- endif -%} {# obj #}
-  {%- endwith -%} {# obj #}
+  {%- endwith -%} {# obj #} 
 
 </section>

@@ -103,6 +103,11 @@
     </div>
   </div>
 </div>
+
+{{ form.input('license_uri', label=_('License URI'), id='field-license-uri', placeholder=_('e.g. http://creativecommons.org/licenses/by/3.0/de/deed.en'), 
+        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full']) 
+}} 
+
 {% endblock %}
 
 {% block package_basic_fields_org %}
@@ -123,52 +128,30 @@
 
 {% block package_basic_fields_custom %}    
     {{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
-        value=data.get('publisher'), error=errors.get('publisher'), classes=['control-medium']) 
+        value=data.publisher, error=errors.get('publisher'), classes=['control-medium']) 
     }} 
     
     
-    {{ form.input('publication_year', label=_('Publication year'), id='field-publication_year', placeholder=_('e.g. 2003'),
-               value=data.get('publication_year'), error=errors.get('publication_year'), classes=['control-medium']) 
+    {{ form.input('publication_year', label=_('Publication year'), id='field-publication-year', placeholder=_('e.g. 2003'),
+               value=data.publication_year, error=errors.get('publication_year'), classes=['control-medium']) 
     }}
 
-    {{ form.input('creator', label=_('Creator'), id='field-creator', placeholder=_('corporate/institutional or personal name'),
-        value=data.get('creator'), error=errors.get('creator'), classes=['control-medium']) 
+    {{ form.input('identifier', label=_('Identifier'), id='field-identifier', placeholder=_(' Format should be “10.1234/foo” '), 
+        value=data.identifier, error=errors.get('identifier'), classes=['control-medium']) 
     }} 
     
     
-    <div class="accordion" id="accordion">
-      
-      <div class="accordion-group">
-          <div class="accordion-heading">
-              <a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#creator-accordion"
-                  >Creator details</a>
-          </div>
-          <div id="creator-accordion" class="panel-collapse collapse  ">
-               <div class="panel-body">
-              {{ form.input('creator_name', label=_('Creator name'), id='field-creator_name', placeholder=_('full name of the creator'),
-                value=data.get('creator_name'), error=errors.get('creator_name'), classes=['control-medium']) 
-              }} 
-              {{ form.input('creator_name_type', label=_('Creator name type'), id='field-creator_name_type', placeholder=_('Organisational/ Personal'),
-                value=data.get('creator_name_type'), error=errors.get('creator_name_type'), classes=['control-medium']) 
-              }}
-              {{ form.input('creator_name_identifier', label=_('Creator name identifier'), id='field-creator_name_identifier', placeholder=_('name identifier'),
-                value=data.get('creator_name_identifier'), error=errors.get('creator_name_identifier'), classes=['control-medium']) 
-              }} 
-              {{ form.input('creator_name_identifier_scheme', label=_('Name identifier scheme'), id='field-creator_name_identifier_scheme', placeholder=_('name identifier scheme'),
-                value=data.get('creator_name_identifier_scheme'), error=errors.get('creator_name_identifier_scheme'), classes=['control-medium']) 
-              }} 
-              {{ form.input('creator_name_identifier_scheme_uri', label=_('Name identifier scheme uri'), id='field-creator_name_identifier_scheme_uri', placeholder=_('name identifier scheme_uri'),
-                value=data.get('creator_name_identifier_scheme_uri'), error=errors.get('creator_name_identifier_scheme_uri'), classes=['control-medium']) 
-              }} 
-              {{ form.input('creator_affiliation', label=_('Creator affiliation'), id='field-creator_affiliation', placeholder=_('organisational or institutional affiliation'),
-                value=data.get('creator_affiliation'), error=errors.get('creator_affiliation'), classes=['control-medium']) 
-              }}  
-               </div>
-          </div>
-      </div>
-     
-    </div>
-
+    {{ form.input('identifier_type', label=_('Identifier type'), id='field-identifier-type', placeholder=_('e.g. DOI'),
+               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium']) 
+    }}
+    
+    {% set resource_types = data.get('resource_type', [None]) %}
+    {{ form.select('resource_type', 
+        label = _('Resource type'), 
+        options = h.resource_types_options(), 
+        selected = resource_types.0, 
+        attrs = { 'data-module': 'no-autocomplete' }) 
+    }}
 
     
     

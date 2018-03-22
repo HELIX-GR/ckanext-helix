@@ -35,7 +35,7 @@
 {% endblock %} {# package_metadata_fields_version #}
 
 {% block package_metadata_author %}
-{{ 
+{# {{ 
     form.input(
         'author', 
         label=_('Author'), 
@@ -54,7 +54,7 @@
         value=data.author_email, 
         error=errors.author_email, 
         classes=['control-medium']) 
-}} 
+}}   #}
 {% endblock %} {# package_metadata_author #}
 
 {% block package_metadata_fields_maintainer %}
@@ -77,7 +77,9 @@
         value=data.maintainer_email, 
         error=errors.maintainer_email, 
         classes=['control-medium']) 
-}}
+    
+}} 
+
 {% endblock %} {# package_metadata_fields_maintainer #}
 
 {% block package_metadata_fields_custom %}
@@ -85,22 +87,226 @@
   Remove free extras from the package form. We are using convert_{to/from}_extras(),
   so we need to remove free extras from the form (or editing breaks!)   
 #}
+    
+    {{ form.input('language', label=_('Language'), id='field-language', placeholder=_('datasets language'),
+                value=data.language, error=errors.get('language'), classes=['control-medium']) 
+    }} 
+    {{ form.input('date', label=_('Date'), id='field-date', placeholder=_('dataset relative date'),
+                value=data.date, error=errors.get('date'), classes=['control-medium']) 
+    }} 
+    {{ form.input('date_information', label=_('Date information'), id='field-date-information', placeholder=_('date information'),
+                value=data.date_information, error=errors.get('date_information'), classes=['control-medium']) 
+    }}
+    
+     {{ form.input('alternate_identifier', label=_('Alternate identifier'), id='field-alternate-dentifier', placeholder=_('e.g. E-GEOD-34814'),
+                value=data.alternate_identifier, error=errors.get('alternate_identifier'), classes=['control-medium']) 
+     }} 
+     {{ form.input('alternate_identifier_type', label=_('Identifier type'), id='field-alternate_identifier-type', placeholder=_('identifier type'),
+                value=data.alternate_identifier_type, error=errors.get('alternate_identifier_type'), classes=['control-medium']) 
+     }}
+
+    
+    <div class="accordion" id="accordion1">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#subject-accordion"
+                  > Subject </ac>
+          </div>
+          <div id="subject-accordion" class="accordion-body collapse  ">
+               <div class="panel-body">    
+                    {{ form.input('subject', label=_('Subject'), id='field-subject', placeholder=_('Subject, keyword, classification code'),
+                    value=data.subject, error=errors.get('subject'), classes=['control-medium']) 
+                    }} 
+                    {{ form.input('subject_scheme', label=_('Subject scheme'), id='field-subject-scheme', placeholder=_('subject scheme'),
+                    value=data.subject_scheme, error=errors.get('subject_scheme'), classes=['control-medium']) 
+                    }}
+                    {{ form.input('subject_scheme_uri', label=_('Scheme URI'), id='field-subject-scheme-uri', placeholder=_('e.g. http://id.loc.gov/authorities/subjects'),
+                    value=data.subject_scheme_uri, error=errors.get('subject_scheme_uri'), classes=['control-medium']) 
+                    }}
+                    {{ form.input('subject_value_uri', label=_('Value URI'), id='field-subject-value-uri', placeholder=_('e.g. http://id.loc.gov/authorities/subjects/sh85026196'),
+                    value=data.subject_value_uri, error=errors.get('subject_value_uri'), classes=['control-medium']) 
+                    }}
+                </div>
+          </div>
+      </div>
+     
+    </div>
+
+    <div class="accordion" id="accordion2">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#creator-accordion"
+                  > Creator </ac>
+          </div>
+          <div id="creator-accordion" class="accordion-body collapse  ">
+               <div class="panel-body">
+              {{ form.input('creator', label=_('Creator'), id='field-creator', placeholder=_('corporate/institutional or personal name'),
+                value=data.creator, error=errors.get('creator'), classes=['control-medium']) 
+              }} 
+              {#{{ form.input('creator_given_name', label=_('First name'), id='field-creator-given-name', placeholder=_('first name of the creator'),
+                value=data.creator_given_name, error=errors.get('creator_given_name'), classes=['control-medium']) 
+              }}
+              {{ form.input('creator_family_name', label=_('Last name'), id='field-creator-family-name', placeholder=_('last name of the creator'),
+                value=data.creator_famly_name, error=errors.get('creator_famly_name'), classes=['control-medium']) 
+              }}
+               #}   
+              {{ form.input('creator_name_type', label=_('Creator name type'), id='field-creator_name_type', placeholder=_('Organisational/ Personal'),
+                value=data.creator_name_type, error=errors.get('creator_name_type'), classes=['control-medium']) 
+              }}
+              {{ form.input('creator_name_identifier', label=_('Creator name identifier'), id='field-creator-name-identifier', placeholder=_('name identifier'),
+                value=data.creator_name_identifier, error=errors.get('creator_name_identifier'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_name_identifier_scheme', label=_('Name identifier scheme'), id='field-creator_name_identifier_scheme', placeholder=_('name identifier scheme'),
+                value=data.creator_name_identifier_scheme, error=errors.get('creator_name_identifier_scheme'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_name_identifier_scheme_uri', label=_('Name identifier scheme uri'), id='field-creator-name-identifier-scheme_uri', placeholder=_('name identifier scheme_uri'),
+                value=data.creator_name_identifier_scheme_uri, error=errors.get('creator_name_identifier_scheme_uri'), classes=['control-medium']) 
+              }} 
+              {{ form.input('creator_affiliation', label=_('Creator affiliation'), id='field-creator-affiliation', placeholder=_('organisational or institutional affiliation'),
+                value=data.creator_affiliation, error=errors.get('creator_affiliation'), classes=['control-medium']) 
+              }}  
+               </div>
+          </div>
+      </div>
+     
+    </div>
+
+     <div class="accordion" id="accordion3">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#contributor-accordion"
+                  > Contributor </ac>
+          </div>
+          <div id="contributor-accordion" class="accordion-body collapse  ">
+               <div class="panel-body">
+              {{ form.input('contributor', label=_('Contributor'), id='field-contributor', placeholder=_('corporate/institutional or personal name'),
+                value=data.contributor, error=errors.get('contributor'), classes=['control-medium']) 
+              }}
+              {{ form.input('contributor_type', label=_('Contributor type'), id='field-contributor_type', placeholder=_('Distributor, project leader etc.'),
+                value=data.contributor_type, error=errors.get('contributor_type'), classes=['control-medium']) 
+              }} 
+              {#{{ form.input('contributor_given_name', label=_('First name'), id='field-contributor-given-name', placeholder=_('first name of the contributor'),
+                value=data.contributor_given_name, error=errors.get('contributor_given_name'), classes=['control-medium']) 
+              }}
+              {{ form.input('contributor_family_name', label=_('Last name'), id='field-contributor-family-name', placeholder=_('last name of the contributor'),
+                value=data.contributor_famly_name, error=errors.get('contributor_famly_name'), classes=['control-medium']) 
+              }}
+               #}   
+              {{ form.input('contributor_name_type', label=_('Contributor name type'), id='field-contributor_name_type', placeholder=_('Organisational/ Personal'),
+                value=data.contributor_name_type, error=errors.get('contributor_name_type'), classes=['control-medium']) 
+              }}
+              {{ form.input('contributor_name_identifier', label=_('Contributor name identifier'), id='field-contributor-name-identifier', placeholder=_('name identifier'),
+                value=data.contributor_name_identifier, error=errors.get('contributor_name_identifier'), classes=['control-medium']) 
+              }} 
+              {{ form.input('contributor_name_identifier_scheme', label=_('Name identifier scheme'), id='field-contributor-name-identifier-scheme', placeholder=_('name identifier scheme'),
+                value=data.contributor_name_identifier_scheme, error=errors.get('contributor_name_identifier_scheme'), classes=['control-medium']) 
+              }} 
+              {{ form.input('contributor_name_identifier_scheme_uri', label=_('Name identifier scheme uri'), id='field-contributor-name-identifier-scheme_uri', placeholder=_('name identifier scheme_uri'),
+                value=data.contributor_name_identifier_scheme_uri, error=errors.get('contributor_name_identifier_scheme_uri'), classes=['control-medium']) 
+              }} 
+              {{ form.input('contributor_affiliation', label=_('Contributor affiliation'), id='field-contributor-affiliation', placeholder=_('organisational or institutional affiliation'),
+                value=data.contributor_affiliation, error=errors.get('contributor_affiliation'), classes=['control-medium']) 
+              }}  
+               </div>
+          </div>
+      </div>
+     
+    </div>
+
+
+       
+      <div class="accordion" id="accordion4">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#related-identifier-accordion"
+                  > Related identifier </ac>
+          </div>
+          <div id="related-identifier-accordion" class="accordion-body collapse  ">
+               <div class="panel-body">
+              {{ form.input('related_identifier', label=_('Related identifier'), id='field-related-identifier', placeholder=_('related identifier'),
+                value=data.related_identifier, error=errors.get('related_identifier'), classes=['control-medium']) 
+              }}
+              {{ form.input('related_identifier_type', label=_('Related identifier type'), id='field-related_identifier_type', placeholder=_('ARK, arXiv, bibcode, ISBN etc.'),
+                value=data.related_identifier_type, error=errors.get('related_identifier_type'), classes=['control-medium']) 
+              }} 
+              {{ form.input('relation_type', label=_('Relation type'), id='field-relation_type', placeholder=_('IsCitedBy, Cites, IsSupplementTo etc.'),
+                value=data.relation_type, error=errors.get('relation_type'), classes=['control-medium']) 
+              }}
+              {{ form.input('related_metadata_scheme', label=_('Related metadata scheme'), id='field-related-metadata-scheme', placeholder=_('related metadata scheme'),
+                value=data.related_metadata_scheme, error=errors.get('related_metadata_scheme'), classes=['control-medium']) 
+              }} 
+              {{ form.input('related_metadata_scheme_uri', label=_('Related metadata scheme URI'), id='field-related-metadata-scheme-uri', placeholder=_('related metadata scheme uri'),
+                value=data.related_metadata_scheme_uri, error=errors.get('related_metadata_scheme_uri'), classes=['control-medium']) 
+              }} 
+              {{ form.input('related_metadata_scheme_type', label=_('Related metadata scheme type'), id='field-related-metadata-scheme-type', placeholder=_('e.g. XSD, DDT, Turtle'),
+                value=data.related_metadata_scheme_type, error=errors.get('related_metadata_scheme_type'), classes=['control-medium']) 
+              }}  
+               </div>
+          </div>
+      </div>
+     
+    </div>
+    
+    <div class="accordion" id="accordion5">
+      
+      <div class="accordion-group">
+          <div class="accordion-heading">
+              <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#funding-reference-accordion"
+                  > Funding reference </ac>
+          </div>
+          <div id="funding-reference-accordion" class="accordion-body collapse  ">
+               <div class="panel-body">
+              {{ form.input('funder_name', label=_('Funder name'), id='field-funder-name', placeholder=_('e.g. Gordon and Betty Moory Foundation'),
+                value=data.funder_name, error=errors.get('funder_name'), classes=['control-medium']) 
+              }}
+              {{ form.input('funder_identifier', label=_('Funder identifier'), id='field-funder-identifier', placeholder=_('e.g. https://doi.org/10.13039/100000936'),
+                value=data.funder_identifier, error=errors.get('funder_identifier'), classes=['control-medium']) 
+              }}
+              {{ form.input('funder_identifier_type', label=_('Funder identifier type'), id='field-funder-identifier-type', placeholder=_('ISNI, GRID, Crossref Funder, Other'),
+                value=data.funder_identifier_type, error=errors.get('funder_identifier_type'), classes=['control-medium']) 
+              }} 
+              {{ form.input('award_number', label=_('award_number'), id='field-award-number', placeholder=_('e.g. GBMF3859.01'),
+                value=data.award_number, error=errors.get('award_number'), classes=['control-medium']) 
+              }} 
+              {{ form.input('award_uri', label=_('Award URI'), id='field-related-award-uri', placeholder=_('e.g. https://www.moore.org/grants/list/GBMF3859.01'),
+                value=data.award_uri, error=errors.get('award_uri'), classes=['control-medium']) 
+              }} 
+              {{ form.input('award_title', label=_('Award title'), id='field-award-title', placeholder=_('award title'),
+                value=data.award_title, error=errors.get('award_title'), classes=['control-medium']) 
+              }}  
+               </div>
+          </div>
+      </div>
+     
+    </div>
+    
+    
+
 {% block custom_fields %}
 {# {% snippet 'snippets/custom_form_fields.html', extras=data.extras, errors=errors, limit=3 %} #}
 {% endblock %}
+
+    
+
+
+
 {% endblock %} {# package_metadata_fields_custom #}
 
 {% block dataset_fields %}
 
 {%- set is_draft = data.get('state', 'draft') == 'draft' -%}
 
-{#{% set dt = data.get('dataset_type') -%} #}
-{% set dt = 'foo'%} 
-{##{% set dt = 'ckan' %} ##}
+{#{% set dt = data.get('dataset_type') -%} 
+{% set dt = 'inspire'%} 
+{% set dt = 'ckan' %} 
 {% set dt_prefix = dt %}
 {% set obj = data.get(dt_prefix) or h.make_metadata(dt) -%}  
 
-{# { A workaround for bug 36 } #}
+
 {% if is_draft -%}
 {{ form.hidden('dataset_type', dt) }} 
 {% endif -%}
@@ -115,7 +321,7 @@
 %}
 
 {% do obj.from_dict(data, is_flat=true, opts=loader_opts) %}
-{% endif -%} {# { if errors } #} 
+{% endif -%}   
 
 {{ 
     h.markup_for('edit:datasetform', obj, 
@@ -123,7 +329,7 @@
         name_prefix=dt_prefix, 
         data={ 'pkg_dict': data }) 
 }} 
-
+##}
 {% endblock %} {# dataset_fields #}
 
 {% endblock %} {# package_metadata_fields #}
