@@ -16,12 +16,6 @@ class IFooMetadata(IMetadata):
         title = u'URL',
         required = True)
    
-    creator = zope.schema.TextLine(
-        title=u'Creator',
-        required=False, 
-        min_length=3)
-    creator.setTaggedValue('links-to', 'creator')
-
 
     thematic_category = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
@@ -124,6 +118,36 @@ class IFooMetadata(IMetadata):
         required = False,
         min_length = 6,
     )
+
+    
+    creator = zope.schema.Object(ICreator,
+        title = u'Creator',
+        required = False)
+    
+    subject = zope.schema.Object(ISubject,
+        title = u'Subject',
+        required = False)
+    
+    contributor = zope.schema.Object(IContributor,
+        title = u'Contributor',
+        required = False)
+
+    alternate_identifier = zope.schema.Object(IAlternateIdentifier,
+        title = u'Alternate Identifier',
+        required = False)
+
+    related_identifier = zope.schema.Object(IRelatedIdentifier,
+        title = u'Related Identifier',
+        required = False)
+
+    funding_reference = zope.schema.Object(IFundingReference,
+        title = u'Funding Reference',
+        required = False)
+
+    #date  = zope.schema.Datetime(
+    #    title=u'Date',
+    #    required=False))
+
 
     @zope.interface.invariant
     def check_tag_duplicates(obj):

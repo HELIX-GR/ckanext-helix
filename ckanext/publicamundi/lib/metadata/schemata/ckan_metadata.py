@@ -15,6 +15,12 @@ class ICkanMetadata(IMetadata):
     
     publication_year = zope.schema.TextLine(title=u'Publication year', required=False, min_length=3)
     publication_year.setTaggedValue('links-to', 'publication_year')
+	
+    license_uri = zope.schema.TextLine(title=u'License URI', required=False, min_length=3)
+    license_uri.setTaggedValue('links-to', 'license_uri')
+    
+    notes = zope.schema.TextLine(title=u'Notes', required=False, min_length=3)
+    notes.setTaggedValue('links-to', 'notes')
 
     date = zope.schema.TextLine(title=u'Date', required=False, min_length=3)
     date.setTaggedValue('links-to', 'date')
@@ -45,23 +51,6 @@ class ICkanMetadata(IMetadata):
 
     # Creator #   
     
-    creator = zope.schema.TextLine(title=u'Creator', required=False, min_length=3)
-    creator.setTaggedValue('links-to', 'creator')
-
-    creator_name_type = zope.schema.TextLine(title=u'  Name type', required=False)
-    creator_name_type.setTaggedValue('links-to', 'creator_name_type')
-
-    creator_name_identifier = zope.schema.TextLine(title=u'  Name identifier', required=False)
-    creator_name_identifier.setTaggedValue('links-to', 'creator_name_identifier')
-
-    creator_name_identifier_scheme = zope.schema.TextLine(title=u'  Name identifier scheme', required=False)
-    creator_name_identifier_scheme.setTaggedValue('links-to', 'creator_name_identifier_scheme')
-
-    creator_name_identifier_scheme_uri = zope.schema.TextLine(title=u'  Identifier scheme URI', required=False)
-    creator_name_identifier_scheme_uri.setTaggedValue('links-to', 'creator_name_identifier_scheme_uri')
-
-    creator_affiliation = zope.schema.TextLine(title=u'  Creator affiliation', required=False)
-    creator_affiliation.setTaggedValue('links-to', 'creator_affiliation')
 
     # Contributor #
 

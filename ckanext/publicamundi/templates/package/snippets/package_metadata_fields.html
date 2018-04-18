@@ -87,7 +87,7 @@
   Remove free extras from the package form. We are using convert_{to/from}_extras(),
   so we need to remove free extras from the form (or editing breaks!)   
 #}
-    
+{###  
     {{ form.input('language', label=_('Language'), id='field-language', placeholder=_('datasets language'),
                 value=data.language, error=errors.get('language'), classes=['control-medium']) 
     }} 
@@ -145,13 +145,13 @@
               {{ form.input('creator', label=_('Creator'), id='field-creator', placeholder=_('corporate/institutional or personal name'),
                 value=data.creator, error=errors.get('creator'), classes=['control-medium']) 
               }} 
-              {#{{ form.input('creator_given_name', label=_('First name'), id='field-creator-given-name', placeholder=_('first name of the creator'),
+              {{ form.input('creator_given_name', label=_('First name'), id='field-creator-given-name', placeholder=_('first name of the creator'),
                 value=data.creator_given_name, error=errors.get('creator_given_name'), classes=['control-medium']) 
               }}
               {{ form.input('creator_family_name', label=_('Last name'), id='field-creator-family-name', placeholder=_('last name of the creator'),
                 value=data.creator_famly_name, error=errors.get('creator_famly_name'), classes=['control-medium']) 
               }}
-               #}   
+                  
               {{ form.input('creator_name_type', label=_('Creator name type'), id='field-creator_name_type', placeholder=_('Organisational/ Personal'),
                 value=data.creator_name_type, error=errors.get('creator_name_type'), classes=['control-medium']) 
               }}
@@ -188,13 +188,13 @@
               {{ form.input('contributor_type', label=_('Contributor type'), id='field-contributor_type', placeholder=_('Distributor, project leader etc.'),
                 value=data.contributor_type, error=errors.get('contributor_type'), classes=['control-medium']) 
               }} 
-              {#{{ form.input('contributor_given_name', label=_('First name'), id='field-contributor-given-name', placeholder=_('first name of the contributor'),
+              {{ form.input('contributor_given_name', label=_('First name'), id='field-contributor-given-name', placeholder=_('first name of the contributor'),
                 value=data.contributor_given_name, error=errors.get('contributor_given_name'), classes=['control-medium']) 
               }}
               {{ form.input('contributor_family_name', label=_('Last name'), id='field-contributor-family-name', placeholder=_('last name of the contributor'),
                 value=data.contributor_famly_name, error=errors.get('contributor_famly_name'), classes=['control-medium']) 
               }}
-               #}   
+                
               {{ form.input('contributor_name_type', label=_('Contributor name type'), id='field-contributor_name_type', placeholder=_('Organisational/ Personal'),
                 value=data.contributor_name_type, error=errors.get('contributor_name_type'), classes=['control-medium']) 
               }}
@@ -284,15 +284,12 @@
      
     </div>
     
-    
-
+  ##}
 {% block custom_fields %}
 {# {% snippet 'snippets/custom_form_fields.html', extras=data.extras, errors=errors, limit=3 %} #}
 {% endblock %}
 
     
-
-
 
 {% endblock %} {# package_metadata_fields_custom #}
 
@@ -300,9 +297,8 @@
 
 {%- set is_draft = data.get('state', 'draft') == 'draft' -%}
 
-{#{% set dt = data.get('dataset_type') -%} 
-{% set dt = 'inspire'%} 
-{% set dt = 'ckan' %} 
+{% set dt = data.get('dataset_type') -%} 
+{% set dt = 'foo'%}   
 {% set dt_prefix = dt %}
 {% set obj = data.get(dt_prefix) or h.make_metadata(dt) -%}  
 
@@ -329,7 +325,7 @@
         name_prefix=dt_prefix, 
         data={ 'pkg_dict': data }) 
 }} 
-##}
+
 {% endblock %} {# dataset_fields #}
 
 {% endblock %} {# package_metadata_fields #}

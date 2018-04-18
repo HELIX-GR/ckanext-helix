@@ -33,6 +33,8 @@ class FooMetadata(Metadata):
     published = None
     password = None
     wakeup_time = None
+    funder = None
+    creator = Creator
 
     ## Deduce methods ##
 

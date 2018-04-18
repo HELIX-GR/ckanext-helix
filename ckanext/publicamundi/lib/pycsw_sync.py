@@ -5,8 +5,8 @@ from lxml import etree
 from ConfigParser import SafeConfigParser
 
 import pycsw
-import pycsw.config
-import pycsw.admin
+import pycsw.core.config
+import pycsw.core.admin
 
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit

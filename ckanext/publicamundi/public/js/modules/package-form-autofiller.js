@@ -38,6 +38,9 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'url': 'http://example.com/datasets/foo/1',
                 'author': 'Λαλάκης',
                 'author_email': 'lalakis@example.com',
+		'publisher': 'Λαλάκης',
+		'identifier': '10.12449/foo',
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
             },
             {
                 'title': 'Hello Foo 2',
@@ -50,6 +53,10 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'url': 'http://example.com/datasets/foo/2',
                 'author': 'Φουφουτος',
                 'author_email': 'foofootos@example.com',
+		'publisher': 'Φούφουτος',
+		'identifier': '10.38449/foo',
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
+
             },    
             {
                 'title': 'Hello Inspire 1',
@@ -62,6 +69,9 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'url': 'http://example.com/datasets/inspire/1',
                 'author': 'Φουφουτος',
                 'author_email': 'inspired@example.com',
+		'publisher': 'Φούφουτος',
+		'identifier': '10.38449/foo',
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
             }, 
             {
                 'title': 'Hello CKAN 1',
@@ -73,7 +83,10 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'version': '1.0.4',
                 'url': 'http://example.com/datasets/ckan/1',
                 'author': 'Φουφουτος',
-                'author_email': 'ckaner@example.com',               
+                'author_email': 'ckaner@example.com',
+		'publisher': ' Φούφουτος',
+		'identifier': '10.38449/foo',
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
             },
         ],
     },
@@ -112,6 +125,9 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                         $form.find('#field-url').val(data['url'])
                         $form.find('#field-author').val(data['author'])
                         $form.find('#field-author-email').val(data['author_email'])
+			$form.find('#field-publisher').val(data['publisher'])
+			$form.find('#field-identifier').val(data['identifier'])
+			$form.find('#field-license-uri').val(data['license_uri'])
                         return false
                     })
                     this.el.css('margin', '0px 5px')

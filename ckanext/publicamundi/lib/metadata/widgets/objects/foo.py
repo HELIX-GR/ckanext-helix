@@ -9,6 +9,12 @@ from  ckanext.publicamundi.lib.metadata.widgets.base import (
     ReadFieldWidget, ReadObjectWidget,
     ListFieldWidgetTraits, DictFieldWidgetTraits)
 
+import logging
+log1 = logging.getLogger(__name__)  # ADDED
+
+from . import _common
+
+
 @field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
 class TagsEditWidget(EditFieldWidget):
 
@@ -81,6 +87,7 @@ class FooReadWidget(ReadObjectWidget):
         
         qualifiers = super(FooReadWidget, self).get_field_qualifiers()
         qualifiers['tags'] = 'tags.foo'
+        qualifiers['creator'] = 'creator.foo'
         
         return qualifiers
     
@@ -90,3 +97,18 @@ class FooReadWidget(ReadObjectWidget):
     def get_template(self):
         return None # use glue template
 
+'''@object_widget_adapter(schemata.IFooMetadata, qualifiers=['table'])
+class TableReadWidget(_common.TableReadWidget):
+
+    def get_field_order(self):
+        return [
+           # Identification
+           
+           'creator'
+        ]
+
+    def get_field_qualifiers(self):
+        return OrderedDict([
+            ('creator', 'creator.foo')
+    ])
+'''

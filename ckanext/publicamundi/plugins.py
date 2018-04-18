@@ -698,7 +698,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         ignore_empty = toolkit.get_validator('ignore_empty')
         convert_to_extras = toolkit.get_converter('convert_to_extras')
         default = toolkit.get_validator('default')
-
+        from ckan.lib.navl.dictization_functions import missing, StopOnError, Invalid        
+    
         def music_title_converter_1(key, data, errors, context):
             ''' Demo of a typical behaviour inside a validator/converter '''
 
@@ -725,12 +726,20 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                  raise Invalid("must include numbers only")
             return value
             pass
+
+        def check_empty(value):
+            ''' Check empty validator '''
+
+            if not value:
+                 raise Invalid("Field is required")
+            return value
+            pass
         
         # Add dataset-type, the field that distinguishes metadata formats
 
         is_dataset_type = ext_validators.is_dataset_type
         schema['dataset_type'] = [
-            default('ckan'), convert_to_extras, 
+            default('foo'), convert_to_extras, 
             is_dataset_type,
         ]
        
@@ -752,14 +761,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         
         # Add before/after package-level processors
 
-        #preprocess_dataset = ext_validators.preprocess_dataset_for_edit
-        #postprocess_dataset = ext_validators.postprocess_dataset_for_edit
+        preprocess_dataset = ext_validators.preprocess_dataset_for_edit
+        postprocess_dataset = ext_validators.postprocess_dataset_for_edit
         
-        #schema['__before'].insert(-1, preprocess_dataset)
+        schema['__before'].insert(-1, preprocess_dataset)
 
-        #if not '__after' in schema:
-        #    schema['__after'] = []
-        #schema['__after'].append(postprocess_dataset)
+        if not '__after' in schema:
+            schema['__after'] = []
+        schema['__after'].append(postprocess_dataset)
         
         # Add extra top-level fields (i.e. not bound to a schema)
         
@@ -772,9 +781,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         #schema['resources'].update({
          #   'resource_type': [
-          #      guess_resource_type, string.lower, unicode],
-           # 'format': [
-            #    check_not_empty, string.lower, unicode],
+         #       guess_resource_type, string.lower, unicode],
+          #  'format': [
+          #      check_not_empty, string.lower, unicode],
         #})
 
         # Done, return updated schema
@@ -782,14 +791,20 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Update default validation schema (inherited from DefaultDatasetForm)
 
         schema.update({
-           
+            # Make organisation field optional
+            'owner_org': [
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'notes': [ 
+                #check_empty 
+            ],
             # Add our extra field to the dataset schema.
             'title_type': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
             'identifier': [
-                toolkit.get_validator('ignore_missing'),
+                #check_empty,
                 toolkit.get_converter('convert_to_extras')
             ],
             'identifier_type': [
@@ -829,7 +844,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_to_extras')
             ],
             'publisher': [
-                toolkit.get_validator('ignore_missing'),
+                #check_empty,
                 toolkit.get_converter('convert_to_extras')
             ],
             'publication_year': [
@@ -1016,14 +1031,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
           
         # Add before/after package-level processors
         
-       # preprocess_dataset = ext_validators.preprocess_dataset_for_read
-       # postprocess_dataset = ext_validators.postprocess_dataset_for_read
+        preprocess_dataset = ext_validators.preprocess_dataset_for_read
+        postprocess_dataset = ext_validators.postprocess_dataset_for_read
 
-        #schema['__before'].insert(-1, preprocess_dataset)
+        schema['__before'].insert(-1, preprocess_dataset)
         
-        #if not '__after' in schema:
-         #   schema['__after'] = []
-        #schema['__after'].append(postprocess_dataset)
+        if not '__after' in schema:
+            schema['__after'] = []
+        schema['__after'].append(postprocess_dataset)
         
         # Add extra top-level fields (i.e. not under a schema)
         
@@ -1036,6 +1051,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
            
+            # Make organisation field optional
+            'owner_org': [
+                toolkit.get_validator('ignore_missing'),
+            ],
+            'notes': [
+                #check_empty,
+            ],
             # Add our extra field to the dataset schema.
             'title_type': [
                 toolkit.get_converter('convert_from_extras'),
@@ -1043,7 +1065,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'identifier': [
                 toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing')
+                #check_empty
             ],
             'identifier_type': [
                 toolkit.get_converter('convert_from_extras'),
@@ -1083,7 +1105,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'publisher': [
                 toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing'),
+                #check_empty,
             ],
             'publication_year': [
                 toolkit.get_converter('convert_from_extras'),
@@ -1320,6 +1342,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Determine dataset_type-related parameters for this package
         
         key_prefix = dtype = pkg_dict.get('dataset_type')
+        log1.debug('DATASET TYPE IS %s', dtype)
         if not dtype:
             return # noop: unknown dataset-type (pkg_dict has raw extras?)
  
@@ -1687,15 +1710,15 @@ class PackageController(p.SingletonPlugin):
         #if record: 
         #    log1.info('Saved CswRecord %s (%s)', record.identifier, record.title)
         #else:
-        #    log1.warning('Failed to save CswRecord for dataset %s' %(pkg_id))
+            log1.warning('Failed to save CswRecord for dataset %s' %(pkg_id))
         
         return
 
     def _delete_csw_record(self, session, pkg_dict):
         '''Delete CSW record'''
         #record = ext_pycsw_sync.delete_record(session, pkg_dict)
-        if record:
-            log1.info('Deleted CswRecord for dataset %s', pkg_dict['id'])  
+        #if record:
+        #    log1.info('Deleted CswRecord for dataset %s', pkg_dict['id'])  
         return
 
 class ErrorHandler(p.SingletonPlugin):

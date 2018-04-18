@@ -6,10 +6,11 @@ import datetime
 from itertools import ifilter, islice
 from pylons import g, config
 
-from ckan.lib.base import (BaseController, c, request, response, abort, redirect)
+from ckan.lib.base import (BaseController, c, request, response, abort )
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
+import ckan.lib.helpers as h
 
 from ckanext.publicamundi.lib.util import to_json
 from ckanext.publicamundi.lib import uploader
@@ -151,7 +152,7 @@ class Controller(BaseController):
             abort(401, detail=u'Not authorized to export package "%s"' % (name_or_id))
 
         exported_url = result.get('url')
-        redirect(exported_url)
+        h.redirect_to(exported_url)
         return
  
     def dataset_export_dcat(self, name_or_id):
@@ -165,7 +166,7 @@ class Controller(BaseController):
             abort(401, detail=u'Not authorized to export package "%s"' % (name_or_id))
 
         exported_url = result.get('url')
-        redirect(exported_url)
+        h.redirect_to(exported_url)
         return
 
     def dataset_import(self):

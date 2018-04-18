@@ -26,7 +26,8 @@
         value = data.title, 
         error = errors.title, 
         classes = ['control-full', 'control-medium'], 
-        attrs = { 'data-module': 'slug-preview-target' }
+        attrs = { 'data-module': 'slug-preview-target' },
+        is_required=true
     ) 
 }}
 {% endblock %} {# package_basic_fields_title #}
@@ -61,7 +62,8 @@
         label = _('Description'), 
         placeholder = _('eg. Some useful notes about the data'), 
         value = data.notes, 
-        error = errors.notes
+        error = errors.notes,
+        is_required = true
     )        
 }}
 {% endblock %} {# package_basic_fields_description #}
@@ -87,8 +89,9 @@
 {% endblock %}
 
 {% block package_basic_fields_license %}
-<div class="control-group">
+{#<div class="control-group">
   {% set error = errors.license_id %}
+     
   <label class="control-label" for="field-license">{{ _("License") }}</label>
   <div class="controls">
     <select id="field-license" name="license_id" data-module="autocomplete" class="input-xlarge">
@@ -103,9 +106,10 @@
     </div>
   </div>
 </div>
+#}
 
 {{ form.input('license_uri', label=_('License URI'), id='field-license-uri', placeholder=_('e.g. http://creativecommons.org/licenses/by/3.0/de/deed.en'), 
-        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full']) 
+        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full'], is_required=true) 
 }} 
 
 {% endblock %}
@@ -128,7 +132,7 @@
 
 {% block package_basic_fields_custom %}    
     {{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
-        value=data.publisher, error=errors.get('publisher'), classes=['control-medium']) 
+        value=data.publisher, error=errors.get('publisher'), classes=['control-medium'], is_required = true) 
     }} 
     
     
@@ -137,13 +141,13 @@
     }}
 
     {{ form.input('identifier', label=_('Identifier'), id='field-identifier', placeholder=_(' Format should be “10.1234/foo” '), 
-        value=data.identifier, error=errors.get('identifier'), classes=['control-medium']) 
+        value=data.identifier, error=errors.get('identifier'), classes=['control-medium'], is_required = true) 
     }} 
     
-    
+    {#
     {{ form.input('identifier_type', label=_('Identifier type'), id='field-identifier-type', placeholder=_('e.g. DOI'),
-               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium']) 
-    }}
+               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium'], is_required=true) 
+    }} #}
     
     {% set resource_types = data.get('resource_type', [None]) %}
     {{ form.select('resource_type', 

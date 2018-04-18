@@ -5,7 +5,7 @@ from pylons import config
 
 import ckan.model as model
 from ckan.lib.base import (
-    c, BaseController, render, request, abort, redirect)
+    c, BaseController, render, request, abort )
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 import ckan.lib.helpers as h
@@ -153,7 +153,7 @@ class UserController(BaseController):
             _action = 'show_dashboard_resources'
         else:
             _action = 'show_admin_page_resources'
-        redirect(toolkit.url_for(
+        h.redirect_to(toolkit.url_for(
             controller='ckanext.publicamundi.controllers.user:UserController',
             action=_action))
 
@@ -169,7 +169,7 @@ class UserController(BaseController):
             _action = 'show_dashboard_resources'
         else:
             _action = 'show_admin_page_resources'
-        redirect(toolkit.url_for(
+        h.redirect_to(toolkit.url_for(
             controller='ckanext.publicamundi.controllers.user:UserController',
             action=_action))
 

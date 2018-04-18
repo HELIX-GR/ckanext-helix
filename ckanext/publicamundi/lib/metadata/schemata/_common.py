@@ -230,3 +230,164 @@ class IConformity(IObject):
         description = _(u'This is the degree of conformity of the resource to the implementing rules adopted under Article 7(1) of Directive 2007/2/EC or other specification.'),
         default = "not-evaluated",
         required = True)
+
+class ICreator(IObject):
+
+    creator_name = zope.schema.TextLine(
+        title = _(u'Creator'),
+        description=_(u'corporate/institutional or personal name'), required=False)
+    
+    creator_name_type = zope.schema.Choice(
+        title = _(u'Creator name type'),
+        vocabulary = vocabularies.by_name('name-type').get('vocabulary'), 
+        description = _(u'This is the type of creator name.'),
+        default = 'personal',
+        required = False)    
+
+    creator_name_identifier = zope.schema.TextLine(
+        title = _(u'Creator name identifier'),
+        description=_(u'Name identifier'), required=False)
+
+    creator_name_identifier_scheme = zope.schema.TextLine(
+        title = _(u'Creator name identifier scheme'),
+        description=_(u'Name identifier scheme'), required=False)
+    
+    creator_name_identifier_scheme_uri = zope.schema.TextLine(
+        title = _(u'Creator name identifier scheme uri'),
+        description=_(u'Name identifier scheme uri'), required=False)
+
+    creator_affiliation = zope.schema.Choice(
+        title = _(u'Creator affiliation'),
+        vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
+        description=_(u'This is the affiliation of the creator'),
+        default = 'institutional',
+        required = False)
+
+class ISubject(IObject):
+
+    subject_name = zope.schema.TextLine(
+        title = _(u'Subject'),
+        description=_(u'Subject, keyword, classification code'), required=False)
+    
+    subject_scheme = zope.schema.TextLine(
+        title = _(u'Subject scheme'),
+        description = _(u'This is the scheme of the subject'),
+        required = False)    
+
+    subject_scheme_uri = zope.schema.TextLine(
+        title = _(u'Subject scheme uri'),
+        description = _(u'This is the scheme uri of the subject'),
+        required = False)    
+
+    subject_value_uri = zope.schema.TextLine(
+        title = _(u'Subject value uri'),
+        description = _(u'This is the value uri of the subject'),
+        required = False)    
+
+class IContributor(IObject):
+
+    contributor_name = zope.schema.TextLine(
+        title = _(u'Contributor'),
+        description=_(u'corporate/institutional or personal name'), required=False)
+    
+    contributor_type = zope.schema.TextLine(
+        title = _(u'Contributor type'),
+        description=_(u'Distributor, project leader etc.'), required=False)    
+
+    contributor_name_type = zope.schema.Choice(
+        title = _(u'Contributor name type'),
+        vocabulary = vocabularies.by_name('name-type').get('vocabulary'), 
+        description = _(u'This is the type of contributor name.'),
+        #default = 'personal',
+        required = False)    
+
+    contributor_name_identifier = zope.schema.TextLine(
+        title = _(u'Contributor name identifier'),
+        description=_(u'Name identifier'), required=False)
+
+    contributor_name_identifier_scheme = zope.schema.TextLine(
+        title = _(u'Contributor name identifier scheme'),
+        description=_(u'Name identifier scheme'), required=False)
+    
+    contributor_name_identifier_scheme_uri = zope.schema.TextLine(
+        title = _(u'Contributor name identifier scheme uri'),
+        description=_(u'Name identifier scheme uri'), required=False)
+
+    contributor_affiliation = zope.schema.Choice(
+        title = _(u'Contributor affiliation'),
+        vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
+        description=_(u'This is the affiliation of the contributor'), required=False,
+        #default = 'institutional'
+        )
+
+class IAlternateIdentifier(IObject):
+
+    alternate_identifier = zope.schema.TextLine(
+        title = _(u'Alternate identifier'),
+        description=_(u'e.g. E-GEOD-34814'), required=False)
+    
+    alternate_identifier_type = zope.schema.TextLine(
+        title = _(u'Alternate identifier type'),
+        description=_(u'Alternate Identifier type'), required=False)
+
+class IRelatedIdentifier(IObject):
+
+    related_identifier = zope.schema.TextLine(
+        title = _(u'Related identifier'),
+        description=_(u'related identifier'), required=False)
+    
+    related_identifier_type = zope.schema.Choice(
+        title = _(u'Related identifier type'),
+        vocabulary = vocabularies.by_name('related-identifier-type').get('vocabulary'), 
+        #default = 'issn', 
+        description=_(u'related identifier type'), required=False)
+    
+    relation_type = zope.schema.Choice(
+        title = _(u'Relation type'),
+        vocabulary = vocabularies.by_name('relation-type').get('vocabulary'), 
+        #default = 'IsSupplementTo', 
+        description=_(u'relation type'), required=False)
+    
+    related_metadata_scheme = zope.schema.TextLine(
+        title = _(u'Related metadata scheme'),
+        description=_(u'related metadat scheme'), required=False)    
+
+    related_metadata_scheme_uri = zope.schema.TextLine(
+        title = _(u'Related metadata scheme uri'),
+        description=_(u'related metadat scheme uri'), required=False) 
+
+    related_metadata_scheme_type = zope.schema.TextLine(
+        title = _(u'Related metadata scheme type'),
+        description=_(u'related metadat scheme type'), required=False) 
+
+class IFundingReference(IObject):
+
+    funder_name = zope.schema.TextLine(
+        title = _(u'Funder name'),
+        description=_(u'funder'), required=False)
+    
+    funder_identifier = zope.schema.TextLine(
+        title = _(u'Funder identifier'),
+        description=_(u'e.g. https://doi.org/10.13039/100000936'), required=False)
+    
+    funder_identifier_type = zope.schema.Choice(
+        title = _(u'Funder identifier type'),
+        vocabulary = vocabularies.by_name('funder-identifier-type').get('vocabulary'),
+        #default = 'crossrefFunder', 
+        description=_(u'funder identifier type'), required=False)
+    
+    award_number = zope.schema.TextLine(
+        title = _(u'Award number'),
+        description=_(u'e.g. GBMF3859.01'), required=False)    
+
+    award_uri = zope.schema.TextLine(
+        title = _(u'Award uri'),
+        description=_(u'e.g. https://www.moore.org/grants/list/GBMF3859.01'), required=False) 
+
+    award_title = zope.schema.TextLine(
+        title = _(u'Award title'),
+        description=_(u'award title'), required=False)
+
+
+
+

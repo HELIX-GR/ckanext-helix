@@ -2,24 +2,38 @@
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
 {% set groups = [
+        
         { 
-            'name': 'basic',
-            'heading': _('Basic Foo'),
-            'fields': ['title', 'url', 'description', 'baz', 'tags', 'thematic_category']
+            'name': 'subject',
+            'heading': _('Subject'),
+            'fields': ['subject'],
         },
         { 
-            'name': 'contact',
-            'heading': _('Contact Info'),
-            'fields': ['contact_info', 'contacts'],
+            'name': 'creator',
+            'heading': _('Creator'),
+            'fields': ['creator'],
         },
         { 
-            'name': 'details',
-            'heading': _('Details'),
-            'fields': [
-                'temporal_extent', 'reviewed', 'created', 'published', 
-                'wakeup_time', 'rating', 'grade'],
+            'name': 'contributor',
+            'heading': _('Contributor'),
+            'fields': ['contributor'],
         },
-   ]
+        { 
+            'name': 'alternate_identifier',
+            'heading': _('Alternate Identifier'),
+            'fields': ['alternate_identifier'],
+        },
+        { 
+            'name': 'related_identifier',
+            'heading': _('Related Identifier'),
+            'fields': ['related_identifier'],
+        },
+        { 
+            'name': 'funding_reference',
+            'heading': _('Funding Reference'),
+            'fields': ['funding_reference'],
+        },
+   ]    
 %}
 
 <div class="{{ classes|join(' ') }}">

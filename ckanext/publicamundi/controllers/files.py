@@ -7,7 +7,7 @@ from paste import fileapp
 from pylons import url
 
 from ckan.lib.base import (
-    c, request, response, render, abort, redirect, BaseController)
+    c, request, response, render, abort, BaseController)
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 

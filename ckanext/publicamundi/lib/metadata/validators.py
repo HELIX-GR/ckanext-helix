@@ -29,6 +29,7 @@ def is_dataset_type(value, context):
     return value
 
 def preprocess_dataset_for_read(key, data, errors, context):
+    #logger.debug('PREPROCESS DATA READ IS [%s]\n \n', data )
     assert key[0] == '__before', \
         'This validator can only be invoked in the __before stage'
     
@@ -41,6 +42,7 @@ def preprocess_dataset_for_read(key, data, errors, context):
     pass
 
 def postprocess_dataset_for_read(key, data, errors, context):
+    #logger.debug('POSTPROCESS DATA READ IS [%s]\n\n', data )
     assert key[0] == '__after', (
         'This validator can only be invoked in the __after stage')
     
@@ -61,6 +63,8 @@ def postprocess_dataset_for_read(key, data, errors, context):
     pass
 
 def postprocess_dataset_for_edit(key, data, errors, context):
+
+    #logger.debug('\nPOSTPROCESS EDIT START IS %s\n', data )  
     assert key[0] == '__after', (
         'This validator can only be invoked in the __after stage')
      
@@ -77,13 +81,15 @@ def postprocess_dataset_for_edit(key, data, errors, context):
     requested_with_api = 'api_version' in context
     is_new = not pkg
 
-    if is_new and not requested_with_api:
-        return # only core metadata are expected
+    #if is_new and not requested_with_api:
+    #    return # only core metadata are expected
 
     key_prefix = dtype = data[('dataset_type',)]
     if not dtype in ext_metadata.dataset_types:
         raise Invalid('Unknown dataset-type: %s' %(dtype))
     
+    #logger.debug('DATA IS [%s]' % ', '.join(map(str, data)) ) 
+    logger.debug('DATASET TYPE IS [%s]', dtype )  
     # 1. Build metadata object
 
     cls = ext_metadata.class_for_metadata(dtype)
@@ -94,6 +100,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
 
     data[(key_prefix,)] = md
     
+    #logger.debug('DATA EXTRAS IS [%s]', data[('extras',)] )
     # 2. Validate as an object
 
     if not 'skip_validation' in context:
@@ -103,22 +110,39 @@ def postprocess_dataset_for_edit(key, data, errors, context):
    
     # 3. Convert fields to extras
     
-    extras_list = data[('extras',)]
-    extras_list.extend(({'key': k, 'value': v} for k, v in md.to_extras()))
+    logger.debug("\n MD IS: %s \n", md )
+    index = 7
+    for k, v in md.to_extras():
+            logger.debug("\n Key is: %s, value is %s \n", k, v )
+            data[('extras', index, 'key')] = k
+            data[('extras', index, 'value')] = v
+            index = index + 1 
     
+    #extras_list = [x for x in data if 'extras' in x]
+    #extras_list2 = data[not 'foo']
+    #extras_list = data.get(('extras',))
+    #extras_list.extend(({'key': k, 'value': v} for k, v in md.to_extras()))
+    #logger.debug('LIST IS [%s]' , extras_list ) 
     # 4. Compute next state
     
     if 'skip_validation' in context:
         state = data[('state',)] = 'invalid' 
         #data[('private',)] = True
     
+    #add extra value manually
+    #data['extras', 6, 'key'] = 'foo.funder'
+    #data['extras', 6, 'value'] = 'NIK'
+
     if not state:
         if prev_state == 'invalid':
             state = data[('state',)] = 'active'
-    
+   
+    logger.debug('\nPOSTPROCESS EDIT END  IS %s', data )
     return
 
 def preprocess_dataset_for_edit(key, data, errors, context):
+    #logger.debug('\nPREPROCESS DATA START IS [%s]', data)
+    logger.debug('\n')  
     assert key[0] == '__before', \
         'This validator can only be invoked in the __before stage'
     
@@ -152,7 +176,9 @@ def preprocess_dataset_for_edit(key, data, errors, context):
         data.update({ (k,): v for k, v in r.iteritems() })
 
     #raise Breakpoint('preprocess_dataset_for_edit')
-    pass
+
+    #logger.debug('PREPROCESS DATA END IS [%s]', data)  
+    pass  
 
 def get_field_edit_processor(field):
     '''Get a field-level edit converter wrapped as a CKAN converter function.

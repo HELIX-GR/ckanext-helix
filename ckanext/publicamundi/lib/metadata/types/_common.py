@@ -15,8 +15,9 @@ class PostalAddress(Object):
     
     zope.interface.implements(IPostalAddress)
 
-    address = None
     postalcode = None
+    address = None
+    
 
 @object_null_adapter()
 class ContactInfo(Object):
@@ -130,4 +131,72 @@ class Conformity(Object):
     date = None
     date_type = None
     degree = None
+
+@object_null_adapter()
+class Creator(Object):
+    
+    zope.interface.implements(ICreator)
+
+    creator_name = None
+    creator_name_type = None
+    creator_name_identifier = None
+    creator_name_identifier_scheme = None
+    creator_name_identifier_scheme_uri = None
+    creator_affiliation = None
+    
+@object_null_adapter()
+class Subject(Object):
+    
+    zope.interface.implements(ISubject)
+
+    subject_name = None
+    subject_scheme = None
+    subject_scheme_uri = None
+    subject_value_uri = None
+
+@object_null_adapter()
+class Contributor(Object):
+    
+    zope.interface.implements(IContributor)
+
+    contributor_name = None
+    contributor_type = None
+    contributor_name_type = None
+    contributor_name_identifier = None
+    contributor_name_identifier_scheme = None
+    contributor_name_identifier_scheme_uri = None
+    contributor_affiliation = None
+
+@object_null_adapter()
+class RelatedIdentifier(Object):
+    
+    zope.interface.implements(IRelatedIdentifier)
+
+    related_identifier = None
+    related_identifier_type = None
+    relation_type = None
+    related_metadata_scheme = None
+    related_metadata_scheme_uri = None
+    related_metadata_scheme_type = None
+
+@object_null_adapter()
+class AlternateIdentifier(Object):
+    
+    zope.interface.implements(IAlternateIdentifier)
+
+    alternate_identifier = None
+    alternate_identifier_type = None
+
+@object_null_adapter()
+class FundingReference(Object):
+    
+    zope.interface.implements(IFundingReference)
+
+    funder_name = None
+    funder_identifier = None
+    funder_identifier_type = None
+    award_number = None
+    award_uri = None
+    award_title = None
+
 

@@ -1,7 +1,7 @@
 from functools import wraps
 
 from pylons import (c, request, response)
-from pylons.controllers.util import (abort, redirect)
+from pylons.controllers.util import (abort )
 
 def authenticated(action):   
     @wraps(action)

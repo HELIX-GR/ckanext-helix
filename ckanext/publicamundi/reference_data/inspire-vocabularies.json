@@ -1122,5 +1122,82 @@
             "transportation": "Transportation", 
             "utilitiesCommunication": "Utilities - Communication"
         }
-    }
+    },
+    "Name Type": {
+        "terms": {
+	        "organisational": "Organisational",
+	        "personal": "Personal"
+	    }
+    },
+    "Affiliation Type": {
+    	"terms": {
+	        "organisational": "Organisational",
+	        "institutional": "Institutional"
+        }
+    },
+    "Related Identifier Type": {
+    	"terms": {
+	        "ark": "ARK",
+            "arxiv": "arXiv",
+            "bibcode": "bibcode", 
+            "doi": "DOI",
+            "ean13": "EAN13",
+            "Continues": "EISSN",
+            "handle": "Handle",
+            "igsn": "IGSN",
+            "isbn": "ISBN",
+            "issn": "ISSN",
+            "istc": "ISTC",
+            "lissn": "LISSN",
+            "lsid": "LSID",
+            "pmid": "PMID",
+            "purl": "PURL",
+            "upc": "UPC",
+            "url": "URL",
+            "urn": "URN"
+        }
+     },
+    "Relation Type": {
+    	"terms": {
+	        "IsCitedBy": "is cited by",
+            "Cites": "cites",
+            "IsSupplementTo": "is supplement to", 
+            "IsSupplementedBy": "is supplemented by",
+            "IsContinuedBy": "continued by",
+            "Continues": "continues",
+            "IsDescribedby": "described by",
+            "Describes": "describes",
+            "HasMetadata": "has metadata",
+            "IsMetadataFor": "is metadata for",
+            "HasVersion": "has version",
+            "IsVersionOf": "is version of",
+            "IsNewVersionOf": "is new version of",
+            "IsPreviousVersionOf": "is previous version of",
+            "IsPartOf": "is part of",
+            "HasPart": "has part",
+            "IsReferencedBy": "is referenced by",
+            "References": "references",
+            "IsDocumentedBy": "is documented by",
+            "Documents":  "documents",
+            "IsCompiledBy": "is compiled by",
+            "Compiles": "compiles",
+            "IsVariantFormOf": "is variant form of",
+            "IsOriginalFormOf": "is original form of",
+            "IsIdenticalTo": "is identical to",
+            "IsReviewedBy": "is reviewed by",
+            "Reviews": "reviews",
+            "IsDerivedFrom": "is derived from",
+            "IsSourceOf": "is source of",
+            "IsRequiredBy": "is required by",
+            "Requires": "requires"
+        }
+    },
+    "Funder Identifier Type": {
+    	"terms": {
+	        "isni": "ISNI",
+	        "grid": "GRID",
+            "crossrefFunder": "Crossref Funder",
+            "other": "Other"
+        }
+    } 
 }

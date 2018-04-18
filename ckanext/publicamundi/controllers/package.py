@@ -6,7 +6,7 @@ import logging
 from pylons import g, config, session
 
 from ckan.lib.base import (
-    c, request, response, render, abort, redirect, BaseController)
+    c, request, response, render, abort, BaseController)
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 
@@ -142,7 +142,7 @@ class Controller(BaseController):
     def import_metadata(self, **kwargs):
         if request.method == 'POST':
             redirect_url = self._import_metadata(request.params)
-            redirect(redirect_url)
+            h.redirect_to(redirect_url)
         else:
             c.group_id = request.params.get('group')
             c.error_summary = session.pop('error_summary', None)
@@ -175,20 +175,3 @@ class Controller(BaseController):
 
         return render('package/translate_metadata.html')
 
-
-    '''@authenticated
-    def extra_metadata(self, **kwargs):
-        log1.debug('IN EXTRA METADATA')
-        if request.method == 'POST':
-            redirect_url = h.url_for(controller='package',
-                                action='extra_metadata',
-                                id=pkg_dict['name'])
-            redirect(redirect_url)
-        else:
-            c.group_id = request.params.get('group')
-            c.error_summary = session.pop('error_summary', None)
-            c.errors = session.pop('errors', None)
-            c.result = session.pop('result', None)
-        return render('package/snippets/package_extra_metadata.html')  
-    '''
- 
