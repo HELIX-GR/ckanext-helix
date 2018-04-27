@@ -309,9 +309,10 @@ class ExtrametadataController(BaseController):
         package_type = self._get_package_type(id)
         self._setup_template_variables(context, {},
                                        package_type=package_type)
-
-        return render('package/new_package_metadata.html', extra_vars=vars)
         
+                # changed to 2-stage creation 25-4
+        #return render('package/new_package_metadata.html', extra_vars=vars)
+        return render('package/new_package_finish.html', extra_vars=vars)
 
 class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     '''Override the default dataset form.
@@ -334,7 +335,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     _extra_fields = None
     
-    RESOURCE_TYPES = ['Audiovisual', 'Collection', 'DataPaper', 'Event', 'Image', 'InteractiveResource', 'Model', 'PhysicalObject', 'Service', 'Software', 'Sound', 'Text', 'Workflow', 'Other']
+    RESOURCE_TYPES = ['Audiovisual', 'Collection', 'DataPaper', 'Dataset', 'Event', 'Image', 'InteractiveResource', 'Model', 'PhysicalObject', 'Service', 'Software', 'Sound', 'Text', 'Workflow', 'Other']
     
     TITLE_TYPES = ['Alternative Title', 'Subtitle', 'Translated Title', 'Other']
     
@@ -803,10 +804,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
-            'identifier': [
+            #'identifier': [
                 #check_empty,
-                toolkit.get_converter('convert_to_extras')
-            ],
+             #   toolkit.get_converter('convert_to_extras')
+            #],
             'identifier_type': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
@@ -843,10 +844,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
-            'publisher': [
+            #'publisher': [
                 #check_empty,
-                toolkit.get_converter('convert_to_extras')
-            ],
+            #    toolkit.get_converter('convert_to_extras')
+            #],
             'publication_year': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
@@ -1063,10 +1064,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
-            'identifier': [
-                toolkit.get_converter('convert_from_extras'),
+            #'identifier': [
+            #    toolkit.get_converter('convert_from_extras'),
                 #check_empty
-            ],
+            #],
             'identifier_type': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
@@ -1103,10 +1104,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
-            'publisher': [
-                toolkit.get_converter('convert_from_extras'),
+            #'publisher': [
+            #    toolkit.get_converter('convert_from_extras'),
                 #check_empty,
-            ],
+            #],
             'publication_year': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing'),
@@ -1167,10 +1168,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing'),
             ],
-            #'date_type': [
-             #   toolkit.get_converter('convert_from_tags')('resource_types'),
-             #   toolkit.get_validator('ignore_missing')
-            #],
             'date_information': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing'),

@@ -9,6 +9,9 @@ import z3c.schema.email
 from ckanext.publicamundi.lib import vocabularies
 from ckanext.publicamundi.lib.metadata.ibase import IObject
 
+import logging
+log1 = logging.getLogger(__name__)
+
 _ = lambda t:t
 
 class IPostalAddress(IObject):
@@ -235,8 +238,8 @@ class ICreator(IObject):
 
     creator_name = zope.schema.TextLine(
         title = _(u'Creator'),
-        description=_(u'corporate/institutional or personal name'), required=False)
-    
+        description=_(u'corporate/institutional or personal name'), required=True)
+    '''
     creator_name_type = zope.schema.Choice(
         title = _(u'Creator name type'),
         vocabulary = vocabularies.by_name('name-type').get('vocabulary'), 
@@ -254,13 +257,13 @@ class ICreator(IObject):
     
     creator_name_identifier_scheme_uri = zope.schema.TextLine(
         title = _(u'Creator name identifier scheme uri'),
-        description=_(u'Name identifier scheme uri'), required=False)
-
-    creator_affiliation = zope.schema.Choice(
+        description=_(u'Name identifier scheme uri'), required=False)   
+    '''
+    creator_affiliation = zope.schema.TextLine(
         title = _(u'Creator affiliation'),
-        vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
+        #vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
         description=_(u'This is the affiliation of the creator'),
-        default = 'institutional',
+        #default = 'institutional',
         required = False)
 
 class ISubject(IObject):
@@ -290,7 +293,7 @@ class IContributor(IObject):
         title = _(u'Contributor'),
         description=_(u'corporate/institutional or personal name'), required=False)
     
-    contributor_type = zope.schema.TextLine(
+    '''contributor_type = zope.schema.TextLine(
         title = _(u'Contributor type'),
         description=_(u'Distributor, project leader etc.'), required=False)    
 
@@ -319,6 +322,7 @@ class IContributor(IObject):
         description=_(u'This is the affiliation of the contributor'), required=False,
         #default = 'institutional'
         )
+    '''    
 
 class IAlternateIdentifier(IObject):
 
@@ -388,6 +392,41 @@ class IFundingReference(IObject):
         title = _(u'Award title'),
         description=_(u'award title'), required=False)
 
+class IDate(IObject):
+    
+    date = zope.schema.Date(
+        title = _(u'Date'),
+        description=_(u'date'), required=False)
 
+    date_type = zope.schema.TextLine(
+        title = _(u'Date Type'),
+        description=_(u'date type'), required=False)
 
+    date_info = zope.schema.TextLine(
+        title = _(u'Date Info'),
+        description=_(u'date info'), required=False)
 
+class IPublicationInfo(IObject):
+
+    publisher = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('helix', 'helix', u'Helix'),
+            SimpleTerm('aei', 'aei', u'AEI'),
+            SimpleTerm('tei', 'tei', u'TEI'),
+            SimpleTerm('iek', 'iek', u'IEK'),
+            SimpleTerm('clarity', 'clariy', u'Clarity'))),
+        title = u'Publisher',
+        required = True,
+        default = 'helix')
+
+    publication_year = zope.schema.Int(
+        title = u'Publication year',
+        required = True,)
+
+    @zope.interface.invariant
+    def publication_not_empty(obj):
+        log1.debug('\n\nIN NOT EMPTY \n\n')
+        if obj.publication_year is None:
+            raise zope.interface.Invalid(_(u'Publication year is required'))
+
+    #zope.interface.invariant(publication_not_empty)

@@ -34,6 +34,10 @@ from .serializers import (
 # Utilities
 #
 
+import logging
+log1 = logging.getLogger(__name__)
+
+
 def flatten_schema(schema):
     '''Flatten an arbitrary zope-based schema.
     '''
@@ -538,6 +542,7 @@ class Object(object):
             errors = self.validate_schema()
             if errors:
                 # Stop here, do not check invariants
+                log1.debug('\n\n ERRORS ARE %s\n\n', errors)
                 return errors
             else:
                 return self.validate_invariants()
@@ -672,7 +677,7 @@ class Object(object):
                         errors.append((k, ef))
 
             # Check own invariants
-            
+            log1.debug('\n\n IN VALIDATE INVARIANTS\n\n')
             try:
                 ef = []
                 schema.validateInvariants(obj, ef)

@@ -1,4 +1,5 @@
 import zope.interface
+from collections import OrderedDict
 
 from ckanext.publicamundi.lib.metadata import schemata
 from ckanext.publicamundi.lib.metadata.fields import *
@@ -13,6 +14,16 @@ import logging
 log1 = logging.getLogger(__name__)  # ADDED
 
 from . import _common
+
+@field_widget_multiadapter([IListField, schemata.IDate],
+    qualifiers=['date.foo'])
+class DateEditWidget(EditFieldWidget, ListFieldWidgetTraits):
+ 
+    def get_item_qualifier(self):
+        return 'item'
+    
+    def get_template(self):
+        return 'package/snippets/fields/edit-list-date-foo.html'
 
 
 @field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
@@ -97,18 +108,18 @@ class FooReadWidget(ReadObjectWidget):
     def get_template(self):
         return None # use glue template
 
-'''@object_widget_adapter(schemata.IFooMetadata, qualifiers=['table'])
+@object_widget_adapter(schemata.IFooMetadata, qualifiers=['table'])
 class TableReadWidget(_common.TableReadWidget):
 
-    def get_field_order(self):
-        return [
-           # Identification
-           
-           'creator'
-        ]
-
-    def get_field_qualifiers(self):
+    '''def get_field_order(self):
+        log1.debug("\n\n IN FOO.py GET FIELD ORDER \n")
         return OrderedDict([
             ('creator', 'creator.foo')
-    ])
-'''
+        ])'''
+
+    def get_field_qualifiers(self):
+        log1.debug("\n\n\ IN FOO.py GET FIELD Q \n")
+        return OrderedDict([
+            ('creator', 'creator.foo')
+        ])
+

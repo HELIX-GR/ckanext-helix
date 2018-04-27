@@ -39,11 +39,13 @@ class TableReadWidget(ReadObjectWidget):
 
     def prepare_template_vars(self, name_prefix, data):
         
+        log1.debug("\n \nIN Prepare template vars\n") 
+        log1.debug("\n \ndata is is %s\n", data) 
         cls = TableReadWidget
         Td, Th, Tr = cls._Td, cls._Th, cls._Tr
         
         tpl_vars = super(cls, self).prepare_template_vars(name_prefix, data)
-
+        log1.debug("\n \n Tpl vars is is %s\n", tpl_vars) 
         # Dictize self.obj, format leafs as markup
 
         dictz_opts = {
@@ -51,13 +53,15 @@ class TableReadWidget(ReadObjectWidget):
             'format-values': 'markup:q=%s' % (self.markup_qualifier)
         }
         obj_dict = self.obj.to_dict(flat=False, opts=dictz_opts)
-
+        
         # Re-order according to this widget's field ordering
         
         od = OrderedDict((
             (k, obj_dict[k]) for k in self.get_field_order()
         ))
         
+        log1.debug("\n \nOd is is %s\n", od) 
+
         # Preprocess ordered obj_dict to be displayed as table rows
                 
         num_rows, num_cols, rows = cls._tabulate(od)
@@ -342,7 +346,7 @@ class PostalAddressComfortableEditWidget(EditObjectWidget):
 class PostalAddressReadWidget(ReadObjectWidget):
 
     def get_template(self):
-        og1.debug("\nIN READ POSTAL\n")
+        log1.debug("\nIN READ POSTAL\n")
         return 'package/snippets/objects/read-postal_address.html'
 
 #
@@ -641,6 +645,43 @@ class TdFreeKeywordsReadWidget(ReadFieldWidget):
         return 'package/snippets/fields/read-list-free_keyword-td.html'
 
 #
+# IDate
+#
+
+@object_widget_adapter(schemata.IDate)
+class DateEditWidget(EditObjectWidget):
+        
+    def get_field_template_vars(self):
+        return {
+            'date': {
+                'title': _('Date'),
+            },
+            'date_type': {
+                'title': _('Date Type'),
+            },
+            'date_info': {
+                'title': _('Date Info'),
+            },
+        }
+    
+    def get_field_qualifiers(self):
+        return OrderedDict([
+            ('date', None),
+            ('date_type', None),
+            ('date_info', None)
+        ])
+   
+    def get_template(self):
+        return None 
+
+@object_widget_adapter(schemata.IDate)
+class DateReadWidget(ReadObjectWidget):
+        
+    def get_template(self):
+        return None 
+
+
+#
 # ICreator
 
 @object_widget_adapter(schemata.ICreator)
@@ -649,11 +690,11 @@ class CreatorEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('creator_name', 'none'),
-            ('creator_name_type', 'none'),
-            ('creator_name_identifier', None),
-            ('creator_name_identifier_scheme', None),
-            ('creator_name_identifier_scheme_uri', None),
+            ('creator_name', None),
+            #('creator_name_type', None),
+            #('creator_name_identifier', None),
+            #('creator_name_identifier_scheme', None),
+            #('creator_name_identifier_scheme_uri', None),
             ('creator_affiliation', None),
         ])
     
@@ -661,6 +702,7 @@ class CreatorEditWidget(EditObjectWidget):
         return {
             'creator_name': {
                 'title': _('Creator'),
+                'placeholder': u'Acme Widgits',
             },
             'creator_name_type': {
                 'title': _('Creator name type'),
@@ -685,20 +727,32 @@ class CreatorEditWidget(EditObjectWidget):
         return None # use default glue template
         #return 'package/snippets/fields/read-text-dd.html'
 
-'''@object_widget_adapter(schemata.ICreator)
+@object_widget_adapter(schemata.ICreator, qualifiers=['td'])
 class CreatorReadWidget(ReadObjectWidget):
     
     def get_field_qualifiers(self):
-        log1.debug("\nIN READ GET FIELD QUALIFIERS\n")
+        log1.debug("\nIN CREATOR TD READ GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('creator_name', 'none'),
-            ('creator_name_type', 'none'),
-            ('creator_name_identifier', None),
-            ('creator_name_identifier_scheme', None),
-            ('creator_name_identifier_scheme_uri', None),
+            ('creator_name', None),
+            #('creator_name_type', None),
+            #('creator_name_identifier', None),
+            #('creator_name_identifier_scheme', None),
+            #('creator_name_identifier_scheme_uri', None),
             ('creator_affiliaton', None),
         ])
     
+    def get_field_order(self):
+        log1.debug("\nIN CREATOR GET FIELD ORDER\n")
+        return[
+            'creator_name',
+            'creator_name_type',
+            'creator_name_identifier',
+            'creator_name_identifier_scheme',
+            'creator_name_identifier_scheme_uri',
+            'creator_affiliation',
+        ]
+            
+
     def get_field_template_vars(self):
         return {
             'creator_name': {
@@ -713,39 +767,7 @@ class CreatorReadWidget(ReadObjectWidget):
         }
 
     def get_template(self):
-        log1.debug("\nIN READ GET TEMPLATE\n")
-        return None # use glue template
-        #return 'package/snippets/fields/read-text-dd.html'
-'''
-@object_widget_adapter(schemata.ICreator, qualifiers=['dd', 'td'])
-class TdCreatorReadWidget(ReadObjectWidget):
-    
-    def get_field_qualifiers(self):
-        log1.debug("\nIN TD READ GET FIELD QUALIFIERS\n")
-        return OrderedDict([
-            ('creator_name', 'none'),
-            ('creator_name_type', 'none'),
-            ('creator_name_identifier', None),
-            ('creator_name_identifier_scheme', None),
-            ('creator_name_identifier_scheme_uri', None),
-            ('creator_affiliaton', None),
-        ])
-    
-    def get_field_template_vars(self):
-        return {
-            'creator_name': {
-                'title': _('Creator'),
-            },
-            'creator_name_type': {
-                'title': _('Creator name type'),
-            },
-            'creator_name_identifier': {
-                'title': _('Creator name identifier'),
-            },
-        }
-
-    def get_template(self):
-        log1.debug("\nIN READ GET TEMPLATE\n")
+        log1.debug("\nIN CREATOR READ GET TEMPLATE\n")
         return None # use glue template
         #return 'package/snippets/fields/read-text-dd.html'
 
@@ -755,7 +777,7 @@ class SubjectEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('subject_name', 'none'),
+            ('subject_name', None),
             ('subject_scheme', None),
             ('subject_scheme_uri', None),
             ('subject_value_uri', None),
@@ -771,13 +793,13 @@ class ContributorEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('contributor_name', 'none'),
-            ('contributor_type', 'none'),
-            ('contributor_name_type', 'none'),
-            ('contributor_name_identifier', None),
-            ('contributor_name_identifier_scheme', None),
-            ('contributor_name_identifier_scheme_uri', None),
-            ('contributor_affiliation', None),
+            ('contributor_name', None),
+            #('contributor_type', None),
+            #('contributor_name_type', None),
+            #('contributor_name_identifier', None),
+            #('contributor_name_identifier_scheme', None),
+            #('contributor_name_identifier_scheme_uri', None),
+            #('contributor_affiliation', None),
         ])
 
     def get_template(self):
@@ -790,9 +812,9 @@ class RelatedIdentifierEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('related_identifier', 'none'),
-            ('related_identifier_type', 'none'),
-            ('relation_type', 'none'),
+            ('related_identifier', None),
+            ('related_identifier_type', None),
+            ('relation_type', None),
             ('related_metadata_scheme', None),
             ('related_metadata_scheme_uri', None),
             ('related_metadata_scheme_type', None),
@@ -808,8 +830,8 @@ class AlternateIdentifierEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('alternate_identifier', 'none'),
-            ('alternate_identifier_type', 'none'),            
+            ('alternate_identifier', None),
+            ('alternate_identifier_type', None),            
         ])
 
     def get_template(self):
@@ -822,9 +844,9 @@ class FundingReferenceEditWidget(EditObjectWidget):
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
-            ('funder_name', 'none'),
-            ('funder_identifier', 'none'),
-            ('funder_identifier_type', 'none'),
+            ('funder_name', None),
+            ('funder_identifier', None),
+            ('funder_identifier_type', None),
             ('award_number', None),
             ('award_uri', None),
             ('award_title', None),
@@ -833,4 +855,31 @@ class FundingReferenceEditWidget(EditObjectWidget):
     def get_template(self):
         return None # use default glue template
         #return 'package/snippets/fields/read-text-dd.html'
+
+@object_widget_adapter(schemata.IPublicationInfo)
+class PublicationInfoEditWidget(EditObjectWidget):
+
+    def get_field_qualifiers(self):
+        #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
+        return OrderedDict([
+            ('publisher', None),
+            ('publication_year', None),
+        ])
+
+    def get_field_template_vars(self):
+        return {
+            'publisher': {
+                'title': _('Publisher'),
+            },
+            'publication_year': {
+                'title': _('Publication Year'),
+                'placeholder': (u'e.g. 2003'),
+            },                        
+        }
+
+    def get_template(self):
+        return None # use default glue template
+        #return 'package/snippets/fields/read-text-dd.html'
+
+
 

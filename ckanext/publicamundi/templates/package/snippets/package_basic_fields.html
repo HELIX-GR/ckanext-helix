@@ -63,7 +63,7 @@
         placeholder = _('eg. Some useful notes about the data'), 
         value = data.notes, 
         error = errors.notes,
-        is_required = true
+        is_required = false
     )        
 }}
 {% endblock %} {# package_basic_fields_description #}
@@ -89,7 +89,7 @@
 {% endblock %}
 
 {% block package_basic_fields_license %}
-{#<div class="control-group">
+<div class="control-group">
   {% set error = errors.license_id %}
      
   <label class="control-label" for="field-license">{{ _("License") }}</label>
@@ -106,12 +106,12 @@
     </div>
   </div>
 </div>
-#}
 
+{#
 {{ form.input('license_uri', label=_('License URI'), id='field-license-uri', placeholder=_('e.g. http://creativecommons.org/licenses/by/3.0/de/deed.en'), 
-        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full'], is_required=true) 
+        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full'], is_required=false) 
 }} 
-
+#}
 {% endblock %}
 
 {% block package_basic_fields_org %}
@@ -121,18 +121,19 @@
 {% endif %}
 
 {% if h.check_access('sysadmin') or is_new or is_draft %}
-{% snippet 'package/snippets/edit-organization.html', 
+{#{% snippet 'package/snippets/edit-organization.html', 
     name='owner_org', 
     value=data.owner_org or data.group_id,
     required=false,
     orgs_available=h.organizations_available('create_dataset')
 %}
+#}
 {% endif %}
 {% endblock %}
 
 {% block package_basic_fields_custom %}    
-    {{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
-        value=data.publisher, error=errors.get('publisher'), classes=['control-medium'], is_required = true) 
+    {#{{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
+        value=data.publisher, error=errors.get('publisher'), classes=['control-medium'], is_required = false) 
     }} 
     
     
@@ -140,24 +141,25 @@
                value=data.publication_year, error=errors.get('publication_year'), classes=['control-medium']) 
     }}
 
+    
+
     {{ form.input('identifier', label=_('Identifier'), id='field-identifier', placeholder=_(' Format should be “10.1234/foo” '), 
-        value=data.identifier, error=errors.get('identifier'), classes=['control-medium'], is_required = true) 
+        value=data.identifier, error=errors.get('identifier'), classes=['control-medium'], is_required = false) 
     }} 
     
-    {#
+    
     {{ form.input('identifier_type', label=_('Identifier type'), id='field-identifier-type', placeholder=_('e.g. DOI'),
-               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium'], is_required=true) 
+               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium'], is_required=false) 
     }} #}
     
-    {% set resource_types = data.get('resource_type', [None]) %}
+  {#  {% set resource_types = data.get('resource_type', [None]) %}
     {{ form.select('resource_type', 
         label = _('Resource type'), 
         options = h.resource_types_options(), 
         selected = resource_types.0, 
         attrs = { 'data-module': 'no-autocomplete' }) 
-    }}
-
-    
-    
+    }}   
+    #}
+        
    
 {% endblock %}

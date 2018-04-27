@@ -1,0 +1,17 @@
+{%- set messages = 
+    {
+        'add-label': _('New'),
+        'add-title': _('Add another date'), 
+        'clear-label': _('Clear all'),
+        'clear-title': _('Clear all dates!'),
+        'reorder-label': _('Reorder'),
+        'reorder-title': _('Reorder the following dates'),
+        'add-description': none,
+        'maxlength-alert': _('You cannot add more than {{maxlength}} dates'),
+        'clear-alert': _('Are you sure you want to clear all ({{num}}) dates ?'),
+    } 
+-%}
+
+{%- set title = none -%} {# the accordion section header is fine #}
+
+{% extends 'package/snippets/fields/edit-list-items.html' %}

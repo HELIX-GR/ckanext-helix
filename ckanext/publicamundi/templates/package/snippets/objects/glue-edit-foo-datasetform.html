@@ -1,22 +1,65 @@
 {% import 'macros/accordion.html' as accordion -%}
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
-{% set groups = [
+{#{{ fields['creator'].markup }}
+#}
+{% set grouped_fields = [
+                
         
-        { 
-            'name': 'subject',
-            'heading': _('Subject'),
-            'fields': ['subject'],
-        },
         { 
             'name': 'creator',
             'heading': _('Creator'),
-            'fields': ['creator'],
+            'subgroups': [
+                {
+                    'fields': ['creator'],
+                },
+            ],
+        },
+        { 
+            'name': 'publication_info',
+            'heading': _('Publication Info'),
+            'subgroups': [
+                {
+                    'fields': ['publication_info'],
+                },
+            ],
         },
         { 
             'name': 'contributor',
             'heading': _('Contributor'),
-            'fields': ['contributor'],
+            'subgroups': [
+                {
+                    'fields': ['contributor'],
+                },
+            ],
+        },
+        
+        { 
+            'name': 'date',
+            'heading': _('Date'),
+            'subgroups': [
+                {
+                    'fields': ['date'],
+                },
+            ],
+        },
+        { 
+            'name': 'language',
+            'heading': _('Language'),
+            'subgroups': [
+                {
+                    'fields': ['language'],
+                },
+            ],
+        },
+        
+   ]    
+%}
+{# removed from above
+        { 
+            'name': 'subject',
+            'heading': _('Subject'),
+            'fields': ['subject'],
         },
         { 
             'name': 'alternate_identifier',
@@ -33,14 +76,27 @@
             'heading': _('Funding Reference'),
             'fields': ['funding_reference'],
         },
-   ]    
-%}
+        #}
+
+{#{{fields['publisher'].markup }} 
+
+{{fields['publication_year'].markup }} #}
 
 <div class="{{ classes|join(' ') }}">
     {% if title %}<h3>{{ title }}</h3>{% endif %}
-    {% call(group_desc) accordion.accordion('foo-fields', groups) %}
-        {% for fname in group_desc.fields -%}
-        {{ fields[fname].markup }}
+    {%- call(group_desc) accordion.accordion('foo-fields', grouped_fields) %}
+        {%- for subg in group_desc.subgroups %}
+            {% if not loop.first %}<hr/>{% endif -%}
+            {% if subg.heading %}<h3>{{ subg.heading }}</h3>{% endif %}
+            {% if subg.description -%}
+            <p class="description">{{ subg.description }}</p>
+            {% endif -%}
+            {%- for fname in subg.fields %}
+                {{ fields[fname].markup }}
+            {% endfor -%}
         {% endfor -%}
-    {% endcall %}
+    {% endcall -%}
 </div>
+
+
+

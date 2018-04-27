@@ -9,11 +9,11 @@
               <li>{% snippet 'package/snippets/data_api_button.html', resource=res, datastore_root_url=c.datastore_api %}</li>
         {% endif %}
 
-        {% if res.resource_type == 'file' %}
-        {% block resource_item_file %}
+        
+       {# {% block resource_item_file %}
 
-            {% set raster_resources = h.get_ingested_raster(pkg,res) %}
-            {% set vector_resources = h.get_ingested_vector(pkg,res) %}
+           {% set raster_resources = h.get_ingested_raster(pkg,res) %}
+            {% set vector_resources = h.get_ingested_vector(pkg,res) %}   
             <li>
                     <a class="btn btn-primary resource-url-analytics" href="{{ res.url }}"
                         ><i class="fa fa-download"></i> {{ _('Download') }}</a>
@@ -21,20 +21,33 @@
                 <a class="btn btn-right-fix dropdown-toggle" data-toggle="modal" data-module-id={{res.id}} data-target="#download_options-{{res.id}}" data-module="download_options_dialog" >
                     <span class="icon-reorder"></span>
                 </a>
-                {% endif %}
-                </li>
-            {% endblock %}
-        {% elif res.resource_type == 'api' %}
-            {% block resource_item_service %}
-                                
-                <li>            
-                <a href="{{ res.url }}" class="btn resource-url-analytics" target="_blank">
-                    <i class="icon-beaker"></i>{{ _('Endpoint') }}
+                {% endif %} 
+             </li>
+            {% endblock %}  
+          #}
+        {% if res.url and h.is_url(res.url) %}
+              <li>
+                <a class="btn btn-primary resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url }}">
+                  {% if res.resource_type in ('listing', 'service') %}
+                    <i class="fa fa-eye"></i> {{ _('View') }}
+                  {% elif  res.resource_type == 'api' %}
+                       {% block resource_item_service %}           
+                         <li>            
+                            <a href="{{ res.url }}" class="btn resource-url-analytics" target="_blank">
+                                <i class="icon-beaker"></i>{{ _('Endpoint') }}
+                            </a>
+                         </li>
+                       {% endblock %}
+                    {#<i class="fa fa-key"></i> {{ _('API Endpoint') }} #}
+                  {% elif (not res.has_views or not res.can_be_previewed) and not res.url_type == 'upload' %}
+                    <i class="fa fa-external-link"></i> {{ _('Go to resource') }}
+                  {% else %}
+                    <i class="fa fa-arrow-circle-o-down"></i> {{ _('Download') }}
+                  {% endif %}
                 </a>
-                </li>
-
-            {% endblock %}
-        {% endif %}
+              </li>
+         {% endif %} 
+        
 
 {% endblock %}
 
@@ -84,9 +97,9 @@
   {% resource 'ckanext-publicamundi/table-collapsible-rows' %}
 {% endblock %}
 
-{% block data_preview %}
+{#{% block data_preview %}
     {{ h.resource_preview(res, pkg) }}
-{% endblock %}
+{% endblock %}   #}
 
 {% block page %}
 {{ super() }}
@@ -97,3 +110,11 @@
 {{ super() }}
 {% resource 'ckanext-publicamundi/download_options' %}
 {% endblock %}
+
+{% block secondary_content %}
+
+  {% block resources_list %}
+    {% snippet "package/snippets/resources.html", pkg=pkg, active=res.id %}
+  {% endblock %}
+{% endblock %}
+

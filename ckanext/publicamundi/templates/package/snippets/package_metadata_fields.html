@@ -22,6 +22,7 @@
 {% endblock %} {# package_metadata_fields_url #}
 
 {% block package_metadata_fields_version %}
+{#
 {{ 
     form.input(
         'version', 
@@ -31,11 +32,12 @@
         value=(data.version or '0.1'), 
         error=errors.version, 
         classes=['control-small']) 
-}}
+}} 
+#}
 {% endblock %} {# package_metadata_fields_version #}
 
 {% block package_metadata_author %}
-{# {{ 
+ {{ 
     form.input(
         'author', 
         label=_('Author'), 
@@ -44,7 +46,7 @@
         value=data.author, 
         error=errors.author, 
         classes=['control-medium'])         
-}}
+}}{#
 {{ 
     form.input(
         'author_email', 
@@ -58,7 +60,7 @@
 {% endblock %} {# package_metadata_author #}
 
 {% block package_metadata_fields_maintainer %}
-{{ 
+{#{{ 
     form.input(
         'maintainer', 
         label=_('Maintainer'), 
@@ -79,7 +81,7 @@
         classes=['control-medium']) 
     
 }} 
-
+#}
 {% endblock %} {# package_metadata_fields_maintainer #}
 
 {% block package_metadata_fields_custom %}

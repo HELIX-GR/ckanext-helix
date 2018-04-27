@@ -14,7 +14,7 @@ class IFooMetadata(IMetadata):
 
     url = zope.schema.URI(
         title = u'URL',
-        required = True)
+        required = False)
    
 
     thematic_category = zope.schema.Choice(
@@ -24,18 +24,18 @@ class IFooMetadata(IMetadata):
             SimpleTerm('health', 'health', u'Health'),
             SimpleTerm('economy', 'economy', u'Economy'))),
         title = u'Category',
-        required = True,
-        default = 'economy')
+        required = False,)
+        #default = 'economy')
 
     baz = zope.schema.TextLine(
         title = u'Baz',
         required = False,
-        default = u'bazinka',
+        #default = u'bazinka',
         min_length = 5)
 
     tags = zope.schema.List(
         title = u'Tags',
-        required = True,
+        required = False,
         value_type = zope.schema.TextLine(
             title = u'Tag',
             constraint = re.compile('[-a-z0-9]+$').match),
@@ -63,7 +63,7 @@ class IFooMetadata(IMetadata):
     reviewed = zope.schema.Bool(
         required = False,
         title = u'Reviewed',
-        default = False,
+        #default = False,
         description = u'This foo is reviewed by someone',)
 
     description = zope.schema.Text(
@@ -91,7 +91,7 @@ class IFooMetadata(IMetadata):
     
     created = zope.schema.Datetime(
         title = u'Created',
-        required = True)
+        required = False)
     
     published = zope.schema.Datetime(
         title = u'Published',
@@ -99,17 +99,17 @@ class IFooMetadata(IMetadata):
 
     wakeup_time = zope.schema.Time(
         title = u'Wakeup Time',
-        required = True)
+        required = False)
 
     rating = zope.schema.Int(
         title = u'Rating',
-        required = True,
+        required = False,
         min = -10,
         max = 10)
     
     grade = zope.schema.Float(
         title = u'Grade',
-        required = True,
+        required = False,
         min = -20.0,
         max = 20.0)
 
@@ -132,7 +132,7 @@ class IFooMetadata(IMetadata):
         title = u'Contributor',
         required = False)
 
-    alternate_identifier = zope.schema.Object(IAlternateIdentifier,
+    '''alternate_identifier = zope.schema.Object(IAlternateIdentifier,
         title = u'Alternate Identifier',
         required = False)
 
@@ -143,11 +143,32 @@ class IFooMetadata(IMetadata):
     funding_reference = zope.schema.Object(IFundingReference,
         title = u'Funding Reference',
         required = False)
+    '''
 
-    #date  = zope.schema.Datetime(
-    #    title=u'Date',
-    #    required=False))
+    date  = zope.schema.Object(IDate,
+        title=u'Date',
+        required=False)
 
+    language = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('greek', 'greek', u'Greek'),
+            SimpleTerm('english', 'english', u'English'))),
+        title = u'Language',
+        required = False,)
+        #default = 'english')
+    
+    publication_info = zope.schema.Object(IPublicationInfo,
+        title = u'Publication Info',
+        required = True)
+    
+
+    '''subject_closed = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('biological sciences', 'biological sciences', u'biological ciences'),
+            SimpleTerm('english', 'english', u'English'))),
+        title = u'Language',
+        required = False,)
+        #default = 'english') '''
 
     @zope.interface.invariant
     def check_tag_duplicates(obj):
@@ -159,4 +180,9 @@ class IFooMetadata(IMetadata):
     def check_publication_date(obj):
         if obj.published and (obj.published < obj.created):
             raise zope.interface.Invalid('The publication date is before creation date')
+
+    #@zope.interface.invariant
+    #def publication_not_empty(obj):
+     #   if obj.publication_year is None and obj.address is None:
+      #      raise zope.interface.Invalid(_(u'Publication year is required'))
  

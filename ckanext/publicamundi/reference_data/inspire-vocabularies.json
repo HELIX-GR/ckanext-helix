@@ -1199,5 +1199,30 @@
             "crossrefFunder": "Crossref Funder",
             "other": "Other"
         }
-    } 
+    },
+    "Resource Type": {
+        "terms":[
+         "Audiovisual",
+         "Collection",
+         "DataPaper",
+         "Dataset",
+         "Event",
+         "Image",
+         "InteractiveResource",
+         "Model",
+         "PhysicalObject",
+         "Service",
+         "Software",
+         "Sound",
+         "Text",
+         "Workflow",
+         "Other"   
+        ]
+    },
+    "Language": {
+    	"terms": {
+	        "greek": "Greek",
+	        "english": "English"
+        }
+    }  
 }

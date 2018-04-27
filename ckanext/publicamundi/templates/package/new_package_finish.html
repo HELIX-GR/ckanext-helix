@@ -1,0 +1,44 @@
+{% import "macros/form.html" as form %}
+{% import "macros/markup_helpers.html" as markup_helpers %}
+
+{% extends "package/base_form_page.html" %}
+
+{% set action = form_action or h.url_for(controller='package', action='new_metadata', id=pkg_name) %}
+
+
+{% block subtitle %}{{ _('Finish creating dataset') }}{% endblock %}
+
+{% block form %}
+
+
+
+{%- set data = data or {} %}
+{%- set errors = errors or {} %}
+
+<form id="package-form" class="dataset-form dataset-resource-form form-horizontal" method="post" data-module="basic-form">
+  {{ h.snippet('package/snippets/stages.html', stages=['complete', 'complete', 'active'], pkg_name=pkg_name) }}
+
+   <input name="id" value="{{ data.id }}" type="hidden"/>
+
+  {% block errors %}
+  {{ markup_helpers.error_messages(errors) }}
+  {% endblock %}
+
+  {% block package_fields_autofill %}
+  {% if h.debug() %}{% snippet 'package/snippets/form-autofiller.html', form_id='package-form' %}{% endif %}
+  {% endblock %}
+
+     You are almost done. 
+     Press finish to complete the dataset creation and you will be notified when your dataset is publicly available for view.
+
+ {# {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, groups_available=groups_available %} #}
+
+  <div class="form-actions">
+    <button id="btn-save-go-resources" class="btn" name="save" value="go-resources" type="submit">{{ _('Previous') }}</button>
+    <button id="btn-save-finish" class="btn btn-primary" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
+  </div> 
+
+</form>
+
+
+{% endblock %}

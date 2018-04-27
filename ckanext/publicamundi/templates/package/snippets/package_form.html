@@ -51,7 +51,9 @@ then itself be extended to add/remove blocks of functionality. #}
   {% endblock %}
 	
   {% block metadata_fields %}
-  {% if form_style_for_edit == 'edit' %}  {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors%} {%endif %} 
+  {#{% if form_style_for_edit == 'edit' %}   #}
+        {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors%}
+  {#{%endif %} #} 
 
   {% endblock %}
 

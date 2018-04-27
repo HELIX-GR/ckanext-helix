@@ -133,15 +133,25 @@ class Conformity(Object):
     degree = None
 
 @object_null_adapter()
+class Date(Object):
+    
+    zope.interface.implements(IDate)
+
+    date = None
+    date_type = None
+    date_info = None
+
+
+@object_null_adapter()
 class Creator(Object):
     
     zope.interface.implements(ICreator)
 
     creator_name = None
-    creator_name_type = None
-    creator_name_identifier = None
-    creator_name_identifier_scheme = None
-    creator_name_identifier_scheme_uri = None
+    #creator_name_type = None
+    #creator_name_identifier = None
+    #creator_name_identifier_scheme = None
+    #creator_name_identifier_scheme_uri = None
     creator_affiliation = None
     
 @object_null_adapter()
@@ -160,12 +170,12 @@ class Contributor(Object):
     zope.interface.implements(IContributor)
 
     contributor_name = None
-    contributor_type = None
-    contributor_name_type = None
-    contributor_name_identifier = None
-    contributor_name_identifier_scheme = None
-    contributor_name_identifier_scheme_uri = None
-    contributor_affiliation = None
+    #contributor_type = None
+    #contributor_name_type = None
+    #contributor_name_identifier = None
+    #contributor_name_identifier_scheme = None
+    #contributor_name_identifier_scheme_uri = None
+    #contributor_affiliation = None
 
 @object_null_adapter()
 class RelatedIdentifier(Object):
@@ -199,4 +209,10 @@ class FundingReference(Object):
     award_uri = None
     award_title = None
 
+@object_null_adapter()
+class PublicationInfo(Object):
+    
+    zope.interface.implements(IPublicationInfo)
 
+    publisher = None
+    publication_year = None
