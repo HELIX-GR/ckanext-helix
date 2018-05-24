@@ -34,13 +34,13 @@
             <div class="newline-action action-button btn-group pull-right">
                 <a class="btn btn-primary resource-url-analytics" href="{{ res.url }}"
                     ><i class="fa fa-download"></i> {{ _('Download') }}</a>
-            {#{% if raster_resources|length>0 or vector_resources|length>0 %} #}
+            {#{% if raster_resources|length>0 or vector_resources|length>0 %} 
             <a class="btn btn-primary dropdown-toggle" data-toggle="modal" data-module-id={{res.id}} data-target="#download_options-{{res.id}}" data-module="download_options_dialog" >
                 <span class="icon-reorder"></span>
             </a>
             {% snippet 'package/snippets/download_options.html', pkg=pkg, res=res %}
 
-            {#{% endif %} #}
+            {% endif %} #}
         </div>
 
         {% if res.resource_type == 'api' %}

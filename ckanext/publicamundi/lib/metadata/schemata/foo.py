@@ -8,6 +8,8 @@ from ckanext.publicamundi.lib.metadata.ibase import IObject
 from . import IMetadata
 from ._common import *
 
+_ = lambda t: t # Mock translator
+
 class IFooMetadata(IMetadata):
     
     zope.interface.taggedValue('recurse-on-invariants', True)
@@ -39,7 +41,7 @@ class IFooMetadata(IMetadata):
         value_type = zope.schema.TextLine(
             title = u'Tag',
             constraint = re.compile('[-a-z0-9]+$').match),
-        min_length = 1,
+        #min_length = 1,
         max_length = 5,)
     tags.setTaggedValue('allow-partial-update', False)
     tags.setTaggedValue('format', { 'descend-if-dictized': False, 'extra-opts': {}, })
@@ -66,11 +68,20 @@ class IFooMetadata(IMetadata):
         #default = False,
         description = u'This foo is reviewed by someone',)
 
-    description = zope.schema.Text(
+    optional_title = zope.schema.TextLine(
         required = False,
-        title = u'Notes',
-        description = u'Add your notes')
-    description.setTaggedValue('translatable', True)
+        title = u'Title (Greek)',
+        description = u'Optional title in Greek',)
+    optional_title.setTaggedValue('translatable', True)
+
+
+    optional_description = zope.schema.Text(
+        required = False,
+        title = u'Description (Greek)',
+        description = u'Optional notes in greek',)
+    optional_description.setTaggedValue('translatable', True)
+
+   
 
     contacts = zope.schema.Dict(
         title = u'Contacts',
@@ -95,7 +106,8 @@ class IFooMetadata(IMetadata):
     
     published = zope.schema.Datetime(
         title = u'Published',
-        required = False)
+        required = False,
+        description = u'Add your notes',)
 
     wakeup_time = zope.schema.Time(
         title = u'Wakeup Time',
@@ -118,9 +130,13 @@ class IFooMetadata(IMetadata):
         required = False,
         min_length = 6,
     )
-
+    
+    public_doi = zope.schema.TextLine(
+        title = u'Public DOI',
+        required = False)
     
     creator = zope.schema.Object(ICreator,
+        description = (u'The researcher involved in producing the data'),
         title = u'Creator',
         required = False)
     
@@ -129,8 +145,19 @@ class IFooMetadata(IMetadata):
         required = False)
     
     contributor = zope.schema.Object(IContributor,
+        description = (u'The institution or person responsible for collecting,distributing, or otherwise contributing to the development of the resource.'),
         title = u'Contributor',
-        required = False)
+        required = False) 
+
+    '''contributor = zope.schema.List(
+        title = _(u'Contributor'),
+        description = _(u'The institution or person responsible for collecting,distributing, or otherwise contributing to the development of the resource.'),
+        required = False,
+        min_length = 1,
+        max_length = 4,
+        value_type = zope.schema.Object(IContributor,
+            title = _(u'Contributor')))
+    contributor.setTaggedValue('format:markup', {'descend-if-dictized': True}) '''
 
     '''alternate_identifier = zope.schema.Object(IAlternateIdentifier,
         title = u'Alternate Identifier',
@@ -145,11 +172,23 @@ class IFooMetadata(IMetadata):
         required = False)
     '''
 
-    date  = zope.schema.Object(IDate,
+    date = zope.schema.List(
+        title = _(u'Dates'),
+        description = _(u'A relavant date to the dataset.'),
+        required = False,
+        min_length = 1,
+        max_length = 4,
+        value_type = zope.schema.Object(IDate,
+            title = _(u'Date')))
+    date.setTaggedValue('format:markup', {'descend-if-dictized': True})
+    
+    '''date  = zope.schema.Object(IDate,
+        description = (u'A relevant date to the dataset'),
         title=u'Date',
-        required=False)
+        required=False)'''
 
     language = zope.schema.Choice(
+        description = u'The language of the dataset',
         vocabulary = SimpleVocabulary((
             SimpleTerm('greek', 'greek', u'Greek'),
             SimpleTerm('english', 'english', u'English'))),
@@ -158,17 +197,18 @@ class IFooMetadata(IMetadata):
         #default = 'english')
     
     publication_info = zope.schema.Object(IPublicationInfo,
+        description = (u'Information about the publication'),
         title = u'Publication Info',
         required = True)
     
 
-    '''subject_closed = zope.schema.Choice(
+    subject_closed = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
             SimpleTerm('biological sciences', 'biological sciences', u'biological ciences'),
             SimpleTerm('english', 'english', u'English'))),
         title = u'Language',
         required = False,)
-        #default = 'english') '''
+        #default = 'english')
 
     @zope.interface.invariant
     def check_tag_duplicates(obj):

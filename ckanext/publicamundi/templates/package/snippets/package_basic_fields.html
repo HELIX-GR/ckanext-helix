@@ -30,6 +30,7 @@
         is_required=true
     ) 
 }}
+
 {% endblock %} {# package_basic_fields_title #}
 
 {% block package_basic_fields_url %}
@@ -37,20 +38,33 @@
 {% set prefix = h.url_for(controller='package', action='read', id='') %}
 {% set domain = h.url_for(controller='package', action='read', id='', qualified=true) %}
 {% set domain = domain|replace("http://", "")|replace("https://", "") %}
-{% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<dataset>'} %}
+ {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<dataset>'} %} 
 {{ 
-    form.prepend(
+    form.input(
         'name', 
         id = 'field-name', 
         label = _('Locator (URL)'), 
-        prepend = prefix, 
+        classes = ['hidden'],
         placeholder = _('eg. visitor-stats-2014b'), 
         value = data.name, 
         error = errors.name, 
-        attrs = attrs, 
         is_required = true
     ) 
 }}
+{{ 
+    form.input(
+        'private', 
+        id = 'field-private', 
+        label = _('Visibility'), 
+        classes = ['hidden'],
+        value = data.private, 
+        error = errors.private, 
+        is_required = false
+    ) 
+}}    
+  {# {{ data.name}} and id {{data.id}} and private {{data.private}} and org {{h.organizations_available('create_dataset')}} #}
+
+
 {#{% resource 'ckanext-publicamundi/show-dataset-name' %}#} {# Force `name` input to be always visible #}
 {% endblock %} {# package_basic_fields_url #}
 
@@ -63,17 +77,18 @@
         placeholder = _('eg. Some useful notes about the data'), 
         value = data.notes, 
         error = errors.notes,
-        is_required = false
+        is_required = true
     )        
 }}
 {% endblock %} {# package_basic_fields_description #}
 
 {% block package_basic_fields_tags %}
-{% with tag_attrs = {
+{%set tag_attrs = {
     'data-module': 'autocomplete', 
     'data-module-tags': '', 
     'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} 
 %}
+
 {{ 
     form.input(
         'tag_string', 
@@ -85,8 +100,27 @@
         classes = ['control-full'], 
         attrs = tag_attrs) 
 }}
-{% endwith %}
 {% endblock %}
+
+{# Closed tags field #}
+<div class="container" >
+  <label for="field-closed_tag"   class="control-label">Subject</label>
+  <select id="field-closed_tag" name="closed_tag" class="form-control input-sm select2-multiple control-full" data-module="input-select2-subject" multiple  placeholder="e.g. Biomedicine, Mathematics" >
+      {% for closed_tag in h.closed_tags()  %}
+        
+        <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
+       
+      {% endfor %}
+  </select>
+</div>  
+
+
+
+
+
+
+
+ {# {% snippet 'package/snippets/closed-tags.html' %} #}
 
 {% block package_basic_fields_license %}
 <div class="control-group">
@@ -114,22 +148,44 @@
 #}
 {% endblock %}
 
+
 {% block package_basic_fields_org %}
 {# if we have a default group then this wants remembering #}
 {% if data.group_id %}
 <input type="hidden" name="groups__0__id" value="{{ data.group_id }}" />
 {% endif %}
 
+{% set is_draft = data.get('state', 'draft').startswith('draft') or data.get('state', 'none') ==  'none' %}
+
+
 {% if h.check_access('sysadmin') or is_new or is_draft %}
-{#{% snippet 'package/snippets/edit-organization.html', 
+
+{#{% if not orgs_available %}
+         {{ form.select('owner_org', label=_('Organization'), options=[{'name':helix, 'value': h.organization_objects(['helix']).helix.display_name}  ], selected=helix, error=errors.owner_org) }}
+        
+{% else %}  #}
+{#
+{% snippet 'package/snippets/edit-organization.html', 
     name='owner_org', 
     value=data.owner_org or data.group_id,
-    required=false,
+    required=true,
     orgs_available=h.organizations_available('create_dataset')
-%}
-#}
-{% endif %}
-{% endblock %}
+%} #}
+{% endif %} 
+
+{{ 
+    form.input(
+        'owner_org', 
+        id = 'field-owner-org', 
+        label = _('Organization'), 
+        classes = ['hidden'],
+        value = data.owner_org, 
+        error = errors.owner_org, 
+        is_required = true
+    ) 
+}}    
+
+{% endblock %} 
 
 {% block package_basic_fields_custom %}    
     {#{{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 

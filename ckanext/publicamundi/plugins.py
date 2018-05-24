@@ -7,12 +7,17 @@ import string
 import urllib
 import geoalchemy
 import pylons
+import uuid
 
 import ckan.model as model
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 
+from ckan.controllers.package import PackageController  as pController
+from ckan.controllers.organization import OrganizationController  as oController
+import ckan.lib.search as search
+import ckan.authz as authz
 
 import ckanext.publicamundi.model as ext_model
 import ckanext.publicamundi.lib.metadata as ext_metadata
@@ -23,7 +28,7 @@ import ckanext.publicamundi.lib.languages as ext_languages
 #import ckanext.publicamundi.lib.pycsw_sync as ext_pycsw_sync
 from ckan.lib.base import BaseController
 import ckan.lib.plugins
-from ckan.common import _, json, request, c, g, response
+from ckan.common import _,OrderedDict, config, json, request, c, g, response
 import ckan.lib.base as base
 import ckan.lib.dictization.model_dictize as model_dictize
 import ckan.lib.navl.dictization_functions as dict_fns
@@ -32,7 +37,8 @@ import ckan.lib.helpers as h
 #from home import CACHE_PARAMETERS
 CACHE_PARAMETERS = ['__cache', '__no_cache__']
 
-#new new_Save
+
+
 
 from ckanext.publicamundi.lib.metadata import class_for_metadata
 from ckanext.publicamundi.lib.util import (to_json, random_name)
@@ -146,7 +152,7 @@ class ExtrametadataController(BaseController):
             del data['save']
             resource_id = data['id']
             del data['id']
-
+    
             context = {'model': model, 'session': model.Session,
                        'user': c.user or c.author, 'auth_user_obj': c.userobj}
             
@@ -237,7 +243,7 @@ class ExtrametadataController(BaseController):
         except NotFound:
             abort(404, _('The dataset {id} could not be found.').format(id=id))
         try:
-            check_access('resource_create', context, pkg_dict)
+            check_access('resource_create', context, {"package_id": pkg_dict["id"]})
         except NotAuthorized:
             abort(401, _('Unauthorized to create a resource for this package'))
 
@@ -314,6 +320,296 @@ class ExtrametadataController(BaseController):
         #return render('package/new_package_metadata.html', extra_vars=vars)
         return render('package/new_package_finish.html', extra_vars=vars)
 
+    def new(self, data=None, errors=None, error_summary=None):
+
+       
+
+        if data and 'type' in data:
+            package_type = data['type']
+        else:
+            package_type = self._guess_package_type(True)
+
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user, 'auth_user_obj': c.userobj,
+                   'save': 'save' in request.params}
+        log1.debug('\n\n IN NEW PACKAGE CONTROLLER context is %s\n\n', context)
+        
+        # Package needs to have a organization group in the call to
+        # check_access and also to save it
+        try:
+            check_access('package_create', context)
+        except NotAuthorized:
+            abort(403, _('Unauthorized to create a package'))
+
+        if context['save'] and not data:
+            pc = pController()
+            return pController._save_new(pc, context, package_type=package_type)
+
+        data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
+            request.params, ignore_keys=CACHE_PARAMETERS))))
+        c.resources_json = h.json.dumps(data.get('resources', []))
+        # convert tags if not supplied in data
+        if data and not data.get('tag_string'):
+            data['tag_string'] = ', '.join(
+                h.dict_list_reduce(data.get('tags', {}), 'name'))
+
+        errors = errors or {}
+        error_summary = error_summary or {}
+        # in the phased add dataset we need to know that
+        # we have already completed stage 1
+        stage = ['active']
+        if data.get('state', '').startswith('draft'):
+            stage = ['active', 'complete']
+
+        # if we are creating from a group then this allows the group to be
+        # set automatically
+        data['group_id'] = request.params.get('group') or \
+            request.params.get('groups__0__id')
+        
+        # add custom id for ckan name so we can have duplicate titles
+        new_uuid = uuid.uuid4()
+        data['name'] =  new_uuid   
+        # set default visibility to private before admin/editor changes it to public    
+        data['private'] = 'True'
+        #if not h.organizations_available('create_dataset'): 
+        data['owner_org'] = 'helix'
+
+        form_snippet = self._package_form(package_type=package_type)
+        form_vars = {'data': data, 'errors': errors,
+                     'error_summary': error_summary,
+                     'action': 'new', 'stage': stage,
+                     'dataset_type': package_type,
+                     }
+        c.errors_json = h.json.dumps(errors)
+
+        self._setup_template_variables(context, {},
+                                       package_type=package_type)
+
+        new_template = self._new_template(package_type)
+        return render(new_template,
+                      extra_vars={'form_vars': form_vars,
+                                  'form_snippet': form_snippet,
+                                  'dataset_type': package_type})
+
+    def organization_read(self, id, limit=20):
+        oc = oController()
+        group_type = oc._ensure_controller_matches_group_type(
+            id.split('@')[0])
+
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user,
+                   'schema': oc._db_to_form_schema(group_type=group_type),
+                   'for_view': True}
+        data_dict = {'id': id, 'type': group_type}
+
+        # unicode format (decoded from utf8)
+        c.q = request.params.get('q', '')
+
+        try:
+            # Do not query for the group datasets when dictizing, as they will
+            # be ignored and get requested on the controller anyway
+            data_dict['include_datasets'] = False
+            c.group_dict = oc._action('group_show')(context, data_dict)
+            c.group = context['group']
+        except (NotFound, NotAuthorized):
+            abort(404, _('Group not found'))
+
+        self._read(id, limit, group_type)
+        return render(oc._read_template(c.group_dict['type']),
+                      extra_vars={'group_type': group_type})
+
+    def _read(self, id, limit, group_type):
+        log1.debug('\nIN _READ\n')
+        oc = oController()
+        ''' This is common code used by both read and bulk_process'''
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user,
+                   'schema': oc._db_to_form_schema(group_type=group_type),
+                   'for_view': True, 'extras_as_string': True}
+
+        q = c.q = request.params.get('q', '')
+        # Search within group
+        if c.group_dict.get('is_organization'):
+            fq = 'owner_org:"%s"' % c.group_dict.get('id')
+        else:
+            fq = 'groups:"%s"' % c.group_dict.get('name')
+
+        c.description_formatted = \
+            h.render_markdown(c.group_dict.get('description'))
+
+        context['return_query'] = True
+
+        page = h.get_page_number(request.params)
+
+        # most search operations should reset the page counter:
+        params_nopage = [(k, v) for k, v in request.params.items()
+                         if k != 'page']
+        sort_by = request.params.get('sort', None)
+
+        def search_url(params):
+            controller = lookup_group_controller(group_type)
+            action = 'bulk_process' if c.action == 'bulk_process' else 'read'
+            url = h.url_for(controller=controller, action=action, id=id)
+            params = [(k, v.encode('utf-8') if isinstance(v, string_types)
+                       else str(v)) for k, v in params]
+            return url + u'?' + urlencode(params)
+
+        def drill_down_url(**by):
+            return h.add_url_param(alternative_url=None,
+                                   controller='group', action='read',
+                                   extras=dict(id=c.group_dict.get('name')),
+                                   new_params=by)
+
+        c.drill_down_url = drill_down_url
+
+        def remove_field(key, value=None, replace=None):
+            controller = lookup_group_controller(group_type)
+            return h.remove_url_param(key, value=value, replace=replace,
+                                      controller=controller, action='read',
+                                      extras=dict(id=c.group_dict.get('name')))
+
+        c.remove_field = remove_field
+
+        def pager_url(q=None, page=None):
+            params = list(params_nopage)
+            params.append(('page', page))
+            return search_url(params)
+
+        try:
+            c.fields = []
+            c.fields_grouped = {}
+            search_extras = {}
+            for (param, value) in request.params.items():
+                if param not in ['q', 'page', 'sort'] \
+                        and len(value) and not param.startswith('_'):
+                    if not param.startswith('ext_'):
+                        c.fields.append((param, value))
+                        q += ' %s: "%s"' % (param, value)
+                        if param not in c.fields_grouped:
+                            c.fields_grouped[param] = [value]
+                        else:
+                            c.fields_grouped[param].append(value)
+                    else:
+                        search_extras[param] = value
+
+            facets = OrderedDict()
+
+            default_facet_titles = {'organization': _('Organizations'),
+                                    'groups': _('Groups'),
+                                    'tags': _('Tags'),
+                                    'res_format': _('Formats'),
+                                    'license_id': _('Licenses')}
+
+            for facet in h.facets():
+                if facet in default_facet_titles:
+                    facets[facet] = default_facet_titles[facet]
+                else:
+                    facets[facet] = facet
+
+            # Facet titles
+            oc._update_facet_titles(facets, group_type)
+
+            c.facet_titles = facets
+            c.user_role = authz.users_role_for_group_or_org(id, c.user) or 'member'
+            #log1.debug('\n USER IS %s, context is %s, roles is %s, user role is %s\n', c.user, context, c.roles, c.user_role)
+    
+            #if user is a member he shouldn't see all private datasets of organizations
+            if (c.user_role == 'member'):
+                include_private = False
+            else:
+                include_private = True
+            data_dict = {
+                'q': q,
+                'fq': fq,
+                'include_private': include_private,
+                'facet.field': facets.keys(),
+                'rows': limit,
+                'sort': sort_by,
+                'start': (page - 1) * limit,
+                'extras': search_extras
+            }
+
+            context_ = dict((k, v) for (k, v) in context.items()
+                            if k != 'schema')
+            query = get_action('package_search')(context_, data_dict)
+
+            c.page = h.Page(
+                collection=query['results'],
+                page=page,
+                url=pager_url,
+                item_count=query['count'],
+                items_per_page=limit
+            )
+
+            c.group_dict['package_count'] = query['count']
+
+            c.search_facets = query['search_facets']
+            c.search_facets_limits = {}
+            for facet in c.search_facets.keys():
+                limit = int(request.params.get('_%s_limit' % facet,
+                            config.get('search.facets.default', 10)))
+                c.search_facets_limits[facet] = limit
+            c.page.items = query['results']
+
+            c.sort_by_selected = sort_by
+
+        except search.SearchError as se:
+            log.error('Group search error: %r', se.args)
+            c.query_error = True
+            c.page = h.Page(collection=[])
+
+        oc._setup_template_variables(context, {'id': id},
+                                       group_type=group_type)
+        
+
+    def organization_edit(self, id, data=None, errors=None, error_summary=None):
+        oc = oController()
+        group_type = oc._ensure_controller_matches_group_type(
+            id.split('@')[0])
+
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user,
+                   'save': 'save' in request.params,
+                   'for_edit': True,
+                   'parent': request.params.get('parent', None)
+                   }
+        data_dict = {'id': id, 'include_datasets': False}
+
+        if context['save'] and not data:
+            return oc._save_edit(id, context)
+
+        try:
+            data_dict['include_datasets'] = False
+            old_data = oc._action('group_show')(context, data_dict)
+            c.grouptitle = old_data.get('title')
+            c.groupname = old_data.get('name')
+            data = data or old_data
+        except (NotFound, NotAuthorized):
+            abort(404, _('Group not found'))
+
+        group = context.get("group")
+        c.group = group
+        c.group_dict = oc._action('group_show')(context, data_dict)
+        c.user_role = authz.users_role_for_group_or_org(id, c.user)
+        log1.debug('\nIN ORG EDIT group is %s, data is %s, user role %s\n', group, data, c.user_role)
+        if c.user_role == 'editor':
+            context['ignore_auth'] = True
+            log1.debug('\nEDITOR\n')
+        try:
+            oc._check_access('group_update', context)
+        except NotAuthorized:
+            abort(403, _('User %r not authorized to edit %s') % (c.user, id))
+
+        errors = errors or {}
+        vars = {'data': data, 'errors': errors,
+                'error_summary': error_summary, 'action': 'edit',
+                'group_type': group_type}
+
+        oc._setup_template_variables(context, data, group_type=group_type)
+        c.form = render(oc._group_form(group_type), extra_vars=vars)
+        return render(oc._edit_template(c.group.type),
+                      extra_vars={'group_type': group_type})
+
 class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     '''Override the default dataset form.
     '''
@@ -339,7 +635,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     
     TITLE_TYPES = ['Alternative Title', 'Subtitle', 'Translated Title', 'Other']
     
-    
+    #CLOSED_TAGS = ['Alaska', 'California', 'Nevada','Oregon', 'Arizona', 'Colorado', 'Idaho', 'Utah', 'Delaware', 'Florida', 'Georgia', 'Indiana', 'Maryland' ] 
+
     ## Define helper methods ## 
     
     @classmethod
@@ -372,13 +669,46 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             return resource_types
         except toolkit.ObjectNotFound:
             return None
-
+    
     @classmethod
     def resource_types_options(cls):
         ''' This generator method is only useful for creating select boxes.'''
         for name in cls.resource_types():
             yield { 'value': name, 'text': name }
+    
+    
+    @classmethod
+    def create_closed_tags(cls):
+        '''Create closed tag vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        
+        data = {'id': 'closed_tags'}
+        vocab = toolkit.get_action ('vocabulary_show') (context, data)
+        closed_tags = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
+        #log1.info('Vocab is %s, closed tags are %s', vocab, closed_tags)
+        List = open('closed-subjects.txt').read().splitlines()
+        #log1.debug('LIST IS %s', List)
+        for tag in List:
+            if tag not in closed_tags:
+                log1.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                toolkit.get_action ('tag_create') (context, data)
+    
+    @classmethod
+    def closed_tags(cls):
+        '''Return the list of all existing types from the closed tags vocabulary.'''
+        cls.create_closed_tags()
+        try:
+            closed_tags = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
+            return closed_tags
+        except toolkit.ObjectNotFound:
+            return None
 
+    
     @classmethod
     def create_title_types(cls):
         '''Create title type vocabulary and tags, if they don't exist already.
@@ -402,7 +732,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     
     @classmethod
     def title_types(cls):
-        '''Return the list of all existing types from the resource_types vocabulary.'''
+        '''Return the list of all existing types from the title_types vocabulary.'''
         cls.create_title_types()
         try:
             title_types = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'title_types'})
@@ -480,6 +810,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'transform_to_iso_639_2': ext_template_helpers.transform_to_iso_639_2,
             'resource_types': self.resource_types,
             'resource_types_options': self.resource_types_options,
+            'closed_tags': self.closed_tags,
             'title_types': self.title_types,
             'title_types_options': self.title_types_options,
             'organization_list_objects': self.organization_list_objects,
@@ -529,10 +860,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Modify the pattern for valid names for {package, groups, organizations}
         
         if asbool(config.get('ckanext.publicamundi.validation.relax_name_pattern')):
-            logic.validators.name_match = re.compile('[a-z][a-z0-9~_\-]*$')
+            logic.validators.name_match = re.compile('[a-z0-9~_\-]*$')
             log1.debug('Using pattern for valid names: %r', 
                 logic.validators.name_match.pattern)
-              
+        #List = open('closed-subjects.txt').read().splitlines()
+        #log1.debug('LIST IS %s', List)
         # Setup extension-wide cache manager
 
         from ckanext.publicamundi import cache_manager
@@ -630,11 +962,22 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             controller=package_controller,
             action='import_metadata')
         
-    
+        mapper.connect('dataset_new', '/dataset/new', 
+            controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new')
         mapper.connect('new_resource', '/dataset/new_resource/{id}',
             controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new_resource') 
         mapper.connect('new_metadata', '/dataset/new_metadata/{id}',
-            controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new_metadata')        
+            controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new_metadata') 
+        
+        #added because organization_read overrided default new org
+        mapper.connect('organization_new', '/organization/new',controller='organization', action='new')
+        #override organization read to restrict private dataset reading for members
+        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_read',
+                  ckan_icon='sitemap')
+
+        #mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_edit',
+         #         ckan_icon='pencil-square-o')
+                
         log1.debug('AFTER CONNECT')
        
         tests_controller = 'ckanext.publicamundi.controllers.tests:Controller'
@@ -793,11 +1136,18 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             # Make organisation field optional
-            'owner_org': [
-                toolkit.get_validator('ignore_missing'),
-            ],
+            #'owner_org': [
+            #    toolkit.get_validator('ignore_missing'),
+            #],
             'notes': [ 
-                #check_empty 
+                toolkit.get_validator('not_empty') 
+            ],
+            'title': [
+                toolkit.get_validator('ignore_missing')
+            ],
+            'closed_tag': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_tags')('closed_tags')
             ],
             # Add our extra field to the dataset schema.
             'title_type': [
@@ -848,10 +1198,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 #check_empty,
             #    toolkit.get_converter('convert_to_extras')
             #],
-            'publication_year': [
-                toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras')
-            ],
+            #'publication_year': [
+            #    toolkit.get_validator('ignore_missing'),
+            #    toolkit.get_converter('convert_to_extras')
+            #],
             'subject': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
@@ -1053,11 +1403,18 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
            
             # Make organisation field optional
-            'owner_org': [
-                toolkit.get_validator('ignore_missing'),
-            ],
+            #'owner_org': [
+            #    toolkit.get_validator('ignore_missing'),
+            #],
             'notes': [
-                #check_empty,
+                toolkit.get_validator('not_empty')
+            ],
+            'closed_tag': [
+                toolkit.get_converter('convert_from_tags')('closed_tags'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'title': [
+                toolkit.get_validator('ignore_missing')
             ],
             # Add our extra field to the dataset schema.
             'title_type': [
@@ -1108,10 +1465,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             #    toolkit.get_converter('convert_from_extras'),
                 #check_empty,
             #],
-            'publication_year': [
-                toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing'),
-            ],
+            #'publication_year': [
+            #    toolkit.get_converter('convert_from_extras'),
+            #    toolkit.get_validator('ignore_missing'),
+            #],
             'subject': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')

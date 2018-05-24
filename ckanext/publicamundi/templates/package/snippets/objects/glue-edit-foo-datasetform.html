@@ -32,6 +32,7 @@
                     'fields': ['contributor'],
                 },
             ],
+            'selected': false,
         },
         
         { 
@@ -42,12 +43,15 @@
                     'fields': ['date'],
                 },
             ],
+            'selected': false,
         },
         { 
             'name': 'language',
             'heading': _('Language'),
             'subgroups': [
                 {
+                    'description': _(
+                        'Provide the language of the dataset'),
                     'fields': ['language'],
                 },
             ],
@@ -78,8 +82,10 @@
         },
         #}
 
-{#{{fields['publisher'].markup }} 
+{{fields['optional_title'].markup }}
+{{fields['optional_description'].markup }}
 
+{#
 {{fields['publication_year'].markup }} #}
 
 <div class="{{ classes|join(' ') }}">
@@ -93,6 +99,7 @@
             {% endif -%}
             {%- for fname in subg.fields %}
                 {{ fields[fname].markup }}
+                <p class="description">{{ fields[fname].description}}</p>
             {% endfor -%}
         {% endfor -%}
     {% endcall -%}

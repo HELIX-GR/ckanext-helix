@@ -543,7 +543,12 @@ class Object(object):
             if errors:
                 # Stop here, do not check invariants
                 log1.debug('\n\n ERRORS ARE %s\n\n', errors)
-                return errors
+                from ckan.lib.navl.dictization_functions import missing, StopOnError, Invalid
+                from ckan.common import _
+                #raise Invalid('Missing values, please fill all the required fields')
+                
+                raise Invalid(', '.join(map(str, errors)))
+                #return errors
             else:
                 return self.validate_invariants()
 
@@ -556,8 +561,9 @@ class Object(object):
                 f = field.get(obj)
                 ef = self._validate_schema_for_field(f, field)
                 if ef:
-                    errors.append((k, ef))
-            
+                    #errors.append((k, ef))
+                    errors.append( ef)
+
             return errors
 
         def _validate_schema_for_field(self, f, field):
@@ -643,13 +649,13 @@ class Object(object):
                     try:
                         field.key_type.validate(k)
                     except zope.interface.Invalid as ex:
-                        errors.append((k, [ex]))
+                        errors.append([ex])
                 pass
             # 2.2 Validate item values
             for k,y in items:
                 ef = self._validate_schema_for_field(y, field.value_type)
                 if ef:
-                    errors.append((k, ef))
+                    errors.append(ef)
             if errors:
                 exs.append(zope.interface.Invalid(errors))
 
@@ -674,7 +680,7 @@ class Object(object):
                     f = field.get(obj)
                     ef = self._validate_invariants_for_field(f, field)
                     if ef:
-                        errors.append((k, ef))
+                        errors.append(ef)
 
             # Check own invariants
             log1.debug('\n\n IN VALIDATE INVARIANTS\n\n')
@@ -682,7 +688,7 @@ class Object(object):
                 ef = []
                 schema.validateInvariants(obj, ef)
             except zope.interface.Invalid:
-                errors.append((None, ef))
+                errors.append(ef)
 
             return errors
 
@@ -720,7 +726,7 @@ class Object(object):
             for k,y in items:
                 ef = self._validate_invariants_for_field(y, field.value_type)
                 if ef:
-                    errors.append((k, ef))
+                    errors.append( ef)
             
             if errors:
                 ex = zope.interface.Invalid(errors)
@@ -737,17 +743,17 @@ class Object(object):
         schema = self.get_schema()
         
         res = ErrorDict()
-        for k, ef in errors:
-            if k is None:
-                # Found failed invariants
-                res[global_key] = [ str(ex) for ex in ef ]
-            else:
-                # Found a field-level error
-                field = schema.get(k)
-                if not field:
-                    continue
-                f = field.get(self)
-                res[k] = self._dictize_errors_for_field(ef, f, field)
+        #for k, ef in errors:
+        #    if k is None:
+        #        # Found failed invariants
+        #        res[global_key] = [ str(ex) for ex in ef ]
+        #    else:
+        #        # Found a field-level error
+        #        field = schema.get(k)
+        #        if not field:
+        #            continue
+        #        f = field.get(self)
+        #        res[k] = self._dictize_errors_for_field(ef, f, field)
         
         return res
 

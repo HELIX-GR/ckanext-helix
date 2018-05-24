@@ -16,7 +16,7 @@ log1 = logging.getLogger(__name__)  # ADDED
 from . import _common
 
 @field_widget_multiadapter([IListField, schemata.IDate],
-    qualifiers=['date.foo'])
+    qualifiers=['date.foo'], is_fallback=False)
 class DateEditWidget(EditFieldWidget, ListFieldWidgetTraits):
  
     def get_item_qualifier(self):
@@ -24,6 +24,18 @@ class DateEditWidget(EditFieldWidget, ListFieldWidgetTraits):
     
     def get_template(self):
         return 'package/snippets/fields/edit-list-date-foo.html'
+
+@field_widget_multiadapter([IListField, schemata.IContributor],
+    qualifiers=['contributor.foo'], is_fallback=False)
+class ContributorEditWidget(EditFieldWidget, ListFieldWidgetTraits):
+ 
+    def get_item_qualifier(self):
+        return 'item'
+    
+    def get_template(self):
+        return 'package/snippets/fields/edit-list-contributor-foo.html'
+
+
 
 
 @field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
@@ -76,6 +88,7 @@ class FooEditWidget(EditObjectWidget):
             'tags': 'tags',
             'thematic_category': 'select2',
             'contacts': 'contacts.foo',
+            'date': 'date.foo'
         })
         
         return qualifiers

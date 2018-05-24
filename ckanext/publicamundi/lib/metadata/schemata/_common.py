@@ -238,7 +238,9 @@ class ICreator(IObject):
 
     creator_name = zope.schema.TextLine(
         title = _(u'Creator'),
-        description=_(u'corporate/institutional or personal name'), required=True)
+        description=_(u'corporate/institutional or personal name'), 
+        #default = _(u'Jimaras'),        
+        required=True)
     '''
     creator_name_type = zope.schema.Choice(
         title = _(u'Creator name type'),
@@ -263,7 +265,7 @@ class ICreator(IObject):
         title = _(u'Creator affiliation'),
         #vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
         description=_(u'This is the affiliation of the creator'),
-        #default = 'institutional',
+        #default = _(u'Institutional'),
         required = False)
 
 class ISubject(IObject):
@@ -398,9 +400,19 @@ class IDate(IObject):
         title = _(u'Date'),
         description=_(u'date'), required=False)
 
-    date_type = zope.schema.TextLine(
-        title = _(u'Date Type'),
-        description=_(u'date type'), required=False)
+    date_type = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('accepted', 'accepted', u'Accepted'),
+            SimpleTerm('available', 'available', u'Available'),
+            SimpleTerm('copyrighted', 'copyrighted', u'Copyrighted'),
+            SimpleTerm('collected', 'collected', u'Collected'),
+            SimpleTerm('created', 'created', u'Created'),
+            SimpleTerm('issued', 'issued', u'Issued'),
+            SimpleTerm('submitted', 'submitted', u'Submitted'),
+            SimpleTerm('updated', 'updated', u'Updated'),
+            SimpleTerm('valid', 'valid', u'Valid'),)),
+        title = u'Date type',
+        required=False)
 
     date_info = zope.schema.TextLine(
         title = _(u'Date Info'),
@@ -421,12 +433,13 @@ class IPublicationInfo(IObject):
 
     publication_year = zope.schema.Int(
         title = u'Publication year',
-        required = True,)
+        required = True)
+        #default = 2005,)
 
-    @zope.interface.invariant
+    ''' @zope.interface.invariant
     def publication_not_empty(obj):
         log1.debug('\n\nIN NOT EMPTY \n\n')
         if obj.publication_year is None:
-            raise zope.interface.Invalid(_(u'Publication year is required'))
+            raise zope.interface.exceptions.Invalid(_(u'Publication year is required'))'''
 
     #zope.interface.invariant(publication_not_empty)

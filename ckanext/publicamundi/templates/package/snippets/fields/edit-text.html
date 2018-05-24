@@ -8,9 +8,12 @@
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>
     <div class="controls">
         <textarea id="input-{{ qname }}" name="{{ qname }}" class="{{ input_classes|join(" ") }}"
-            placeholder="{{ placeholder|empty_and_escape }}"  
+            {% if placeholder%}placeholder="{{ placeholder|empty_and_escape }}"  
+            {% else %}
+                placeholder="{{ description|empty_and_escape }}"  
+            {%endif %}
             {{ attrs|xmlattr -}}
          >{{ value|empty_and_escape }}</textarea>
-        {% if description %}<div class="help-block">{{ description }}</div>{% endif -%}
+        {#{% if description and not placeholder %}<div class="help-block">{{ description }}</div>{% endif -%} #}
     </div>
 </div>

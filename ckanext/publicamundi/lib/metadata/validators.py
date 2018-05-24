@@ -110,7 +110,9 @@ def postprocess_dataset_for_edit(key, data, errors, context):
    
     # 3. Convert fields to extras
     
-    logger.debug("\n MD IS: %s \n", md )
+    #logger.debug("\n MD IS: %s \n", md )
+
+    # add foo fields after ckan extras
     index = 7
     for k, v in md.to_extras():
             logger.debug("\n Key is: %s, value is %s \n", k, v )

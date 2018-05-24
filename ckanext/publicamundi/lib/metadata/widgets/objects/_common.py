@@ -787,8 +787,18 @@ class SubjectEditWidget(EditObjectWidget):
         return None # use default glue template
         #return 'package/snippets/fields/read-text-dd.html'
 
+#IContributor
+
 @object_widget_adapter(schemata.IContributor)
 class ContributorEditWidget(EditObjectWidget):
+
+    def get_field_template_vars(self):
+        return {
+            'contributor_name': {
+                'title': _('Contributor'),
+            },
+            
+        }
 
     def get_field_qualifiers(self):
         #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")

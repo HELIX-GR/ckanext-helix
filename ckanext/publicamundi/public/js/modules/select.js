@@ -145,6 +145,80 @@ this.ckan.module('input-select2', function ($, _) {
 });
 
 /*
+  select2 module for subject field
+ */
+this.ckan.module('input-select2-subject', function ($, _) {
+  
+    var debug = $.proxy(window.console, 'debug')
+    var warn = $.proxy(window.console, 'warn')
+    
+    return {
+      options: {
+          width: 'element',
+          placeholder: null,
+          minimuminputlength: 3,
+          maximuminputlength: null,
+          minimumresultsforsearch: -1,
+          tags: null,
+          separator: null,
+      },
+      
+      initialize: function() 
+      {
+          var module = this
+          if ($.fn.select2) {
+              
+              // Prepare init options for a select2 widget
+              
+              var opts = $.extend({}, {
+                  placeholder: module.options.placeholder,
+                  width: module.options.width, 
+              })
+  
+              if (module.options.minimumresultsforsearch != null) {
+                  opts.minimumResultsForSearch = Number(module.options.minimumresultsforsearch) 
+              } 
+              
+              if (module.options.tags != null) {
+                  var t = typeof(module.options.tags) 
+                  if (t == 'boolean') {
+                      opts.tags = module.options.tags
+                  } else if (t == 'string') {
+                      var tags = module.options.tags.split(',')
+                      opts.tags = $.map(tags, function(v) { return v.trim() })
+                  }
+              }
+  
+              if (module.options.minimuminputlength != null) {
+                  opts.minimumInputLength = Number(module.options.minimuminputlength)
+              }
+  
+              if (module.options.maximuminputlength != null) {
+                  opts.maximumInputLength = Number(module.options.maximuminputlength)
+              }
+              
+              // Initialize select2 widget
+  
+              debug('Creating select2 widget with:', opts)
+              
+              $(this.el).select2(opts)
+  
+          } else {
+              warn('The jQuery extension "select2" is not loaded')
+          }
+  
+          debug('Initialized module: input-select2-subject')
+      },
+      
+      teardown: function() 
+      { 
+          debug('Tearing down module: input-select2-subject')
+      },
+    }
+});
+
+
+/*
  * A module for select2-based input for tags
  */
 this.ckan.module('input-select2-tags', function ($, _) {

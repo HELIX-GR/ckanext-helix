@@ -37,7 +37,7 @@
 {% endblock %} {# package_metadata_fields_version #}
 
 {% block package_metadata_author %}
- {{ 
+ {#{{ 
     form.input(
         'author', 
         label=_('Author'), 
@@ -45,8 +45,8 @@
         placeholder=_('Joe Bloggs'), 
         value=data.author, 
         error=errors.author, 
-        classes=['control-medium'])         
-}}{#
+        classes=['control-medium'],)         
+}} 
 {{ 
     form.input(
         'author_email', 
@@ -89,6 +89,8 @@
   Remove free extras from the package form. We are using convert_{to/from}_extras(),
   so we need to remove free extras from the form (or editing breaks!)   
 #}
+
+
 {###  
     {{ form.input('language', label=_('Language'), id='field-language', placeholder=_('datasets language'),
                 value=data.language, error=errors.get('language'), classes=['control-medium']) 

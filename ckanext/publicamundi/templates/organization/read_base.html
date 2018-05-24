@@ -1,0 +1,12 @@
+{% ckan_extends %}
+
+{% block content_action %}
+  {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
+    {# temp workaround for editor accessing bulk process #}
+    {% if h.check_access('group_update', {'id': c.group_dict.id}) %}
+        {% link_for _('Manage'), controller='organization', action='edit', id=c.group_dict.name, class_='btn btn-default', icon='wrench', named_route=group_type + '_edit'  %}
+    {% else %}
+         {% link_for _('Manage'), controller='organization', action='bulk_process', id=c.group_dict.name, class_='btn btn-default', icon='wrench', named_route=group_type + '_bulk_process'  %}
+    {% endif %}
+  {% endif %}
+{% endblock %}

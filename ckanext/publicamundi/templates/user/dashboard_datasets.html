@@ -1,4 +1,4 @@
-{% ckan_extends %}
+{% extends "user/dashboard.html" %}
 
 {% block page_primary_action %}
 {% if h.check_access('package_create') %}
@@ -8,9 +8,8 @@
 
 {% block primary_content_inner %} 
   <h2 class="hide-heading">{{ _('My Datasets') }}</h2>
-    {% if c.page.items %}
-     {% snippet 'snippets/package_list.html', packages=c.page.items %}
-         {{ c.page.pager() }} 
+    {% if c.user_dict.datasets %}
+     {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}         
   {% else %}
     <p class="empty">
       {{ _('You haven\'t created any datasets.') }}

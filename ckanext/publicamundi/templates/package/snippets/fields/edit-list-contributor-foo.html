@@ -1,0 +1,17 @@
+{%- set messages = 
+    {
+        'add-label': _('New'),
+        'add-title': _('Add another contributor'), 
+        'clear-label': _('Clear all'),
+        'clear-title': _('Clear all contributors!'),
+        'reorder-label': _('Reorder'),
+        'reorder-title': _('Reorder the following contributors'),
+        'add-description': none,
+        'maxlength-alert': _('You cannot add more than {{maxlength}} contributors'),
+        'clear-alert': _('Are you sure you want to clear all ({{num}}) contributors ?'),
+    } 
+-%}
+
+{%- set title = none -%} {# the accordion section header is fine #}
+
+{% extends 'package/snippets/fields/edit-list-items.html' %}

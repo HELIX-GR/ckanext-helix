@@ -40,7 +40,14 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'author_email': 'lalakis@example.com',
 		'publisher': 'Λαλάκης',
 		'identifier': '10.12449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+        'creator_affiliation': 'IMSI',
+        'contributor_name': 'Mitsos',
+        'creator_name': 'Jim',
+        'language': 'Greek',
+        'publication_year': 2002,
+        'optional_title': 'Ελληνικός τίτλος1',
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς1'
             },
             {
                 'title': 'Hello Foo 2',
@@ -55,8 +62,14 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'author_email': 'foofootos@example.com',
 		'publisher': 'Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
-
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+        'creator_affiliation': 'IMSI',
+        'contributor_name': 'Takis',
+        'creator_name': 'Bob',
+        'language': 'English',
+        'publication_year': 2003,
+        'optional_title': 'Ελληνικός τίτλος2',
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς2'
             },    
             {
                 'title': 'Hello Inspire 1',
@@ -71,7 +84,14 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'author_email': 'inspired@example.com',
 		'publisher': 'Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+        'creator_affiliation': 'IMSI',
+        'contributor_name': 'Makis',
+        'creator_name': 'Mark',
+        'language': 'greek',
+        'publication_year': 2004,
+        'optional_title': 'Ελληνικός τίτλος3',
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς3'
             }, 
             {
                 'title': 'Hello CKAN 1',
@@ -86,7 +106,14 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'author_email': 'ckaner@example.com',
 		'publisher': ' Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en'
+		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+        'creator_affiliation': 'IMSI',
+        'contributor_name': 'Mitsos',
+        'creator_name': 'George',
+        'language': 'english',
+        'publication_year': 2006,
+        'optional_title': 'Ελληνικός τίτλος4',
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς4'
             },
         ],
     },
@@ -108,7 +135,8 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         var el = this.el
 
         var $form = $('#' + this.options.formid)
-
+        var $form2 = $('#' + this.options.formid + 'foo-fields-group-creator')    
+        
         switch (this.options.formid) {
             default:
             case 'package-form':
@@ -116,7 +144,6 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                     this.el.on('click', function() {
                         data = module._sample(module.options.formid)
                         $form.find('#field-title').val(data['title'])
-                        $form.find('#field-name').val(data['name'])
                         $form.find('#field-dataset_type').select2('val', data['dataset_type'])
                         $form.find('#field-notes').val(data['notes'])
                         $form.find('#field-tags').select2('val', data['tags'])
@@ -128,6 +155,13 @@ this.ckan.module('package-form-autofiller', function ($, _) {
 			$form.find('#field-publisher').val(data['publisher'])
 			$form.find('#field-identifier').val(data['identifier'])
 			$form.find('#field-license-uri').val(data['license_uri'])
+            $form.find('#input-foo\\.creator\\.creator_affiliation').val(data['creator_affiliation'])
+            $form.find('#input-foo\\.creator\\.creator_name').val(data['creator_name'])
+            $form.find('#input-foo\\.contributor\\.contributor_name').val(data['contributor_name'])
+            $form.find('#input-foo\\.publication_info\\.publication_year').val(data['publication_year'])
+            $form.find('#input-foo\\.language').select2('val', data['language'])
+            $form.find('#input-foo\\.optional_title').val(data['optional_title'])
+            $form.find('#input-foo\\.optional_description').val(data['optional_notes'])
                         return false
                     })
                     this.el.css('margin', '0px 5px')

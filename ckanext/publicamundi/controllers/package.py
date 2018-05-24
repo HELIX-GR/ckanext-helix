@@ -9,6 +9,7 @@ from ckan.lib.base import (
     c, request, response, render, abort, BaseController)
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
+import ckan.lib.helpers as h
 
 from ckanext.publicamundi.lib import uploader
 from ckanext.publicamundi.lib import actions as ext_actions
