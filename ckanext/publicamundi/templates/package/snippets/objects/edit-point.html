@@ -1,7 +1,7 @@
 {% if input_classes is not defined %}{% set input_classes = [ 'input-small' ] -%}{% endif -%}
 {% set placeholder = '0.0' -%}
 
-<div class="control-group{{ " error" if errors }}{{ " " ~ classes | join(' ') }}">
+<div class="form-group{{ " error" if errors }}{{ " " ~ classes | join(' ') }}">
     <label class="control-label">
         {{ title }}
         {% if required %}<span title="{{ _("This field is required") }}" class="control-required">*</span>{% endif -%}

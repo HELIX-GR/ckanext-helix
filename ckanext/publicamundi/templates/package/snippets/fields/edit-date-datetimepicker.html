@@ -3,11 +3,11 @@
 {%- set placeholder = placeholder or field.default -%}
 {%- if input_classes is not defined %}{% set input_classes = [ 'input-small' ] %}{% endif -%}
 
-<div class="control-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
     <label class="control-label" for="{{ 'input-' ~ qname }}">
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>
     <div class="controls">
-        <div class="input-append datetime"
+        <div class="input-group datetime"
             data-module="datetimepicker" 
             data-module-picktime="false" data-module-pickdate="true" data-module-format="yyyy-MM-dd"
            >
@@ -16,7 +16,7 @@
                 value="{{ value|empty_and_escape }}" 
                 placeholder="{{ placeholder|empty_and_escape }}"
             />
-            <span class="add-on">
+            <span class="input-group-addon">
                 <i data-date-icon="icon-calendar"></i>
             </span>
         </div>

@@ -5,12 +5,12 @@
 {%- set format = format or '24h' %}
 {%- set time_format = 'HH:mm:ss PP' if format == '12h' else 'hh:mm:ss' -%}
 
-<div class="control-group{{ " error" if errors }}{{ " " ~ classes | join(' ') }}">
+<div class="form-group{{ " error" if errors }}{{ " " ~ classes | join(' ') }}">
     <label class="control-label" for="{{ 'input-' ~ qname }}">
         {{ title }}{{ markup_helpers.mark_required(required) }}
     </label>
     <div class="controls">
-        <div class="input-append datetime"
+        <div class="input-group datetime"
             data-module="datetimepicker" 
             data-module-picktime="true" data-module-pickdate="false" 
             data-module-pick12hourformat="{{ 'true' if format == '12h' else 'false' }}"
@@ -21,7 +21,7 @@
                 value="{{ value|empty_and_escape }}" 
                 placeholder="{{ placeholder|empty_and_escape }}"
             />
-            <span class="add-on">
+            <span class="input-group-addon">
               <i data-time-icon="icon-time"></i>
             </span>
         </div>

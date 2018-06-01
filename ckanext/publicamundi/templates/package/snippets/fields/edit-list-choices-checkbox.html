@@ -1,6 +1,6 @@
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
-<div class="control-group{{ "error" if errors }}{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ "error" if errors }}{{ " " ~ classes|join(' ') }}">
     <label>{{ title }}{{ markup_helpers.mark_required(required) }}</label>
     {% if verbose and description %}<p class="description">{{ description }}</p>{% endif -%}
     <div class="controls checkboxes" 

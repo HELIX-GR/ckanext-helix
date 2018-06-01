@@ -7,12 +7,12 @@
     {% endif %}
 {% endfor %}
       
-    <div class="accordion-group">
-      <div class="accordion-heading">
+    <div class="panel-default">
+      <div class="panel-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-dev" href="#collapse-querying-dapi">{{ _('Data API') }} &raquo;</a>
       </div>
-      <div id="collapse-querying-dapi" class="collapse accordion-body">
-          <div class="accordion-inner">
+      <div id="collapse-querying-dapi" class="collapse panel-collapse">
+          <div class="panel-body">
         {% if res %}
           <strong>{{ _('Query example (first 5 results)') }}</strong>
           <p>

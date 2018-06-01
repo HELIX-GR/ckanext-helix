@@ -4,7 +4,7 @@
 {%- if input_classes is not defined %}{% set input_classes = ['span4'] %}{% endif -%}
 {%- if control_attrs is not defined %}{% set control_attrs = {} %}{% endif -%}
 
-<div class="control-group {{ classes|join(' ') }}"> 
+<div class="form-group {{ classes|join(' ') }}"> 
     <header><h3 class="inline">{{ title }}</h3></header>
     {% if verbose and description %}<p class="description">{{ description }}</p>{% endif -%}
     <label class="control-label" for="input-{{ qname }}.terms">

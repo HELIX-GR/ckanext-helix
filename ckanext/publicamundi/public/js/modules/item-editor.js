@@ -108,7 +108,7 @@
                         '<option value="">{{label}}</option>' + 
                     '<select/>',
                 addBtn: 
-                    '<button class="btn btn-small add-item" title="{{title}}">' + 
+                    '<button class="btn btn-sm add-item" title="{{title}}">' + 
                         '<i class="icon-asterisk"></i>{{label}}' + 
                     '</button>',
                 pane: 
@@ -259,15 +259,15 @@
             
             templates: {
                 addBtn: 
-                    '<button class="btn btn-small add-item" title="{{title}}">' + 
+                    '<button class="btn btn-sm add-item" title="{{title}}">' + 
                         '<i class="icon-asterisk"></i>{{label}}' + 
                     '</button>',
                 reorderBtn: 
-                    '<button class="btn btn-small reorder-items" title="{{title}}">' + 
+                    '<button class="btn btn-sm reorder-items" title="{{title}}">' + 
                         '<i class="icon-retweet"></i>{{label}}' + 
                     '</button>',
                 clearBtn: 
-                    '<button class="btn btn-small clear-items" title="{{title}}">' + 
+                    '<button class="btn btn-sm clear-items" title="{{title}}">' + 
                         '<i class="icon-eraser"></i>{{label}}' + 
                     '</button>',
                 pane: 
@@ -279,8 +279,8 @@
                     '<div>' + 
                         '<p class="message">{{message}}</p>' + 
                         '<div>' +
-                            '<button class="btn btn-small btn-danger go-clear-items">{{clearLabel}}</button> ' +
-                            '<button class="btn btn-small cancel-clear-items">{{cancelLabel}}</button>' +
+                            '<button class="btn btn-sm btn-danger go-clear-items">{{clearLabel}}</button> ' +
+                            '<button class="btn btn-sm cancel-clear-items">{{cancelLabel}}</button>' +
                         '</div>' + 
                     '</div>'
             },

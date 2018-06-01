@@ -3,7 +3,7 @@
 {%- set classes = classes + ['control-select'] -%}
 {%- if input_classes is not defined %}{% set input_classes = [] %}{% endif -%}
 
-<div class="control-group{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " " ~ classes|join(' ') }}">
     {% if verbose and description %}<p class="description">{{ description }}</p>{% endif -%}
     <label class="control-label" for="{{ 'input-' ~ qname }}">
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>

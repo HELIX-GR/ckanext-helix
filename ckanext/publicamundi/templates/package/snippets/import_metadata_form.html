@@ -2,7 +2,7 @@
 
 {% block errors %}
 {% if (not errors) and error_summary %}
-<div class="alert alert-error">{{ error_summary|safe }}</div>
+<div class="alert alert-danger">{{ error_summary|safe }}</div>
 {% elif errors %}
 {{ error_messages(errors or {}, summary=error_summary, titles={}) }}
 {% endif %}
@@ -40,7 +40,7 @@
         required=true, allowed_mime_types=allowed_mime_types,
         classes={ 
             'buttons': [], 
-            'remove_buttons': ['btn-warning', 'btn-small'] 
+            'remove_buttons': ['btn-warning', 'btn-sm'] 
         }
     %}
     {% endwith %}

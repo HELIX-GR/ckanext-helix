@@ -1673,7 +1673,12 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         values can be changed!).
         ''' 
         c = toolkit.c
-        rr = c.environ['pylons.routes_dict'] if c.environ else {}
+        rr = c.environ['pylons.routes_dict'] if hasattr(c, 'environ') else {}
+        #if hasattr(c, 'environ'):
+            #log1.info('\n\nENVIRON IS %s\n\n', c.environ)
+        #    rr = c.environ['pylons.routes_dict']
+        #else:
+        #    rr = {}
 
         is_validated = context.get('validate', True)
         if not is_validated:
@@ -1720,15 +1725,20 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         pkg_dict[key_prefix] = md
         
         # Fix for json-friendly results (so json.dumps can handle them)
-
-        if return_json:
+        
+        # temporary fix for api actions (package_show) not containing c.environ
+        
+        if return_json or rr=={}:
             # Remove flat field values (won't be needed anymore)
             key_prefix_1 = key_prefix + '.'
             for k in (y for y in pkg_dict.keys() if y.startswith(key_prefix_1)):
                 pkg_dict.pop(k)
             pkg_dict[key_prefix] = md.to_json(return_string=False)
-         
+            
+        #log1.debug('\n\nAFTER SHOW END return json is %s, rr is %s, c is %s, context is %s\n\n',return_json, rr, c, context)
         return pkg_dict
+        
+        
     
     after_show._api_show_actions = {
         'package_show', 'dataset_show', 'user_show'

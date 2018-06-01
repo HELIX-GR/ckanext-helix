@@ -4,7 +4,7 @@
 {%- if input_classes is not defined %}{% set input_classes = ['input-small'] %}{% endif -%}
 {%- do input_classes.extend(['number', 'int']) -%}
 
-<div class="control-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
     <label class="control-label" for="{{ 'input-' ~ qname }}">
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>
     <div class="controls">

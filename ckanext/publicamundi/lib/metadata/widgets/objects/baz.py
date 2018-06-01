@@ -23,7 +23,7 @@ class BazEditWidget(EditObjectWidget):
     def get_field_template_vars(self):
         return {
             'keywords': {
-                'classes': ['control-group']
+                'classes': ['form-group']
             }
         }
     

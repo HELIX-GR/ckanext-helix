@@ -1,9 +1,9 @@
-    <div class="accordion-group">
-      <div class="accordion-heading">
+    <div class="panel-default">
+      <div class="panel-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-dev" href="#collapse-cswapi">{{ _('CSW API') }} &raquo;</a>
       </div>
-      <div id="collapse-cswapi" class="accordion-body collapse">
-          <div class="accordion-inner">
+      <div id="collapse-cswapi" class="panel-collapse collapse">
+          <div class="panel-body">
             <strong>{{ _('Get CSW Record') }}</strong>
           <p>
           <code><a href="/csw?service=CSW&version=2.0.2&request=GetRecordById&id={{pkg.id}}" target="_blank">/csw?service=CSW&version=2.0.2&request=GetRecordById&id={{pkg.id}}</a></code>

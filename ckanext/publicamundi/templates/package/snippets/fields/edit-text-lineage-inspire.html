@@ -2,7 +2,7 @@
 
 {%- set classes = classes + [ 'control-full' ] -%}
 
-<div class="control-group{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " " ~ classes|join(' ') }}">
     {% if heading %}<header><h3>{{ heading }}</h3></header>{% endif %}
     <p class="description">{{ description }}</p>
     <label class="control-label" for="input-{{ qname }}">

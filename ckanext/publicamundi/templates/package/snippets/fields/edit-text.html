@@ -3,7 +3,7 @@
 {%- set placeholder = placeholder or field.default -%}
 {%- set classes = classes + [ 'control-full' ] -%}
 
-<div class="control-group{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " " ~ classes|join(' ') }}">
     <label class="control-label" for="input-{{ qname }}">
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>
     <div class="controls">

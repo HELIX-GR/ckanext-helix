@@ -30,7 +30,7 @@
 
 {% macro error_messages(errors, summary=None, titles={}) -%}
     {% if errors or summary -%}
-    <div class="alert alert-error errors error-messages">
+    <div class="alert alert-danger errors error-messages">
         {% if summary %}<h3>{{ summary|safe }}</h3>{% endif %}
         {% if errors %}{{ message_list(errors, key=None, titles=titles) }}{% endif %}
     </div>

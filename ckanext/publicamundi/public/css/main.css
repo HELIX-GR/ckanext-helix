@@ -46,11 +46,11 @@ header > h6.inline {
     //font-size: 18px;
 }
 
-.btn-small {
+.btn-sm {
     padding: 4px 9px 4px 9px;
 }
 
-.btn-mini {
+.btn-xs {
     padding: 3px 6px;
 }
 
@@ -78,13 +78,13 @@ div.controls .help-block {
     margin: 3px 0px 0px 0px;
 }
 
-div.accordion-group {
+div.panel-default {
     border-radius: 1px;
 }
 
 /* workaround for dropdown-menu buttons croped inside 
  * accordion bodies */
-div.accordion-body .pull-right > .btn-group > ul.dropdown-menu {
+div.panel-collapse .pull-right > .btn-group > ul.dropdown-menu {
     left: -70%;
 }
 
@@ -110,8 +110,8 @@ textarea{
    width: auto;
 }
 
-.input-prepend .add-on:first-child, 
-.input-prepend .btn:first-child {
+.input-group .input-group-addon:first-child, 
+.input-group .btn:first-child {
     border-radius: 1px 0 0 1px;
 }
 
@@ -146,7 +146,7 @@ label.radio {
     margin-left: 0;
 }
 
-.control-group .btn {
+.form-group .btn {
     top: 0px;
 }
 
@@ -182,7 +182,7 @@ input[type='checkbox'], input[type='radio'] {
     margin: 5px 0px; 
 }
 
-.control-group > .alert-error {
+.form-group > .alert-danger {
     margin: 3px 0px;
     font-size: 12px;
 }
@@ -211,15 +211,15 @@ input:disabled, textarea:disabled {
     cursor: text;
 }
 
-.input-append .add-on:last-child, 
-.input-append .btn:last-child, 
-.input-append .btn-group:last-child > .dropdown-toggle {
+.input-group .input-group-addon:last-child, 
+.input-group .btn:last-child, 
+.input-group .btn-group:last-child > .dropdown-toggle {
     border-radius: 0 1px 1px 0;
 }
 
-.input-append.datetime .add-on, 
-.input-append.time .add-on,
-.input-append.date .add-on {
+.input-group.datetime .input-group-addon, 
+.input-group.time .input-group-addon,
+.input-group.date .input-group-addon {
     cursor: pointer;
 }
 
@@ -228,7 +228,7 @@ input:disabled, textarea:disabled {
     border-radius: 2px;
 }
 
-.form-horizontal .control-group {
+.form-horizontal .form-group {
     margin-bottom: 14px;
 }
 
@@ -236,7 +236,7 @@ input:disabled, textarea:disabled {
     width: 235px;
 }
 
-.form-horizontal .control-group .controls > div.display {
+.form-horizontal .form-group .controls > div.display {
     padding-top: 5px;
 }
 
@@ -250,7 +250,7 @@ input:disabled, textarea:disabled {
     margin-top: inherit;
 }
 
-.form-horizontal .control-group > .control-subgroup {
+.form-horizontal .form-group > .control-subgroup {
     margin: 5px 0px;
 }
 

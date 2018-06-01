@@ -9,7 +9,7 @@
 
   {% block search_input %}
  
-  <div class="searchfw search-input control-group {{ search_class }}">
+  <div class="searchfw search-input form-group {{ search_class }}">
       <div class="container">
       <input type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
       <button type="submit" value="search">
@@ -28,7 +28,7 @@
   {% endblock %}
   {% block search_sortby %}
   {% if sorting %}
-      <div class="form-select control-group control-order-by">
+      <div class="form-select form-group control-order-by">
         <label for="field-order-by">{{ _('Order by') }}</label>
         <select id="field-order-by" class="select-style" name="sort" data-module="autocomplete">
           {% for label, value in sorting %}

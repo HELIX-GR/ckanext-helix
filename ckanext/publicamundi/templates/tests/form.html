@@ -15,7 +15,7 @@
 
 <form method="post" class="{{ c.form_class }}">
     {% if c.form_errors %}
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
         <strong>Ooops!</strong> The form contains errors!
     </div>
     <pre>{{ c.form_errors|pprint }}</pre>

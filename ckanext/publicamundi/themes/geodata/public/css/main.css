@@ -1085,10 +1085,10 @@ p a{
 .developers ul li{
     padding: 5px;
 }
-#accordion-dev .accordion-group{
+#accordion-dev .panel-default{
     margin: 5px 0;
 }
-#accordion-dev .accordion-heading a{
+#accordion-dev .panel-heading a{
     padding: 13px;
     font-size: 16px;
 }
@@ -1655,7 +1655,7 @@ a.tag:hover{
     //border: 3px #4E59A4 solid;
 
 }
-.btn-mini {
+.btn-xs {
     font-family: 'ACMuli';
     border-radius: 0;
     padding: 0 6px;
@@ -1665,7 +1665,7 @@ a.tag:hover{
     text-shadow: none;
     box-shadow: none;
 }
-.btn-small {
+.btn-sm {
     font-family: 'ACMuli';
     border-radius: 0;
     padding: 2px 9px;
@@ -1750,7 +1750,7 @@ a.tag:hover{
     color: #fff !important;
     border: 2px #C43210 solid;
 }
-.remove-opts .btn-mini{
+.remove-opts .btn-xs{
     border: 2px #C43210 solid;
     color: #C43210;
     background: #fff;
@@ -1797,7 +1797,7 @@ a.tag:hover{
     border: 2px #C6B489 solid;
 }
 
-.dropdown-menu .btn, .dropdown-menu .btn-mini{
+.dropdown-menu .btn, .dropdown-menu .btn-xs{
      border: none !important;
 }
 .btn [class^="icon-"]{
@@ -1826,7 +1826,7 @@ a.tag:hover{
 .btn-warning:hover .caret{
     background: #C6B489;
 }
-.remove-opts .btn:hover, .remove-opts .btn-mini:hover{
+.remove-opts .btn:hover, .remove-opts .btn-xs:hover{
     background: #C43210;
 }
 .btn-primary:focus{
@@ -1846,7 +1846,7 @@ a.tag:hover{
     color: #4E59A4;
     font-weight: bold;
 }
-.accordion-group:hover{
+.panel-default:hover{
     background: #F6F6F6;
 }
 /* Search page specific */
@@ -2025,7 +2025,7 @@ iframe{
     float: none;
     margin-bottom: 30px;
 }
-.add-member-form .row-fluid .control-group{
+.add-member-form .row-fluid .form-group{
     width: 60%;
 }
 .add-member-form .controls{

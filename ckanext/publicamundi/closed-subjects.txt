@@ -1,0 +1,1249 @@
+Mathematical Science
+Pure Mathematics
+Algebra and Number Theory
+Category Theory - K Theory-Homological Algebra
+Group Theory and Generalisations
+Lie Groups - Harmonic and Fourier Analysis
+Ordinary Differential Equations - Difference Equations and Dynamical Systems
+Applied Mathematics
+Approximation Theory and Asymptotic Methods
+Biological Mathematics
+Dynamical Systems in Applications
+Financial Mathematics
+Operations Research
+Theoretical and Applied Mechanics
+Applied Mathematics not elsewhere classified
+Numerical and Computational Mathematics
+Numerical Analysis
+Numerical Solution of Differential and Integral Equations
+Optimisation
+Numerical and Computational Mathematics not elsewhere classified
+Statistics
+Applied Statistics
+Biostatistics
+Forensic Statistics
+Probability Theory
+Statistical Theory
+Stochastic Analysis and Modelling
+Statistics not elsewhere classified
+Mathematical Physics
+Mathematical Aspects of Quantum and Conformal Field Theory - Quantum Gravity and String Theory
+Statistical Mechanics - Physical Combinatorics and Mathematical Aspects of Condensed Matter
+Mathematical Physics not elsewhere classified
+Other Mathematical Sciences
+Mathematical Sciences not elsewhere classified
+Physical Science
+Astronomical and Space Sciences
+Astronomical and Space Instrumentation
+Cosmology and Extragalactic Astronomy
+Galactic Astronomy
+General Relativity and Gravitational Waves
+High Energy Astrophysics - Cosmic Rays
+Planetary Science excl Extraterrestrial Geology
+Space and Solar Physics
+Stellar Astronomy and Planetary Systems
+Astronomical and Space Sciences not elsewhere classified
+Atomic - Molecular-Nuclear-Particle and Plasma Physics
+Atomic and Molecular Physics
+Nuclear Physics
+Particle Physics
+Plasma Physics - Fusion Plasmas-Electrical Discharges
+Atomic - Molecular-Nuclear-Particle and Plasma Physics not elsewhere classified
+Classical Physics
+Fluid Physics
+Thermodynamics and Statistical Physics
+Classical Physics not elsewhere classified
+Condensed Matter Physics
+Condensed Matter Characterisation Technique Development
+Condensed Matter Modelling and Density Functional Theory
+Electronic and Magnetic Properties of Condensed Matter - Superconductivity
+Soft Condensed Matter
+Surfaces and Structural Properties of Condensed Matter
+Condensed Matter Physics not elsewhere classified
+Optical Physics
+Lasers and Quantum Electronics
+Nonlinear Optics and Spectroscopy
+Photonics - Optoelectronics and Optical Communications
+Optical Physics not elsewhere classified
+Quantum Physics
+Degenerate Quantum Gases and Atom Optics
+Field Theory and String Theory
+Quantum Physics not elsewhere classified
+Other Physical Sciences
+Biological Physics
+Complex Physical Systems
+Medical Physics
+Synchrotrons - Accelerators-Instruments and Techniques
+Physical Sciences not elsewhere classified
+Chemical Sciences
+Analytical Chemistry
+Analytical Spectrometry
+Electroanalytical Chemistry
+Immunological and Bioassay Methods
+Instrumental Methods excl Immunological and Bioassay Methods
+Quality Assurance - Chemometrics-Traceability and Metrological Chemistry
+Sensor Technology Chemical aspects
+Separation Science
+Analytical Chemistry not elsewhere classified
+Inorganic Chemistry
+Bioinorganic Chemistry
+f-Block Chemistry
+Inorganic Green Chemistry
+Main Group Metal Chemistry
+Non-metal Chemistry
+Solid State Chemistry
+Transition Metal Chemistry
+Inorganic Chemistry not elsewhere classified
+Macromolecular and Materials Chemistry
+Chemical Characterisation of Materials
+Nanochemistry and Supramolecular Chemistry
+Optical Properties of Materials
+Physical Chemistry of Materials
+Polymerisation Mechanisms
+Synthesis of Materials
+Theory and Design of Materials
+Macromolecular and Materials Chemistry not elsewhere classified
+Medicinal and Biomolecular Chemistry
+Biologically Active Molecules
+Biomolecular Modelling and Design
+Characterisation of Biological Macromolecules
+Cheminformatics and Quantitative Structure-Activity Relationships
+Molecular Medicine
+Proteins and Peptides
+Medicinal and Biomolecular Chemistry not elsewhere classified
+Organic Chemistry
+Free Radical Chemistry
+Natural Products Chemistry
+Organic Chemical Synthesis
+Organic Green Chemistry
+Physical Organic Chemistry
+Organic Chemistry not elsewhere classified
+Physical Chemistry incl Structural
+Catalysis and Mechanisms of Reactions
+Chemical Thermodynamics and Energetics
+Colloid and Surface Chemistry
+Electrochemistry
+Solution Chemistry
+Structural Chemistry and Spectroscopy
+Physical Chemistry incl Structural not elsewhere classified
+Theoretical and Computational Chemistry
+Quantum Chemistry
+Reaction Kinetics and Dynamics
+Statistical Mechanics in Chemistry
+Theoretical and Computational Chemistry not elsewhere classified
+Other Chemical Sciences
+Environmental Chemistry incl Atmospheric Chemistry
+Forensic Chemistry
+Industrial Chemistry
+Organometallic Chemistry
+Chemical Sciences not elsewhere classified
+Earth Science
+Atmospheric Sciences
+Atmospheric Aerosols
+Atmospheric Dynamics
+Atmospheric Radiation
+Climate Change Processes
+Climatology excl Climate Change Processes
+Meteorology
+Tropospheric and Stratospheric Physics
+Atmospheric Sciences not elsewhere classified
+Geochemistry
+Exploration Geochemistry
+Inorganic Geochemistry
+Isotope Geochemistry
+Organic Geochemistry
+Geochemistry not elsewhere classified
+Geology
+Basin Analysis
+Geochronology
+Igneous and Metamorphic Petrology
+Marine Geoscience
+Mineralogy and Crystallography
+Ore Deposit Petrology
+Palaeontology incl Palynology
+Petroleum and Coal Geology
+Sedimentology
+Stratigraphy incl Biostratigraphy and Sequence Stratigraphy
+Structural Geology
+Tectonics
+Volcanology
+Geology not elsewhere classified
+Geophysics
+Electrical and Electromagnetic Methods in Geophysics
+Geodynamics
+Geophysical Fluid Dynamics
+Geothermics and Radiometrics
+Gravimetrics
+Magnetism and Palaeomagnetism
+Seismology and Seismic Exploration
+Geophysics not elsewhere classified
+Oceanography
+Biological Oceanography
+Chemical Oceanography
+Physical Oceanography
+Oceanography not elsewhere classified
+Physical Geography and Environmental Geoscience
+Geomorphology and Regolith and Landscape Evolution
+Glaciology
+Hydrogeology
+Natural Hazards
+Palaeoclimatology
+Quaternary Environments
+Surface Processes
+Surfacewater Hydrology
+Physical Geography and Environmental Geoscience not elsewhere classified
+Other Earth Sciences
+Earth Sciences not elsewhere classified
+Environmental Sciences
+Ecological Applications
+Ecological Impacts of Climate Change
+Ecosystem Function
+Invasive Species Ecology
+Landscape Ecology
+Ecological Applications not elsewhere classified
+Environmental Science and Management
+Aboriginal and Torres Strait Islander Environmental Knowledge
+Conservation and Biodiversity
+Environmental Education and Extension
+Environmental Impact Assessment
+Environmental Management
+Environmental Monitoring
+Environmental Rehabilitation excl Bioremediation
+Maori Environmental Knowledge
+Natural Resource Management
+Pacific Peoples Environmental Knowledge
+Wildlife and Habitat Management
+Environmental Science and Management not elsewhere classified
+Soil Sciences
+Carbon Sequestration Science
+Land Capability and Soil Degradation
+Soil Biology
+Soil Chemistry excl Carbon Sequestration Science
+Soil Physics
+Soil Sciences not elsewhere classified
+Other Environmental Sciences
+Environmental Sciences not elsewhere classified
+Biological Sciences
+Biochemistry and Cell Biology
+Analytical Biochemistry
+Bioinformatics
+Cell Development - Proliferation and Death
+Cell Metabolism
+Cell Neurochemistry
+Cellular Interactions incl Adhesion - Matrix-Cell Wall
+Enzymes
+Protein Trafficking
+Proteomics and Intermolecular Interactions excl Medical Proteomics
+Receptors and Membrane Biology
+Signal Transduction
+Structural Biology incl Macromolecular Modelling
+Synthetic Biology
+Systems Biology
+Biochemistry and Cell Biology not elsewhere classified
+Ecology
+Behavioural Ecology
+Community Ecology excl Invasive Species Ecology
+Ecological Physiology
+Freshwater Ecology
+Marine and Estuarine Ecology incl Marine Ichthyology
+Palaeoecology
+Population Ecology
+Terrestrial Ecology
+Ecology not elsewhere classified
+Evolutionary Biology
+Animal Systematics and Taxonomy
+Biogeography and Phylogeography
+Biological Adaptation
+Ethology and Sociobiology
+Evolution of Developmental Systems
+Evolutionary Impacts of Climate Change
+Host-Parasite Interactions
+Life Histories
+Phylogeny and Comparative Analysis
+Plant Systematics and Taxonomy
+Speciation and Extinction
+Evolutionary Biology not elsewhere classified
+Genetics
+Anthropological Genetics
+Cell and Nuclear Division
+Developmental Genetics incl Sex Determination
+Epigenetics incl Genome Methylation and Epigenomics
+Gene Expression incl Microarray and other genome-wide approaches
+Genetic Immunology
+Genome Structure and Regulation
+Genomics
+Molecular Evolution
+Neurogenetics
+Population - Ecological and Evolutionary Genetics
+Quantitative Genetics incl Disease and Trait Mapping Genetics
+Genetics not elsewhere classified
+Microbiology
+Bacteriology
+Infectious Agents
+Microbial Genetics
+Microbial Ecology
+Mycology
+Virology
+Microbiology not elsewhere classified
+Physiology
+Animal Physiology  -  Biophysics
+Animal Physiology  -  Cell
+Animal Physiology Systems
+Comparative Physiology
+Physiology not elsewhere classified
+Plant Biology
+Phycology incl Marine Grasses
+Plant Cell and Molecular Biology
+Plant Developmental and Reproductive Biology
+Plant Pathology
+Plant Physiology
+Plant Biology not elsewhere classified
+Zoology
+Animal Behaviour
+Animal Cell and Molecular Biology
+Animal Developmental and Reproductive Biology
+Animal Immunology
+Animal Neurobiology
+Animal Physiological Ecology
+Animal Structure and Function
+Invertebrate Biology
+Vertebrate Biology
+Zoology not elsewhere classified
+Other Biological Sciences
+Forensic Biology
+Global Change Biology
+Biological Sciences not elsewhere classifie
+Agricultural and Veterinary Science
+Agriculture - Land and Farm Management
+Agricultural Land Management
+Agricultural Land Planning
+Agricultural Production Systems Simulation
+Agricultural Spatial Analysis and Modelling
+Agricultural Systems Analysis and Modelling
+Farm Management - Rural Management and Agribusiness
+Farming Systems Research
+Sustainable Agricultural Development
+Agriculture - Land and Farm Management not elsewhere classified
+Animal Production
+Animal Breeding
+Animal Growth and Development
+Animal Management
+Animal Nutrition
+Animal Protection Pests and Pathogens
+Animal Reproduction
+Humane Animal Treatment
+Animal Production not elsewhere classified
+Crop and Pasture Production
+Agro-ecosystem Function and Prediction
+Agronomy
+Crop and Pasture Biochemistry and Physiology
+Crop and Pasture Biomass and Bioproducts
+Crop and Pasture Improvement Selection and Breeding
+Crop and Pasture Nutrition
+Crop and Pasture Post Harvest Technologies incl Transportation and Storage
+Crop and Pasture Protection Pests - Diseases and Weeds
+Crop and Pasture Production not elsewhere classified
+Fisheries Sciences
+Aquaculture
+Aquatic Ecosystem Studies and Stock Assessment
+Fisheries Management
+Fish Pests and Diseases
+Fish Physiology and Genetics
+Post-Harvest Fisheries Technologies incl Transportation
+Fisheries Sciences not elsewhere classified
+Forestry Sciences
+Agroforestry
+Forestry Biomass and Bioproducts
+Forestry Fire Management
+Forestry Management and Environment
+Forestry Pests - Health and Diseases
+Tree Improvement Selection and Breeding
+Tree Nutrition and Physiology
+Forestry Sciences not elsewhere classified
+Horticultural Production
+Horticultural Crop Growth and Development
+Horticultural Crop Improvement Selection and Breeding
+Horticultural Crop Protection Pests - Diseases and Weeds
+Oenology and Viticulture
+Post Harvest Horticultural Technologies incl Transportation and Storage
+Horticultural Production not elsewhere classified
+Veterinary Sciences
+Veterinary Anaesthesiology and Intensive Care
+Veterinary Anatomy and Physiology
+Veterinary Diagnosis and Diagnostics
+Veterinary Epidemiology
+Veterinary Immunology
+Veterinary Medicine
+Veterinary Microbiology excl Virology
+Veterinary Parasitology
+Veterinary Pathology
+Veterinary Pharmacology
+Veterinary Surgery
+Veterinary Virology
+Veterinary Sciences not elsewhere classified
+Other Agricultural and Veterinary Sciences
+Agricultural Hydrology Drainage - Flooding-Irrigation-Quality-etc
+Fertilisers and Agrochemicals incl Application
+Agricultural and Veterinary Sciences not elsewhere classified
+Information and Computing Science
+Artificial Intelligence and Image Processing
+Adaptive Agents and Intelligent Robotics
+Computer Graphics
+Computer Vision
+Expert Systems
+Image Processing
+Natural Language Processing
+Neural - Evolutionary and Fuzzy Computation
+Pattern Recognition and Data Mining
+Simulation and Modelling
+Virtual Reality and Related Simulation
+Artificial Intelligence and Image Processing not elsewhere classified
+Computation Theory and Mathematics
+Analysis of Algorithms and Complexity
+Applied Discrete Mathematics
+Computational Logic and Formal Languages
+Mathematical Software
+Numerical Computation
+Computation Theory and Mathematics not elsewhere classified
+Computer Software
+Bioinformatics Software
+Computer System Architecture
+Computer System Security
+Multimedia Programming
+Open Software
+Operating Systems
+Programming Languages
+Software Engineering
+Computer Software not elsewhere classified
+Data Format
+Coding and Information Theory
+Data Encryption
+Data Structures
+Data Format not elsewhere classified
+Distributed Computing
+Distributed and Grid Systems
+Mobile Technologies
+Networking and Communications
+Ubiquitous Computing
+Web Technologies excl Web Search
+Distributed Computing not elsewhere classified
+Information Systems
+Aboriginal and Torres Strait Islander Information and Knowledge Systems
+Computer-Human Interaction
+Conceptual Modelling
+Database Management
+Decision Support and Group Support Systems
+Global Information Systems
+Information Engineering and Theory
+Information Systems Development Methodologies
+Information Systems Management
+Information Systems Organisation
+Information Systems Theory
+Interorganisational Information Systems and Web Services
+Information Systems not elsewhere classified
+Library and Information Studies
+Aboriginal and Torres Strait Islander Knowledge Management
+Human Information Behaviour
+Information Retrieval and Web Search
+Informetrics
+Librarianship
+Organisation of Information and Knowledge Resources
+Records and Information Management excl Business Records and Information Management
+Social and Community Informatics
+Library and Information Studies not elsewhere classified
+Other Information and Computing Sciences
+Information and Computing Sciences not elsewhere classified
+Engineerin
+Aerospace Engineering
+Aerospace Materials
+Aerospace Structures
+Satellite - Space Vehicle and Missile Design and Testing
+Automotive Engineering
+Automotive Combustion and Fuel Engineering incl Alternative-Renewable Fuels
+Automotive Engineering Materials
+Automotive Safety Engineering
+Hybrid Vehicles and Powertrains
+Automotive Engineering not elsewhere classified
+Biomedical Engineering
+Biomaterials
+Biomechanical Engineering
+Biomedical Instrumentation
+Medical Devices
+Biomedical Engineering not elsewhere classified
+Chemical Engineering
+Carbon Capture Engineering excl Sequestration
+Catalytic Process Engineering
+Chemical Engineering Design
+Membrane and Separation Technologies
+Non-automotive Combustion and Fuel Engineering incl Alternative-Renewable Fuels
+Powder and Particle Technology
+Process Control and Simulation
+Rheology
+Wastewater Treatment Processes
+Water Treatment Processes
+Chemical Engineering not elsewhere classified
+Civil Engineering
+Civil Geotechnical Engineering
+Construction Engineering
+Construction Materials
+Earthquake Engineering
+Structural Engineering
+Transport Engineering
+Water Quality Engineering
+Water Resources Engineering
+Civil Engineering not elsewhere classified
+Electrical and Electronic Engineering
+Circuits and Systems
+Control Systems - Robotics and Automation
+Microelectronics and Integrated Circuits
+Photodetectors - Optical Sensors and Solar Cells
+Power and Energy Systems Engineering excl Renewable Power
+Renewable Power and Energy Systems Engineering excl Solar Cells
+Signal Processing
+Electrical and Electronic Engineering not elsewhere classified
+Environmental Engineering
+Environmental Engineering Design
+Environmental Engineering Modelling
+Environmental Technologies
+Environmental Engineering not elsewhere classified
+Food Sciences
+Food Engineering
+Food Packaging - Preservation and Safety
+Food Processing
+Geomatic Engineering
+Geospatial Information Systems
+Navigation and Position Fixing
+Photogrammetry and Remote Sensing
+Surveying incl Hydrographic Surveying
+Manufacturing Engineering
+Manufacturing Safety and Quality
+Microtechnology
+Textile Technology
+Maritime Engineering
+Ocean Engineering
+Ship and Platform Hydrodynamics
+Ship and Platform Structures
+Special Vehicles
+Maritime Engineering not elsewhere classified
+Materials Engineering
+Ceramics
+Composite and Hybrid Materials
+Compound Semiconductors
+Functional Materials
+Glass
+Metals and Alloy Materials
+Organic Semiconductors
+Polymers and Plastics
+Timber - Pulp and Paper
+Materials Engineering not elsewhere classified
+Mechanical Engineering
+Acoustics and Noise Control excl Architectural Acoustics
+Autonomous Vehicles
+Dynamics - Vibration and Vibration Control
+Energy Generation - Conversion and Storage Engineering
+Numerical Modelling and Mechanical Characterisation
+Solid Mechanics
+Tribology
+Mechanical Engineering not elsewhere classified
+Resources Engineering and Extractive Metallurgy
+Electrometallurgy
+Geomechanics and Resources Geotechnical Engineering
+Hydrometallurgy
+Mineral Processing-Beneficiation
+Mining Engineering
+Pyrometallurgy
+Resources Engineering and Extractive Metallurgy not elsewhere classified
+Interdisciplinary Engineering
+Computational Fluid Dynamics
+Computational Heat Transfer
+Engineering Practice
+Fluidisation and Fluid Mechanics
+Heat and Mass Transfer Operations
+Nuclear Engineering incl Fuel Enrichment and Waste Processing and Storage
+Risk Engineering excl Earthquake Engineering
+Turbulent Flows
+Interdisciplinary Engineering not elsewhere classified
+Other Engineering
+Agricultural Engineering
+Engineering Instrumentation
+Engineering not elsewhere classified
+Technolog
+Agricultural Biotechnology
+Agricultural Marine Biotechnology
+Agricultural Biotechnology not elsewhere classified
+Environmental Biotechnology
+Biodiscovery
+Biological Control
+Bioremediation
+Environmental Biotechnology Diagnostics incl Biosensors
+Environmental Marine Biotechnology
+Environmental Biotechnology not elsewhere classified
+Industrial Biotechnology
+Bioprocessing - Bioproduction and Bioproducts
+Industrial Microbiology incl Biofeedstocks
+Industrial Molecular Engineering of Nucleic Acids and Proteins
+Industrial Biotechnology not elsewhere classified
+Medical Biotechnology
+Gene and Molecular Therapy
+Medical Biotechnology Diagnostics incl Biosensors
+Medical Molecular Engineering of Nucleic Acids and Proteins
+Regenerative Medicine incl Stem Cells and Tissue Engineering
+Medical Biotechnology not elsewhere classified
+Communications Technologies
+Antennas and Propagation
+Broadband and Modem Technology
+Computer Communications Networks
+Data Communications
+Microwave and Millimetrewave Theory and Technology
+Satellite Communications
+Video Communications
+Wireless Communications
+Communications Technologies not elsewhere classified
+Computer Hardware
+Input - Output and Data Devices
+Computer Hardware not elsewhere classified
+Nanotechnology
+Environmental Nanotechnology
+Nanobiotechnology
+Nanoelectronics
+Nanofabrication - Growth and Self Assembly
+Nanomaterials
+Nanomedicine
+Nanoscale Characterisation
+Nanotechnology not elsewhere classified
+Other Technology
+Technology not elsewhere classified
+Medical and Health Science
+Medical Biochemistry and Metabolomics
+Medical Biochemistry - Amino Acids and Metabolites
+Medical Biochemistry -  Carbohydrates
+Medical Biochemistry - Inorganic Elements and Compounds
+Medical Biochemistry - Lipids
+Medical Biochemistry - Nucleic Acids
+Medical Biochemistry - Proteins and Peptides incl Medical Proteomics
+Metabolic Medicine
+Medical Biochemistry and Metabolomics not elsewhere classified
+Cardiovascular Medicine and Haematology
+Cardiology incl Cardiovascular Diseases
+Haematology
+Respiratory Diseases
+Cardiovascular Medicine and Haematology not elsewhere classified
+Clinical Sciences
+Anaesthesiology
+Clinical Chemistry diagnostics
+Clinical Microbiology
+Dermatology
+Emergency Medicine
+Endocrinology
+Gastroenterology and Hepatology
+Geriatrics and Gerontology
+Infectious Diseases
+Intensive Care
+Medical Genetics excl Cancer Genetics
+Nephrology and Urology
+Orthopaedics
+Otorhinolaryngology
+Pathology excl Oral Pathology
+Physiotherapy
+Podiatry
+Psychiatry incl Psychotherapy
+Radiology and Organ Imaging
+Rehabilitation and Therapy excl Physiotherapy
+Rheumatology and Arthritis
+Surgery
+Venereology
+Clinical Sciences not elsewhere classified
+Complementary and Alternative Medicine
+Chiropractic
+Naturopathy
+Traditional Chinese Medicine and Treatments
+Complementary and Alternative Medicine not elsewhere classified
+Dentistry
+Dental Materials and Equipment
+Dental Therapeutics - Pharmacology and Toxicology
+Endodontics
+Oral and Maxillofacial Surgery
+Oral Medicine and Pathology
+Orthodontics and Dentofacial Orthopaedics
+Paedodontics
+Periodontics
+Special Needs Dentistry
+Dentistry not elsewhere classified
+Human Movement and Sports Science
+Biomechanics
+Exercise Physiology
+Motor Control
+Sports Medicine
+Human Movement and Sports Science not elsewhere classified
+Immunology
+Allergy
+Applied Immunology incl Antibody Engineering - Xenotransplantation and T-cell Therapies
+Autoimmunity
+Cellular Immunology
+Humoural Immunology and Immunochemistry
+Immunogenetics incl Genetic Immunology
+Innate Immunity
+Transplantation Immunology
+Tumour Immunology
+Immunology not elsewhere classified
+Medical Microbiology
+Medical Bacteriology
+Medical Infection Agents incl Prions
+Medical Parasitology
+Medical Virology
+Medical Microbiology not elsewhere classified
+Neurosciences
+Autonomic Nervous System
+Cellular Nervous System
+Central Nervous System
+Neurology and Neuromuscular Diseases
+Peripheral Nervous System
+Sensory Systems
+Neurosciences not elsewhere classified
+Nursing
+Aged Care Nursing
+Clinical Nursing - Primary Preventative
+Clinical Nursing - Secondary Acute Care
+Clinical Nursing - Tertiary Rehabilitative
+Mental Health Nursing
+Midwifery
+Nursing not elsewhere classified
+Nutrition and Dietetics
+Clinical and Sports Nutrition
+Dietetics and Nutrigenomics
+Nutritional Physiology
+Public Nutrition Intervention
+Nutrition and Dietetics not elsewhere classified
+Oncology and Carcinogenesis
+Cancer Cell Biology
+Cancer Diagnosis
+Cancer Genetics
+Cancer Therapy excl Chemotherapy and Radiation Therapy
+Chemotherapy
+Haematological Tumours
+Molecular Targets
+Radiation Therapy
+Solid Tumours
+Oncology and Carcinogenesis not elsewhere classified
+Ophthalmology and Optometry
+Ophthalmology
+Optical Technology
+Vision Science
+Ophthalmology and Optometry not elsewhere classified
+Paediatrics and Reproductive Medicine
+Foetal Development and Medicine
+Obstetrics and Gynaecology
+Paediatrics
+Reproduction
+Paediatrics and Reproductive Medicine not elsewhere classified
+Pharmacology and Pharmaceutical Sciences
+Basic Pharmacology
+Clinical Pharmacology and Therapeutics
+Clinical Pharmacy and Pharmacy Practice
+Pharmaceutical Sciences
+Toxicology incl Clinical Toxicology
+Pharmacology and Pharmaceutical Sciences not elsewhere classified
+Medical Physiology
+Cell Physiology
+Human Biophysics
+Systems Physiology
+Medical Physiology not elsewhere classified
+Public Health and Health Services
+Aboriginal and Torres Strait Islander Health
+Aged Health Care
+Care for Disabled
+Community Child Health
+Environmental and Occupational Health and Safety
+Epidemiology
+Family Care
+Health and Community Services
+Health Care Administration
+Health Counselling
+Health Information Systems incl Surveillance
+Health Promotion
+Maori Health
+Mental Health
+Pacific Peoples Health
+Preventive Medicine
+Primary Health Care
+Residential Client Care
+Public Health and Health Services not elsewhere classified
+Other Medical and Health Sciences
+Medical and Health Sciences not elsewhere classified
+BUILT ENVIRONMENT AND DESIGN
+Architecture
+Architectural Design
+Architectural Heritage and Conservation
+Architectural History and Theory
+Landscape Architecture
+Architecture not elsewhere classified
+Building
+Building Construction Management and Project Planning
+Building Science and Techniques
+Building not elsewhere classified
+Design Practice and Management
+Design History and Theory
+Design Innovation
+Design Management and Studio and Professional Practice
+Digital and Interaction Design
+Textile and Fashion Design
+Visual Communication Design incl Graphic Design
+Engineering Design
+Engineering Design Empirical Studies
+Engineering Design Knowledge
+Engineering Design Methods
+Engineering Systems Design
+Models of Engineering Design
+Urban and Regional Planning
+Community Planning
+History and Theory of the Built Environment excl Architecture
+Housing Markets - Development-Management
+Land Use and Environmental Planning
+Regional Analysis and Development
+Transport Planning
+Urban Analysis and Development
+Urban Design
+Urban and Regional Planning not elsewhere classified
+Other Built Environment and Design
+Built Environment and Design not elsewhere classified
+Education
+Education Systems
+Continuing and Community Education
+Early Childhood Education excl Maor
+Higher Education
+Primary Education excl Maori
+Secondary Education
+Technical - Further and Workplace Education
+Education systems not elsewhere classified
+Curriculum and Pedagogy
+Creative Arts - Media and Communication Curriculum and Pedagogy
+Curriculum and Pedagogy Theory and Development
+Economics - Business and Management Curriculum and Pedagogy
+English and Literacy Curriculum and Pedagogy excl LOTE - ESL and TESOL
+Humanities and Social Sciences Curriculum and Pedagogy excl Economics - Business and Management
+Kohanga Reo Maori Language Curriculum and Pedagogy
+LOTE - ESL and TESOL Curriculum and Pedagogy excl Maori
+Mathematics and Numeracy Curriculum and Pedagogy
+Medicine - Nursing and Health Curriculum and Pedagogy
+Physical Education and Development Curriculum and Pedagogy
+Science - Technology and Engineering Curriculum and Pedagogy
+Vocational Education and Training Curriculum and Pedagogy
+Curriculum and Pedagogy not elsewhere classified
+Specialist Studies in Education
+Aboriginal and Torres Strait Islander Education
+Comparative and Cross-Cultural Education
+Education Assessment and Evaluation
+Educational Administration - Management and Leadership
+Educational Counselling
+Educational Technology and Computing
+Ethnic Education excl Aboriginal and Torres Strait Islander - Maori and Pacific Peoples
+Gender - Sexuality and Education
+Learning Sciences
+Maori Education excl Early Childhood and Primary Education
+Pacific Peoples Education
+Special Education and Disability
+Teacher Education and Professional Development of Educators
+Specialist Studies in Education not elsewhere classified
+Other Education
+Education not elsewhere classified
+Economic
+Economic Theory
+History of Economic Thought
+Macroeconomic Theory
+Mathematical Economics
+Microeconomic Theory
+Economic Theory not elsewhere classified
+Applied Economics
+Agricultural Economics
+Economic Development and Growth
+Economic History
+Economics of Education
+Environment and Resource Economics
+Experimental Economics
+Financial Economics
+Health Economics
+Industry Economics and Industrial Organisation
+International Economics and International Finance
+Labour Economics
+Macroeconomics incl Monetary and Fiscal Theory
+Public Economics - Public Choice
+Public Economics - Publically Provided Goods
+Public Economics - Taxation and Revenue
+Tourism Economics
+Transport Economics
+Urban and Regional Economics
+Welfare Economics
+Applied Economics not elsewhere classified
+Econometrics
+Cross-Sectional Analysis
+Econometric and Statistical Methods
+Economic Models and Forecasting
+Panel Data Analysis
+Time-Series Analysis
+Other Economics
+Comparative Economic Systems
+Ecological Economics
+Heterodox Economics
+Economics not elsewhere classifie
+Commerce - Management-Tourism and Service
+Accounting - Auditing and Accountability
+Accounting Theory and Standards
+Auditing and Accountability
+Financial Accounting
+International Accounting
+Management Accounting
+Sustainability Accounting and Reporting
+Accounting - Auditing and Accountability not elsewhere classified
+Banking - Finance and Investment
+Finance
+Financial Econometrics
+Financial Institutions incl Banking
+Investment and Risk Management
+Banking - Finance and Investment not elsewhere classified
+Business and Management
+Business Information Management incl Records - Knowledge and Information Management-and Intelligence
+Business Information Systems
+Corporate Governance and Stakeholder Engagement
+Entrepreneurship
+Human Resources Management
+Industrial Relations
+Innovation and Technology Management
+International Business
+Logistics and Supply Chain Management
+Organisation and Management Theory
+Organisational Behaviour
+Organisational Planning and Management
+Quality Management
+Small Business Management
+Business and Management not elsewhere classified
+Commercial Services
+Food and Hospitality Services
+Hospitality Management
+Real Estate and Valuation Services
+Sport and Leisure Management
+Commercial Services not elsewhere classified
+Marketing
+Consumer-Oriented Product or Service Development
+Marketing Communications
+Marketing Management incl Strategy and Customer Relations
+Marketing Measurement
+Marketing Research Methodology
+Marketing Theory
+Pricing incl Consumer Value Estimation
+Marketing not elsewhere classified
+Tourism
+Impacts of Tourism
+Tourism Forecasting
+Tourism Management
+Tourism Marketing
+Tourism Resource Appraisal
+Tourist Behaviour and Visitor Experience
+Tourism not elsewhere classified
+Transportation and Freight Services
+Air Transportation and Freight Services
+Transportation and Freight Services not elsewhere classified
+Other Commerce - Management-Tourism and Services
+Commerce - Management-Tourism and Services not elsewhere classified
+Studies in Human Societ
+Anthropology
+Anthropology of Development
+Biological Physical Anthropology
+Linguistic Anthropology
+Social and Cultural Anthropology
+Anthropology not elsewhere classified
+Criminology
+Causes and Prevention of Crime
+Correctional Theory - Offender Treatment and Rehabilitation
+Courts and Sentencing
+Criminological Theories
+Police Administration - Procedures and Practice
+Private Policing and Security Services
+Criminology not elsewhere classified
+Demography
+Family and Household Studies
+Fertility
+Migration
+Mortality
+Population Trends and Policies
+Demography not elsewhere classified
+Human Geography
+Economic Geography
+Recreation - Leisure and Tourism Geography
+Social and Cultural Geography
+Urban and Regional Studies excl Planning
+Human Geography not elsewhere classified
+Policy and Administration
+Aboriginal and Torres Strait Islander Policy
+Arts and Cultural Policy
+Communications and Media Policy
+Economic Development Policy
+Education Policy
+Environment Policy
+Health Policy
+Public Administration
+Public Policy
+Research - Science and Technology Policy
+Social Policy
+Tourism Policy
+Urban Policy
+Policy and Administration not elsewhere classified
+Political Science
+Australian Government and Politics
+Citizenship
+Comparative Government and Politics
+Defence Studies
+Environmental Politics
+Government and Politics of Asia and the Pacific
+International Relations
+Political Theory and Political Philosophy
+Political Science not elsewhere classified
+Social Work
+Clinical Social Work Practice
+Counselling - Welfare and Community Services
+Social Program Evaluation
+Social Work not elsewhere classified
+Sociology
+Applied Sociology - Program Evaluation and Social Impact Assessment
+Environmental Sociology
+Race and Ethnic Relations
+Rural Sociology
+Social Change
+Social Theory
+Sociological Methodology and Research Methods
+Sociology and Social Studies of Science and Technology
+Sociology of Education
+Urban Sociology and Community Studies
+Sociology not elsewhere classified
+Other Studies in Human Society
+Gender Specific Studies
+Studies of Aboriginal and Torres Strait Islander Society
+Studies of Asian Society
+Studies of Pacific Peoples Societies
+Studies in Human Society not elsewhere classified
+PSYCHOLOGY AND COGNITIVE SCIENCES
+Psychology
+Biological Psychology Neuropsychology - Psychopharmacology-Physiological Psychology
+Developmental Psychology and Ageing
+Educational Psychology
+Forensic Psychology
+Gender Psychology
+Health - Clinical and Counselling Psychology
+Industrial and Organisational Psychology
+Kaupapa Maori Psychology
+Personality - Abilities and Assessment
+Psychological Methodology - Design and Analysis
+Psychology of Religion
+Sensory Processes - Perception and Performance
+Social and Community Psychology
+Sport and Exercise Psychology
+Psychology not elsewhere classified
+Cognitive Science
+Computer Perception - Memory and Attention
+Decision Making
+Knowledge Representation and Machine Learning
+Linguistic Processes incl Speech Production and Comprehension
+Neurocognitive Patterns and Neural Networks
+Cognitive Science not elsewhere classified
+Other Psychology and Cognitive Sciences
+Psychology and Cognitive Sciences not elsewhere classified
+Law and Legal Studie
+Law
+Aboriginal and Torres Strait Islander Law
+Access to Justice
+Administrative Law
+Civil Law and Procedure
+Commercial and Contract Law
+Comparative Law
+Constitutional Law
+Corporations and Associations Law
+Criminal Law and Procedure
+Environmental and Natural Resources Law
+Family Law
+Human Rights Law
+Intellectual Property Law
+International Law excl International Trade Law
+International Trade Law
+Labour Law
+Law and Society
+Legal Institutions incl Courts and Justice Systems
+Legal Practice - Lawyering and the Legal Profession
+Legal Theory - Jurisprudence and Legal Interpretation
+Litigation - Adjudication and Dispute Resolution
+Property Law excl Intellectual Property Law
+Taxation Law
+Tort Law
+Law not elsewhere classified
+Other Law and Legal Studies
+Law and Legal Studies not elsewhere classified
+Studies in Creative Arts and Writing
+Art Theory and Criticism
+Art Criticism
+Art History
+Art Theory
+Visual Cultures
+Art Theory and Criticism not elsewhere classified
+Film - Television and Digital Media
+Cinema Studies
+Computer Gaming and Animation
+Electronic Media Art
+Film and Television
+Interactive Media
+Film - Television and Digital Media not elsewhere classified
+Journalism and Professional Writing
+Journalism Studies
+Professional Writing
+Journalism and Professional Writing not elsewhere classified
+Performing Arts and Creative Writing
+Aboriginal and Torres Strait Islander Performing Arts
+Creative Writing incl Playwriting
+Dance
+Drama - Theatre and Performance Studies
+Music Composition
+Music Performance
+Music Therapy
+Musicology and Ethnomusicology
+Pacific Peoples Performing Arts
+Performing Arts and Creative Writing not elsewhere classified
+Visual Arts and Crafts
+Crafts
+Fine Arts incl Sculpture and Painting
+Lens-based Practice
+Performance and Installation Art
+Visual Arts and Crafts not elsewhere classified
+Other Studies in Creative Arts and Writing
+Studies in Creative Arts and Writing not elsewhere classified
+Language - Communication and Cultur
+Communication and Media Studies
+Communication Studies
+Communication Technology and Digital Media Studies
+International and Development Communication
+Media Studies
+Organisational - Interpersonal and Intercultural Communication
+Communication and Media Studies not elsewhere classified
+Cultural Studies
+Aboriginal and Torres Strait Islander Cultural Studies
+Asian Cultural Studies
+Consumption and Everyday Life
+Cultural Theory
+Culture - Gender-Sexuality
+Globalisation and Culture
+Migrant Cultural Studies
+Multicultural - Intercultural and Cross-cultural Studies
+Pacific Cultural Studies
+Postcolonial Studies
+Screen and Media Culture
+Cultural Studies not elsewhere classified
+Language Studies
+English Language
+English as a Second Language
+French Language
+German Language
+Other European Languages
+Chinese Languages
+Indonesian Languages
+South-East Asian Languages excl Indonesian
+Pacific Languages
+Comparative Language Studies
+Language Studies not elsewhere classified
+Linguistics
+Applied Linguistics and Educational Linguistics
+Computational Linguistics
+Discourse and Pragmatics
+Laboratory Phonetics and Speech Science
+Language in Culture and Society Sociolinguistics
+Language in Time and Space incl Historical Linguistics - Dialectology
+Lexicography
+Linguistic Structures incl Grammar - Phonology-Lexicon-Semantics
+Linguistics not elsewhere classified
+Literary Studies
+Aboriginal and Torres Strait Islander Literature
+Australian Literature excl Aboriginal and Torres Strait Islander Literature
+British and Irish Literature
+New Zealand Literature excl Maori Literature
+North American Literature
+Pacific Literature
+Other Literatures in English
+Central and Eastern European Literature incl Russian
+Literature in French
+Literature in Italian
+Other European Literature
+Comparative Literature Studies
+Literary Theory
+Stylistics and Textual Analysis
+Literary Studies not elsewhere classified
+Other Language - Literature and Culture
+Language - Communication and Culture not elsewhere classified
+History and Archaeolog
+Archaeology
+Aboriginal and Torres Strait Islander Archaeology
+Archaeological Science
+Archaeology of Asia - Africa and the Americas
+Archaeology of Australia excl Aboriginal and Torres Strait Islander
+Archaeology of Europe - the Mediterranean and the Levant
+Archaeology of New Guinea and Pacific Islands excl New Zealand
+Archaeology of New Zealand excl Maori
+Historical Archaeology incl Industrial Archaeology
+Maritime Archaeology
+Archaeology not elsewhere classified
+Curatorial and Related Studies
+Archival - Repository and Related Studies
+Heritage and Cultural Conservation
+Museum Studies
+Curatorial and Related Studies not elsewhere classified
+Historical Studies
+Aboriginal and Torres Strait Islander History
+Asian History
+Australian History excl Aboriginal and Torres Strait Islander History
+Biography
+British History
+European History excl British - Classical Greek and Roman
+Latin American History
+Maori History
+Middle Eastern and African History
+New Zealand History
+North American History
+Pacific History excl New Zealand and Maori
+Historical Studies not elsewhere classified
+Other History and Archaeology
+History and Archaeology not elsewhere classified
+Philosophy and Religious Studies
+Applied Ethics
+Human Rights and Justice Issues
+Legal Ethics
+Medical Ethics
+Professional Ethics incl police and research ethics
+Applied Ethics not elsewhere classified
+History and Philosophy of Specific Fields
+Business and Labour History
+History and Philosophy of Education
+History and Philosophy of Law and Justice
+History and Philosophy of Medicine
+History and Philosophy of Science incl Non-historical Philosophy of Science
+History and Philosophy of the Humanities
+History and Philosophy of the Social Sciences
+History of Ideas
+History and Philosophy of Specific Fields not elsewhere classified
+Philosophy
+Aesthetics
+Environmental Philosophy
+Epistemology
+Ethical Theory
+Feminist Theory
+Hermeneutic and Critical Theory
+Phenomenology
+Philosophy of Cognition
+Philosophy of Language
+Philosophy of Mind excl Cognition
+Poststructuralism
+Social Philosophy
+Philosophy not elsewhere classified
+Religion and Religious Studies
+Christian Studies incl Biblical Studies and Church History
+Comparative Religious Studies
+Islamic Studies
+Religion and Society
+Studies in Eastern Religious Traditions
+Studies in Religious Traditions excl Eastern - Jewish-Christian and Islamic Traditions
+Religion and Religious Studies not elsewhere classified
+Other Philosophy and Religious Studies
+Philosophy and Religious Studies not elsewhere classified

@@ -4,7 +4,7 @@
 
 {% if is_new %}
 
-<div class="control-group control-select">
+<div class="form-group control-select">
     <label class="control-label" for="field-dataset_type">
         {{- title or _('Schema') }}{{ mark_required(required) }}</label>
     <div class="controls ">      
@@ -26,7 +26,7 @@
 
 {% with dtype = data.get('dataset_type') %}
 <input type="hidden" name="dataset_type" value="{{ dtype }}">
-<div class="control-group hide">
+<div class="form-group hide">
     <label class="control-label">{{ _('Schema') }}</label>
     <div class="controls ">
         <div class="display">{{ dtype|title }}</div>

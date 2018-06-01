@@ -339,27 +339,27 @@ jQuery(document).ready(function ($) {
                 btnSeparator: 
                     '<span class="btn-separator">{{content}}</span>',
                 removeBtn:
-                    '<a class="btn btn-mini {{removeActionClass}}" title="{{title}}">' + 
+                    '<a class="btn btn-xs {{removeActionClass}}" title="{{title}}">' + 
                        '<i class="icon-remove"></i>{{label}}</a>',
                 removeBtnGroup:
                     '<div class="btn-group {{removeGroupClass}}">' +
-                        '<a class="btn btn-mini {{disableActionClass}}" title="{{title}}">' + 
+                        '<a class="btn btn-xs {{disableActionClass}}" title="{{title}}">' + 
                             '<i class="icon-remove"></i>{{label}}</a>' +
-                        '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown">' + 
+                        '<a class="btn btn-xs dropdown-toggle" data-toggle="dropdown">' + 
                             '<span class="caret"></span></a>' +
                         '<ul class="dropdown-menu">' +
                             '<li>' + 
-                                '<a class="btn-link btn-mini {{disableActionClass}}">{{disableLabel}}</a>' + 
+                                '<a class="btn-link btn-xs {{disableActionClass}}">{{disableLabel}}</a>' + 
                             '</li><li>' + 
-                                '<a class="btn-link btn-mini {{removeActionClass}}">{{removeLabel}}</a>' + 
+                                '<a class="btn-link btn-xs {{removeActionClass}}">{{removeLabel}}</a>' + 
                             '</li>' +
                         '</ul>' +
                     '</div>',
                 moveUpBtn:
-                    '<a class="btn btn-mini {{moveUpActionClass}}" title="{{title}}">' + 
+                    '<a class="btn btn-xs {{moveUpActionClass}}" title="{{title}}">' + 
                         '<i class="icon-arrow-up"></i>{{label}}</a>', 
                 enableBtn:
-                    '<a class="btn btn-mini {{enableActionClass}}" title="{{title}}">' + 
+                    '<a class="btn btn-xs {{enableActionClass}}" title="{{title}}">' + 
                         '<i class="icon-pencil"></i>{{label}}</a>',
                 placeholder:
                     '<h3 class="inline">{{title}}</h3>' + 

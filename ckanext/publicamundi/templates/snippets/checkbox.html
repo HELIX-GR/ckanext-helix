@@ -1,5 +1,5 @@
 {% if not id %}{% set id = 'input' ~ name %}{% endif %}
-<div class="control-group {{ classes|join(' ') }}">
+<div class="form-group {{ classes|join(' ') }}">
     <label for="{{ id }}" class="control-label">{{ label }}</label>
     <div class="controls">
          <div class="checkbox">

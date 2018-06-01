@@ -3,7 +3,7 @@
 {% set reject_url = h.url_for('reject_resource',resource_id=res.id, parent = parent) %}
 
 <div class="btn-group resource-ingest-opts">
-    <a href="#" class="btn btn-small dropdown-toggle" data-toggle="dropdown"
+    <a href="#" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
         > {{ _('Actions') }} <span class="caret"></span></a>
     <ul class="dropdown-menu">
       {% block resource_item_ingest_links %}

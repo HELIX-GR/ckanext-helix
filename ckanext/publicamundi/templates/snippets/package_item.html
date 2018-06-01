@@ -27,7 +27,7 @@ truncate_title - The length to truncate the title to (default: 80).
         {% if package.get('state', '').startswith('draft') %}
         <span class="label label-info state-draft">{{ _('Draft') }}</span>
         {% elif package.get('state', '').startswith('deleted') %}
-        <span class="label label-important state-deleted">{{ _('Deleted') }}</span>
+        <span class="label label-danger state-deleted">{{ _('Deleted') }}</span>
         {% elif package.get('state', '').startswith('invalid') %}
         <span class="label label-warning state-invalid">{{ _('Invalid') }}</span>
         {% endif %} {# state #}

@@ -13,7 +13,7 @@
     } 
 -%}
 
-<div class="control-group control-small {{ classes|join(' ') }}"
+<div class="form-group control-small {{ classes|join(' ') }}"
     data-module="input-geographic-bbox"
     data-module-qname="{{ qname }}"
  >
@@ -35,7 +35,7 @@
         {% endfor %} {# for key, placeholder #}
         <p class="space"></p>
         {% endfor -%} {# for grp #}
-        <a class="btn btn-small draw-bbox"><i class="icon-pencil"></i> {{ _('Draw') }}</a>
+        <a class="btn btn-sm draw-bbox"><i class="icon-pencil"></i> {{ _('Draw') }}</a>
     </div>
 </div>
 

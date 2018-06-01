@@ -11,13 +11,17 @@ from dictdiffer import (dot_lookup, diff as diff_dicts, patch as patch_dict)
 
 from ckanext.publicamundi.lib.json_encoder import JsonEncoder
 
+import logging
+log1 = logging.getLogger(__name__)
+
 class Breakpoint(Exception):
     '''Exception used for Pylons debugging'''
     pass
 
 def to_json(o, indent=None):
     '''Convert to JSON providing our custom encoder'''
-    return json.dumps(o, cls=JsonEncoder, indent=indent)
+    log1.debug ('\n\n OBJECT TO SERIALIZE IS %s\n\n', o)
+    return json.dumps(o.dict, cls=JsonEncoder, indent=indent)
 
 def geojson_to_wkt(s):
     from shapely.geometry import shape

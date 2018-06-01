@@ -103,9 +103,10 @@
 {% endblock %}
 
 {# Closed tags field #}
-<div class="container" >
+<div class="form-group" >
   <label for="field-closed_tag"   class="control-label">Subject</label>
-  <select id="field-closed_tag" name="closed_tag" class="form-control input-sm select2-multiple control-full" data-module="input-select2-subject" multiple  placeholder="e.g. Biomedicine, Mathematics" >
+  
+  <select id="field-closed_tag" name="closed_tag" class="form-inline" data-module="input-select2-subject" multiple  placeholder="e.g. Biomedicine, Mathematics" >
       {% for closed_tag in h.closed_tags()  %}
         
         <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
@@ -123,7 +124,7 @@
  {# {% snippet 'package/snippets/closed-tags.html' %} #}
 
 {% block package_basic_fields_license %}
-<div class="control-group">
+<div class="form-group">
   {% set error = errors.license_id %}
      
   <label class="control-label" for="field-license">{{ _("License") }}</label>

@@ -2,7 +2,7 @@
 
 {%- if input_classes is not defined %}{% set input_classes = ['input-small'] -%}{% endif -%}
 
-<div class="control-group {{ "error" if errors }} {{ classes|join(' ') }}">
+<div class="form-group {{ "error" if errors }} {{ classes|join(' ') }}">
     {% if heading %}<header><h3 class="inline">{{ heading }}</h3></header>{% endif -%}
     <label class="control-label">
         {{- title }}{{ markup_helpers.mark_required(required) }}</label>

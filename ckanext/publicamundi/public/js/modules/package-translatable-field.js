@@ -96,7 +96,7 @@
                     })
                 this.$btn = $('<button/>', 
                     {
-                        'class': "btn btn-small translate"
+                        'class': "btn btn-sm translate"
                     })
                     .text(this.i18n('translate'))
                 this.$btn.hide()

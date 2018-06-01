@@ -112,12 +112,12 @@
     
     <div class="accordion" id="accordion1">
       
-      <div class="accordion-group">
-          <div class="accordion-heading">
+      <div class="panel-default">
+          <div class="panel-heading">
               <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#subject-accordion"
                   > Subject </ac>
           </div>
-          <div id="subject-accordion" class="accordion-body collapse  ">
+          <div id="subject-accordion" class="panel-collapse collapse  ">
                <div class="panel-body">    
                     {{ form.input('subject', label=_('Subject'), id='field-subject', placeholder=_('Subject, keyword, classification code'),
                     value=data.subject, error=errors.get('subject'), classes=['control-medium']) 
@@ -139,12 +139,12 @@
 
     <div class="accordion" id="accordion2">
       
-      <div class="accordion-group">
-          <div class="accordion-heading">
+      <div class="panel-default">
+          <div class="panel-heading">
               <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#creator-accordion"
                   > Creator </ac>
           </div>
-          <div id="creator-accordion" class="accordion-body collapse  ">
+          <div id="creator-accordion" class="panel-collapse collapse  ">
                <div class="panel-body">
               {{ form.input('creator', label=_('Creator'), id='field-creator', placeholder=_('corporate/institutional or personal name'),
                 value=data.creator, error=errors.get('creator'), classes=['control-medium']) 
@@ -179,12 +179,12 @@
 
      <div class="accordion" id="accordion3">
       
-      <div class="accordion-group">
-          <div class="accordion-heading">
+      <div class="panel-default">
+          <div class="panel-heading">
               <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#contributor-accordion"
                   > Contributor </ac>
           </div>
-          <div id="contributor-accordion" class="accordion-body collapse  ">
+          <div id="contributor-accordion" class="panel-collapse collapse  ">
                <div class="panel-body">
               {{ form.input('contributor', label=_('Contributor'), id='field-contributor', placeholder=_('corporate/institutional or personal name'),
                 value=data.contributor, error=errors.get('contributor'), classes=['control-medium']) 
@@ -224,12 +224,12 @@
        
       <div class="accordion" id="accordion4">
       
-      <div class="accordion-group">
-          <div class="accordion-heading">
+      <div class="panel-default">
+          <div class="panel-heading">
               <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#related-identifier-accordion"
                   > Related identifier </ac>
           </div>
-          <div id="related-identifier-accordion" class="accordion-body collapse  ">
+          <div id="related-identifier-accordion" class="panel-collapse collapse  ">
                <div class="panel-body">
               {{ form.input('related_identifier', label=_('Related identifier'), id='field-related-identifier', placeholder=_('related identifier'),
                 value=data.related_identifier, error=errors.get('related_identifier'), classes=['control-medium']) 
@@ -257,12 +257,12 @@
     
     <div class="accordion" id="accordion5">
       
-      <div class="accordion-group">
-          <div class="accordion-heading">
+      <div class="panel-default">
+          <div class="panel-heading">
               <ac class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#funding-reference-accordion"
                   > Funding reference </ac>
           </div>
-          <div id="funding-reference-accordion" class="accordion-body collapse  ">
+          <div id="funding-reference-accordion" class="panel-collapse collapse  ">
                <div class="panel-body">
               {{ form.input('funder_name', label=_('Funder name'), id='field-funder-name', placeholder=_('e.g. Gordon and Betty Moory Foundation'),
                 value=data.funder_name, error=errors.get('funder_name'), classes=['control-medium']) 

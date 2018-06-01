@@ -579,7 +579,7 @@ FlancheJs.defineClass("Analytics.management.Manager", {
             if (!message || !(typeof message === "string")) {
                 message = "Could not perform action. Is the analytics service down?"
             }
-            $("#analytics-modal .modal-body").html('<div class="alert alert-error" role="alert">' + message + '</div>');
+            $("#analytics-modal .modal-body").html('<div class="alert alert-danger" role="alert">' + message + '</div>');
             $("#analytics-modal").modal("show")
         }
     },
@@ -608,8 +608,8 @@ FlancheJs.defineClass("Analytics.management.Manager", {
                     var results = JSON.parse(data)
                     $("#analytics-modal .modal-title").html("Adjust the cache level of the OGC services.");
                     $("#analytics-modal .modal-body").html("The cache level will be adjusted according to the usage patterns to the following settings:<br/>" +
-                    "<span class='label label-important'>WCS: " + results[0] + " MB</span><br/>" +
-                    "<span class='label label-important'>WMS: " + results[1] + " MB</span><br/>" +
+                    "<span class='label label-danger'>WCS: " + results[0] + " MB</span><br/>" +
+                    "<span class='label label-danger'>WMS: " + results[1] + " MB</span><br/>" +
                     "Please confirm the change in the number of worker servers")
                     $("#analytics-modal").addClass("cache");
                     self.saveModalFunction = "cache"

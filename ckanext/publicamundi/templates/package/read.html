@@ -12,9 +12,9 @@
   {% if pkg.get('state', '').startswith('draft') %}
   <span class="label package-state label-info state-draft">{{ _('Draft') }}</span>
   {% elif pkg.get('state', '').startswith('deleted') %}
-  <span class="label package-state label-important state-deleted">{{ _('Deleted') }}</span>
+  <span class="label package-state label-danger state-deleted">{{ _('Deleted') }}</span>
   {% elif pkg.get('state', '').startswith('invalid') %}
-  <span class="label package-state label-important state-invalid">{{ _('Invalid') }}</span>
+  <span class="label package-state label-danger state-invalid">{{ _('Invalid') }}</span>
   {% endif %} {# state #}
   
   {% block page_heading_info %}

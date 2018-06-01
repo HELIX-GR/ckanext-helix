@@ -2,7 +2,7 @@
 
 {%- if input_classes is not defined %}{% set input_classes = ['span5'] %}{% endif -%}
 
-<div class="control-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
+<div class="form-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
     {% if title %}<h3 class="title">{{ title }}</h3>{% endif -%}
     {% if description %}<p class="description">{{ description }}</p>{% endif -%}
     <label class="control-label" for="{{ 'input-' ~ qname }}.0">

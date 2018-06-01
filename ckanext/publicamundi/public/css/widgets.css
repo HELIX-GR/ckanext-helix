@@ -8,7 +8,7 @@
     color: inherit;
 }
 
-.widget .accordion-heading a {
+.widget .panel-heading a {
     font-weight: bold;
     font-size: 1.05em;
 }
@@ -18,7 +18,7 @@ li .widget.object-edit-widget {
     margin: 8px 0px;
 }
 
-.field-edit-widget > ul > li header > .btn.btn-small {
+.field-edit-widget > ul > li header > .btn.btn-sm {
 }
 
 .field-edit-widget > ul > li header .btn.disable,
