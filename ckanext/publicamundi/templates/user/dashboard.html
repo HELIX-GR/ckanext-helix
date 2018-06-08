@@ -7,13 +7,20 @@
     </div>
     <ul class="nav nav-tabs">
       {% block page_header_navtab_links %}  
-      {{ h.build_nav_icon('user_dashboard', _('News feed')) }}
-      {{ h.build_nav_icon('user_dashboard_datasets', _('My Datasets')) }}
-      {{ h.build_nav_icon('user_dashboard_organizations', _('My Organizations')) }}
-      {{ h.build_nav_icon('user_dashboard_groups', _('My Groups')) }}
-      {{ h.build_nav_icon('user_dashboard_resources', _('Resources'), icon='copy') }}
+      
+      
+      {{ h.build_nav_icon('dashboard.index', _('News feed')) }}
+      {{ h.build_nav_icon('dashboard.datasets', _('My Datasets')) }}
+      {{ h.build_nav_icon('dashboard.organizations', _('My Organizations')) }}
+      {{ h.build_nav_icon('dashboard.groups', _('My Groups')) }}
+      
+      
       {% endblock %} {# page_header_navtab_links #}
     </ul>
   </header>
-{% endblock %}
-   
+{% endblock %} 
+   {#{{ h.build_nav_icon('user_dashboard', _('News feed')) }}
+      {{ h.build_nav_icon('user_dashboard_datasets', _('My Datasets')) }}
+      {{ h.build_nav_icon('user_dashboard_organizations', _('My Organizations')) }}
+      {{ h.build_nav_icon('user_dashboard_groups', _('My Groups')) }}
+      {{ h.build_nav_icon('user_dashboard_resources', _('Resources'), icon='copy') }}  #}

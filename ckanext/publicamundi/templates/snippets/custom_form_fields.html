@@ -11,7 +11,10 @@ Example:
 
 #}
 
-{# Import our extension's form macros #}
+
+{% ckan_extends%}
+
+{# Import our extension's form macros #} {#
 {% import "macros/ext_form.html" as ext_form %}
 
 <div data-module="custom-fields">
@@ -26,7 +29,7 @@ Example:
     ) }}
   {% endfor %}
 
-  {# Add a max of 3 empty columns #}
+  { Add a max of 3 empty columns }
   {% set total_extras = extras|count %}
   {% set empty_extras = (limit or 3) - total_extras %}
   {% if empty_extras <= 0 %}{% set empty_extras = 1 %}{% endif %}
@@ -43,3 +46,5 @@ Example:
     ) }}
   {% endfor %}
 </div>
+
+#}

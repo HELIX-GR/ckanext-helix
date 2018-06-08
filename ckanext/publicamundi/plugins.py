@@ -1673,12 +1673,12 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         values can be changed!).
         ''' 
         c = toolkit.c
-        rr = c.environ['pylons.routes_dict'] if hasattr(c, 'environ') else {}
-        #if hasattr(c, 'environ'):
-            #log1.info('\n\nENVIRON IS %s\n\n', c.environ)
-        #    rr = c.environ['pylons.routes_dict']
-        #else:
-        #    rr = {}
+        #rr = c.environ['pylons.routes_dict'] if hasattr(c, 'environ') else {}
+        if hasattr(c, 'environ') and c.environ:
+            log1.info('\n\nENVIRON IS %s\n\n', c.environ)
+            rr = c.environ['pylons.routes_dict']
+        else:
+            rr = {}
 
         is_validated = context.get('validate', True)
         if not is_validated:
