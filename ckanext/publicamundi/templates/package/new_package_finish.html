@@ -24,9 +24,7 @@
   {{ markup_helpers.error_messages(errors) }}
   {% endblock %}
 
-  {% block package_fields_autofill %}
-  {% if h.debug() %}{% snippet 'package/snippets/form-autofiller.html', form_id='package-form' %}{% endif %}
-  {% endblock %}
+ 
 
      You are almost done. 
      Press finish to complete the dataset creation and you will be notified when your dataset is publicly available for view.
