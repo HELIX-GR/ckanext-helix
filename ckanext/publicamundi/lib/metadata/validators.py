@@ -139,7 +139,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
         if prev_state == 'invalid':
             state = data[('state',)] = 'active'
    
-    logger.debug('\nPOSTPROCESS EDIT END  IS %s', data )
+    #logger.debug('\nPOSTPROCESS EDIT END  IS %s', data )
     return
 
 def preprocess_dataset_for_edit(key, data, errors, context):

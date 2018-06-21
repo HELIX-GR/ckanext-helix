@@ -15,9 +15,13 @@ from .ibase import (IWidget, IFieldWidget, IObjectWidget)
 from . import (QualAction, LookupContext, markup_for_object, markup_for_field)
 from .util import to_c14n_markup
 
+import logging
+log1 = logging.getLogger(__name__)
+
 #
 # Base
 #
+
 
 class Widget(object):
     
@@ -75,7 +79,7 @@ class FieldWidget(Widget):
     
     def prepare_template_vars(self, name_prefix, data):
         '''Prepare template context'''
-        
+        #log1.debug('\n\n IN PREP TEMP VARS FIELD WIDGET\n\n')
         _ = toolkit._ # gettext translator 
 
         # Provide basic variables
@@ -113,7 +117,8 @@ class FieldWidget(Widget):
             'field-widget', 
             'field-%s-widget' %(self.action),
             'field-qname-%s' %(qname),]
-
+        #log1.debug('\n\nTPL VARS IN FIELDS ARE %s\n\n',tpl_vars)
+        
         return tpl_vars
 
     def render(self, name_prefix, data={}):
@@ -190,7 +195,8 @@ class ObjectWidget(Widget):
 
     def prepare_template_vars(self, name_prefix, data):
         '''Prepare template context'''
-
+        
+        log1.debug('\n\n IN PREP TEMP VARS OBJECT data is %s\n\n',data)
         # Provide basic variables
         tpl_vars = {
             'name_prefix': name_prefix,
@@ -205,11 +211,12 @@ class ObjectWidget(Widget):
         }
 
         # Override with caller's variables
-        
+        log1.debug('\n\n tpl vars are ##### %s\n\n',tpl_vars)
         for k in data:
             if not k in self._reserved_var_names:
+                #log1.debug('\n\ndata[k] is %s\n',data[k])
                 tpl_vars[k] = data[k]
-
+        #log1.debug('\n\n tpl vars are ##### %s\n\n',tpl_vars)
         # Provide computed variables and sensible defaults
         qname = name_prefix
         tpl_vars['qname'] = qname
@@ -218,7 +225,8 @@ class ObjectWidget(Widget):
             'object-widget',
             'object-%s-widget' %(self.action),
             'object-qname-%s' %(qname or 'NONE'),]
-
+        log1.debug('\n\n tpl vars are **** %s\n\n',tpl_vars)
+        
         return tpl_vars
 
     def get_template(self):

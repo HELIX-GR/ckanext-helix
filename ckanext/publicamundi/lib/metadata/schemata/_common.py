@@ -238,7 +238,7 @@ class ICreator(IObject):
 
     creator_name = zope.schema.TextLine(
         title = _(u'Creator'),
-        description=_(u'corporate/institutional or personal name'), 
+        description=_(u'The name(s) of the person(s) or organization that has produced the dataset.'), 
         #default = _(u'Jimaras'),        
         required=True)
     '''
@@ -264,7 +264,7 @@ class ICreator(IObject):
     creator_affiliation = zope.schema.TextLine(
         title = _(u'Creator affiliation'),
         #vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
-        description=_(u'This is the affiliation of the creator'),
+        description=_(u'The affiliation of the creator.'),
         #default = _(u'Institutional'),
         required = False)
 
@@ -293,7 +293,7 @@ class IContributor(IObject):
 
     contributor_name = zope.schema.TextLine(
         title = _(u'Contributor'),
-        description=_(u'corporate/institutional or personal name'), required=False)
+        description=_(u'Institutional/personal name'), required=False)
     
     '''contributor_type = zope.schema.TextLine(
         title = _(u'Contributor type'),
@@ -428,12 +428,12 @@ class IPublicationInfo(IObject):
             SimpleTerm('iek', 'iek', u'IEK'),
             SimpleTerm('clarity', 'clariy', u'Clarity'))),
         title = u'Publisher',
-        required = True,
-        default = 'helix')
+        required = False,
+    )
 
     publication_year = zope.schema.Int(
         title = u'Publication year',
-        required = True)
+        required = False)
         #default = 2005,)
 
     ''' @zope.interface.invariant

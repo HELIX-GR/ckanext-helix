@@ -5,6 +5,8 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from ckanext.publicamundi.lib.metadata.ibase import IObject
 
+from ckanext.publicamundi.lib import vocabularies
+
 from . import IMetadata
 from ._common import *
 
@@ -72,14 +74,14 @@ class IFooMetadata(IMetadata):
         required = False,
         title = u'Title (Greek)',
         description = u'Optional title in Greek',)
-    optional_title.setTaggedValue('translatable', True)
+    optional_title.setTaggedValue('links-to', 'title_optional')
 
 
     optional_description = zope.schema.Text(
         required = False,
         title = u'Description (Greek)',
         description = u'Optional notes in greek',)
-    optional_description.setTaggedValue('translatable', True)
+    optional_description.setTaggedValue('links-to', 'notes_optional')
 
    
 
@@ -100,8 +102,9 @@ class IFooMetadata(IMetadata):
         title = u'Contact Info',
         required = True)
     
-    created = zope.schema.Datetime(
-        title = u'Created',
+    created = zope.schema.Date(
+        description = _(u'When this dataset was created.'),
+        title = u'Date created',
         required = False)
     
     published = zope.schema.Datetime(
@@ -133,6 +136,33 @@ class IFooMetadata(IMetadata):
     
     public_doi = zope.schema.TextLine(
         title = u'Public DOI',
+        required = False)
+        
+    #publisher = zope.schema.TextLine(
+    #    title = u'Publisher',
+    #    description = (u'The name of the organization publishing the dataset.'),
+    #    required = True)    
+    
+    publisher = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('helix', 'helix', u'Helix'),
+            SimpleTerm('aei', 'aei', u'AEI'),
+            SimpleTerm('tei', 'tei', u'TEI'),
+            SimpleTerm('iek', 'iek', u'IEK'),
+            SimpleTerm('clarity', 'clariy', u'Clarity'))),
+        description = (u'The name of the organization publishing the dataset.'),
+        title = u'Publisher',
+        required=True)    
+    
+    
+    funding_reference = zope.schema.TextLine(
+        title = u'Funding reference',
+        description = (u'Information about financial support for the creation of this dataset.'),
+        required = False)    
+    
+    contact_email = z3c.schema.email.RFC822MailAddress(
+        title = _(u'Contact e-mail'),
+        description = (u'Email address of the contact person for this dataset.'),
         required = False)
     
     creator = zope.schema.Object(ICreator,
@@ -187,14 +217,22 @@ class IFooMetadata(IMetadata):
         title=u'Date',
         required=False)'''
 
-    language = zope.schema.Choice(
-        description = u'The language of the dataset',
-        vocabulary = SimpleVocabulary((
-            SimpleTerm('greek', 'greek', u'Greek'),
-            SimpleTerm('english', 'english', u'English'))),
-        title = u'Language',
-        required = False,)
+    #language = zope.schema.Choice(
+    #    description = u'The language of the dataset',
+    #    vocabulary = SimpleVocabulary((
+    #        SimpleTerm('greek', 'greek', u'Greek'),
+    #        SimpleTerm('english', 'english', u'English'))),
+    #    title = u'Language',
+    #    required = False,)
         #default = 'english')
+        
+    
+    languagecode = zope.schema.Choice(
+        title = _(u'Language'),
+        vocabulary = vocabularies.by_name('languages-iso-639-2').get('vocabulary'),
+        description = _(u'This is the language in which the metadata elements are expressed. The value domain of this metadata element is limited to the official languages of the Community expressed in conformity with ISO 639-2.'),
+        required = False)
+    languagecode.setTaggedValue('format:markup', {'descend-if-dictized': False})
     
     publication_info = zope.schema.Object(IPublicationInfo,
         description = (u'Information about the publication'),

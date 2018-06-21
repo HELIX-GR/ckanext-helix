@@ -9,11 +9,14 @@ from ckan.lib.base import (
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 import ckan.lib.helpers as h
+import logging
 
 from ckanext.publicamundi.lib import resource_ingestion
 from ckanext.publicamundi.model.resource_ingest import(
     ResourceIngest, TaskNotReady, TaskFailed, IngestStatus, ResourceStorerType)
 from ckanext.publicamundi.storers.vector import resource_actions # Fixme: adapt
+
+log = logging.getLogger(__name__)
 
 _ = toolkit._
 NotFound = toolkit.ObjectNotFound
@@ -34,13 +37,17 @@ class UserController(BaseController):
         user_dict = self._check_access()
         user_dict = self._filter_user_dict(user_dict)
         self._setup_template_variables(user_dict)
+        #c.user_dict = user_dict
+        log.info('\n\nUSER DICT DATASETS ARE %s\n\n',user_dict['datasets'])
         return render('user/admin_page_resources.html')
 
     def _check_access(self):
         context, data_dict = self._get_context()
+        data_dict['include_datasets'] = data_dict['include_num_followers'] = True
         try:
-            user_dict = toolkit.get_action('user_show')(context, data_dict)
+            user_dict = logic.get_action('user_show')(context, data_dict)
             return user_dict
+            
         except NotFound:
             abort(404, _('User not found'))
         except NotAuthorized:
@@ -65,6 +72,10 @@ class UserController(BaseController):
         return user_dict
 
     def _filter_user_dict(self, user_dict):
+       
+        #log.debug('\n\n USER DICT IS %s\n\n',user_dict)
+        #for attr in dir(user_dict):
+        #    log.info("user_dict.%s = %r" % (attr, getattr(user_dict, attr)))
         datasets_dict = user_dict['datasets']
         filtered_datasets_dict = []
         for dataset in datasets_dict:

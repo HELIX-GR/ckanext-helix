@@ -1,8 +1,7 @@
 {% import 'macros/accordion.html' as accordion -%}
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
-{#{{ fields['creator'].markup }}
-#}
+
 {% set grouped_fields = [
                 
         
@@ -81,13 +80,81 @@
             'fields': ['funding_reference'],
         },
         #}
-
+        
+{{fields['public_doi'].markup }}        
+{#
 {{fields['optional_title'].markup }}
 {{fields['optional_description'].markup }}
+ {{fields['tags'].markup }} 
+ 
+ #}
+
+{{fields['creator'].markup }}
+
+{{fields['publisher'].markup }}
+<div class="help-block">
+      {% trans %}The name of the organization publishing the dataset{% endtrans %}
+</div>
+
+{{fields['baz'].markup }}
+
+{{fields['created'].markup }}
+
+{{fields['contact_email'].markup}}
+
+{{fields['funding_reference'].markup }}
+
+{{fields['languagecode'].markup }}
+
 
 {#
-{{fields['publication_year'].markup }} #}
+<div class="panel-default">
+        <div class="panel-heading">
+            <a>Creator</a>
+        </div>
+        <div>
+            <div class="panel-body">
+                {{fields['creator'].markup }}
+            </div>
+        </div>
+</div>
 
+<div class="panel-default">
+        <div class="panel-heading">
+            <a>Publication Info</a>
+        </div>
+        <div>
+            <div class="panel-body">
+                {{fields['publication_info'].markup }}
+            </div>
+        </div>
+</div>
+
+<div class="panel-default">
+        <div class="panel-heading">
+            <a>Date created</a>
+        </div>
+        <div>
+            <div class="panel-body">
+                {{fields['created'].markup }}
+            </div>
+        </div>
+</div>
+
+<div class="panel-default">
+        <div class="panel-heading">
+            <a>Language</a>
+        </div>
+        <div>
+            <div class="panel-body">
+                {{fields['language'].markup }}
+            </div>
+        </div>
+</div>
+
+#}
+
+{#
 <div class="{{ classes|join(' ') }}">
     {% if title %}<h3>{{ title }}</h3>{% endif %}
     {%- call(group_desc) accordion.accordion('foo-fields', grouped_fields) %}
@@ -104,6 +171,6 @@
         {% endfor -%}
     {% endcall -%}
 </div>
-
+#}
 
 

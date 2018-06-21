@@ -6,7 +6,7 @@ import ckan
 import ckan.model as model
 from ckan.model.types import make_uuid
 import ckan.plugins.toolkit as toolkit
-from ckan.lib.celery_app import celery
+import ckan.lib.jobs as jobs
 import ckan.lib.helpers as h
 from ckan.lib.dictization.model_dictize import resource_dictize
 
@@ -62,12 +62,13 @@ def identify_resource(resource):
 
     resource_dict = resource_dictize(resource, {'model': model})
     context = _make_default_context()
-    celery.send_task(
-        'vectorstorer.identify',
-        args=[resource_dict, context],
-        countdown=15,
-        task_id=task_id)
-
+    #celery.send_task(
+    #    'vectorstorer.identify',
+    #    args=[resource_dict, context],
+    #    countdown=15,
+    #    task_id=task_id)
+    jobs.enqueue('vectorstorer.identify', [args], countdown=15)
+    
     res_identify = model.Session.query(ResourceIngest).filter(
         ResourceIngest.resource_id == resource.id).first()
     if res_identify:
@@ -168,11 +169,12 @@ def create_ingest_resource(resource, layer_params):
     backend_context = _make_backend_context()
     resource_dict = resource_dictize(resource, {'model': model})
     task_id = make_uuid()
-    celery.send_task(
-        'vectorstorer.upload',
-        args=[resource_dict, context, backend_context],
-        task_id=task_id)
-
+    #celery.send_task(
+    #    'vectorstorer.upload',
+    #    args=[resource_dict, context, backend_context],
+    #    task_id=task_id)
+    jobs.enqueue('vectorstorer.upload', [args])
+    
     res_ingest = model.Session.query(ResourceIngest).filter(
         ResourceIngest.resource_id == resource.id).first()
     res_ingest.status = IngestStatus.PUBLISHED
@@ -191,10 +193,12 @@ def update_ingest_resource(resource):
     backend_context = _make_backend_context()
     resource_dict = resource_dictize(resource, {'model': model})
     task_id = make_uuid()
-    celery.send_task(
-        'vectorstorer.update',
-        args=[resource_dict, context, backend_context],
-        task_id=task_id)
+    #celery.send_task(
+    #    'vectorstorer.update',
+    #    args=[resource_dict, context, backend_context],
+    #    task_id=task_id)
+    jobs.enqueue('vectorstorer.update', [args])
+
 
 def delete_ingest_resource(resource_dict):
     '''Called when a parent or child vector resource is being deleted.

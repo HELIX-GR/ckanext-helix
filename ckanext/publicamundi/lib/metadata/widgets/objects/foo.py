@@ -103,6 +103,7 @@ class FooEditWidget(EditObjectWidget):
 class FooReadWidget(ReadObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
+        log1.debug("\n\n IN FOO.py PREPARE TEMP VARS \n\n")
         tpl_vars = super(FooReadWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
@@ -123,6 +124,20 @@ class FooReadWidget(ReadObjectWidget):
 
 @object_widget_adapter(schemata.IFooMetadata, qualifiers=['table'])
 class TableReadWidget(_common.TableReadWidget):
+
+    def get_field_order(self):
+        return [
+           'title',
+           'optional_title',
+           'optional_description',
+           'creator',
+           'public_doi',
+           'publisher',
+           'created',
+           'funding_reference',
+           'contact_email',
+           'languagecode'
+        ]
 
     '''def get_field_order(self):
         log1.debug("\n\n IN FOO.py GET FIELD ORDER \n")

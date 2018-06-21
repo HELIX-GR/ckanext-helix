@@ -707,7 +707,38 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             return closed_tags
         except toolkit.ObjectNotFound:
             return None
-
+    
+    @classmethod
+    def create_languages(cls):
+        '''Create languages vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        
+        data = {'id': 'languages'}
+        vocab = toolkit.get_action ('vocabulary_show') (context, data)
+        languages = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'languages'})
+        #log1.info('Vocab is %s, languages are %s', vocab, languages)
+        List = open('languages.txt').read().splitlines()
+        #log1.debug('LIST IS %s', List)
+        for tag in List:
+            if tag not in languages:
+        #       log1.info("Adding tag {0} to vocab 'languages'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                toolkit.get_action ('tag_create') (context, data)
+    
+    @classmethod
+    def languages(cls):
+        '''Return the list of all existing types from the closed tags vocabulary.'''
+        cls.create_languages()
+        try:
+            languages = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'languages'})
+            return languages
+        except toolkit.ObjectNotFound:
+            return None
+    
     
     @classmethod
     def create_title_types(cls):
@@ -811,6 +842,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'resource_types': self.resource_types,
             'resource_types_options': self.resource_types_options,
             'closed_tags': self.closed_tags,
+            'languages': self.languages,
             'title_types': self.title_types,
             'title_types_options': self.title_types_options,
             'organization_list_objects': self.organization_list_objects,
@@ -1143,11 +1175,23 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('not_empty') 
             ],
             'title': [
-                toolkit.get_validator('ignore_missing')
+                toolkit.get_validator('not_empty')
+            ],
+            'notes_optional': [ 
+                toolkit.get_validator('ignore_missing') ,
+                toolkit.get_converter('convert_to_extras')
+            ],
+            'title_optional': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
             ],
             'closed_tag': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_tags')('closed_tags')
+            ],
+            'language_name': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_tags')('languages')
             ],
             # Add our extra field to the dataset schema.
             'title_type': [
@@ -1413,7 +1457,19 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_from_tags')('closed_tags'),
                 toolkit.get_validator('ignore_missing')
             ],
+            'language_name': [
+                toolkit.get_converter('convert_from_tags')('languages'),
+                toolkit.get_validator('ignore_missing')
+            ],
             'title': [
+                toolkit.get_validator('not_empty')
+            ],
+            'title_optional': [
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'notes_optional': [
+                toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
             # Add our extra field to the dataset schema.
@@ -1662,6 +1718,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         pass
 
     def after_show(self, context, pkg_dict, view=None):
+    
+        #log1.info('\n\n PKG DICT IS: %s\n\n',pkg_dict)
         '''Hook into the validated data dict after the package is ready for display. 
         
         The main tasks here are:
@@ -1675,7 +1733,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         c = toolkit.c
         #rr = c.environ['pylons.routes_dict'] if hasattr(c, 'environ') else {}
         if hasattr(c, 'environ') and c.environ:
-            log1.info('\n\nENVIRON IS %s\n\n', c.environ)
+            #log1.info('\n\nENVIRON IS %s\n\n', c.environ)
             rr = c.environ['pylons.routes_dict']
         else:
             rr = {}
@@ -1702,6 +1760,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         
         key_prefix = dtype = pkg_dict.get('dataset_type')
         log1.debug('DATASET TYPE IS %s', dtype)
+        public_doi = pkg_dict.get('foo.public_doi')
+        log1.debug('\n\nPUBLIC DOI IS %s\n\n', public_doi)
         if not dtype:
             return # noop: unknown dataset-type (pkg_dict has raw extras?)
  

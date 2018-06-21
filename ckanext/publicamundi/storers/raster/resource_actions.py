@@ -1,7 +1,7 @@
 from pylons import config
 
 from ckan.model.types import make_uuid
-from ckan.lib.celery_app import celery
+import ckan.lib.jobs as jobs
 import ckan.lib.helpers as h
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
@@ -72,11 +72,12 @@ def create_identify_resource_task(resource):
     
     context = _make_default_context()
     context['resource_dict'] = resource_dict
-    celery.send_task(
-        'rasterstorer.identify',
-        args=[context],
-        task_id=task_id
-    )
+    #celery.send_task(
+    #    'rasterstorer.identify',
+    #    args=[context],
+    #    task_id=task_id
+    #)
+    jobs.enqueue('rasterstorer.identify', [context])
 
     res_identify = model.Session.query(ResourceIngest).filter(
         ResourceIngest.resource_id == resource.id).first()
@@ -110,12 +111,12 @@ def create_ingest_resource_task(resource):
     context = _make_default_context()
     resource_dict = resource.as_dict()
     context['resource_dict'] = resource_dict
-    celery.send_task(
-        'rasterstorer.import',
-        args=[context],
-        task_id=task_id
-    )
-
+    #celery.send_task(
+    #    'rasterstorer.import',
+    #    args=[context],
+    #    task_id=task_id
+    #)
+    jobs.enqueue('rasterstorer.import', [context])
 
 def create_delete_resource_task(resource):
     """
@@ -125,12 +126,12 @@ def create_delete_resource_task(resource):
     context = _make_default_context()
     context['resource_dict'] = resource
     task_id = make_uuid()
-    celery.send_task(
-        'rasterstorer.delete',
-        args=[context],
-        task_id=task_id
-    )
-
+    #celery.send_task(
+    #    'rasterstorer.delete',
+    #    args=[context],
+    #    task_id=task_id
+    #)
+    jobs.enqueue('rasterstorer.delete', [context])
 
 def change_resource_to_published(resource):
     """

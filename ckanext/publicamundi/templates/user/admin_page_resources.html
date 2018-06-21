@@ -1,10 +1,13 @@
 {% extends "user/read_base.html" %}
 
+
+{% set user_dict = c.user_dict%}
+
 {% block primary_content_inner %}
 
   <h2 class="hide-heading">{{ _('My Datasets') }}</h2>
   {% if c.user_dict.datasets %}
-    {% snippet 'user/snippets/package_list.html', packages=c.user_dict.datasets, parent='user' %}
+    {% snippet 'user/snippets/package_list.html', packages=c.user_dict.datasets %}
   {% endif %}
   
 {% endblock %}

@@ -1220,9 +1220,13 @@
         ]
     },
     "Language": {
-    	"terms": {
-	        "greek": "Greek",
-	        "english": "English"
-        }
+    	"terms": [
+	        "Greek",
+	        "English",
+	        "Afar"
+            
+            ]
+        
+        
     }  
 }

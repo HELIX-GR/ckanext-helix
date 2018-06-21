@@ -10,8 +10,8 @@ class ICkanMetadata(IMetadata):
     
     zope.interface.taggedValue('recurse-on-invariants', True)
     
-    publisher = zope.schema.TextLine(title=u'Publisher', required=False, min_length=3)
-    publisher.setTaggedValue('links-to', 'publisher')
+    #publisher = zope.schema.TextLine(title=u'Publisher', required=False, min_length=3)
+    #publisher.setTaggedValue('links-to', 'publisher')
     
     publication_year = zope.schema.TextLine(title=u'Publication year', required=False, min_length=3)
     publication_year.setTaggedValue('links-to', 'publication_year')

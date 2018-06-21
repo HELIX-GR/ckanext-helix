@@ -178,6 +178,7 @@ class Object(object):
 
         cls = type(self)
         errors = cls.Validator(self).validate()
+        log1.debug('\n\n Errors are %s\n\n', errors)
         if dictize_errors:
             return self.dictize_errors(errors)
         else:
@@ -548,7 +549,7 @@ class Object(object):
                 #raise Invalid('Missing values, please fill all the required fields')
                 
                 raise Invalid(', '.join(map(str, errors)))
-                #return errors
+                return errors
             else:
                 return self.validate_invariants()
 
@@ -560,10 +561,11 @@ class Object(object):
             for k, field in obj.iter_fields():
                 f = field.get(obj)
                 ef = self._validate_schema_for_field(f, field)
+                log1.debug('\n\n EF IS %s\n\n', ef)
                 if ef:
                     #errors.append((k, ef))
                     errors.append( ef)
-
+            log1.debug('\n\n ERRORS in validate ARE %s\n\n', errors)
             return errors
 
         def _validate_schema_for_field(self, f, field):

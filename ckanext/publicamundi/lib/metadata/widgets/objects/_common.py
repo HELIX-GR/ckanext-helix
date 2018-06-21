@@ -40,12 +40,12 @@ class TableReadWidget(ReadObjectWidget):
     def prepare_template_vars(self, name_prefix, data):
         
         log1.debug("\n \nIN Prepare template vars\n") 
-        log1.debug("\n \ndata is is %s\n", data) 
+        #log1.debug("\n \ndata is is %s\n", data) 
         cls = TableReadWidget
         Td, Th, Tr = cls._Td, cls._Th, cls._Tr
         
         tpl_vars = super(cls, self).prepare_template_vars(name_prefix, data)
-        log1.debug("\n \n Tpl vars is is %s\n", tpl_vars) 
+        #log1.debug("\n \n Tpl vars is is %s\n", tpl_vars) 
         # Dictize self.obj, format leafs as markup
 
         dictz_opts = {
@@ -60,7 +60,9 @@ class TableReadWidget(ReadObjectWidget):
             (k, obj_dict[k]) for k in self.get_field_order()
         ))
         
-        log1.debug("\n \nOd is is %s\n", od) 
+        #log1.debug("\n \nobj_dict is  %s\n", obj_dict)
+        
+        #log1.debug("\n \nOd is is %s\n", od) 
 
         # Preprocess ordered obj_dict to be displayed as table rows
                 
@@ -688,7 +690,7 @@ class DateReadWidget(ReadObjectWidget):
 class CreatorEditWidget(EditObjectWidget):
 
     def get_field_qualifiers(self):
-        log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
+        #log1.debug("\nIN EDIT GET FIELD QUALIFIERS\n")
         return OrderedDict([
             ('creator_name', None),
             #('creator_name_type', None),
@@ -702,7 +704,7 @@ class CreatorEditWidget(EditObjectWidget):
         return {
             'creator_name': {
                 'title': _('Creator'),
-                'placeholder': u'Acme Widgits',
+                
             },
             'creator_name_type': {
                 'title': _('Creator name type'),
@@ -727,17 +729,13 @@ class CreatorEditWidget(EditObjectWidget):
         return None # use default glue template
         #return 'package/snippets/fields/read-text-dd.html'
 
-@object_widget_adapter(schemata.ICreator, qualifiers=['td'])
+@object_widget_adapter(schemata.ICreator, qualifiers=['dd','td'])
 class CreatorReadWidget(ReadObjectWidget):
     
     def get_field_qualifiers(self):
         log1.debug("\nIN CREATOR TD READ GET FIELD QUALIFIERS\n")
         return OrderedDict([
             ('creator_name', None),
-            #('creator_name_type', None),
-            #('creator_name_identifier', None),
-            #('creator_name_identifier_scheme', None),
-            #('creator_name_identifier_scheme_uri', None),
             ('creator_affiliaton', None),
         ])
     
@@ -745,10 +743,6 @@ class CreatorReadWidget(ReadObjectWidget):
         log1.debug("\nIN CREATOR GET FIELD ORDER\n")
         return[
             'creator_name',
-            'creator_name_type',
-            'creator_name_identifier',
-            'creator_name_identifier_scheme',
-            'creator_name_identifier_scheme_uri',
             'creator_affiliation',
         ]
             
@@ -758,11 +752,8 @@ class CreatorReadWidget(ReadObjectWidget):
             'creator_name': {
                 'title': _('Creator'),
             },
-            'creator_name_type': {
-                'title': _('Creator name type'),
-            },
-            'creator_name_identifier': {
-                'title': _('Creator name identifier'),
+            'creator_affiliation': {
+                'title': _('Creator affiliation'),
             },
         }
 

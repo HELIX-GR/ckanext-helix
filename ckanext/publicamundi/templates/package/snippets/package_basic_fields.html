@@ -22,16 +22,44 @@
         'title', 
         id = 'field-title', 
         label = _('Title'), 
-        placeholder = _('eg. A descriptive title'), 
+        placeholder = _('The title of the dataset.'), 
         value = data.title, 
         error = errors.title, 
-        classes = ['control-full', 'control-medium'], 
+        classes = ['control-full'], 
         attrs = { 'data-module': 'slug-preview-target' },
         is_required=true
     ) 
 }}
 
+
+{#<div class="help-block">
+      {% trans %}The title of the dataset.{% endtrans %}
+    </div>
+
+{{ form.info(_('My useful help text')) }}
+
+<i class="fa fa-info-circle icons" data-toggle="tooltip" data-placement="right" title="Tooltip on top"></i>
+#}
+    
+
 {% endblock %} {# package_basic_fields_title #}
+
+{# Optional title in Greek #}
+
+{{  
+    form.input(
+        'title_optional', 
+        id = 'field-title_optional', 
+        label = _('Title (Greek)'), 
+        placeholder = _('The title of the dataset in Greek.'), 
+        value = data.title_optional, 
+        error = errors.title_optional, 
+        classes = ['control-full'], 
+        attrs = { 'data-module': 'slug-preview-target' },
+        is_required=false
+    ) 
+}}
+
 
 {% block package_basic_fields_url %}
   
@@ -45,7 +73,7 @@
         id = 'field-name', 
         label = _('Locator (URL)'), 
         classes = ['hidden'],
-        placeholder = _('eg. visitor-stats-2014b'), 
+        placeholder = _('e.g. visitor-stats-2014b'), 
         value = data.name, 
         error = errors.name, 
         is_required = true
@@ -62,6 +90,21 @@
         is_required = false
     ) 
 }}    
+
+{#{{ 
+    form.input(
+        'name', 
+        id = 'field-public_doi', 
+        classes = ['hidden'],
+        placeholder = _('e.g. dwaawd-awdaw-21342a-awddwa'), 
+        value = data.foo.public_doi, 
+        error = errors.public_doi, 
+        is_required = false
+    ) 
+}}  #}
+
+
+
   {# {{ data.name}} and id {{data.id}} and private {{data.private}} and org {{h.organizations_available('create_dataset')}} #}
 
 
@@ -74,13 +117,29 @@
         'notes', 
         id = 'field-notes', 
         label = _('Description'), 
-        placeholder = _('eg. Some useful notes about the data'), 
+        placeholder = _(' A brief description of the dataset.'), 
         value = data.notes, 
         error = errors.notes,
+        classes = ['control-full'], 
         is_required = true
     )        
 }}
 {% endblock %} {# package_basic_fields_description #}
+
+{# Optional notes in Greek #}
+{{ 
+    form.markdown(
+        'notes_optional', 
+        id = 'field-notes_optional', 
+        label = _('Description (Greek)'), 
+        placeholder = _('A brief description of the dataset in Greek.'), 
+        value = data.notes_optional, 
+        error = errors.notes_optional,
+        classes = ['control-full'], 
+        is_required = false
+    )        
+}}
+
 
 {% block package_basic_fields_tags %}
 {%set tag_attrs = {
@@ -90,11 +149,11 @@
 %}
 
 {{ 
-    form.input(
+    form.tag_input(
         'tag_string', 
         id = 'field-tags', 
         label = _('Tags'), 
-        placeholder = _('eg. economy, mental health, government'), 
+        placeholder = _('Free keywords describing this dataset.'), 
         value = data.tag_string, 
         error = errors.tags, 
         classes = ['control-full'], 
@@ -102,29 +161,30 @@
 }}
 {% endblock %}
 
+
+
+
 {# Closed tags field #}
-<div class="form-group" >
+<div class="form-group control-full" >
   <label for="field-closed_tag"   class="control-label">Subject</label>
-  
-  <select id="field-closed_tag" name="closed_tag" class="form-inline" data-module="input-select2-subject" multiple  placeholder="e.g. Biomedicine, Mathematics" >
+  <div class="controls" >
+  <select id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A classification of this dataset" >
       {% for closed_tag in h.closed_tags()  %}
-        
         <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
-       
       {% endfor %}
   </select>
+  </div>
 </div>  
 
+<div class="help-block">
+      {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for">jcu.edu.au</a>{% endtrans %}
+</div>
 
-
-
-
-
-
- {# {% snippet 'package/snippets/closed-tags.html' %} #}
 
 {% block package_basic_fields_license %}
-<div class="form-group">
+
+
+<div class="form-group dropdown">
   {% set error = errors.license_id %}
      
   <label class="control-label" for="field-license">{{ _("License") }}</label>
@@ -133,20 +193,20 @@
       {% for license_desc, license_id in licenses|sort if license_desc  %}
       <option value="{{ license_id }}" 
         {%- if data.get('license_id', 'notspecified') == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
+        {% if loop.index == 4%}
+        <option disabled>_____________________________________________________________________________</option>
+        {% endif%}
       {% endfor %}
     </select>
     {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
-    <div class="help-block">
+    {#<div class="help-block">
       {% trans %}Check license definitions at <a href="http://opendefinition.org/licenses/">opendefinition.org</a>{% endtrans %}
-    </div>
+    </div>#}
   </div>
 </div>
 
-{#
-{{ form.input('license_uri', label=_('License URI'), id='field-license-uri', placeholder=_('e.g. http://creativecommons.org/licenses/by/3.0/de/deed.en'), 
-        value=data.get('license_uri'), error=errors.get('license_uri'), classes=['control-full'], is_required=false) 
-}} 
-#}
+
+
 {% endblock %}
 
 
