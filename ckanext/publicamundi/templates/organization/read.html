@@ -1,5 +1,11 @@
 {% ckan_extends %}
 
+{% block breadcrumb_content %}
+  <a class="breadcrumbs-part" {% link_for _('Organization'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
+  <a class="breadcrumbs-part" {% link_for c.group_dict.display_name|truncate(35), controller='organization', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</a>
+{% endblock %}
+
+
 {% block page_primary_action %}
 
 {% if h.check_access('package_create', {'owner_org': c.group_dict.id}) %}

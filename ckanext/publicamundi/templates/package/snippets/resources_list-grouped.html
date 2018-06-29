@@ -23,10 +23,10 @@ pkg - A package object that the resources belong to.
 <section id="dataset-resources-files" 
     class="resources {% if resources and not file_resources %}hide{% endif %}"
     >
- <header><h3 class="inline">{{ _('Data and Resources') }}</h3>
+ <div><h3 class="inline">{{ _('Data and Resources') }}</h3>
  {# {% block resource_download_ingested %}
    {% endblock %} #}
-  </header>
+  </div>
 
     {% block resource_file_list %}
     {% if file_resources %}
@@ -60,7 +60,7 @@ pkg - A package object that the resources belong to.
 <section id="dataset-resources-apis" 
     class="resources {% if not api_resources %}hide{% endif %}"
  >
-    <header><h3 class="inline">{{ _('Services') }}</h3></header>
+    <h3 class="inline">{{ _('Services') }}</h3>
     {% block resource_api_list %}
     {% if api_resources %}
     <ul class="resource-list">

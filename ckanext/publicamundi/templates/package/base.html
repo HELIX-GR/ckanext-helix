@@ -10,3 +10,22 @@
 {% resource 'ckanext-publicamundi/scripts' %}
 
 {% endblock %}
+
+{% block breadcrumb_content %}
+  {% if pkg %}
+    {% set dataset = h.dataset_display_name(pkg) %}
+    {% if pkg.organization %}
+      {% set organization = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
+      <a class="breadcrumbs-part"{% link_for _('Organizations'), controller='organization', action='index' %}</a>
+      <a class="breadcrumbs-part"{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</a>
+    {% else %}
+      <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
+    {% endif %}
+    <a class="breadcrumbs-part"{{ self.breadcrumb_content_selected() }}{% link_for dataset|truncate(30), controller='package', action='read', id=pkg.name %}</a>
+  {% else %}
+    <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
+    <a class="breadcrumbs-part" href=""{{ _('Create Dataset') }}</a>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumb_content_selected %} {% endblock %}

@@ -88,21 +88,29 @@
  {{fields['tags'].markup }} 
  
  #}
+ 
+ {{fields['contact_email'].markup}}
 
 {{fields['creator'].markup }}
 
+
+
 {{fields['publisher'].markup }}
+{#
 <div class="help-block">
       {% trans %}The name of the organization publishing the dataset{% endtrans %}
 </div>
+#}
 
 {{fields['baz'].markup }}
 
-{{fields['created'].markup }}
+{#{{fields['created'].markup }}  #}
 
-{{fields['contact_email'].markup}}
+<hr />
 
-{{fields['funding_reference'].markup }}
+{#{{fields['funding_reference'].markup }} #}
+
+{{fields['related_publication'].markup }}
 
 {{fields['languagecode'].markup }}
 

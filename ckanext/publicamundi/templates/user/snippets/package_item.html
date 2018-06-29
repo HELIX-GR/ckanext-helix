@@ -5,10 +5,15 @@
 
 {# Display a list of ingestion-aware resources #}
 {% block package_item_resources %}
-  <ul class="resources unstyled">
+  <div class="tag-list">
       {% for resource in package.resources %}
-        {% set task_result = h.resource_ingestion_result(resource.id) %}
-        {% snippet 'user/snippets/resource_item.html', pkg=package, res=resource, task=task_result, parent=parent %}
+        {#{% set task_result = h.resource_ingestion_result(resource.id) %} 
+        {% snippet 'user/snippets/resource_item.html', pkg=package, res=resource, parent=parent %}#}
+          <a class="tag-box"
+            href="{{ h.url_for(controller='package', action='resource_read', id=package.name, resource_id=resource.id) }}"
+            data-format="{{ resource.format }}"
+           >{{ resource.format|upper }}</a>
+
       {% endfor %} {# resource #}
-  </ul>
+  </div> 
 {% endblock %}

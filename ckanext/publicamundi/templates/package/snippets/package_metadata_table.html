@@ -2,7 +2,7 @@
   
   {%- with md = pkg_dict.get(pkg_dict.dataset_type) -%}
   {%- if md -%}
-  <header>
+  <div>
     <h3 class="inline">{{ _('Metadata') }}</h3>
     
     <div class="download-links pull-right">
@@ -27,7 +27,7 @@
         <span>{{ pkg_dict.dataset_type|title|upper }}</span> <i class="icon-ok-sign"></i>
       </div>##}
     </div>
-  </header>
+  </div>
 
   {% with 
      data = { 

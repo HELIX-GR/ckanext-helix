@@ -4,7 +4,7 @@
 
 <li class="resource-item clearfix" data-id="{{ res.id }}">
     {% block resource_item_header %}
-    <header>
+   
         {% block resource_item_title %}
         <a class="heading inline" href="{{ url }}" title="{{ res.name or res.description }}">
             {% if res.can_be_previewed %}
@@ -61,7 +61,7 @@
 
         {% endblock %} {# resource_item_explore #}
         </div> {# resource-action-buttons #}
-    </header>
+    
     {% endblock %} {# resource_item_header #}
 
     {% block resource_item_description %}

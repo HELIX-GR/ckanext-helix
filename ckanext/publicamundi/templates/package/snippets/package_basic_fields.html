@@ -22,10 +22,10 @@
         'title', 
         id = 'field-title', 
         label = _('Title'), 
-        placeholder = _('The title of the dataset.'), 
+        placeholder = _('The title of the dataset'), 
         value = data.title, 
         error = errors.title, 
-        classes = ['control-full'], 
+        classes = ['control-full '], 
         attrs = { 'data-module': 'slug-preview-target' },
         is_required=true
     ) 
@@ -50,8 +50,8 @@
     form.input(
         'title_optional', 
         id = 'field-title_optional', 
-        label = _('Title (Greek)'), 
-        placeholder = _('The title of the dataset in Greek.'), 
+        label = _('Τίτλος (Ελληνικά)'), 
+        placeholder = _('Ο τίτλος του συνόλου δεδομένων'), 
         value = data.title_optional, 
         error = errors.title_optional, 
         classes = ['control-full'], 
@@ -117,7 +117,7 @@
         'notes', 
         id = 'field-notes', 
         label = _('Description'), 
-        placeholder = _(' A brief description of the dataset.'), 
+        placeholder = _('A brief description of the dataset'), 
         value = data.notes, 
         error = errors.notes,
         classes = ['control-full'], 
@@ -131,38 +131,14 @@
     form.markdown(
         'notes_optional', 
         id = 'field-notes_optional', 
-        label = _('Description (Greek)'), 
-        placeholder = _('A brief description of the dataset in Greek.'), 
+        label = _('Περιγραφή (Ελληνικά)'), 
+        placeholder = _('Μία σύντομη περιγραφή του συνολου δεδομένων'), 
         value = data.notes_optional, 
         error = errors.notes_optional,
         classes = ['control-full'], 
         is_required = false
     )        
 }}
-
-
-{% block package_basic_fields_tags %}
-{%set tag_attrs = {
-    'data-module': 'autocomplete', 
-    'data-module-tags': '', 
-    'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} 
-%}
-
-{{ 
-    form.tag_input(
-        'tag_string', 
-        id = 'field-tags', 
-        label = _('Tags'), 
-        placeholder = _('Free keywords describing this dataset.'), 
-        value = data.tag_string, 
-        error = errors.tags, 
-        classes = ['control-full'], 
-        attrs = tag_attrs) 
-}}
-{% endblock %}
-
-
-
 
 {# Closed tags field #}
 <div class="form-group control-full" >
@@ -181,16 +157,45 @@
 </div>
 
 
+
+
+
+
+{% block package_basic_fields_tags %}
+{%set tag_attrs = {
+    'data-module': 'autocomplete', 
+    'data-module-tags': '', 
+    'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} 
+%}
+
+{{ 
+    form.tag_input(
+        'tag_string', 
+        id = 'field-tags', 
+        label = _('Tags'), 
+        placeholder = _('Free keywords describing this dataset'), 
+        value = data.tag_string, 
+        error = errors.tags, 
+        classes = ['control-full'], 
+        attrs = tag_attrs) 
+}}
+{% endblock %}
+
+
+
+
+
+
 {% block package_basic_fields_license %}
 
 
-<div class="form-group dropdown">
+<div class="form-group dropdown license">
   {% set error = errors.license_id %}
      
   <label class="control-label" for="field-license">{{ _("License") }}</label>
   <div class="controls">
     <select id="field-license" name="license_id" data-module="autocomplete" class="input-xlarge">
-      {% for license_desc, license_id in licenses|sort if license_desc  %}
+      {% for license_desc, license_id in licenses if license_desc  %}
       <option value="{{ license_id }}" 
         {%- if data.get('license_id', 'notspecified') == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
         {% if loop.index == 4%}
@@ -205,6 +210,7 @@
   </div>
 </div>
 
+<hr /> {# Seperator#}
 
 
 {% endblock %}

@@ -13,55 +13,63 @@ truncate_title - The length to truncate the title to (default: 80).
 {% set truncate_title = truncate_title or 80 %}
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
-{% set package_url = h.url_for(controller='package', action='read', id=package.name) %}
+{% set modified = package.metadata_modified %}
 
-<li class="{{ item_class or "dataset-item" }}">
-    {% block package_item_content %}
-    <div class="dataset-content">
-      {% block package_item_heading %}
-      <h3 class="dataset-heading">
-        {{ h.link_to(h.truncate(title, truncate_title), package_url) }}
+<div class="result-item data">
+  {% block package_item_content %}
+  
+      <div class="date-of-entry">
+          {% if package.groups %}
+          {% set group = package.groups[0] %}
+          <div>{{ h.friendly_date(modified|urlize)}} @ <span> <a href={{ h.url_for(controller='group', action='read', id= group.name) }}> {{group.title|urlize }}</span></div> </a>
+          {% else %}
+          <div>{{ h.friendly_date(modified|urlize)}} </div>
+          {% endif %}
+      </div>
+
+      <h3 class="title">
         {% if package.private %}
-        <span class="dataset-private label label-inverse"><i class="icon-lock"></i>{{ _('Private') }}</span>
-        {% endif %} {# private #}
+          <span class="dataset-private label label-inverse">
+            <i class="icon-lock"></i>
+            {{ _('Private') }}
+        </span>
+        {% endif %}
+        
+          {{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }} 
+          <div class="pill data">
+                DATA
+          </div>
         {% if package.get('state', '').startswith('draft') %}
-        <span class="label label-info state-draft">{{ _('Draft') }}</span>
+          <span class="label label-info">{{ _('Draft') }}</span>
         {% elif package.get('state', '').startswith('deleted') %}
-        <span class="label label-danger state-deleted">{{ _('Deleted') }}</span>
-        {% elif package.get('state', '').startswith('invalid') %}
-        <span class="label label-warning state-invalid">{{ _('Invalid') }}</span>
-        {% endif %} {# state #}
-        {% if package.tracking_summary %}
-        {{ h.popular('recent views', package.tracking_summary.recent, min=10) }}
-        {% endif %} {# package.tracking_summary #}
-        {% if h.is_multilingual_dataset and package.language and package.translated_to_language %}
-        <strong class="muted"><small>[{{package.language|upper}}]</small></strong>
-        {% endif %} {# multilingual #}
+          <span class="label label-important">{{ _('Deleted') }}</span>
+        {% endif %}
+        {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
       </h3>
-      {% endblock %} {# package_item_heading #}
-      
-      {% block package_item_banner %}
-      {% if banner %}<span class="banner">{{ _('Popular') }}</span>{% endif %}
-      {% endblock %} {# package_item_banner #}
+      {% if banner %}
+        <span class="banner">{{ _('Popular') }}</span>
+      {% endif %}
+        
 
-      {% block package_item_notes %}  
-      {% if notes %}<div>{{ notes|urlize }}</div>{% endif %}
-      {% endblock %} {# package_item_notes #}
-    </div>
-    
+      {% if package.organization %}
+      <div class="service">
+          <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize }}</a>
+      </div>
+      {% endif %}
+ 
     {% block package_item_resources %}
     {% if package.resources and not hide_resources %}
-      <ul class="dataset-resources unstyled">
+      <div class="tag-list">
         {% for resource in package.resources %}
-        <li>
-          <a class="label"
+          <a class="tag-box"
             href="{{ h.url_for(controller='package', action='resource_read', id=package.name, resource_id=resource.id) }}"
             data-format="{{ resource.format }}"
            >{{ resource.format|upper }}</a>
-        </li>
+
         {% endfor %}
-      </ul>
+      </div>
     {% endif %} {# package.resources #}
     {% endblock %} {# package_item_resources #}
-    {% endblock %} {# package_item_content #} 
-</li>
+
+      {% endblock %}
+</div>

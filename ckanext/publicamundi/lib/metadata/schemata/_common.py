@@ -237,8 +237,8 @@ class IConformity(IObject):
 class ICreator(IObject):
 
     creator_name = zope.schema.TextLine(
-        title = _(u'Creator'),
-        description=_(u'The name(s) of the person(s) or organization that has produced the dataset.'), 
+        title = _(u'Creator name'),
+        description=_(u'Person or organization that has produced the dataset'), 
         #default = _(u'Jimaras'),        
         required=True)
     '''
@@ -262,9 +262,9 @@ class ICreator(IObject):
         description=_(u'Name identifier scheme uri'), required=False)   
     '''
     creator_affiliation = zope.schema.TextLine(
-        title = _(u'Creator affiliation'),
+        title = _(u'Organization'),
         #vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
-        description=_(u'The affiliation of the creator.'),
+        description=_(u'The affiliation of the creator'),
         #default = _(u'Institutional'),
         required = False)
 

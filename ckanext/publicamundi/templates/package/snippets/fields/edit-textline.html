@@ -4,8 +4,8 @@
 {%- if input_classes is not defined %}{% set input_classes = ['input-large'] %}{% endif -%}
 
 <div class="form-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
-    <label class="control-label" for="{{ 'input-' ~ qname }}">
-        {{ markup_helpers.mark_required(required) }}{{- title }}</label>
+    <label class="control-label {%if required==false %} field-optional{% endif %}" for="{{ 'input-' ~ qname }}">
+        {#{{ markup_helpers.mark_required(required) }}#} {{- title }}</label>
     <div class="controls">
         <input type="{{ input_type|default('text') }}" id="{{ 'input-' ~ qname }}"  name="{{ qname }}"
             class="form-control {{ input_classes|join(" ") }}"

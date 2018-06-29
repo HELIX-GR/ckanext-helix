@@ -130,12 +130,13 @@ class TableReadWidget(_common.TableReadWidget):
            'title',
            'optional_title',
            'optional_description',
+           'contact_email',
            'creator',
            'public_doi',
            'publisher',
            'created',
            'funding_reference',
-           'contact_email',
+           'related_publication',
            'languagecode'
         ]
 

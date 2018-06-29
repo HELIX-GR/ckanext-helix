@@ -496,6 +496,7 @@ class ExtrametadataController(BaseController):
 
             default_facet_titles = {'organization': _('Organizations'),
                                     'groups': _('Groups'),
+                                    'closed_tag': _('Subjects'),
                                     'tags': _('Tags'),
                                     'res_format': _('Formats'),
                                     'license_id': _('Licenses')}
@@ -1832,6 +1833,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         such as tags) of all the terms sent to the indexer.
         '''
         log1.debug('before_index: Package %s is indexed', pkg_dict.get('name'))
+        subjects= pkg_dict['vocab_closed_tags']
+        log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
+        
+        pkg_dict['closed_tags_facets'] = []
+        for subject in subjects:
+            pkg_dict['closed_tags_facets'].append(subject)
+        log1.debug('\n\n CLOSED TAGS FACETS IS %s\n\n',pkg_dict['closed_tags_facets'])
         return pkg_dict
 
     def before_view(self, pkg_dict):
@@ -1896,9 +1904,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     def dataset_facets(self, facets_dict, package_type):
         '''Update the facets_dict and return it.
         '''
-        if package_type == 'dataset':
+        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject (Topic)
+        del facets_dict['groups']
+        myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
+        facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
+        #log1.debug('\nORDERED FACETS ARE %s\n',facets_dict)
+        #if package_type == 'dataset':
             # Todo Maybe reorder facets
-            pass
+        #    pass
         return facets_dict
 
 
@@ -2021,6 +2034,9 @@ class PackageController(p.SingletonPlugin):
         a flattened dict (except for multli-valued fields such as tags) of all the terms sent
         to the indexer. The extension can modify this by returning an altered version.
         '''
+        
+        
+        
         return pkg_dict
 
     def before_view(self, pkg_dict):

@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import re
 import zope.interface
 import zope.schema
@@ -72,14 +74,14 @@ class IFooMetadata(IMetadata):
 
     optional_title = zope.schema.TextLine(
         required = False,
-        title = u'Title (Greek)',
+        title = u"Τίτλος (Ελληνικά)",
         description = u'Optional title in Greek',)
     optional_title.setTaggedValue('links-to', 'title_optional')
 
 
     optional_description = zope.schema.Text(
         required = False,
-        title = u'Description (Greek)',
+        title = u"Περιγραφή (Ελληνικά)",
         description = u'Optional notes in greek',)
     optional_description.setTaggedValue('links-to', 'notes_optional')
 
@@ -138,10 +140,6 @@ class IFooMetadata(IMetadata):
         title = u'Public DOI',
         required = False)
         
-    #publisher = zope.schema.TextLine(
-    #    title = u'Publisher',
-    #    description = (u'The name of the organization publishing the dataset.'),
-    #    required = True)    
     
     publisher = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
@@ -152,8 +150,14 @@ class IFooMetadata(IMetadata):
             SimpleTerm('clarity', 'clariy', u'Clarity'))),
         description = (u'The name of the organization publishing the dataset.'),
         title = u'Publisher',
+        default = 'helix',
         required=True)    
-    
+        
+    related_publication = zope.schema.TextLine(
+        title = u'Related publication',
+        description = (u'The DOI of a related publication'),
+        required = False)
+        
     
     funding_reference = zope.schema.TextLine(
         title = u'Funding reference',
@@ -162,7 +166,7 @@ class IFooMetadata(IMetadata):
     
     contact_email = z3c.schema.email.RFC822MailAddress(
         title = _(u'Contact e-mail'),
-        description = (u'Email address of the contact person for this dataset.'),
+        description = (u'Email address of the contact person for this dataset'),
         required = False)
     
     creator = zope.schema.Object(ICreator,
@@ -231,8 +235,9 @@ class IFooMetadata(IMetadata):
         title = _(u'Language'),
         vocabulary = vocabularies.by_name('languages-iso-639-2').get('vocabulary'),
         description = _(u'This is the language in which the metadata elements are expressed. The value domain of this metadata element is limited to the official languages of the Community expressed in conformity with ISO 639-2.'),
-        required = False)
-    languagecode.setTaggedValue('format:markup', {'descend-if-dictized': False})
+        required = False,
+        default = 'eng')
+    #languagecode.setTaggedValue('format:markup', {'descend-if-dictized': False})
     
     publication_info = zope.schema.Object(IPublicationInfo,
         description = (u'Information about the publication'),

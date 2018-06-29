@@ -9,7 +9,9 @@
 {% block primary_content_inner %} 
   <h2 class="hide-heading">{{ _('My Datasets') }}</h2>
     {% if user_dict.datasets %}
-     {% snippet 'snippets/package_list.html', packages=user_dict.datasets %}         
+        <div class="result-items">
+            {% snippet 'snippets/package_list.html', packages=user_dict.datasets %}     
+        </div>    
   {% else %}
     <p class="empty">
       {{ _('You haven\'t created any datasets.') }}

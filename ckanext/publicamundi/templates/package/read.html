@@ -6,6 +6,8 @@
   {{ super() }}
 {% endblock %}
 
+
+
 {% block page_heading %}
   {{ pkg.title or pkg.name }}
   
@@ -24,6 +26,15 @@
   {% endblock %} {# page_heading_info #}
 
 {% endblock %} {# page_heading #}
+
+{% block content_primary_nav %}
+  {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
+  {{ h.build_nav_icon('dataset_groups', _('Topics'), id=pkg.name) }}
+  {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
+  {{ h.build_nav_icon('dataset_apis', _('Developers'), id=pkg.name, icon='code') }}
+  {% endblock %}
+
+
 
 {% block package_notes %}
    {% if pkg.notes %}

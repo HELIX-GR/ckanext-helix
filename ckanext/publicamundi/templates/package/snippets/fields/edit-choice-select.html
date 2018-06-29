@@ -3,17 +3,17 @@
 
 {%- set classes = classes + [ 'control-select' ] -%}
 {%- if input_classes is not defined %}{% set input_classes = [] %}{% endif -%}
+{% if qname=="foo.publisher" %} {% set placeholder='The name of the organization publishing the dataset' %} {% endif %}
 
 <div class="form-group{{ " " ~ classes|join(' ') }}">
-    <label class="control-label" for="{{ 'input-' ~ qname }}">
-        {{- title }}{{ markup_helpers.mark_required(required) }}</label>
+    <label class="control-label {%if required==false %} field-optional{% endif %}" for="{{ 'input-' ~ qname }}">
+       {{ markup_helpers.mark_required(required) }} {{- title }}</label>
     <div class="controls">
         <select name="{{ qname }}" id="{{ 'input-' ~ qname }}" 
             class="  {{ ' ' ~ input_classes|join(' ') }}" {{ attrs|xmlattr }} 
             data-module="input-select2" 
-            data-module-width="{{ width|default('element') }}"
             data-module-minimumresultsforsearch="12"
-            data-module-placeholder="{{ placeholder }}"
+            data-module-placeholder="{{placeholder}}"
          > <!-- options from vocabulary -->
             {%- if not required -%}
             <option value=""></option>
@@ -23,6 +23,9 @@
                 <option value="gre">Greek</option>
                 <option value=""disabled = "disabled">_____________________________________________________________________________________</option>
                 
+            {% endif %}
+            {% if qname=="foo.publisher" %}
+            <option value="" > </option>
             {% endif %}
             {%- for option in field.vocabulary %}
             <option value="{{ option.value }}" {% if option.value == value %}selected="selected"{% endif -%}
