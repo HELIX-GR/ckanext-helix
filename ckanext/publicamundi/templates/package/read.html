@@ -3,12 +3,21 @@
 {# Note: The parent template has aliased c.pkg_dict as pkg #}
 
 {% block package_description %}
+
   {{ super() }}
 {% endblock %}
 
 
 
-{% block page_heading %}
+
+
+{% block content_primary_nav %}
+
+      {% if h.check_access('package_update', {'id':pkg.id }) %}
+    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default btn-manage', icon='wrench' %}
+  {% endif %}
+
+    <h1 class="package-title">
   {{ pkg.title or pkg.name }}
   
   {% if pkg.get('state', '').startswith('draft') %}
@@ -25,29 +34,32 @@
   {% endif %}
   {% endblock %} {# page_heading_info #}
 
-{% endblock %} {# page_heading #}
-
-{% block content_primary_nav %}
+</h1>
+  {% block package_dates %}
+    <div class="dataset-dates">
+    <div class="title"> {{_('PUBLICATION:')}} </div>
+           <div class="date"> {{ pkg.metadata_created.split('T')[0]|upper or pkg.metadata_created|upper or _('NEVER')}}</div>
+           
+    <div class="title"> {{_('LAST REVISION:') }} </div> 
+           <div class="date"> {{ pkg.metadata_modified.split('T')[0]|upper or pkg.metadata_modified|upper or  _('NEVER') }}</div>
+           
+    </div>
+    {% endblock %}
+   
+ 
+   
   {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_groups', _('Topics'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_apis', _('Developers'), id=pkg.name, icon='code') }}
-  {% endblock %}
+
+  
+  
+{% endblock %}
 
 
 
-{% block package_notes %}
-   {% if pkg.notes %}
-   <div class="notes embedded-content">
-      {#{{ c.pkg_notes_formatted }}#}
-        {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
-   </div>
-   {% else %}
-   <div class="notes embedded-content">
-       <i>{{_('No description')}}</i>
-   </div>
-   {% endif %}
-{% endblock %} {# package_notes #}
+
 
 {% block package_additional_info %}
   {# This is a replacement for "package/snippets/additional_info.html" -#}

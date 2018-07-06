@@ -20,23 +20,25 @@ pkg - A package object that the resources belong to.
 {% set file_resources = h.filtered_list(resources, 'resource_type', 'api', 'ne') %}
 {% set api_resources = h.filtered_list(resources, 'resource_type', 'api', 'eq') %}
 
-<section id="dataset-resources-files" 
-    class="resources {% if resources and not file_resources %}hide{% endif %}"
+<section class="package-resources {% if resources and not file_resources %}hide{% endif %}"
     >
- <div><h3 class="inline">{{ _('Data and Resources') }}</h3>
+ <div><h5 class="inline">{{ _('DATA AND RESOURCES') }}</h5>
+ 
+ <hr class="separator" />
+ 
  {# {% block resource_download_ingested %}
    {% endblock %} #}
   </div>
 
     {% block resource_file_list %}
     {% if file_resources %}
-    <ul class="resource-list">
+    <div class="package-resource-list">
         {% block resource_file_list_inner %}
         {% for resource in file_resources if not resource.format in filtered_formats %}
             {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
         {% endfor %}
         {% endblock %}
-    </ul>
+    </v>
     {% endif %} {# file_resources #}
     {% endblock %} {# resource_file_list #}
     

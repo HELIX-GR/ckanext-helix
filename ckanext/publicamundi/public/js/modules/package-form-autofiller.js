@@ -33,21 +33,24 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'notes': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
                          'eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 'tags': ['hello-world', 'foo', 'lorem-ipsum'],
-                'license': 'gfdl',
+                'license': 'CC-BY-NC',
                 'version': '1.0.1',
                 'url': 'http://example.com/datasets/foo/1',
                 'author': 'Λαλάκης',
                 'author_email': 'lalakis@example.com',
 		'publisher': 'Λαλάκης',
 		'identifier': '10.12449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+		'license_uri': 'https://creativecommons.org/licenses/by-nc/4.0/',
         'creator_affiliation': 'IMSI',
         'contributor_name': 'Mitsos',
         'creator_name': 'Jim',
         'language': 'Greek',
         'publication_year': 2002,
         'optional_title': 'Ελληνικός τίτλος1',
-        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς1'
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς1',
+        'related_pub': '6458cae8-7fad-11e8-adc0-fa7ae01bbebc',
+        'subject': ['Wireless Communications', 'Optical Networks and Systems'],
+        'contact_email': 'yahoo@yahoo.gr'
             },
             {
                 'title': 'Hello Foo 2',
@@ -55,21 +58,24 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'dataset_type': 'foo',
                 'notes': 'I am another _Foo_ package!',
                 'tags': ['hello-world', 'foo', 'test'],
-                'license': 'cc-by',
+                'license': 'CC-BY',
                 'version': '1.0.2',
                 'url': 'http://example.com/datasets/foo/2',
                 'author': 'Φουφουτος',
                 'author_email': 'foofootos@example.com',
 		'publisher': 'Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+		'license_uri': 'https://creativecommons.org/licenses/by/4.0/',
         'creator_affiliation': 'IMSI',
         'contributor_name': 'Takis',
         'creator_name': 'Bob',
         'language': 'English',
         'publication_year': 2003,
         'optional_title': 'Ελληνικός τίτλος2',
-        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς2'
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς2',
+        'related_pub': '6d1dfcf2-7fad-11e8-adc0-fa7ae01bbebc',
+        'subject': ['Food Engineering', 'Food Processing'],
+        'contact_email': 'real@gmail.com'
             },    
             {
                 'title': 'Hello Inspire 1',
@@ -77,21 +83,24 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'dataset_type': 'inspire',
                 'notes': 'I am another _INSPIRE_ package!',
                 'tags': ['hello-world', 'inspire', 'test'],
-                'license': 'cc-by',
+                'license': 'CC-BY-NC-SA',
                 'version': '1.0.1',
                 'url': 'http://example.com/datasets/inspire/1',
                 'author': 'Φουφουτος',
                 'author_email': 'inspired@example.com',
 		'publisher': 'Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+		'license_uri': 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
         'creator_affiliation': 'IMSI',
         'contributor_name': 'Makis',
         'creator_name': 'Mark',
         'language': 'greek',
         'publication_year': 2004,
         'optional_title': 'Ελληνικός τίτλος3',
-        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς3'
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς3',
+        'related_pub': '712af62e-7fad-11e8-adc0-fa7ae01bbebc',
+        'subject': ['Pure Mathematics', 'Signal Processing'],
+        'contact_email': 'random@gibberish.com'
             }, 
             {
                 'title': 'Hello CKAN 1',
@@ -99,21 +108,24 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                 'dataset_type': 'ckan',
                 'notes': 'I am a plain _CKAN_ package!',
                 'tags': ['hello-world', 'ckan', 'test'],
-                'license': 'cc-by',
+                'license': 'CC-BY-SA',
                 'version': '1.0.4',
                 'url': 'http://example.com/datasets/ckan/1',
                 'author': 'Φουφουτος',
                 'author_email': 'ckaner@example.com',
 		'publisher': ' Φούφουτος',
 		'identifier': '10.38449/foo',
-		'license_uri': 'http://creativecommons.org/licenses/by/3.0/de/deed.en',
+		'license_uri': 'https://creativecommons.org/licenses/by-sa/4.0/',
         'creator_affiliation': 'IMSI',
         'contributor_name': 'Mitsos',
         'creator_name': 'George',
         'language': 'english',
         'publication_year': 2006,
         'optional_title': 'Ελληνικός τίτλος4',
-        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς4'
+        'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς4',
+        'related_pub': '83593fc2-7fad-11e8-adc0-fa7ae01bbebc',
+        'subject': ['Anthropology', 'Microbiology'],
+        'contact_email': 'test@hotmail.com'
             },
         ],
     },
@@ -160,8 +172,11 @@ this.ckan.module('package-form-autofiller', function ($, _) {
             $form.find('#input-foo\\.contributor\\.contributor_name').val(data['contributor_name'])
             $form.find('#input-foo\\.publication_info\\.publication_year').val(data['publication_year'])
             $form.find('#input-foo\\.language').select2('val', data['language'])
-            $form.find('#input-foo\\.optional_title').val(data['optional_title'])
-            $form.find('#input-foo\\.optional_description').val(data['optional_notes'])
+            $form.find('#field-title_optional').val(data['optional_title'])
+            $form.find('#field-notes_optional').val(data['optional_notes'])
+            $form.find('#input-foo\\.related_publication').val(data['related_pub'])
+            $form.find('#input-foo\\.contact_email').val(data['contact_email'])
+            $form.find('#field-closed_tag').select2('val', data['subject'])
                         return false
                     })
                     this.el.css('margin', '0px 5px')
