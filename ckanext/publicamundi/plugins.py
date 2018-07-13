@@ -862,6 +862,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         p.toolkit.add_template_directory(config, 'templates_legacy')
         p.toolkit.add_resource('public', 'ckanext-publicamundi')
         
+        #override default pager helper function
+        h.Page.pager = ext_template_helpers.pager
+        
         return
 
     ## IConfigurable interface ##
@@ -1194,15 +1197,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_tags')('languages')
             ],
-            # Add our extra field to the dataset schema.
+            'featured': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_extras')
+            ],
             'title_type': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
-            #'identifier': [
-                #check_empty,
-             #   toolkit.get_converter('convert_to_extras')
-            #],
             'identifier_type': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
@@ -1460,6 +1462,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'language_name': [
                 toolkit.get_converter('convert_from_tags')('languages'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'featured': [
+                toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
             'title': [

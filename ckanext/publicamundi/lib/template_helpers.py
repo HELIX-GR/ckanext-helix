@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import operator
 import datetime
 import urlparse
@@ -5,6 +7,7 @@ import urllib
 
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
+import ckan.lib.helpers as h
 
 from ckanext.publicamundi.lib.metadata import (
     fields, bound_field, markup_for_field, markup_for)
@@ -125,3 +128,15 @@ def get_ingested_vector(package,resource):
 def transform_to_iso_639_2(langcode_iso_639_1):
     
     return Language(langcode_iso_639_1).alpha3b
+    
+    
+#override default pagination
+    
+def pager(self, *args, **kwargs):
+        kwargs.update(
+            format=u"<ul class='pagination-wrapper'><ul class='pagination'>"
+            "$link_previous ~2~ $link_next</ul></ul>",
+            symbol_previous=u'«', symbol_next=u'»',
+            curpage_attr={'class': 'active'}, link_attr={}
+        )
+        return super(h.Page, self).pager(*args, **kwargs)

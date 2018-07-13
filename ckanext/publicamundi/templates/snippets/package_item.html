@@ -36,9 +36,9 @@ truncate_title - The length to truncate the title to (default: 80).
         {% endif %}
         
           {{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }} 
-          <div class="pill data">
+          {#<div class="pill data">
                 DATA
-          </div>
+          </div> #}
         {% if package.get('state', '').startswith('draft') %}
           <span class="label label-info">{{ _('Draft') }}</span>
         {% elif package.get('state', '').startswith('deleted') %}
@@ -53,7 +53,7 @@ truncate_title - The length to truncate the title to (default: 80).
 
       {% if package.organization %}
       <div class="service">
-          <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize }}</a>
+          <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize|upper }}</a>
       </div>
       {% endif %}
  
