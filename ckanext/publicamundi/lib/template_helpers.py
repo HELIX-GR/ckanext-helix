@@ -140,3 +140,8 @@ def pager(self, *args, **kwargs):
             curpage_attr={'class': 'active'}, link_attr={}
         )
         return super(h.Page, self).pager(*args, **kwargs)
+        
+       
+            #format=u"<div class='pagination-block'>"
+            #"$link_previous ~2~ $link_next</div>",
+           

@@ -1910,10 +1910,12 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     def dataset_facets(self, facets_dict, package_type):
         '''Update the facets_dict and return it.
         '''
+        log1.debug("\n\nDATASET FACETS package_type is %s, facets_fict is %s\n\n", package_type, facets_dict)
         facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject (Topic)
-        del facets_dict['groups']
-        myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
-        facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
+        if (package_type !="harvest"):
+            del facets_dict['groups']
+            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
+            facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         #log1.debug('\nORDERED FACETS ARE %s\n',facets_dict)
         #if package_type == 'dataset':
             # Todo Maybe reorder facets
