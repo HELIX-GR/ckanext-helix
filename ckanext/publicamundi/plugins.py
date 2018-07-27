@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
 import re
 import datetime
 import json
@@ -1771,7 +1779,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         log1.debug('\n\nPUBLIC DOI IS %s\n\n', public_doi)
         if not dtype:
             return # noop: unknown dataset-type (pkg_dict has raw extras?)
- 
+
+        notes_optional=pkg_dict.get('notes_optional')
+        title_optional=pkg_dict.get('title_optional')
+        log1.debug('\n\nTITLE IS %s, NOTES ARE %s\n\n', notes_optional, title_optional)
         # Note Do not attempt to pop() flat keys here (e.g. to replace them by a 
         # nested structure), because resource forms will clear all extra fields !!
 
@@ -1839,13 +1850,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         such as tags) of all the terms sent to the indexer.
         '''
         log1.debug('before_index: Package %s is indexed', pkg_dict.get('name'))
-        subjects= pkg_dict['vocab_closed_tags']
-        log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
+        #subjects= pkg_dict['vocab_closed_tags']
+        #log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
         
-        pkg_dict['closed_tags_facets'] = []
-        for subject in subjects:
-            pkg_dict['closed_tags_facets'].append(subject)
-        log1.debug('\n\n CLOSED TAGS FACETS IS %s\n\n',pkg_dict['closed_tags_facets'])
+        #pkg_dict['closed_tags_facets'] = []
+        #for subject in subjects:
+        #    pkg_dict['closed_tags_facets'].append(subject)
+        
         return pkg_dict
 
     def before_view(self, pkg_dict):

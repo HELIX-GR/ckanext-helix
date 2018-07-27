@@ -13,10 +13,19 @@
 
 {% block content_primary_nav %}
 
-      {% if h.check_access('package_update', {'id':pkg.id }) %}
-    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default btn-manage', icon='wrench' %}
-  {% endif %}
 
+
+  <div class="package-language">
+    <a href="#"> {{pkg.foo.languagecode|truncate(2,True, '')|upper}}</a>
+  </div>
+  <div class="btn-save">
+    <a href="#"><img class="" src="/images/png/save.png"></a>
+  </div>
+  <div class="btn-favorite">
+    <a href="#"> <img class="" src="/images/png/favorite.png"></a>
+  </div>
+
+      
     <h1 class="package-title">
   {{ pkg.title or pkg.name }}
   
@@ -46,14 +55,19 @@
     </div>
     {% endblock %}
    
+    {% if h.check_access('package_update', {'id':pkg.id }) %}
+    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default btn-manage', icon='wrench' %}
+  {% endif %}
+
+
  
-   
+  <div class="nav-menu">
   {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_groups', _('Topics'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_apis', _('Developers'), id=pkg.name, icon='code') }}
 
-  
+  </div>
   
 {% endblock %}
 

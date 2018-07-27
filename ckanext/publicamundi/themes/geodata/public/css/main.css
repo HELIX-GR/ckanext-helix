@@ -1189,6 +1189,7 @@ section.tags{
     border-color: #aaa;
     border-radius: 0;
 }
+/*
 .tag-list{
     background: none;
     border: none;
@@ -1209,7 +1210,7 @@ a.tag:hover{
 }
 .tag-list li a:hover{
     background: #4E59A4;
-}
+} */
 .well{
     border-radius: 0;
 }

@@ -85,7 +85,13 @@ class IFooMetadata(IMetadata):
         description = u'Optional notes in greek',)
     optional_description.setTaggedValue('links-to', 'notes_optional')
 
-   
+    dataset_category = zope.schema.Choice(
+        vocabulary = SimpleVocabulary((
+            SimpleTerm('bio', 'bio', u'Bio'),
+            SimpleTerm('geo', 'geo', u'Geo'))),
+        required = False,
+        title =  u'Dataset type',
+        description = u'Dataset type',)
 
     contacts = zope.schema.Dict(
         title = u'Contacts',

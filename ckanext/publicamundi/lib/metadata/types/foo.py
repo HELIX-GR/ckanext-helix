@@ -34,6 +34,7 @@ class FooMetadata(Metadata):
     password = None
     wakeup_time = None
     funder = None
+    dataset_category = None
     creator = Creator
 
     ## Deduce methods ##

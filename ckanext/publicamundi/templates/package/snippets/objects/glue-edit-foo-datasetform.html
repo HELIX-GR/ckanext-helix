@@ -2,6 +2,7 @@
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
 
+
 {% set grouped_fields = [
                 
         
@@ -109,6 +110,8 @@
 <hr class="form-separator" />
 
 {#{{fields['funding_reference'].markup }} #}
+
+{{fields['dataset_category'].markup }}
 
 {{fields['related_publication'].markup }}
 

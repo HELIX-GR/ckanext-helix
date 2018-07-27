@@ -7,9 +7,9 @@
     
     <div class="download-links pull-right">
       <div class="btn-group">
-        <a class="btn btn-primary download-btn" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
+        <a class="btn btn-primary btn-group-main" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
           > {{ _('DOWNLOAD') }}</a>
-        <button class="btn btn-primary dropdown-toggle download-btn-toggle" data-toggle="dropdown">
+        <button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">

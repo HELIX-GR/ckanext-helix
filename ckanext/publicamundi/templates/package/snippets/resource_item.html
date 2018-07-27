@@ -2,23 +2,22 @@
 {% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
 {% set url = h.url_for(controller='package', action=url_action, id=pkg.name, resource_id=res.id) %}
 
-<li class="resource-item clearfix" data-id="{{ res.id }}">
+<li class="resource-component clearfix" data-id="{{ res.id }}">
     {% block resource_item_header %}
    
         {% block resource_item_title %}
-        <a class="heading inline" href="{{ url }}" title="{{ res.name or res.description }}">
-            {% if res.can_be_previewed %}
+        <a class="resource-title" href="{{ url }}" title="{{ res.name or res.description }}">
+            {#{% if res.can_be_previewed %}
                 <i class="icon-eye-open"></i>
                 {% else %}
                 <i class="icon-info-sign"></i>
-                {% endif %}
-            {{ h.resource_display_name(res)|truncate(50) }} 
+                {% endif %} #}
+            {{ h.resource_display_name(res) }} 
             <span class="format-label" 
                 property="dc:format" data-format="{{ res.format.lower() or 'data' }}">{{ res.format }}</span>
             {{ h.popular('views', res.tracking_summary.total, min=10) }}
         </a>
         {% endblock %} {# resource_item_title #}
-        <div class="resource-action-buttons">
         {% block resource_item_explore %}
         {% if not url_is_edit %}
         {#  {% if can_edit %} #}
@@ -31,8 +30,8 @@
                 {# Placeholder for extra data/resources buttons #} 
             {% endblock %}
             
-            <div class="newline-action action-button btn-group pull-right">
-                <a class="btn btn-primary resource-url-analytics download-btn" href="{{ res.url }}"
+            <div class="btn-download btn-group ">
+                <a class=" btn-group-main" href="{{ res.url }}"
                     > {{ _('DOWNLOAD') }}</a>
             {#{% if raster_resources|length>0 or vector_resources|length>0 %} 
             <a class="btn btn-primary dropdown-toggle" data-toggle="modal" data-module-id={{res.id}} data-target="#download_options-{{res.id}}" data-module="download_options_dialog" >
@@ -41,7 +40,6 @@
             {% snippet 'package/snippets/download_options.html', pkg=pkg, res=res %}
 
             {% endif %} #}
-        </div>
 
         {% if res.resource_type == 'api' %}
             {% block resource_item_service %}
@@ -69,7 +67,7 @@
         {% if res.description %}
         {{ h.markdown_extract(res.description, extract_length=120) -}}
         {% else %}
-        <i>{{ _('No description') }}</i>
+        <a>{{ _('No description') }}</a>
         {% endif %}
         </p>
 
