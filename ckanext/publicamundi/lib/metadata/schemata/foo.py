@@ -253,11 +253,12 @@ class IFooMetadata(IMetadata):
 
     subject_closed = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
-            SimpleTerm('biological sciences', 'biological sciences', u'biological ciences'),
+            SimpleTerm('biological sciences', 'biological sciences', u'biological sciences'),
             SimpleTerm('english', 'english', u'English'))),
-        title = u'Language',
+        title = u'Subject',
         required = False,)
         #default = 'english')
+    subject_closed.setTaggedValue('links-to', 'closed-tag')    
 
     @zope.interface.invariant
     def check_tag_duplicates(obj):

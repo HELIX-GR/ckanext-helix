@@ -74,7 +74,7 @@ function init() {
         $(this).addClass('breadcrumb-hide-text');
     });
        
-    var toolbar = $('.toolbar');
+    var toolbar = $('.breadcrumbs');
     toolbar.on('mouseenter', function(){
         bread_items.each(function(idx) {
             //console.log($(this).context.innerText);

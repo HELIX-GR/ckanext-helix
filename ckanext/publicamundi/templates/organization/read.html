@@ -13,6 +13,12 @@
 {% endif %}
 {% endblock %}
 
+{% block content_action %}
+  {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
+    {% link_for _('Manage'), controller='organization', action='edit', id=c.group_dict.name, class_='btn btn-default btn-manage', icon='wrench', named_route=group_type + '_edit'  %}
+  {% endif %}
+{% endblock %}
+
 
 {% block organization_facets %}
   {#{% for facet in c.facet_titles %}

@@ -748,6 +748,37 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         except toolkit.ObjectNotFound:
             return None
     
+    DATASET_CATEGORIES = ['BIO','GEO']
+    @classmethod
+    def create_dataset_categories(cls):
+        '''Create dataset category vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        try:
+            data = {'id': 'dataset_categories'}
+            toolkit.get_action ('vocabulary_show') (context, data)
+            log1.info("The dataset categories vocabulary already exists. Skipping.")
+        except toolkit.ObjectNotFound:
+            log1.info("Creating vocab 'dataset categories'")
+            data = {'name': 'dataset_categories'}
+            vocab = toolkit.get_action ('vocabulary_create') (context, data)
+            for tag in cls.DATASET_CATEGORIES:
+                log1.info("Adding tag {0} to vocab 'dataset categories'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                toolkit.get_action ('tag_create') (context, data)
+    
+    @classmethod
+    def dataset_categories(cls):
+        '''Return the list of all existing types from the dataset_categories vocabulary.'''
+        cls.create_dataset_categories()
+        try:
+            dataset_categories = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
+            return dataset_categories
+        except toolkit.ObjectNotFound:
+            return None
     
     @classmethod
     def create_title_types(cls):
@@ -851,6 +882,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'resource_types': self.resource_types,
             'resource_types_options': self.resource_types_options,
             'closed_tags': self.closed_tags,
+            'dataset_categories': self.dataset_categories,
             'languages': self.languages,
             'title_types': self.title_types,
             'title_types_options': self.title_types_options,
@@ -1197,6 +1229,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
+            'dataset_category': [
+                toolkit.get_validator('ignore_missing'),
+                toolkit.get_converter('convert_to_tags')('dataset_categories')
+            ],
             'closed_tag': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_tags')('closed_tags')
@@ -1466,6 +1502,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'closed_tag': [
                 toolkit.get_converter('convert_from_tags')('closed_tags'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'dataset_category': [
+                toolkit.get_converter('convert_from_tags')('dataset_categories'),
                 toolkit.get_validator('ignore_missing')
             ],
             'language_name': [
