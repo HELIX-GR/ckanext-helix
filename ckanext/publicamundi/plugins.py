@@ -399,7 +399,7 @@ class ExtrametadataController(BaseController):
                                   'form_snippet': form_snippet,
                                   'dataset_type': package_type})
 
-    def organization_read(self, id, limit=20):
+    def read(self, id, limit=20):
         oc = oController()
         group_type = oc._ensure_controller_matches_group_type(
             id.split('@')[0])
@@ -748,7 +748,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         except toolkit.ObjectNotFound:
             return None
     
-    DATASET_CATEGORIES = ['BIO','GEO']
+    DATASET_CATEGORIES = ['BIO','GEO','STAT']
     @classmethod
     def create_dataset_categories(cls):
         '''Create dataset category vocabulary and tags, if they don't exist already.
@@ -757,15 +757,19 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''
         user = toolkit.get_action('get_site_user')({'ignore_auth': True}, {})
         context = {'user': user['name']}
-        try:
-            data = {'id': 'dataset_categories'}
-            toolkit.get_action ('vocabulary_show') (context, data)
-            log1.info("The dataset categories vocabulary already exists. Skipping.")
-        except toolkit.ObjectNotFound:
-            log1.info("Creating vocab 'dataset categories'")
-            data = {'name': 'dataset_categories'}
-            vocab = toolkit.get_action ('vocabulary_create') (context, data)
-            for tag in cls.DATASET_CATEGORIES:
+        #try:
+        #    data = {'id': 'dataset_categories'}
+        #    toolkit.get_action ('vocabulary_show') (context, data)
+        #    log1.info("The dataset categories vocabulary already exists. Skipping.")
+        #except toolkit.ObjectNotFound:
+        #    log1.info("Creating vocab 'dataset categories'")
+        #    data = {'name': 'dataset_categories'}
+        #    vocab = toolkit.get_action ('vocabulary_create') (context, data)
+        data = {'id': 'dataset_categories'}
+        vocab = toolkit.get_action ('vocabulary_show') (context, data)
+        categories = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
+        for tag in cls.DATASET_CATEGORIES:
+            if tag not in categories:
                 log1.info("Adding tag {0} to vocab 'dataset categories'".format(tag))
                 data = {'name': tag, 'vocabulary_id': vocab['id']}
                 toolkit.get_action ('tag_create') (context, data)
@@ -1048,7 +1052,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         #added because organization_read overrided default new org
         mapper.connect('organization_new', '/organization/new',controller='organization', action='new')
         #override organization read to restrict private dataset reading for members
-        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_read',
+        mapper.connect('organization_read', '/organization/{id}',controller='organization', action='read',
                   ckan_icon='sitemap')
 
         #mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_edit',

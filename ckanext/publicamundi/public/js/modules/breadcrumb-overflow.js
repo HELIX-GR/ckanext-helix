@@ -22,6 +22,15 @@ this.ckan.module('breadcrumb-overflow', function ($, _) {
                 console.log($(this), "Hello, world2");
                 $(this).addClass('hide-overflow');
             });
+            
+            var first_breadcrumb = $('.breadcrumbs-part:first');
+            var txt3 = document.createElement("a");   // Create with DOM
+            txt3.className = "breadcrumbs-part";
+            txt3.innerHTML = " ...";
+            if (bread_items>1){
+                first_breadcrumb.after(txt3);
+            }
+            
 
             var toolbar = $('.breadcrumbs');
             toolbar.on('mouseenter', function () {
@@ -31,6 +40,7 @@ this.ckan.module('breadcrumb-overflow', function ($, _) {
                     $(this).removeClass('hide-overflow');
                     //addClass('breadcrumb-hide-text');
                 });
+                txt3.className = "breadcrumbs-part hide-overflow";
             });
 
             toolbar.on('mouseleave', function () {
@@ -40,6 +50,7 @@ this.ckan.module('breadcrumb-overflow', function ($, _) {
                     $(this).addClass('hide-overflow');
                     //addClass('breadcrumb-hide-text');
                 });
+                txt3.className = "breadcrumbs-part";
             });
 
 

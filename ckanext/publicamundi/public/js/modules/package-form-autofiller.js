@@ -180,7 +180,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                         return false
                     })
                     this.el.css('margin', '0px 5px')
-                    this.el.insertBefore($form.find('button.btn-primary[name="save"]').first())
+                    this.el.insertBefore($form.find('button.add[name="save"]').first())
                     this.el.show()
                 }
                 break;
@@ -196,7 +196,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
                         return false
                     })
                     this.el.css('margin', '0px 5px')
-                    this.el.insertBefore($form.find('button.btn-primary[name="save"]').first())
+                    this.el.insertBefore($form.find('button.add[name="save"]').first())
                     this.el.show()
                 }
                 break;

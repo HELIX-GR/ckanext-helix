@@ -55,8 +55,9 @@
   {% for facet, title in c.facet_titles.items() %} #}
   
   {# advanced search #}
-  
+  <div id="checkbox-list">
     {% snippet 'snippets/facet_list.html', title=title %}
+  </div>
   {#{% endfor %}
   {% endwith %} #}
 {% endblock %}  {#secondary_content #}

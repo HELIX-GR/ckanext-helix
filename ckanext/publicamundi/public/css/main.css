@@ -61,6 +61,11 @@ header > h6.inline {
 .btn-right-fix{
     margin-left: -5px;
 }
+
+.dropdown-menu li > a {
+    padding-left: 0px !important;
+}
+
 .dropdown-menu li > a > p {
     margin: 2px 0px;
 }
@@ -494,6 +499,7 @@ h1 > .info {
   font-size: 0px;
   cursor: pointer;
   z-index: 0;
+  height:30px;
 }
 
 .control-upload .controls.choose-method button.upload-file {
@@ -731,3 +737,4 @@ section.tags {
 .field-qname-foo\.baz{
     display: none;
 }
+

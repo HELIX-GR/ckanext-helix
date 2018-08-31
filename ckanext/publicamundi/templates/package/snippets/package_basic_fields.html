@@ -143,20 +143,24 @@
 {# Dataset category (bio, geo etc.)#}
 
 <div class="form-group control-full" >
-        <label for="field-dataset_category"   class="control-label">Thematic Category</label>
+        <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
         <div class="controls" >
         <select  class="select-field" id="field-dataset_category" name="dataset_category"   placeholder="The thematic category of this dataset" >
             {% for dataset_category in h.dataset_categories()  %}
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}
+            <option value=""></option>
         </select>
         </div>
-      </div>  
+</div>  
 
+<div class="help-block">
+        {% trans %}Please select only if the dataset belongs to a special category. Learn more here {% endtrans %}
+</div>
 
 {# Closed tags field #}
 <div class="form-group control-full" >
-  <label for="field-closed_tag"   class="control-label">Subject</label>
+  <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> Subject</label>
   <div class="controls" >
   <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A classification of this dataset" >
       {% for closed_tag in h.closed_tags()  %}
@@ -167,7 +171,7 @@
 </div>  
 
 <div class="help-block">
-      {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">jcu.edu.au</a>{% endtrans %}
+      {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}
 </div>
 
 
@@ -206,7 +210,7 @@
 <div class="form-group dropdown license">
   {% set error = errors.license_id %}
      
-  <label class="control-label" for="field-license">{{ _("License") }}</label>
+  <label class="control-label" for="field-license"><span title="This field is required" class="control-required">*</span>{{ _("License") }}</label>
   <div class="controls">
     <select id="field-license" name="license_id" data-module="autocomplete" class="input-xlarge">
       {% for license_desc, license_id in licenses if license_desc  %}

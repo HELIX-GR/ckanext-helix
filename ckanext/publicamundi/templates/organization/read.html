@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content %}
-  <a class="breadcrumbs-part" {% link_for _('Organization'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
+  <a class="breadcrumbs-part" {% link_for _('PUBLISHERS'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
   <a class="breadcrumbs-part" {% link_for c.group_dict.display_name|truncate(35), controller='organization', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</a>
 {% endblock %}
 
@@ -15,7 +15,7 @@
 
 {% block content_action %}
   {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
-    {% link_for _('Manage'), controller='organization', action='edit', id=c.group_dict.name, class_='btn btn-default btn-manage', icon='wrench', named_route=group_type + '_edit'  %}
+    {% link_for _('Manage'), controller='organization', action='edit', id=c.group_dict.name, class_='btn btn-default btn-manage pull-right', icon='wrench', named_route=group_type + '_edit'  %}
   {% endif %}
 {% endblock %}
 
@@ -26,4 +26,12 @@
     {{ h.snippet('snippets/facet_list.html', title=title, name=facet, extras={'id':c.group_dict.id}) }}
    
   {#{% endfor %} #}
+{% endblock %}
+
+
+{% block content_primary_nav %}
+{% set action='read'%}
+  {{ h.build_nav_icon(group_type + '_read', _('Datasets'), id=c.group_dict.name) }}
+  {{ h.build_nav_icon(group_type + '_activity', _('Activity Stream'), id=c.group_dict.name, offset=0) }}
+  {{ h.build_nav_icon(group_type + '_about', _('About'), id=c.group_dict.name) }}
 {% endblock %}

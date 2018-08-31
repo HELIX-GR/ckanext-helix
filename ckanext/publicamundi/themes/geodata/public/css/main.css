@@ -714,8 +714,7 @@ p a{
 }
 .page-header{
     background: none;
-    //border-bottom: none;
-    border-bottom: 1px #7C7C7F solid;
+    border-bottom: none;
 }
 /* Breadcrumbs */
 
@@ -772,7 +771,12 @@ p a{
 .page_primary_action{
     float: right;
     margin-bottom: 0;
+    margin-top:-8px !important;
 }
+.page_primary_action .btn-default{
+    border: 2px #3ea0dd solid !important;
+}
+
 .toolbar { 
     display: block;
     background: #4E59A4;

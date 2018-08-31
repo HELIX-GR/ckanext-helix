@@ -8,6 +8,8 @@ import urllib
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 import ckan.lib.helpers as h
+from webhelpers.html import HTML, literal, tags, tools
+from webhelpers import paginate
 
 from ckanext.publicamundi.lib.metadata import (
     fields, bound_field, markup_for_field, markup_for)
@@ -134,10 +136,10 @@ def transform_to_iso_639_2(langcode_iso_639_1):
     
 def pager(self, *args, **kwargs):
         kwargs.update(
-            format=u"<ul class='pagination-wrapper'><ul class='pagination'>"
-            "$link_previous ~2~ $link_next</ul></ul>",
-            symbol_previous=u'«', symbol_next=u'»',
-            curpage_attr={'class': 'active'}, link_attr={}
+            format=u"<ul class='pagination-block'><ul>"
+            "$link_first  $link_previous ~2~ $link_next $link_last </ul></ul>",
+            symbol_first=u'<<', symbol_previous=u'<', symbol_next=u'>', symbol_last=u'>>',
+            curpage_attr={'class': 'current-item'}, link_attr={'class': 'pagination-item'}
         )
         return super(h.Page, self).pager(*args, **kwargs)
         
@@ -145,3 +147,5 @@ def pager(self, *args, **kwargs):
             #format=u"<div class='pagination-block'>"
             #"$link_previous ~2~ $link_next</div>",
            
+
+

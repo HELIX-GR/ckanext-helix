@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block primary_content_inner %}
-  <h2 class="hide-heading">{{ _('My Organizations') }}</h2>
+  <h2 class="hide-heading">{{ _('My Publishers') }}</h2>
   {% set organizations = h.organizations_available('create_dataset') %}
   {% if organizations %}
     <div class="wide">

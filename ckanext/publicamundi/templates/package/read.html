@@ -79,7 +79,7 @@
     {% endblock %}
    
     {% if h.check_access('package_update', {'id':pkg.id }) %}
-    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-default btn-manage', icon='wrench' %}
+    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-manage pull-right', icon='wrench' %}
     {% endif %}
 
 

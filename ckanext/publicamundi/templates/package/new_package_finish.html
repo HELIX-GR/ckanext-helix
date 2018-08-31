@@ -8,6 +8,12 @@
 
 {% block subtitle %}{{ _('Finish creating dataset') }}{% endblock %}
 
+{% block breadcrumb_content %}
+  {{ super() }}
+  <a class="breadcrumbs-part" href="">{{ _('FINALIZE') }}</a>
+ 
+{% endblock %}
+
 {% block form %}
 
 
@@ -28,12 +34,12 @@
 
      You are almost done. 
      Press finish to complete the dataset creation and you will be notified when your dataset is publicly available for view.
-
+    
  {# {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, groups_available=groups_available %} #}
 
   <div class="form-actions">
-    <button id="btn-save-go-resources" class="btn" name="save" value="go-resources" type="submit">{{ _('Previous') }}</button>
-    <button id="btn-save-finish" class="btn btn-primary" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
+    <button id="btn-save-go-resources" class="btn btn-manage" name="save" value="go-resources" type="submit">{{ _('Previous') }}</button>
+    <button id="btn-save-finish" class="btn btn-primary btn-manage" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
   </div> 
 
 </form>
