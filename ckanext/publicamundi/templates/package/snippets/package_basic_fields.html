@@ -132,13 +132,26 @@
         'notes_optional', 
         id = 'field-notes_optional', 
         label = _('Περιγραφή (Ελληνικά)'), 
-        placeholder = _('Μία σύντομη περιγραφή του συνολου δεδομένων'), 
+        placeholder = _('Μία σύντομη περιγραφή του συνόλου δεδομένων'), 
         value = data.notes_optional, 
         error = errors.notes_optional,
         classes = ['control-full'], 
         is_required = false
     )        
 }}
+
+{# if admin enable organization field#}
+{% if h.check_access('sysadmin') %}
+{% snippet 'package/snippets/edit-organization.html', 
+    name='owner_org', 
+    value=data.group_id,
+    required=true,
+    orgs_available=h.organizations_available('create_dataset')
+%}
+
+
+{% endif%}
+
 
 {# Dataset category (bio, geo etc.)#}
 
@@ -258,17 +271,7 @@
 %} #}
 {% endif %} 
 
-{{ 
-    form.input(
-        'owner_org', 
-        id = 'field-owner-org', 
-        label = _('Organization'), 
-        classes = ['hidden'],
-        value = data.owner_org, 
-        error = errors.owner_org, 
-        is_required = true
-    ) 
-}}    
+
 
 {% endblock %} 
 

@@ -147,7 +147,7 @@ class TableReadWidget(_common.TableReadWidget):
         ])'''
 
     def get_field_qualifiers(self):
-        log1.debug("\n\n\ IN FOO.py GET FIELD Q \n")
+        #log1.debug("\n\n\ IN FOO.py GET FIELD Q \n")
         return OrderedDict([
             ('creator', 'creator.foo')
         ])

@@ -9,6 +9,10 @@ from ckanext.publicamundi.lib.metadata.fields import *
 from . import base as base_widgets
 from . import (field_widget_adapter, field_widget_multiadapter)
 
+from collections import OrderedDict
+
+import logging
+log1 = logging.getLogger(__name__)
 
 # Todo: Provide readers/editors for:
 #  - IBytes (upload?)
@@ -98,6 +102,18 @@ class BoolEditWidget(base_widgets.EditFieldWidget):
 class ChoiceEditWidget(base_widgets.EditFieldWidget):
 
     def get_template(self):
+        ''' log1.debug('\n\n\n IN CHOICE EDIT WIDGET field is %s\n\n\n',self.field.vocabulary.__dict__["by_value"])
+        self.field.vocabulary.__dict__["by_value"].sorted()
+        i=0
+        sorted_dict= OrderedDict()
+        for key in sorted(self.field.vocabulary.__dict__.get("by_value").iterkeys()):
+            i = i +1
+            log1.debug('\n%s key is %s  value is %s \n',i, key, self.field.vocabulary.__dict__.get("by_value").get(key) )
+            sorted_dict[key] =  self.field.vocabulary.__dict__.get("by_value").get(key)
+        #for attr in dir(self.field.vocabulary.__dict__):
+        #    				       		log1.debug("choice.%s = %r" % (attr, getattr(self.field.vocabulary.__dict__, attr)))
+        log1.debug('\n\nSORTED DICT IS %s\n\n', sorted_dict)
+        self.field.vocabulary.__dict__["by_value"] = sorted_dict '''
         return 'package/snippets/fields/edit-choice-select.html'
 
 @field_widget_adapter(IChoiceField, qualifiers=['select2'])

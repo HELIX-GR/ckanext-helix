@@ -253,8 +253,9 @@ class IFooMetadata(IMetadata):
 
     subject_closed = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
-            SimpleTerm('biological sciences', 'biological sciences', u'biological sciences'),
-            SimpleTerm('english', 'english', u'English'))),
+            SimpleTerm('biological sciences', 'biological sciences', u'Biological sciences'),
+            SimpleTerm('english', 'english', u'English'),
+             SimpleTerm('aerodynamics', 'aerodynamics', u'Aerodynamics'))),
         title = u'Subject',
         required = False,)
         #default = 'english')

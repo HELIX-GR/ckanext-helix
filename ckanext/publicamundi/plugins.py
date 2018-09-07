@@ -427,7 +427,7 @@ class ExtrametadataController(BaseController):
                       extra_vars={'group_type': group_type})
 
     def _read(self, id, limit, group_type):
-        log1.debug('\nIN _READ\n')
+        log1.debug('\n\n\n\n\n\n\nIN _READ\n\n\n\n\n\n\n')
         oc = oController()
         ''' This is common code used by both read and bulk_process'''
         context = {'model': model, 'session': model.Session,
@@ -1894,12 +1894,12 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         such as tags) of all the terms sent to the indexer.
         '''
         log1.debug('before_index: Package %s is indexed', pkg_dict.get('name'))
-        #subjects= pkg_dict['vocab_closed_tags']
+        subjects= pkg_dict['vocab_closed_tags']
         #log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
         
-        #pkg_dict['closed_tags_facets'] = []
-        #for subject in subjects:
-        #    pkg_dict['closed_tags_facets'].append(subject)
+        pkg_dict['closed_tags_facets'] = []
+        for subject in subjects:
+            pkg_dict['closed_tags_facets'].append(subject)
         
         return pkg_dict
 
@@ -1971,7 +1971,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             del facets_dict['groups']
             myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
             facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
-        #log1.debug('\nORDERED FACETS ARE %s\n',facets_dict)
+        log1.debug('\nORDERED FACETS ARE %s\n',facets_dict)
         #if package_type == 'dataset':
             # Todo Maybe reorder facets
         #    pass

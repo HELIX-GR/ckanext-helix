@@ -3450,6 +3450,11 @@ msgstr "Προσθήκη δεδομένων"
 msgid "Additional info"
 msgstr "Πρόσθετες πληροφορίες"
 
+#: ckanext/helixtheme/templates/package/snippets/stages.html:44
+msgid "Finalize"
+msgstr "Ολοκλήρωση"
+
+
 #: ckanext/publicamundi/themes/geodata/templates/package/snippets/developers/csw_api.html:7
 msgid "Get CSW Record"
 msgstr ""
@@ -3924,4 +3929,28 @@ msgid ""
 msgstr ""
 " Το προφίλ σας επιτρέπει σε άλλους χρήστες του Geodata.gov.gr να "
 "γνωρίζουν ποιος είστε και με τι ασχολείστε. "
+
+#: ckanext/helixtheme/templates/home/snippets/search.html:12
+msgid "Search for open scientific data"
+msgstr "Αναζητήστε ανοικτά επιστημονικά δεδομένα"
+
+msgid "Latest Datasets"
+msgstr "Τελευταία σύνολα δεδομένων"
+
+msgid "Advanced search"
+msgstr "Σύνθετη αναζήτηση"
+
+msgid "Featured Datasets"
+msgstr "Προτεινόμενα σύνολα δεδομένων"
+
+msgid "MORE"
+msgstr "ΠΕΡΙΣΣΟΤΕΡΑ"
+
+
+
+
+
+
+
+
 

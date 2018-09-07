@@ -719,7 +719,7 @@ class CreatorEditWidget(EditObjectWidget):
                 'title': _('Creator name identifier scheme uri'),
             },
             'creator_affiliation': {
-                'title': _('Creator affiliation'),
+                'title': _('Organization'),
             },
             
         }

@@ -429,7 +429,7 @@ class IPublicationInfo(IObject):
             SimpleTerm('clarity', 'clariy', u'Clarity'))),
         title = u'Publisher',
         required = False,
-    )
+    ) 
 
     publication_year = zope.schema.Int(
         title = u'Publication year',

@@ -23,7 +23,7 @@
 {% block organization_facets %}
   {#{% for facet in c.facet_titles %}
     {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }} #}
-    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, extras={'id':c.group_dict.id}) }}
+    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=false, extras={'id':c.group_dict.id}) }}
    
   {#{% endfor %} #}
 {% endblock %}
@@ -31,7 +31,9 @@
 
 {% block content_primary_nav %}
 {% set action='read'%}
+<div class="nav-menu">
   {{ h.build_nav_icon(group_type + '_read', _('Datasets'), id=c.group_dict.name) }}
   {{ h.build_nav_icon(group_type + '_activity', _('Activity Stream'), id=c.group_dict.name, offset=0) }}
   {{ h.build_nav_icon(group_type + '_about', _('About'), id=c.group_dict.name) }}
+</div>
 {% endblock %}

@@ -13,7 +13,11 @@
             href="{{ h.url_for(controller='package', action='resource_read', id=package.name, resource_id=resource.id) }}"
             data-format="{{ resource.format }}"
            >{{ resource.format|upper }}</a>
-
+          <a class="tag-box tag-box-other" data-toggle="tooltip" data-placement="bottom" 
+           title="Data available with an open license" >{{ _('PUBLIC') }}  </a>
+      
+          <a class="tag-box tag-box-other"  data-toggle="tooltip" data-placement="bottom" 
+           title="Data available by a public authority with an open license">{{ _('OPEN') }} </a>
       {% endfor %} {# resource #}
   </div> 
 {% endblock %}

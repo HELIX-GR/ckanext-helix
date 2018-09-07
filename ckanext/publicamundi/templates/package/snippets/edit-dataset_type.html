@@ -4,7 +4,7 @@
 
 {% if is_new %}
 
-<div class="form-group control-select">
+<div class="form-group control-full">
     <label class="control-label" for="field-dataset_type">
         {{- title or _('Schema') }}{{ mark_required(required) }}</label>
     <div class="controls ">      
@@ -17,9 +17,10 @@
             {% endfor -%}
         </select>
         {% if verbose|default(true) and description %}
-        <p class="help-block">{{ description }}</p>
-        {% endif %}
+        
     </div>
+    <p class="help-block">{{ description }}</p>
+        {% endif %}
 </div>
 
 {% else %}

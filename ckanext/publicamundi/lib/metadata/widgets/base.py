@@ -196,7 +196,7 @@ class ObjectWidget(Widget):
     def prepare_template_vars(self, name_prefix, data):
         '''Prepare template context'''
         
-        log1.debug('\n\n IN PREP TEMP VARS OBJECT data is %s\n\n',data)
+        #log1.debug('\n\n IN PREP TEMP VARS OBJECT data is %s\n\n',data)
         # Provide basic variables
         tpl_vars = {
             'name_prefix': name_prefix,
@@ -211,7 +211,7 @@ class ObjectWidget(Widget):
         }
 
         # Override with caller's variables
-        log1.debug('\n\n tpl vars are ##### %s\n\n',tpl_vars)
+        #log1.debug('\n\n tpl vars are ##### %s\n\n',tpl_vars)
         for k in data:
             if not k in self._reserved_var_names:
                 #log1.debug('\n\ndata[k] is %s\n',data[k])
@@ -225,7 +225,7 @@ class ObjectWidget(Widget):
             'object-widget',
             'object-%s-widget' %(self.action),
             'object-qname-%s' %(qname or 'NONE'),]
-        log1.debug('\n\n tpl vars are **** %s\n\n',tpl_vars)
+        #log1.debug('\n\n tpl vars are **** %s\n\n',tpl_vars)
         
         return tpl_vars
 

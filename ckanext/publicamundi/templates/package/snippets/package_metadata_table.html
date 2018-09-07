@@ -9,7 +9,7 @@
       <div class="btn-group">
         <a class="btn btn-primary btn-group-main" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
           > {{ _('DOWNLOAD') }}</a>
-        <button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
+        {#<button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -17,11 +17,11 @@
            <li>
              <a href="{{ link.url }}" target="_blank"
                ><strong>{{ link.title }}</strong> {{ link.format|upper }} Metadata
-                {#{%- if link.generator %} - {{ link.generator }}{% endif -%}-#}
+                #{%- if link.generator %} - {{ link.generator }}{% endif -%}-#
              </a>
            </li>
            {% endfor %}
-        </ul>
+        </ul> #}
       </div>
       <div class="metadata-label pull-left">
         <span>{{ pkg_dict.dataset_type|title|upper }}</span> <i class="icon-ok-sign"></i>
