@@ -23,12 +23,13 @@ Example:
   {% block package_item_content %}
   <div class="dataset-content">
       <div class="dataset-preheading">
-          {% if package.groups %}
+          {#{% if package.groups %}
           {% set group = package.groups[0] %}
           <div>{{ h.friendly_date(modified|urlize)}} @ <span> <a href={{ h.url_for(controller='group', action='read', id= group.name) }}> {{group.title|urlize }}</span></div> </a>
           {% else %}
           <div>{{ h.friendly_date(modified|urlize)}} </div>
-          {% endif %}
+          {% endif %} #}
+          <div>{{ h.friendly_date(modified|urlize)}} </div>
       </div>
 
       <h3 class="dataset-heading">
@@ -57,7 +58,7 @@ Example:
       {% endif %}
       {% if package.organization %}
       {% set org = h.get_organization(package.organization.name) %}
-      <div class="dataset-postheading">
+      <div class="dataset-service">
           <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}}> {{ package.organization.title|urlize }}</a>
       </div>
       {% endif %}

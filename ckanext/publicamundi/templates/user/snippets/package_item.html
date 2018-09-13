@@ -9,11 +9,12 @@
       {% for resource in package.resources %}
         {#{% set task_result = h.resource_ingestion_result(resource.id) %} 
         {% snippet 'user/snippets/resource_item.html', pkg=package, res=resource, parent=parent %}#}
+        {% if resource.format%}
           <a class="tag-box"
             href="{{ h.url_for(controller='package', action='resource_read', id=package.name, resource_id=resource.id) }}"
             data-format="{{ resource.format }}"
            >{{ resource.format|upper }}</a>
-
+        {% endif%}
       {% endfor %} {# resource #}
   </div> 
 {% endblock %}

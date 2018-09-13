@@ -34,7 +34,6 @@ Example:
       <h3 class="dataset-heading">
         {% if package.private %}
           <span class="dataset-private label label-inverse">
-            <i class="icon-lock"></i>
             {{ _('Private') }}
         </span>
         {% endif %}
@@ -55,7 +54,7 @@ Example:
   {% endif %}
 
       {% if package.organization %}
-      <div class="dataset-postheading">
+      <div class="dataset-service">
           <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize }}</a>
       </div>
       {% endif %}

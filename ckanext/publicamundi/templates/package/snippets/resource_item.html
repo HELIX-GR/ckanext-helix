@@ -30,9 +30,13 @@
                 {# Placeholder for extra data/resources buttons #} 
             {% endblock %}
             
-            <div class="btn-download btn-group ">
+           
+            {% if res.format %}
+            <div class="btn-download btn-group "> 
                 <a class=" btn-group-main" href="{{ res.url }}"
                     > {{ _('DOWNLOAD') }}</a>
+             </div>  
+             {% endif %}     
             {#{% if raster_resources|length>0 or vector_resources|length>0 %} 
             <a class="btn btn-primary dropdown-toggle" data-toggle="modal" data-module-id={{res.id}} data-target="#download_options-{{res.id}}" data-module="download_options_dialog" >
                 <span class="icon-reorder"></span>
@@ -58,23 +62,25 @@
         {% endif %} {# url_is_edit #}
 
         {% endblock %} {# resource_item_explore #}
-        </div> {# resource-action-buttons #}
+       
     
     {% endblock %} {# resource_item_header #}
+
 
     {% block resource_item_description %}
     <p class="description">
         {% if res.description %}
         {{ h.markdown_extract(res.description, extract_length=120) -}}
         {% else %}
-        <a>{{ _('No description') }}</a>
+        {{ _('No description') }}
         {% endif %}
-        </p>
+    </p>
 
-    {% block resource_languages %}
-    {% endblock %}
+        {% block resource_languages %}
+        {% endblock %}
 
-    {% endblock %} {# resource_item_description #}
+    {% endblock %} {# resource_item
+        _description #}
 
-
+</li>
     

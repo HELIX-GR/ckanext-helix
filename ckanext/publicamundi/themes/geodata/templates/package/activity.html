@@ -18,11 +18,11 @@
     {% endblock %}
     {% endif %}
 
-    {% if pkg.groups %}
+    {#{% if pkg.groups %}
     {% block package_group %}
         {% snippet "snippets/group.html", group=pkg.groups %}
     {% endblock %}
-    {% endif %}
+    {% endif %} #}
 
     {% if pkg.tags %}
     {% block package_side_tags %}
@@ -45,7 +45,6 @@
 {% endblock %}
 
 {% block primary_content_inner %}
-<div class="gap"></div>
 {{super()}}
 {% endblock %}
 
