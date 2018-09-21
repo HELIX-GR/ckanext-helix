@@ -56,10 +56,10 @@ class IContactInfo(IObject):
     publish = zope.schema.Bool(title=_(u'Publish'), 
         description=_(u'This information can be safely published'), required=False)
 
-    @zope.interface.invariant
-    def not_empty(obj):
-        if obj.email is None and obj.address is None:
-            raise zope.interface.Invalid(_(u'At least one of email/address should be supplied'))
+    #@zope.interface.invariant
+    #def not_empty(obj):
+    #    if obj.email is None and obj.address is None:
+    #        raise zope.interface.Invalid(_(u'At least one of email/address should be supplied'))
 
 class IResponsibleParty(IObject):
 
@@ -436,10 +436,4 @@ class IPublicationInfo(IObject):
         required = False)
         #default = 2005,)
 
-    ''' @zope.interface.invariant
-    def publication_not_empty(obj):
-        log1.debug('\n\nIN NOT EMPTY \n\n')
-        if obj.publication_year is None:
-            raise zope.interface.exceptions.Invalid(_(u'Publication year is required'))'''
-
-    #zope.interface.invariant(publication_not_empty)
+    

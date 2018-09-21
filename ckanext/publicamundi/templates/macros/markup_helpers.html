@@ -5,9 +5,29 @@
    {%- endif -%}
 {%- endmacro -%}
 
+{# Make titles readable #}
+
+{%- macro map_titles(titles, key) -%}  
+    {% set title =  titles.get(key, key|title) %} 
+    
+    {%if title == '('"'foo.title'"',)' %}
+        Title
+    {% elif title == '('"'foo.creator.creator_name'"',)' %}
+        Creator    
+    {% elif title ==  '('"'foo.related_publication'"',)' %}
+        Related publication
+    {% elif title == '('"'foo.contact_email'"',)' %}
+        Contact e-mail
+    {% elif title == 'Closed_tag' %}
+        Subject
+    {% else %}
+        {{title}}
+    {% endif%}    
+    {%- endmacro -%}    
+
 {%- macro message_list(messages, key=None, titles={}) -%}
-    {% if messages -%}
-    {% if key %}<h4 data-key="{{ key }}" class="title">{{ titles.get(key, key|title) }}</h4>{% endif %}
+    {% if messages -%} 
+    {% if key %}<h4 data-key="{{ key }}" class="title">{{ map_titles(titles, key) }}</h4>{% endif %}
     {% if messages is string %}
     <span>{{ messages }}</span>
     {% elif messages is mapping -%}
@@ -29,7 +49,7 @@
 {%- endmacro -%}
 
 {% macro error_messages(errors, summary=None, titles={}) -%}
-    {% if errors or summary -%}
+    {% if errors or summary -%} 
     <div class="alert alert-danger errors error-messages">
         {% if summary %}<h3>{{ summary|safe }}</h3>{% endif %}
         {% if errors %}{{ message_list(errors, key=None, titles=titles) }}{% endif %}

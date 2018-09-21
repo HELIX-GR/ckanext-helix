@@ -12,7 +12,12 @@ from ckanext.publicamundi.lib import vocabularies
 from . import IMetadata
 from ._common import *
 
+from uuid import UUID
 _ = lambda t: t # Mock translator
+
+class relatedPubError(zope.schema.ValidationError):
+        __doc__ = _("Input is not a valid UUID")
+
 
 class IFooMetadata(IMetadata):
     
@@ -159,11 +164,31 @@ class IFooMetadata(IMetadata):
         default = 'helix',
         required=True)    
         
+    
+
+    def related_publication_empty(value):
+        log1.debug('\n\nIN INVARIANT NOT EMPTY value is  %s\n\n', value)
+        try:
+            val = UUID(value, version=4)
+        except ValueError:
+            # If it's a value error, then the string 
+            # is not a valid hex code for a UUID.
+            raise relatedPubError
+        #if value == '5':
+            #raise zope.interface.exceptions.Invalid(_(u'related publication is required'))
+            #raise relatedPubError
+        #else:
+        return True    
+
+
+    #zope.interface.invariant(related_publication_empty)    
+    #     
     related_publication = zope.schema.TextLine(
         title = u'Related publication',
         description = (u'The DOI of a related publication'),
-        required = False)
-        
+        required = True,
+        constraint=related_publication_empty)
+    
     
     funding_reference = zope.schema.TextLine(
         title = u'Funding reference',
@@ -173,12 +198,12 @@ class IFooMetadata(IMetadata):
     contact_email = z3c.schema.email.RFC822MailAddress(
         title = _(u'Contact e-mail'),
         description = (u'Email address of the contact person for this dataset'),
-        required = False)
+        required = True)
     
     creator = zope.schema.Object(ICreator,
         description = (u'The researcher involved in producing the data'),
         title = u'Creator',
-        required = True)
+        required = False)
     
     subject = zope.schema.Object(ISubject,
         title = u'Subject',

@@ -85,7 +85,7 @@ class Controller(BaseController):
                 filename = source_upload.filename)
             # Provide a file-like object as source
             source = source_upload.file
-            log.debug('\n source:  %s , up is %s , source url is %s  \n\n', source, up, source_url)
+            log.debug('\n\n source:  %s , up is %s , source url is %s, source_upload is %s  \n\n', source, up, source_url, source_upload)
             #log.debug('\n source_upload:  %s ,  value is %s\n\n', source_upload, source.getvalue())
             #for attr in dir(source_upload):
             #				       		log.info(" source upload.%s = %r" % (attr, getattr(source_upload, attr)))

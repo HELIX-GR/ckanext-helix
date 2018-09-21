@@ -172,6 +172,7 @@
 </div>
 
 {# Closed tags field #}
+{% set error = errors.closed_tag %} 
 <div class="form-group control-full" >
   <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> Subject</label>
   <div class="controls" >
@@ -180,8 +181,10 @@
         <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
       {% endfor %}
   </select>
+  {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
   </div>
 </div>  
+
 
 <div class="help-block">
       {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}

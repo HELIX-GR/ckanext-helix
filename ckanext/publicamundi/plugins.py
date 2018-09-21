@@ -1238,7 +1238,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_converter('convert_to_tags')('dataset_categories')
             ],
             'closed_tag': [
-                toolkit.get_validator('ignore_missing'),
+                toolkit.get_validator('not_empty'),
                 toolkit.get_converter('convert_to_tags')('closed_tags')
             ],
             'language_name': [
@@ -1506,7 +1506,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'closed_tag': [
                 toolkit.get_converter('convert_from_tags')('closed_tags'),
-                toolkit.get_validator('ignore_missing')
+                toolkit.get_validator('not_empty')
             ],
             'dataset_category': [
                 toolkit.get_converter('convert_from_tags')('dataset_categories'),

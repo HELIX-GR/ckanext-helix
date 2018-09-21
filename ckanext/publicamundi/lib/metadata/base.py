@@ -175,10 +175,11 @@ class Object(object):
         object's attributes or keys).
 
         '''
-
         cls = type(self)
         errors = cls.Validator(self).validate()
-        log1.debug('\n\n Errors are %s\n\n', errors)
+        #log1.debug('\n\n Error 1 is %s, type is %s\n\n', errors[0], type(errors[0]) )
+        #log1.debug('\n\n Error 2 is %s\n\n', errors[1])
+        log1.debug('\n\n Errors are:  %s, type : %s\n\n', self.dictize_errors(errors), type(self.dictize_errors(errors)) )
         if dictize_errors:
             return self.dictize_errors(errors)
         else:
@@ -548,24 +549,27 @@ class Object(object):
                 from ckan.common import _
                 #raise Invalid('Missing values, please fill all the required fields')
                 
-                raise Invalid(', '.join(map(str, errors)))
-                return errors
-            else:
-                return self.validate_invariants()
+                #raise Invalid(', '.join(map(str, errors)))
+                #return errors
+            #else:
+                return self.validate_invariants(errors)
 
         def validate_schema(self):
             '''Return <errors>'''
             errors = []
-            
             obj = self.obj
+            log1.debug('\n\n ITER OBJ IS %s, obj is %s \n\n', obj.iter_fields(), obj)
             for k, field in obj.iter_fields():
                 f = field.get(obj)
                 ef = self._validate_schema_for_field(f, field)
-                log1.debug('\n\n EF IS %s\n\n', ef)
+                log1.debug('\n\n EF IS %s f is %s k is %s field is %s\n\n', ef, f, k, field)
                 if ef:
-                    #errors.append((k, ef))
-                    errors.append( ef)
-            log1.debug('\n\n ERRORS in validate ARE %s\n\n', errors)
+                    
+                    if k == 'related_publication':
+                        log1.debug('\n in validate schema, ef is %s, type is %s, ef[0] type is %s, doc is %s -\n', ef, type(ef), type(ef[0]), ef[0].doc() ) 
+                        #ef[0] = ef[0].doc()
+                    errors.append((k, ef))
+            log1.debug('\n\n ERRORS in validate ARE %s, obj is %s\n\n', errors, obj)
             return errors
 
         def _validate_schema_for_field(self, f, field):
@@ -578,6 +582,9 @@ class Object(object):
                     field.validate(f)
                 except zope.interface.Invalid as ex:
                     ef.append(ex)
+                    log1.debug('\n in validate ex is %s\n', ex)
+                    log1.debug('\n in validate ef is %s, type is %s\n', ef, type(ef)) 
+                   
                 return ef
             # If here, we are processing an non-empty field
             if isinstance(field, zope.schema.Object):
@@ -663,13 +670,14 @@ class Object(object):
 
             return exs
 
-        def validate_invariants(self):
+        def validate_invariants(self, errors=[] ):
             '''Return <errors>'''
-            errors = []
+            #errors = []
 
             obj = self.obj
             schema = obj.get_schema()
 
+            log1.debug('\n\n IN VALIDATE INVARIANTS obj is %s\n\n', obj)
             # Descend into field invariants
             
             recurse = False
@@ -681,11 +689,12 @@ class Object(object):
                 for k, field in obj.iter_fields():
                     f = field.get(obj)
                     ef = self._validate_invariants_for_field(f, field)
+                    #log1.debug('\n\n IN INNER VALIDATE k is %s, field is %s, f is %s, ef is %s\n\n', k, field, f ,ef)
                     if ef:
                         errors.append(ef)
 
             # Check own invariants
-            log1.debug('\n\n IN VALIDATE INVARIANTS\n\n')
+            
             try:
                 ef = []
                 schema.validateInvariants(obj, ef)
@@ -743,19 +752,20 @@ class Object(object):
     def _dictize_errors(self, errors):
         global_key = ErrorDict.global_key
         schema = self.get_schema()
-        
+        log1.debug('\n\n IN DICITZE ERRORS:  %s\n\n', errors)
         res = ErrorDict()
-        #for k, ef in errors:
-        #    if k is None:
-        #        # Found failed invariants
-        #        res[global_key] = [ str(ex) for ex in ef ]
-        #    else:
-        #        # Found a field-level error
-        #        field = schema.get(k)
-        #        if not field:
-        #            continue
-        #        f = field.get(self)
-        #        res[k] = self._dictize_errors_for_field(ef, f, field)
+        for k, ef in errors:
+            if k is None:
+                # Found failed invariants
+                res[global_key] = [ str(ex) for ex in ef ]
+            else:
+                log1.debug('\n\n IN INNER DICITZE ERRORS: k is %s, type is %s,ef is %s, type[ef] is %s, ef[0] is %s, type[0] is %s\n\n', k, type(k),ef, type(ef), ef[0], type(ef[0]))
+                # Found a field-level error
+                field = schema.get(k)
+                if not field:
+                    continue
+                f = field.get(self)
+                res[k] = self._dictize_errors_for_field(ef, f, field)
         
         return res
 

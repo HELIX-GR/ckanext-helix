@@ -149,9 +149,9 @@ def widget_for_object(qualified_action, obj, errors={}):
     for candidate in candidates:
         name = candidate.to_string()
         widget = adapter_registry.queryMultiAdapter([obj], IObjectWidget, name)
-        logger.debug('Trying to adapt [%s] to widget for action %s: %r',
-            type(obj).__name__, name, 
-            widget if widget else None)
+        #logger.debug('Trying to adapt [%s] to widget for action %s: %r',
+        #    type(obj).__name__, name, 
+        #    widget if widget else None)
         if widget:
             break
     
@@ -189,9 +189,9 @@ def widget_for_field(qualified_action, field, errors={}):
         for candidate in candidates:
             name = candidate.to_string()
             widget = adapter_registry.queryMultiAdapter(adaptee, IFieldWidget, name)
-            logger.debug('Trying to adapt [%s] to widget for action %s: %r',
-                ', '.join([type(x).__name__ for x in adaptee]), name, 
-                widget if widget else None)
+            #logger.debug('Trying to adapt [%s] to widget for action %s: %r',
+            #    ', '.join([type(x).__name__ for x in adaptee]), name, 
+            #    widget if widget else None)
             if widget:
                 break
         if widget:
