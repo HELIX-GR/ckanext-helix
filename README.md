@@ -34,7 +34,7 @@ Here we cover some of the configuration settings for only basic plugins of `ckan
 The most common settings are:
 
     # Specify which dataset types are enabled
-    ckanext.publicamundi.dataset_types = ckan inspire foo
+    ckanext.publicamundi.dataset_types = ckan inspire datacite
     ckanext.publicamundi.extra_fields = spatial
     
     # Indicate whether a more relaxed name pattern can be used for dataset names

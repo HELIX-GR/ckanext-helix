@@ -89,50 +89,51 @@ def postprocess_dataset_for_edit(key, data, errors, context):
         raise Invalid('Unknown dataset-type: %s' %(dtype))
     
     #logger.debug('DATA IS [%s]' % ', '.join(map(str, data)) ) 
-    logger.debug('DATASET TYPE IS [%s]', dtype )  
+    logger.debug('DATASET TYPE IS %s', dtype )  
     # 1. Build metadata object
 
     cls = ext_metadata.class_for_metadata(dtype)
     md = cls.from_converted_data(data, for_edit=True)
+
 
     if not md:
         return # failed to create (in resources form ?)
 
     data[(key_prefix,)] = md
     
-    #logger.debug('DATA EXTRAS IS [%s]', data[('extras',)] )
+    #logger.debug('MD IS %s', md )
     # 2. Validate as an object
 
     if not 'skip_validation' in context:
         validation_errors = md.validate(dictize_errors=True)
-        logger.debug("\n\n VALIDATION ERRORS IS: %s ,errors is %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
-        #errors[('foo.related_publication',)] = 'Missing Value'
+        #logger.debug("\n\n VALIDATION ERRORS IS: %s ,errors is %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
+        #errors[('datacite.related_publication',)] = 'Missing Value'
         #logger.debug("\n\n validation 4 is:: %s type is %s \n\n", validation_errors['creator'],  type(validation_errors['creator']), )
         # Map validation_errors to errors
         for key, value in validation_errors.items():
-            logger.debug("\n\n validation is %s, type is %s, value is %s, type is %s\n", key, type(key), value, type(value) )
-            #key = "('foo.{}',)".format(key)
+            #logger.debug("\n\n validation is %s, type is %s, value is %s, type is %s\n", key, type(key), value, type(value) )
+            #key = "('datacite.{}',)".format(key)
             if not isinstance(value, list) :
                 # fix key-value for classes like Creator (contains multiple fields)
                 k = key + '.' + next(iter(value))
                 # make key compatible with errors dict (tuple)
-                k = tuple([str.encode("('foo.%s',)" % k)])
+                k = tuple([str.encode("('datacite.%s',)" % k)])
                 v =  value[next(iter(value))]
-                logger.debug("\n\n key[0] is %s, value[0] is %s \n", k, v)
+                #logger.debug("\n\n key[0] is %s, value[0] is %s \n", k, v)
                 if v[0][0] == 'R':       #RequiredMissing
                     errors[k] = u'Missing value'
             else:
                 # make key compatible with errors dict (tuple)
-                #key = tuple([str.encode("('foo.%s',)" % key)])
+                #key = tuple([str.encode("('datacite.%s',)" % key)])
                 # fix error message displayed
-                logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
+                #logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
                 if value[0][:8] == 'Required':
-                    key = tuple([str.encode("('foo.%s',)" % key)])
+                    key = tuple([str.encode("('datacite.%s',)" % key)])
                     errors[key] = u'Missing value'
                 elif value[0][:7] == 'related':
                     #remove duplicate error (for worng value)
-                    key_to_remove = tuple([str.encode('foo.%s' % key)])
-                    key = tuple([str.encode("('foo.%s',)" % key)])
+                    key_to_remove = tuple([str.encode('datacite.%s' % key)])
+                    key = tuple([str.encode("('datacite.%s',)" % key)])
                     errors[key] = u'Invalid UUID value'  
                     errors[key_to_remove] =  []
 
@@ -143,21 +144,16 @@ def postprocess_dataset_for_edit(key, data, errors, context):
    
     # 3. Convert fields to extras
     
-    #logger.debug("\n MD IS: %s \n", md )
+    logger.debug("\n MD IS: %s \n", md )
 
-    # add foo fields after ckan extras
+    # add datacite fields after ckan extras
     index = 7
     for k, v in md.to_extras():
-            logger.debug("\n Key is: %s, value is %s \n", k, v )
+            #logger.debug("\n Key is: %s, value is %s \n", k, v )
             data[('extras', index, 'key')] = k
             data[('extras', index, 'value')] = v
             index = index + 1 
     
-    #extras_list = [x for x in data if 'extras' in x]
-    #extras_list2 = data[not 'foo']
-    #extras_list = data.get(('extras',))
-    #extras_list.extend(({'key': k, 'value': v} for k, v in md.to_extras()))
-    #logger.debug('LIST IS [%s]' , extras_list ) 
     # 4. Compute next state
     
     if 'skip_validation' in context:
@@ -165,19 +161,18 @@ def postprocess_dataset_for_edit(key, data, errors, context):
         #data[('private',)] = True
     
     #add extra value manually
-    #data['extras', 6, 'key'] = 'foo.funder'
+    #data['extras', 6, 'key'] = 'datacite.funder'
     #data['extras', 6, 'value'] = 'NIK'
 
     if not state:
         if prev_state == 'invalid':
             state = data[('state',)] = 'active'
    
-    #logger.debug('\nPOSTPROCESS EDIT END  IS %s', data )
+    #logger.debug('\nPOSTPROCESS EDIT END Data IS %s', data )
     return
 
 def preprocess_dataset_for_edit(key, data, errors, context):
-    #logger.debug('\nPREPROCESS DATA START IS [%s]', data)
-    logger.debug('\n')  
+    #logger.debug('\nPREPROCESS DATA EDIT START IS [%s]', data)
     assert key[0] == '__before', \
         'This validator can only be invoked in the __before stage'
     

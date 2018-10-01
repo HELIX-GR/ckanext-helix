@@ -9,7 +9,7 @@ from  ckanext.publicamundi.lib.metadata.widgets.base import (
     ReadFieldWidget, ReadObjectWidget,
     ListFieldWidgetTraits, DictFieldWidgetTraits)
 
-@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
+@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.datacite'])
 class TagsEditWidget(EditFieldWidget):
 
     def __init__(self, field, *args):
@@ -17,9 +17,9 @@ class TagsEditWidget(EditFieldWidget):
         EditFieldWidget.__init__(self, field)
 
     def get_template(self):
-        return 'package/snippets/fields/edit-list-tags-foo.html'
+        return 'package/snippets/fields/edit-list-tags-datacite.html'
 
-@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
+@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.datacite'])
 class TagsReadWidget(ReadFieldWidget):
 
     def __init__(self, field, *args):
@@ -27,20 +27,20 @@ class TagsReadWidget(ReadFieldWidget):
         ReadFieldWidget.__init__(self, field)
 
     def get_template(self):
-        return 'package/snippets/fields/read-list-tags-foo.html'
+        return 'package/snippets/fields/read-list-tags-datacite.html'
 
 @field_widget_multiadapter([IDictField, schemata.IContactInfo],
-    qualifiers=['contacts.foo'], is_fallback=True)
+    qualifiers=['contacts.datacite'], is_fallback=True)
 class DictOfContactsEditWidget(EditFieldWidget, DictFieldWidgetTraits):
  
     def get_template(self):
-        return 'package/snippets/fields/edit-dict-contacts-foo.html'
+        return 'package/snippets/fields/edit-dict-contacts-datacite.html'
 
-@object_widget_adapter(schemata.IFooMetadata, qualifiers=['datasetform'], is_fallback=True)
-class FooEditWidget(EditObjectWidget):
+@object_widget_adapter(schemata.IDataciteMetadata, qualifiers=['datasetform'], is_fallback=True)
+class DataciteEditWidget(EditObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
-        tpl_vars = super(FooEditWidget, self).prepare_template_vars(name_prefix, data)
+        tpl_vars = super(DataciteEditWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
    
@@ -53,39 +53,39 @@ class FooEditWidget(EditObjectWidget):
     
     def get_field_qualifiers(self):
 
-        qualifiers = super(FooEditWidget, self).get_field_qualifiers()
+        qualifiers = super(DataciteEditWidget, self).get_field_qualifiers()
         qualifiers.pop('geometry') # omit field        
         qualifiers.update({
             'tags': 'tags',
             'thematic_category': 'select2',
-            'contacts': 'contacts.foo',
+            'contacts': 'contacts.datacite',
         })
         
         return qualifiers
     
     def get_glue_template(self):
-        return 'package/snippets/objects/glue-edit-foo-datasetform.html'
+        return 'package/snippets/objects/glue-edit-datacite-datasetform.html'
         
     def get_template(self):
         return None # use glue template
 
-@object_widget_adapter(schemata.IFooMetadata)
-class FooReadWidget(ReadObjectWidget):
+@object_widget_adapter(schemata.IDataciteMetadata)
+class DataciteReadWidget(ReadObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
-        tpl_vars = super(FooReadWidget, self).prepare_template_vars(name_prefix, data)
+        tpl_vars = super(DataciteReadWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
    
     def get_field_qualifiers(self):
         
-        qualifiers = super(FooReadWidget, self).get_field_qualifiers()
-        qualifiers['tags'] = 'tags.foo'
+        qualifiers = super(DataciteReadWidget, self).get_field_qualifiers()
+        qualifiers['tags'] = 'tags.datacite'
         
         return qualifiers
     
     def get_glue_template(self):
-        return 'package/snippets/objects/glue-read-foo.html'
+        return 'package/snippets/objects/glue-read-datacite.html'
 
     def get_template(self):
         return None # use glue template

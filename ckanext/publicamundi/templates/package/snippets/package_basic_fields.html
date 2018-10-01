@@ -97,7 +97,7 @@
         id = 'field-public_doi', 
         classes = ['hidden'],
         placeholder = _('e.g. dwaawd-awdaw-21342a-awddwa'), 
-        value = data.foo.public_doi, 
+        value = data.datacite.public_doi, 
         error = errors.public_doi, 
         is_required = false
     ) 
@@ -140,16 +140,27 @@
     )        
 }}
 
-{# if admin enable organization field#}
+{# if admin enable organization field #}
 {% if h.check_access('sysadmin') %}
-{% snippet 'package/snippets/edit-organization.html', 
-    name='owner_org', 
-    value=data.group_id,
-    required=true,
-    orgs_available=h.organizations_available('create_dataset')
-%}
-
-
+    {% snippet 'package/snippets/edit-organization.html', 
+        name='owner_org', 
+        value=data.group_id,
+        is_required = true,
+        orgs_available=h.organizations_available('create_dataset')
+        %}
+{# else hide organization field so it is automatically added#}        
+{% else %}
+    {{ 
+        form.input(
+            'owner_org', 
+            id = 'field-owner-org', 
+            label = _('Organization'), 
+            classes = ['hidden'],
+            value = data.owner_org, 
+            error = errors.owner_org, 
+            is_required = true
+        ) 
+    }}   
 {% endif%}
 
 
@@ -214,7 +225,6 @@
         attrs = tag_attrs) 
 }}
 {% endblock %}
-
 
 
 

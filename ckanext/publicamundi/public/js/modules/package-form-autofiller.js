@@ -29,7 +29,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
             {
                 'title': 'Hello Foo 1',
                 'name': 'hello-foo-1',
-                'dataset_type': 'foo',
+                'dataset_type': 'datacite',
                 'notes': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
                          'eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 'tags': ['hello-world', 'foo', 'lorem-ipsum'],
@@ -55,7 +55,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
             {
                 'title': 'Hello Foo 2',
                 'name': 'hello-foo-2',
-                'dataset_type': 'foo',
+                'dataset_type': 'datacite',
                 'notes': 'I am another _Foo_ package!',
                 'tags': ['hello-world', 'foo', 'test'],
                 'license': 'CC-BY',
@@ -147,7 +147,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         var el = this.el
 
         var $form = $('#' + this.options.formid)
-        var $form2 = $('#' + this.options.formid + 'foo-fields-group-creator')    
+        var $form2 = $('#' + this.options.formid + 'datacite-fields-group-creator')    
         
         switch (this.options.formid) {
             default:
@@ -167,15 +167,15 @@ this.ckan.module('package-form-autofiller', function ($, _) {
 			$form.find('#field-publisher').val(data['publisher'])
 			$form.find('#field-identifier').val(data['identifier'])
 			$form.find('#field-license-uri').val(data['license_uri'])
-            $form.find('#input-foo\\.creator\\.creator_affiliation').val(data['creator_affiliation'])
-            $form.find('#input-foo\\.creator\\.creator_name').val(data['creator_name'])
-            $form.find('#input-foo\\.contributor\\.contributor_name').val(data['contributor_name'])
-            $form.find('#input-foo\\.publication_info\\.publication_year').val(data['publication_year'])
-            $form.find('#input-foo\\.language').select2('val', data['language'])
+            $form.find('#input-datacite\\.creator\\.creator_affiliation').val(data['creator_affiliation'])
+            $form.find('#input-datacite\\.creator\\.creator_name').val(data['creator_name'])
+            $form.find('#input-datacite\\.contributor\\.contributor_name').val(data['contributor_name'])
+            $form.find('#input-datacite\\.publication_info\\.publication_year').val(data['publication_year'])
+            $form.find('#input-datacite\\.language').select2('val', data['language'])
             $form.find('#field-title_optional').val(data['optional_title'])
             $form.find('#field-notes_optional').val(data['optional_notes'])
-            $form.find('#input-foo\\.related_publication').val(data['related_pub'])
-            $form.find('#input-foo\\.contact_email').val(data['contact_email'])
+            $form.find('#input-datacite\\.related_publication').val(data['related_pub'])
+            $form.find('#input-datacite\\.contact_email').val(data['contact_email'])
             $form.find('#field-closed_tag').select2('val', data['subject'])
                         return false
                     })

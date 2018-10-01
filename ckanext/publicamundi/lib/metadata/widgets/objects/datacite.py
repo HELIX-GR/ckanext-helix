@@ -16,29 +16,29 @@ log1 = logging.getLogger(__name__)  # ADDED
 from . import _common
 
 @field_widget_multiadapter([IListField, schemata.IDate],
-    qualifiers=['date.foo'], is_fallback=False)
+    qualifiers=['date.datacite'], is_fallback=False)
 class DateEditWidget(EditFieldWidget, ListFieldWidgetTraits):
  
     def get_item_qualifier(self):
         return 'item'
     
     def get_template(self):
-        return 'package/snippets/fields/edit-list-date-foo.html'
+        return 'package/snippets/fields/edit-list-date-datacite.html'
 
 @field_widget_multiadapter([IListField, schemata.IContributor],
-    qualifiers=['contributor.foo'], is_fallback=False)
+    qualifiers=['contributor.datacite'], is_fallback=False)
 class ContributorEditWidget(EditFieldWidget, ListFieldWidgetTraits):
  
     def get_item_qualifier(self):
         return 'item'
     
     def get_template(self):
-        return 'package/snippets/fields/edit-list-contributor-foo.html'
+        return 'package/snippets/fields/edit-list-contributor-datacite.html'
 
 
 
 
-@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
+@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.datacite'])
 class TagsEditWidget(EditFieldWidget):
 
     def __init__(self, field, *args):
@@ -46,9 +46,9 @@ class TagsEditWidget(EditFieldWidget):
         EditFieldWidget.__init__(self, field)
 
     def get_template(self):
-        return 'package/snippets/fields/edit-list-tags-foo.html'
+        return 'package/snippets/fields/edit-list-tags-datacite.html'
 
-@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.foo'])
+@field_widget_multiadapter([IListField, ITextLineField], qualifiers=['tags.datacite'])
 class TagsReadWidget(ReadFieldWidget):
 
     def __init__(self, field, *args):
@@ -56,20 +56,20 @@ class TagsReadWidget(ReadFieldWidget):
         ReadFieldWidget.__init__(self, field)
 
     def get_template(self):
-        return 'package/snippets/fields/read-list-tags-foo.html'
+        return 'package/snippets/fields/read-list-tags-datacite.html'
 
 @field_widget_multiadapter([IDictField, schemata.IContactInfo],
-    qualifiers=['contacts.foo'], is_fallback=True)
+    qualifiers=['contacts.datacite'], is_fallback=True)
 class DictOfContactsEditWidget(EditFieldWidget, DictFieldWidgetTraits):
  
     def get_template(self):
-        return 'package/snippets/fields/edit-dict-contacts-foo.html'
+        return 'package/snippets/fields/edit-dict-contacts-datacite.html'
 
-@object_widget_adapter(schemata.IFooMetadata, qualifiers=['datasetform'], is_fallback=True)
-class FooEditWidget(EditObjectWidget):
+@object_widget_adapter(schemata.IDataciteMetadata, qualifiers=['datasetform'], is_fallback=True)
+class DataciteEditWidget(EditObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
-        tpl_vars = super(FooEditWidget, self).prepare_template_vars(name_prefix, data)
+        tpl_vars = super(DataciteEditWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
    
@@ -82,47 +82,47 @@ class FooEditWidget(EditObjectWidget):
     
     def get_field_qualifiers(self):
 
-        qualifiers = super(FooEditWidget, self).get_field_qualifiers()
+        qualifiers = super(DataciteEditWidget, self).get_field_qualifiers()
         qualifiers.pop('geometry') # omit field        
         qualifiers.update({
             'tags': 'tags',
             'thematic_category': 'select2',
-            'contacts': 'contacts.foo',
-            'date': 'date.foo'
+            'contacts': 'contacts.datacite',
+            'date': 'date.datacite'
         })
         
         return qualifiers
     
     def get_glue_template(self):
-        return 'package/snippets/objects/glue-edit-foo-datasetform.html'
+        return 'package/snippets/objects/glue-edit-datacite-datasetform.html'
         
     def get_template(self):
         return None # use glue template
 
-@object_widget_adapter(schemata.IFooMetadata)
-class FooReadWidget(ReadObjectWidget):
+@object_widget_adapter(schemata.IDataciteMetadata)
+class DataciteReadWidget(ReadObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
-        log1.debug("\n\n IN FOO.py PREPARE TEMP VARS \n\n")
-        tpl_vars = super(FooReadWidget, self).prepare_template_vars(name_prefix, data)
+        log1.debug("\n\n IN Datacite.py PREPARE TEMP VARS \n\n")
+        tpl_vars = super(DataciteReadWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
    
     def get_field_qualifiers(self):
         
-        qualifiers = super(FooReadWidget, self).get_field_qualifiers()
-        qualifiers['tags'] = 'tags.foo'
-        qualifiers['creator'] = 'creator.foo'
+        qualifiers = super(DataciteReadWidget, self).get_field_qualifiers()
+        qualifiers['tags'] = 'tags.datacite'
+        qualifiers['creator'] = 'creator.datacite'
         
         return qualifiers
     
     def get_glue_template(self):
-        return 'package/snippets/objects/glue-read-foo.html'
+        return 'package/snippets/objects/glue-read-datacite.html'
 
     def get_template(self):
         return None # use glue template
 
-@object_widget_adapter(schemata.IFooMetadata, qualifiers=['table'])
+@object_widget_adapter(schemata.IDataciteMetadata, qualifiers=['table'])
 class TableReadWidget(_common.TableReadWidget):
 
     def get_field_order(self):
@@ -141,14 +141,14 @@ class TableReadWidget(_common.TableReadWidget):
         ]
 
     '''def get_field_order(self):
-        log1.debug("\n\n IN FOO.py GET FIELD ORDER \n")
+        log1.debug("\n\n IN datacite.py GET FIELD ORDER \n")
         return OrderedDict([
-            ('creator', 'creator.foo')
+            ('creator', 'creator.datacite')
         ])'''
 
     def get_field_qualifiers(self):
-        #log1.debug("\n\n\ IN FOO.py GET FIELD Q \n")
+        #log1.debug("\n\n\ IN datacite.py GET FIELD Q \n")
         return OrderedDict([
-            ('creator', 'creator.foo')
+            ('creator', 'creator.datacite')
         ])
 

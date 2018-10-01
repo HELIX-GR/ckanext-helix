@@ -243,6 +243,6 @@ from ._common import *
 from .thesaurus import Thesaurus, ThesaurusTerms
 from .ckan_metadata import CkanMetadata
 from .inspire_metadata import InspireMetadata
-from .foo import FooMetadata
+from .datacite import DataciteMetadata
 from .baz import BazMetadata
 

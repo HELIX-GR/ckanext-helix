@@ -3,7 +3,7 @@
 
 {%- set classes = classes + [ 'control-select' ] -%}
 {%- if input_classes is not defined %}{% set input_classes = [] %}{% endif -%}
-{% if qname=="foo.publisher" %} {% set placeholder='The name of the organization publishing the dataset' %} {% endif %}
+{% if qname=="datacite.publisher" %} {% set placeholder='The name of the organization publishing the dataset' %} {% endif %}
 
 <div class="form-group{{ " " ~ classes|join(' ') }}">
     <label class="control-label {%if required==false %} field-optional{% endif %}" for="{{ 'input-' ~ qname }}">
@@ -18,13 +18,13 @@
             {%- if not required -%}
             <option value=""></option>
             {%- endif -%}
-            {% if qname=="foo.languagecode" %}
+            {% if qname=="datacite.languagecode" %}
                 <option value="eng">English</option>
                 <option value="gre">Greek</option>
                 <option value=""disabled = "disabled">_____________________________________________________________________________________</option>
                 
             {% endif %}
-            {% if qname=="foo.publisher" %}
+            {% if qname=="datacite.publisher" %}
             <option value="" > </option>
             {% endif %} 
             

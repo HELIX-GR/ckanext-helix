@@ -4,15 +4,15 @@ from ckanext.publicamundi.lib.metadata.base import (
     Object, object_null_adapter,
     object_format_adapter, ObjectFormatter)
 from ckanext.publicamundi.lib.metadata import xml_serializers 
-from ckanext.publicamundi.lib.metadata.schemata import IFooMetadata
+from ckanext.publicamundi.lib.metadata.schemata import IDataciteMetadata
 
 from . import Metadata, deduce, dataset_type
 from ._common import *
 
-@dataset_type('foo')
+@dataset_type('datacite')
 @object_null_adapter()
-@zope.interface.implementer(IFooMetadata)
-class FooMetadata(Metadata):
+@zope.interface.implementer(IDataciteMetadata)
+class DataciteMetadata(Metadata):
 
     ## Factories for fields ## 
     
@@ -51,10 +51,10 @@ class FooMetadata(Metadata):
     def _deduce_id(self): 
         return self.identifier
 
-@xml_serializers.object_xml_serialize_adapter(IFooMetadata)
-class FooXmlSerializer(xml_serializers.ObjectSerializer):
+@xml_serializers.object_xml_serialize_adapter(IDataciteMetadata)
+class DataciteXmlSerializer(xml_serializers.ObjectSerializer):
     pass
 
-@object_format_adapter(IFooMetadata)
-class FooFormatter(ObjectFormatter):
+@object_format_adapter(IDataciteMetadata)
+class DataciteFormatter(ObjectFormatter):
     pass

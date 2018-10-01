@@ -730,11 +730,11 @@ section.tags {
     margin-top: -1px;
 }
 
-.field-qname-foo\.public_doi{
+.field-qname-datacite\.public_doi{
     display: none;
 }
 
-.field-qname-foo\.baz{
+.field-qname-datacite\.baz{
     display: none;
 }
 

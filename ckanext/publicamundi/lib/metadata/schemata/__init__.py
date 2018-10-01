@@ -82,6 +82,6 @@ from ._common import *
 from .ckan_metadata import ICkanMetadata
 from .thesaurus import IThesaurus, IThesaurusTerms
 from .inspire_metadata import IInspireMetadata
-from .foo import IFooMetadata
+from .datacite import IDataciteMetadata
 from .baz import IBazMetadata
 

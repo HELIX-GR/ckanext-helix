@@ -39,8 +39,7 @@ class TableReadWidget(ReadObjectWidget):
 
     def prepare_template_vars(self, name_prefix, data):
         
-        log1.debug("\n \nIN Prepare template vars\n") 
-        #log1.debug("\n \ndata is is %s\n", data) 
+        #log1.debug("\n \n Prepare templ var data is is %s\n", data) 
         cls = TableReadWidget
         Td, Th, Tr = cls._Td, cls._Th, cls._Tr
         

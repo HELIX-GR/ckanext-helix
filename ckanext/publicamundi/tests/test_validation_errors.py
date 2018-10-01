@@ -38,7 +38,7 @@ poly3 = Polygon(name = u'P3', points=[
 
 # Fixtures x1*: schema validation errors
 
-x11 = FooMetadata(
+x11 = DataciteMetadata(
     identifier = '71adc2bf-b8fd-481e-bd52-2ca86e93df35',
     baz = u'Bazzz',
     title = u'Ababoua Ababoua',
@@ -74,7 +74,7 @@ x14.url = 'ftp://foo.example.com'
 
 # Fixtures x2*: invariant errors
 
-x21 = FooMetadata(
+x21 = DataciteMetadata(
     identifier = '71adc2bf-b8fd-481e-bd52-2ca86e93df35',
     baz = u'Bazzz',
     title = u'Ababoua Ababoua',
@@ -165,10 +165,10 @@ def test_invariants_x22():
     assert len(errs_dict['__after']) >= 2
 
 def test_invariants_x23():
-    IFooMetadata.get('contacts').value_type.required = False
+    IDataciteMetadata.get('contacts').value_type.required = False
     helpers.assert_faulty_keys(x23,
         expected_keys = set(['contact_info', 'temporal_extent']))
-    IFooMetadata.get('contacts').value_type.required = True # dont affect others
+    IDataciteMetadata.get('contacts').value_type.required = True # dont affect others
 
 def test_invariants_x24():
     helpers.assert_faulty_keys(x24,

@@ -6,7 +6,7 @@ from . import _common
 
 from . import ckan
 from . import inspire
-from . import foo
+from . import datacite
 from . import baz
 
 from . import _i18n

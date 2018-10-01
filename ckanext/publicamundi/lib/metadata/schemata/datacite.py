@@ -19,7 +19,7 @@ class relatedPubError(zope.schema.ValidationError):
         __doc__ = _("Input is not a valid UUID")
 
 
-class IFooMetadata(IMetadata):
+class IDataciteMetadata(IMetadata):
     
     zope.interface.taggedValue('recurse-on-invariants', True)
 
@@ -161,13 +161,12 @@ class IFooMetadata(IMetadata):
             SimpleTerm('clarity', 'clariy', u'Clarity'))),
         description = (u'The name of the organization publishing the dataset.'),
         title = u'Publisher',
-        default = 'helix',
-        required=True)    
+        required=False)    
         
     
 
     def related_publication_empty(value):
-        log1.debug('\n\nIN INVARIANT NOT EMPTY value is  %s\n\n', value)
+        #log1.debug('\n\nIN INVARIANT NOT EMPTY value is  %s\n\n', value)
         try:
             val = UUID(value, version=4)
         except ValueError:
@@ -186,7 +185,7 @@ class IFooMetadata(IMetadata):
     related_publication = zope.schema.TextLine(
         title = u'Related publication',
         description = (u'The DOI of a related publication'),
-        required = True,
+        required = False,
         constraint=related_publication_empty)
     
     

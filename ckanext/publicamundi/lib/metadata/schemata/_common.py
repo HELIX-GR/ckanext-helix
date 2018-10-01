@@ -239,7 +239,6 @@ class ICreator(IObject):
     creator_name = zope.schema.TextLine(
         title = _(u'Creator name'),
         description=_(u'Person or organization that has produced the dataset'), 
-        #default = _(u'Jimaras'),        
         required=True)
     '''
     creator_name_type = zope.schema.Choice(

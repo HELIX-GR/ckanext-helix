@@ -10,13 +10,13 @@
 {%- macro map_titles(titles, key) -%}  
     {% set title =  titles.get(key, key|title) %} 
     
-    {%if title == '('"'foo.title'"',)' %}
+    {%if title == '('"'datacite.title'"',)' %}
         Title
-    {% elif title == '('"'foo.creator.creator_name'"',)' %}
+    {% elif title == '('"'datacite.creator.creator_name'"',)' %}
         Creator    
-    {% elif title ==  '('"'foo.related_publication'"',)' %}
+    {% elif title ==  '('"'datacite.related_publication'"',)' %}
         Related publication
-    {% elif title == '('"'foo.contact_email'"',)' %}
+    {% elif title == '('"'datacite.contact_email'"',)' %}
         Contact e-mail
     {% elif title == 'Closed_tag' %}
         Subject

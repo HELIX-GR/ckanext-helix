@@ -10,7 +10,7 @@ from ckanext.publicamundi.lib.metadata.types import *
 
 packages = {
     'ckan': {},
-    'foo': {}
+    'datacite': {}
 }
 
 for pkg in _test_data.gov_items:
@@ -23,7 +23,7 @@ for pkg in _test_data.gov_items:
     })
     packages['ckan'][pkg1['name']] = pkg1 
 
-packages['foo']['hello-foo-1'] = {
+packages['datacite']['hello-foo-1'] = {
     'title': u'Καλημέρα Foo (1)',
     'name': 'hello-foo-1',
     'notes': u'Τρα λαλα λαλλαλαλαλα!',
@@ -38,9 +38,9 @@ packages['foo']['hello-foo-1'] = {
         { 'name': u'test', 'display_name': 'Test' }, 
         { 'name': 'foo', 'display_name': 'Foo' }, 
     ],
-    'dataset_type': 'foo',
+    'dataset_type': 'datacite',
     'language': 'el',
-    'foo': {
+    'datacite': {
         'baz': u'BaoBab',
         'description': u'Τριαλαριλαρο',
         'rating': 9,
@@ -119,7 +119,7 @@ spatialres2 = SpatialResolution(denominator=1000)
 
 # Foo
 
-foo1 = FooMetadata(
+foo1 = DataciteMetadata(
     identifier = '71adc2bf-b8fd-481e-bd52-2ca86e93df35',
     baz = u'Bazzz',
     title = u'Αβαβούα',
@@ -148,7 +148,7 @@ foo1 = FooMetadata(
     password = u'secret',
 )
 
-foo2 = FooMetadata(
+foo2 = DataciteMetadata(
     identifier = '71adc2bf-b8fd-481e-bd52-2ca86e93df35',
     baz = u'Baobab',
     title = u'Αβαβούα',

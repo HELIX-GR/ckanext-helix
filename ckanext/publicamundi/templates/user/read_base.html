@@ -1,6 +1,8 @@
 {% ckan_extends %}
 
 {% block content_primary_nav %}
+  <div class="nav-menu">
   {{super()}}
   {{ h.build_nav_icon('admin_page_resources', _('Resources'), icon='cogs') }}
+  </div>
 {% endblock %}

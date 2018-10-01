@@ -166,7 +166,7 @@
 {#
 <div class="{{ classes|join(' ') }}">
     {% if title %}<h3>{{ title }}</h3>{% endif %}
-    {%- call(group_desc) accordion.accordion('foo-fields', grouped_fields) %}
+    {%- call(group_desc) accordion.accordion('datacite-fields', grouped_fields) %}
         {%- for subg in group_desc.subgroups %}
             {% if not loop.first %}<hr/>{% endif -%}
             {% if subg.heading %}<h3>{{ subg.heading }}</h3>{% endif %}

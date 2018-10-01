@@ -151,7 +151,7 @@ class ExtrametadataController(BaseController):
     def new_resource(self, id, data=None, errors=None, error_summary=None):
         ''' FIXME: This is a temporary action to allow styling of the
         forms. '''
-        log1.debug('IN NEW RESOURCE')
+        log1.debug('IN NEW RESOURCE data is %s', data)
         if request.method == 'POST' and not data:
             save_action = request.params.get('save')
             data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
@@ -380,8 +380,8 @@ class ExtrametadataController(BaseController):
         # set default visibility to private before admin/editor changes it to public    
         data['private'] = 'True'
         #if not h.organizations_available('create_dataset'): 
+        
         data['owner_org'] = 'helix'
-
         form_snippet = self._package_form(package_type=package_type)
         form_vars = {'data': data, 'errors': errors,
                      'error_summary': error_summary,
@@ -427,7 +427,6 @@ class ExtrametadataController(BaseController):
                       extra_vars={'group_type': group_type})
 
     def _read(self, id, limit, group_type):
-        log1.debug('\n\n\n\n\n\n\nIN _READ\n\n\n\n\n\n\n')
         oc = oController()
         ''' This is common code used by both read and bulk_process'''
         context = {'model': model, 'session': model.Session,
@@ -1163,7 +1162,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         is_dataset_type = ext_validators.is_dataset_type
         schema['dataset_type'] = [
-            default('foo'), convert_to_extras, 
+            default('datacite'), convert_to_extras, 
             is_dataset_type,
         ]
        
@@ -1285,10 +1284,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
-            'creator_affiliation': [
-                toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras')
-            ],
+            #'creator_affiliation': [
+            #    toolkit.get_validator('ignore_missing'),
+            #    toolkit.get_converter('convert_to_extras')
+            #],
             #'publisher': [
                 #check_empty,
             #    toolkit.get_converter('convert_to_extras')
@@ -1792,7 +1791,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         c = toolkit.c
         #rr = c.environ['pylons.routes_dict'] if hasattr(c, 'environ') else {}
         if hasattr(c, 'environ') and c.environ:
-            #log1.info('\n\nENVIRON IS %s\n\n', c.environ)
             rr = c.environ['pylons.routes_dict']
         else:
             rr = {}
@@ -1818,15 +1816,14 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Determine dataset_type-related parameters for this package
         
         key_prefix = dtype = pkg_dict.get('dataset_type')
-        log1.debug('DATASET TYPE IS %s', dtype)
-        public_doi = pkg_dict.get('foo.public_doi')
-        log1.debug('\n\nPUBLIC DOI IS %s\n\n', public_doi)
+        log1.debug('Dataset type is %s', dtype)
+        public_doi = pkg_dict.get('datacite.public_doi')
         if not dtype:
             return # noop: unknown dataset-type (pkg_dict has raw extras?)
 
         notes_optional=pkg_dict.get('notes_optional')
         title_optional=pkg_dict.get('title_optional')
-        log1.debug('\n\nTITLE IS %s, NOTES ARE %s\n\n', notes_optional, title_optional)
+        #log1.debug('\nPKG DICT IN AFTER SHOW IS %s \n',pkg_dict)
         # Note Do not attempt to pop() flat keys here (e.g. to replace them by a 
         # nested structure), because resource forms will clear all extra fields !!
 
