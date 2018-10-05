@@ -358,7 +358,6 @@ class PostalAddressReadWidget(ReadObjectWidget):
 class ContactInfoEditWidget(EditObjectWidget):
 
     def get_field_qualifiers(self):
-        log1.debug("\nIN EDIT CONTACT GET FIELD QUALIFIERS\n")
         return OrderedDict([
             ('email', 'email'),
             ('address', 'compact'),

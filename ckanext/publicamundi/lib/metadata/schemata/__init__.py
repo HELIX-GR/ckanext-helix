@@ -69,12 +69,9 @@ class IMetadata(IBaseMetadata):
 
 
     identifier = zope.schema.NativeStringLine(
-        title=u'Identifier', required=True, min_length=3)
-    identifier.setTaggedValue('links-to', 'name')
+        title=u'Identifier', required=False, min_length=3)
+    identifier.setTaggedValue('links-to', 'id')
 
-    
-
-    
 
 # Import actual interfaces into schemata
 

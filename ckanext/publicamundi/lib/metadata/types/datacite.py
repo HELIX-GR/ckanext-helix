@@ -20,7 +20,6 @@ class DataciteMetadata(Metadata):
     url = None
     thematic_category = None
     tags = list
-    baz = None
     contact_info = ContactInfo
     contacts = dict
     geometry = list
@@ -32,7 +31,6 @@ class DataciteMetadata(Metadata):
     created = None
     published = None
     password = None
-    wakeup_time = None
     funder = None
     dataset_category = None
     creator = Creator

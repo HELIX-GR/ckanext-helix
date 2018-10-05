@@ -144,7 +144,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
    
     # 3. Convert fields to extras
     
-    logger.debug("\n MD IS: %s \n", md )
+    #logger.debug("\n MD IS: %s \n", md )
 
     # add datacite fields after ckan extras
     index = 7

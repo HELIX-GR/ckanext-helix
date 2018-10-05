@@ -32,6 +32,7 @@ import ckanext.publicamundi.lib.metadata as ext_metadata
 import ckanext.publicamundi.lib.metadata.validators as ext_validators
 import ckanext.publicamundi.lib.actions as ext_actions
 import ckanext.publicamundi.lib.template_helpers as ext_template_helpers
+import ckanext.publicamundi.lib.helpers as ext_helpers
 import ckanext.publicamundi.lib.languages as ext_languages
 #import ckanext.publicamundi.lib.pycsw_sync as ext_pycsw_sync
 from ckan.lib.base import BaseController
@@ -340,7 +341,6 @@ class ExtrametadataController(BaseController):
         context = {'model': model, 'session': model.Session,
                    'user': c.user, 'auth_user_obj': c.userobj,
                    'save': 'save' in request.params}
-        log1.debug('\n\n IN NEW PACKAGE CONTROLLER context is %s\n\n', context)
         
         # Package needs to have a organization group in the call to
         # check_access and also to save it
@@ -381,7 +381,10 @@ class ExtrametadataController(BaseController):
         data['private'] = 'True'
         #if not h.organizations_available('create_dataset'): 
         
+        #add to helix org as default
         data['owner_org'] = 'helix'
+
+
         form_snippet = self._package_form(package_type=package_type)
         form_vars = {'data': data, 'errors': errors,
                      'error_summary': error_summary,
@@ -891,6 +894,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'title_types_options': self.title_types_options,
             'organization_list_objects': self.organization_list_objects,
             'organization_dict_objects': self.organization_dict_objects,
+            'correct_facets': self.correct_facets,
         }
 
     ## IConfigurer interface ##
@@ -1058,6 +1062,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
          #         ckan_icon='pencil-square-o')
                 
         log1.debug('AFTER CONNECT')
+        #co = toolkit.c
+        #search_facets=co.search_facets
+
+        #log1.debug('toolkit.c is %s', toolkit.c.search_facets)
        
         tests_controller = 'ckanext.publicamundi.controllers.tests:Controller'
 
@@ -1070,6 +1078,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'publicamundi-tests', 
             '/testing/publicamundi/{action}',
             controller=tests_controller)
+  
 
         return mapper
 
@@ -1734,7 +1743,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         super(DatasetForm, self).setup_template_variables(context, data_dict)
         
         c = toolkit.c
-        
         if c.search_facets:
             # Provide label functions for certain facets
             if not c.facet_labels:
@@ -1894,6 +1902,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         subjects= pkg_dict['vocab_closed_tags']
         #log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
         
+        #Add subjects for solr indexing/facet use
+
         pkg_dict['closed_tags_facets'] = []
         for subject in subjects:
             pkg_dict['closed_tags_facets'].append(subject)
@@ -1959,22 +1969,55 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     ## IFacets interface ##
 
-    def dataset_facets(self, facets_dict, package_type):
+    def dataset_facets(self, facets_dict=None, package_type=None):
         '''Update the facets_dict and return it.
         '''
-        log1.debug("\n\nDATASET FACETS package_type is %s, facets_fict is %s\n\n", package_type, facets_dict)
-        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject (Topic)
+        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject
         if (package_type !="harvest"):
-            del facets_dict['groups']
-            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
-            facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
-        log1.debug('\nORDERED FACETS ARE %s\n',facets_dict)
+            if facets_dict['groups']:
+                del facets_dict['groups']
+                myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
+                facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         #if package_type == 'dataset':
             # Todo Maybe reorder facets
         #    pass
         return facets_dict
 
+    def correct_facets(self):
 
+        #Update facets for advanced search
+        
+        facets = OrderedDict()
+
+        default_facet_titles = {
+                'organization': _('Organizations'),
+                'groups': _('Groups'),
+                'tags': _('Tags'),
+                'res_format': _('Formats'),
+                'license_id': _('Licenses'),
+            }
+
+        for facet in h.facets():
+            if facet in default_facet_titles:
+                facets[facet] = default_facet_titles[facet]
+            else:
+                facets[facet] = facet
+        # Facet titles
+        facets = self.dataset_facets(facets)
+
+        c.facet_titles = facets
+        data_dict = {
+                'facet.field': facets.keys(),
+                'rows': 0,
+        }
+
+        context = {'model': model, 'session': model.Session,
+                       'user': c.user, 'for_view': True,
+                       'auth_user_obj': c.userobj}
+
+        query = get_action('package_search')(context, data_dict)
+        c.sort_by_selected = query['sort']
+        c.search_facets = query['search_facets']
 
 class PackageController(p.SingletonPlugin):
     '''Hook into the package controller

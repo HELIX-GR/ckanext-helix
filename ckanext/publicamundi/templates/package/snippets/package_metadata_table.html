@@ -5,8 +5,8 @@
     <h5 class="inline">{{ _('METADATA') }}</h5>
     
     <div class="download-links pull-right">
-      <div class="btn-group">
-        <a class="btn btn-primary btn-group-main" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
+      <div class="btn-download btn-group">
+        <a class="btn-group-main" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
           > {{ _('DOWNLOAD') }}</a>
         {#<button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
           <span class="caret"></span>

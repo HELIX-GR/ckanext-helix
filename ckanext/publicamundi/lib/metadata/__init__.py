@@ -109,10 +109,7 @@ def make_metadata(dtype, pkg_dict=None):
             'key-prefix': dtype,
             'unserialize-values': 'default',
         }
-        obj.from_dict(pkg_dict, is_flat=True, opts=opts)
-    import logging
-    log1=logging.getLogger(__name__)
-    log1.debug("\n\nIN MAKE METADATA obj is %s, type is %s\n\n", obj, type(obj))     
+        obj.from_dict(pkg_dict, is_flat=True, opts=opts)  
     return obj
 
 # Export a (snapshot) of registered dataset types

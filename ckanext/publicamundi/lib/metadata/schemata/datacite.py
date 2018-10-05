@@ -38,12 +38,6 @@ class IDataciteMetadata(IMetadata):
         required = False,)
         #default = 'economy')
 
-    baz = zope.schema.TextLine(
-        title = u'Baz',
-        required = False,
-        #default = u'bazinka',
-        min_length = 5)
-
     tags = zope.schema.List(
         title = u'Tags',
         required = False,
@@ -124,10 +118,6 @@ class IDataciteMetadata(IMetadata):
         title = u'Published',
         required = False,
         description = u'Add your notes',)
-
-    wakeup_time = zope.schema.Time(
-        title = u'Wakeup Time',
-        required = False)
 
     rating = zope.schema.Int(
         title = u'Rating',
