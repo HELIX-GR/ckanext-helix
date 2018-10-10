@@ -131,10 +131,10 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                     key = tuple([str.encode("('datacite.%s',)" % key)])
                     errors[key] = u'Missing value'
                 elif value[0][:7] == 'related':
-                    #remove duplicate error (for worng value)
+                    #remove duplicate error (for wrong value)
                     key_to_remove = tuple([str.encode('datacite.%s' % key)])
                     key = tuple([str.encode("('datacite.%s',)" % key)])
-                    errors[key] = u'Invalid UUID value'  
+                    errors[key] = u'Invalid DOI value'  
                     errors[key_to_remove] =  []
 
         #for k, v in errors.items():

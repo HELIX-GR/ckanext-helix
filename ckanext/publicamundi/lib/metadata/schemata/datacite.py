@@ -156,17 +156,10 @@ class IDataciteMetadata(IMetadata):
     
 
     def related_publication_empty(value):
-        #log1.debug('\n\nIN INVARIANT NOT EMPTY value is  %s\n\n', value)
-        try:
-            val = UUID(value, version=4)
-        except ValueError:
-            # If it's a value error, then the string 
-            # is not a valid hex code for a UUID.
+        #check for regular expression for dois
+        regexDOI = re.compile('(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)')   
+        if not re.match(regexDOI,value):   
             raise relatedPubError
-        #if value == '5':
-            #raise zope.interface.exceptions.Invalid(_(u'related publication is required'))
-            #raise relatedPubError
-        #else:
         return True    
 
 

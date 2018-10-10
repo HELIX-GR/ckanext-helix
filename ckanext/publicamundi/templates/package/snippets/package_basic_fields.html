@@ -169,11 +169,11 @@
 <div class="form-group control-full" >
         <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
         <div class="controls" >
-        <select  class="select-field" id="field-dataset_category" name="dataset_category"   placeholder="The thematic category of this dataset" >
+        <select  class="select-field" id="field-dataset_category" name="dataset_category"   placeholder="The category of this dataset" >
+            <option value="" disabled selected hidden>The category of this dataset </option>
             {% for dataset_category in h.dataset_categories()  %}
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}
-            <option value=""></option>
         </select>
         </div>
 </div>  
@@ -187,7 +187,7 @@
 <div class="form-group control-full" >
   <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> Subject</label>
   <div class="controls" >
-  <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A classification of this dataset" >
+  <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A thematic classification of this dataset" >
       {% for closed_tag in h.closed_tags()  %}
         <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
       {% endfor %}

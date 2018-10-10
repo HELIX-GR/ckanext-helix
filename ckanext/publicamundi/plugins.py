@@ -73,7 +73,7 @@ clean_dict = logic.clean_dict
 parse_params = logic.parse_params
 flatten_to_string_key = logic.flatten_to_string_key
 lookup_package_plugin = ckan.lib.plugins.lookup_package_plugin
-
+lookup_group_controller = ckan.lib.plugins.lookup_group_controller
 
 class ExtrametadataController(BaseController):
 
@@ -402,8 +402,9 @@ class ExtrametadataController(BaseController):
                                   'form_snippet': form_snippet,
                                   'dataset_type': package_type})
 
-    def read(self, id, limit=20):
+    def read(self, id, limit=10):
         oc = oController()
+        log1.debug('\nEDITOR\n')
         group_type = oc._ensure_controller_matches_group_type(
             id.split('@')[0])
 
@@ -425,7 +426,7 @@ class ExtrametadataController(BaseController):
         except (NotFound, NotAuthorized):
             abort(404, _('Group not found'))
 
-        self._read(id, limit, group_type)
+        oc._read(id, limit, group_type)
         return render(oc._read_template(c.group_dict['type']),
                       extra_vars={'group_type': group_type})
 
@@ -1055,7 +1056,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         #added because organization_read overrided default new org
         mapper.connect('organization_new', '/organization/new',controller='organization', action='new')
         #override organization read to restrict private dataset reading for members
-        mapper.connect('organization_read', '/organization/{id}',controller='organization', action='read',
+        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read',
                   ckan_icon='sitemap')
 
         #mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_edit',

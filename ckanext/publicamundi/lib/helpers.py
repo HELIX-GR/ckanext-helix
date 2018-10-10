@@ -9,16 +9,23 @@ import logging
 log1= logging.getLogger(__name__)
 
 def topicsMatch(subject):
-    #log1.debug('\n Subjects are %s, type is %s\n', subject, type(subject))
+    log1.debug('\n Subjects are %s, type is %s\n', subject, type(subject))
 
     absolute_path = os.path.dirname(os.path.abspath(__file__))
     #my_map = map(str.strip, open(absolute_path + '/closed-tags.txt')))
+    #open file with ANDS-FOR vocabulary
     with open(absolute_path + '/closed-tags.txt') as f:
         my_list = f.read().splitlines()
     groups = []
+    if(type(subject) != list): #if its a single string make it into a list
+        subjects = []
+        subjects.append(subject)
+    else:
+        subjects = subject
     #check match for each subject
-    for tag in subject:
+    for tag in subjects:
         tag = tag.encode('UTF-8')
+        log1.debug('tag is %s', tag)
         for i, line in enumerate(my_list):
             line = str.strip(line)
             #log1.debug('tag is %s, type is %s line is %s, type is %s', tag, type(tag), line, type(line))

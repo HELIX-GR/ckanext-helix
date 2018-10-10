@@ -48,7 +48,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         'publication_year': 2002,
         'optional_title': 'Ελληνικός τίτλος1',
         'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς1',
-        'related_pub': '6458cae8-7fad-11e8-adc0-fa7ae01bbebc',
+        'related_pub': '10.12449/foo',
         'subject': ['Wireless Communications', 'Optical Networks and Systems'],
         'contact_email': 'yahoo@yahoo.gr'
             },
@@ -73,7 +73,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         'publication_year': 2003,
         'optional_title': 'Ελληνικός τίτλος2',
         'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς2',
-        'related_pub': '6d1dfcf2-7fad-11e8-adc0-fa7ae01bbebc',
+        'related_pub': '10.12449/foo',
         'subject': ['Food Engineering', 'Food Processing'],
         'contact_email': 'real@gmail.com'
             },    
@@ -98,7 +98,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         'publication_year': 2004,
         'optional_title': 'Ελληνικός τίτλος3',
         'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς3',
-        'related_pub': '712af62e-7fad-11e8-adc0-fa7ae01bbebc',
+        'related_pub': '10.12449/foo',
         'subject': ['Pure Mathematics', 'Signal Processing'],
         'contact_email': 'random@gibberish.com'
             }, 
@@ -123,7 +123,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
         'publication_year': 2006,
         'optional_title': 'Ελληνικός τίτλος4',
         'optional_notes': 'Ελληνική περιγραφη αδςδςαννδνς αςδαδς4',
-        'related_pub': '83593fc2-7fad-11e8-adc0-fa7ae01bbebc',
+        'related_pub': '10.12449/foo',
         'subject': ['Anthropology', 'Microbiology'],
         'contact_email': 'test@hotmail.com'
             },

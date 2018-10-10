@@ -27,7 +27,7 @@
          is_upload_enabled=h.uploads_enabled(), is_url=data.url and not is_upload, is_upload=is_upload,
          upload_label=_('Select file'), url_label=_('URL'), placeholder=_('http://example.com/external-data.csv'), field_name='name') }}
     {% endblock %}
-
+    <p class="resource-help-block">(Max file size is 10MB, for larger files please link the file from an external source)</p>
     {% block basic_fields_name %}
       {{ form.input('name', id='field-name', label=_('File name'), placeholder=_('eg. January 2011 Gold Prices'), value=data.name, error=errors.name, classes=['control-full']) }}
     {% endblock %}
@@ -38,7 +38,7 @@
 
     {% block basic_fields_format %}
       {% set format_attrs = {'data-module': 'autocomplete', 'data-module-source': '/api/2/util/resource/format_autocomplete?incomplete=?'} %}
-      {% call form.tag_input('format', id='field-format', label=_('Format'), placeholder=_('eg. CSV, XML or JSON'), value=data.format, error=errors.format, classes=['control-medium'], attrs=format_attrs) %}
+      {% call form.tag_input('format', id='field-format', label=_('Format'), placeholder=_('eg. CSV, XML'), value=data.format, error=errors.format, classes=['control-medium'], attrs=format_attrs) %}
         {#<span class="info-block info-block-small">
           <i class="fa fa-info-circle"></i>                        
           {{ _('This will be guessed automatically. Leave blank if you wish:') }}  

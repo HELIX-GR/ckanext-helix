@@ -37,3 +37,16 @@
   {{ h.build_nav_icon(group_type + '_about', _('About'), id=c.group_dict.name) }}
 </div>
 {% endblock %}
+
+{% block page_pagination %}
+    <div class="main-results-border-bottom"> </div>
+    
+    
+    <div class="breadcrumbs-pagination bottom">
+      <div class=breadcrumbs>
+      {{ self.breadcrumb_content() }}
+      </div>
+      {{ c.page.pager(q=c.q) }}
+    </div>    
+     
+{% endblock %}
