@@ -51,6 +51,8 @@ CACHE_PARAMETERS = ['__cache', '__no_cache__']
 
 from ckanext.publicamundi.lib.metadata import class_for_metadata
 from ckanext.publicamundi.lib.util import (to_json, random_name)
+from six import string_types
+from urllib import urlencode
 
 _ = toolkit._
 asbool = toolkit.asbool
@@ -384,7 +386,6 @@ class ExtrametadataController(BaseController):
         #add to helix org as default
         data['owner_org'] = 'helix'
 
-
         form_snippet = self._package_form(package_type=package_type)
         form_vars = {'data': data, 'errors': errors,
                      'error_summary': error_summary,
@@ -426,7 +427,7 @@ class ExtrametadataController(BaseController):
         except (NotFound, NotAuthorized):
             abort(404, _('Group not found'))
 
-        oc._read(id, limit, group_type)
+        self._read(id, limit, group_type)
         return render(oc._read_template(c.group_dict['type']),
                       extra_vars={'group_type': group_type})
 
@@ -574,7 +575,7 @@ class ExtrametadataController(BaseController):
                                        group_type=group_type)
         
 
-    def organization_edit(self, id, data=None, errors=None, error_summary=None):
+    def edit(self, id, data=None, errors=None, error_summary=None):
         oc = oController()
         group_type = oc._ensure_controller_matches_group_type(
             id.split('@')[0])
@@ -702,13 +703,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         vocab = toolkit.get_action ('vocabulary_show') (context, data)
         closed_tags = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
         #log1.info('Vocab is %s, closed tags are %s', vocab, closed_tags)
-        List = open('closed-subjects.txt').read().splitlines()
+        #List = open('closed-subjects.txt').read().splitlines()
         #log1.debug('LIST IS %s', List)
-        for tag in List:
-            if tag not in closed_tags:
-                log1.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
-                data = {'name': tag, 'vocabulary_id': vocab['id']}
-                toolkit.get_action ('tag_create') (context, data)
+        #for tag in List:
+            #if tag not in closed_tags:
+                #log1.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
+                #data = {'name': tag, 'vocabulary_id': vocab['id']}
+                #toolkit.get_action ('tag_create') (context, data)
     
     @classmethod
     def closed_tags(cls):
@@ -1056,11 +1057,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         #added because organization_read overrided default new org
         mapper.connect('organization_new', '/organization/new',controller='organization', action='new')
         #override organization read to restrict private dataset reading for members
-        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read',
-                  ckan_icon='sitemap')
-
-        #mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='organization_edit',
-         #         ckan_icon='pencil-square-o')
+        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read')
+        mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='edit',
+                  ckan_icon='pencil-square-o')
                 
         log1.debug('AFTER CONNECT')
         #co = toolkit.c
@@ -1081,6 +1080,16 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             controller=tests_controller)
   
 
+        return mapper
+
+    def after_map(self, mapper):
+
+        #added in after map to override default controller names ()
+        mapper.connect('organization_new', '/organization/new',controller='organization', action='new')
+        #override organization read to restrict private dataset reading for members
+        mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read')
+        mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='edit',
+                  ckan_icon='pencil-square-o')
         return mapper
 
     ## IActions interface ##

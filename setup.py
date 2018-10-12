@@ -30,7 +30,7 @@ setup(
 
         publicamundi_dataset = ckanext.publicamundi.plugins:DatasetForm
         
-        publicamundi_extra = ckanext.publicamundi.plugins:Extrametadatacontroller
+        publicamundi_extra = ckanext.publicamundi.plugins:ExtrametadataController
         
         publicamundi_multilingual_dataset = ckanext.publicamundi.plugins:MultilingualDatasetForm
         

@@ -107,7 +107,7 @@
   {{ super() }}
 
   {% if pkg.spatial %}
-  {% snippet "spatial/snippets/dataset_map_sidebar.html", extent=pkg.spatial %}
+  {% snippet "spatial/snippets/package_map_sidebar.html", extent=pkg.spatial %}
   {% endif %}
 {% endblock %}
 
