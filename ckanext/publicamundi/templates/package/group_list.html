@@ -29,11 +29,11 @@
         {% snippet 'group/snippets/group_list.html', groups=filtered_groups %}
         </form>
       {% else %}
-        <p class="empty">{{ _('There are no categories associated with this dataset') }}</p>
+        <p class="empty">{{ _('There are no topics associated with this dataset') }}</p>
       {% endif %}  
     {% endif %}
   {% else %}
-      <p class="empty">{{ _('There are no categories associated with this dataset') }}</p>
+      <p class="empty">{{ _('There are no topics associated with this dataset') }}</p>
   {% endif %}  
 
 {% endblock %}

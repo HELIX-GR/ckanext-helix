@@ -36,7 +36,7 @@ def topicsMatch(subject):
                 groups.append('environmental-sciences')
                 break
             elif tag == line and i < 352:
-                groups.append('biology-sciences')
+                groups.append('biological-sciences')
                 break
             elif tag == line and i < 424:
                 groups.append('agricultural-and-veterinary-sciences')

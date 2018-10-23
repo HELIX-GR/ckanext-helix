@@ -201,15 +201,24 @@ class ExtrametadataController(BaseController):
                         error_summary = {_('Error'): msg}
                         return self.new_resource(id, data, errors, error_summary)
                 # we have a resource so let them add metadata
+                log1.debug("Data is %s, resources %s", data, data['resources'])
                 h.redirect_to(controller='ckanext.publicamundi.plugins:ExtrametadataController',
-                                  action='new_metadata', id=id)
-                '''extra_vars = {'data': data, 'errors': errors, 'error_summary': error_summary}
-                extra_vars['pkg_name'] = id
-                package_type = self._get_package_type(id)
-                self._setup_template_variables(context, {}, package_type=package_type)
-                return render('package/new_package_metadata.html', extra_vars=extra_vars)'''
+                                  action='new_metadata', id=id, data=data )
 
             data['package_id'] = id
+            '''if 'size' not in data:
+                if hasattr(data['upload'], 'filesize'):
+                    data['size'] = data['upload'].filesize'''
+
+            try:
+                pkg_dict = get_action('package_show')(context, {'id': id})
+            except NotFound:
+                abort(404, _('The dataset {id} could not be found.').format(id=id))        
+            if 'size' not in data:
+                if hasattr(data['upload'], 'filesize'):
+                    pkg_dict['size'] = data['upload'].filesize
+            log1.debug('pkg dict resources are: %s',pkg_dict['resources'])
+
             try:
                 if resource_id:
                     data['id'] = resource_id
@@ -228,7 +237,7 @@ class ExtrametadataController(BaseController):
             if save_action == 'go-metadata':
                 # go to final stage of add dataset
                 h.redirect_to(h.url_for(controller='ckanext.publicamundi.plugins:ExtrametadataController',
-                                   action='new_metadata', id=id))
+                                   action='new_metadata', id=id, data=data))
             elif save_action == 'go-dataset':
                 # go to first stage of add dataset
                 h.redirect_to(h.url_for(controller='package',
@@ -252,13 +261,13 @@ class ExtrametadataController(BaseController):
         try:
             pkg_dict = get_action('package_show')(context, {'id': id})
         except NotFound:
-            abort(404, _('The dataset {id} could not be found.').format(id=id))
+            abort(404, _('The dataset {id} could not be found.').format(id=id))        
         try:
             check_access('resource_create', context, {"package_id": pkg_dict["id"]})
         except NotAuthorized:
             abort(401, _('Unauthorized to create a resource for this package'))
 
-        # required for nav menu
+        # required for nav menu (stages)
         vars['pkg_dict'] = pkg_dict
         template = 'package/new_resource_not_draft.html'
         if pkg_dict['state'] == 'draft':
@@ -270,6 +279,8 @@ class ExtrametadataController(BaseController):
         elif pkg_dict['state'] == 'active':
             vars['stage'] = ['complete', 'active', 'complete']
             template = 'package/new_resource.html'
+
+        log1.debug("Resource is pkg_dict %s", pkg_dict['resources'])    
         return render(template, extra_vars=vars)
 
     def new_metadata(self, id, data=None, errors=None, error_summary=None):
@@ -277,7 +288,7 @@ class ExtrametadataController(BaseController):
         forms. '''
         context = {'model': model, 'session': model.Session,
                    'user': c.user or c.author, 'auth_user_obj': c.userobj}
-        log1.debug('IN NEW METADATA')
+        log1.debug('IN NEW METADATA, data is %s', data)
         if request.method == 'POST' and not data:
             save_action = request.params.get('save')
             data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
@@ -896,7 +907,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'title_types_options': self.title_types_options,
             'organization_list_objects': self.organization_list_objects,
             'organization_dict_objects': self.organization_dict_objects,
-            'correct_facets': self.correct_facets,
+            'update_facets': self.update_facets,
         }
 
     ## IConfigurer interface ##
@@ -1739,7 +1750,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing')
             ],
         })
-        log1.debug('AFTER SCHEMA UPDATE')
         
         # Done, return updated schema
 
@@ -1834,7 +1844,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Determine dataset_type-related parameters for this package
         
         key_prefix = dtype = pkg_dict.get('dataset_type')
-        log1.debug('Dataset type is %s', dtype)
         public_doi = pkg_dict.get('datacite.public_doi')
         if not dtype:
             return # noop: unknown dataset-type (pkg_dict has raw extras?)
@@ -1846,6 +1855,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # nested structure), because resource forms will clear all extra fields !!
 
         # Turn to an object
+        if dtype=='foo':
+            return pkg_dict
         
         md = class_for_metadata(dtype).from_converted_data(pkg_dict)
 
@@ -1909,15 +1920,31 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         such as tags) of all the terms sent to the indexer.
         '''
         log1.debug('before_index: Package %s is indexed', pkg_dict.get('name'))
-        subjects= pkg_dict['vocab_closed_tags']
-        #log1.debug('\n\n__SUBJECT IS %s\n\n',subjects)
-        
-        #Add subjects for solr indexing/facet use
+        if 'vocab_closed_tags' in pkg_dict:
+            subjects= pkg_dict['vocab_closed_tags']
+            
+            #Add subjects for solr indexing/facet use
 
-        pkg_dict['closed_tags_facets'] = []
-        for subject in subjects:
-            pkg_dict['closed_tags_facets'].append(subject)
-        
+            pkg_dict['closed_tags_facets'] = []
+            for subject in subjects:
+                pkg_dict['closed_tags_facets'].append(subject)
+
+        #Add resource size for solr indexing, get it from package show because resources are flattened
+        context = {'model': model, 'session': model.Session,
+                       'user': c.user or c.author, 'auth_user_obj': c.userobj}
+        try:
+            temp_pkg_dict = get_action('package_show')(context, {'id': pkg_dict.get('id')})
+        except NotFound:
+            abort(404, _('The dataset {id} could not be found.').format(id=pkg_dict.get('id')))        
+        #log1.debug('pkg dict is: %s, type: %s', temp_pkg_dict, type(temp_pkg_dict))
+        if temp_pkg_dict["resources"]:
+            pkg_dict['res_size'] = []
+            for resource in temp_pkg_dict["resources"]:
+                pkg_dict['res_size'].append(resource['size'])
+                log1.debug('Res size is %s  , type: %s',resource['size'], type(resource['size']) )
+            log1.debug('Resource sizes are: %s, type: %s', pkg_dict['res_size'], type(pkg_dict['res_size']) )
+
+
         return pkg_dict
 
     def before_view(self, pkg_dict):
@@ -1983,17 +2010,18 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''Update the facets_dict and return it.
         '''
         facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject
+        facets_dict['res_size'] = p.toolkit._('Resource size') #add facet for Subject
         if (package_type !="harvest"):
             if facets_dict['groups']:
                 del facets_dict['groups']
-                myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'license_id']
+                myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
                 facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         #if package_type == 'dataset':
             # Todo Maybe reorder facets
         #    pass
         return facets_dict
 
-    def correct_facets(self):
+    def update_facets(self):
 
         #Update facets for advanced search
         
@@ -2121,9 +2149,18 @@ class PackageController(p.SingletonPlugin):
         This "extras" dictionary will not affect SOLR results, but can be later be used by the
         after_search callback.
         '''
+        #log1.debug("SEARCH PARAMS: %s", search_params)
+        extras = search_params.get('extras')
+        if not extras:
+            # There are no extras in the search params, so do nothing.
+            return search_params
+        min_size= extras.get('ext_minsize')
+        max_size = extras.get('ext_maxsize')
+        fq = search_params['fq']
+        fq = '{fq} +res_size:[{min_size} TO {max_size}]'.format(
+            fq=fq, min_size=min_size, max_size=max_size)
+        search_params['fq'] = fq
 
-        #search_params['q'] = 'extras_boo:*';
-        #search_params['extras'] = { 'ext_boo': 'far' }
         return search_params
 
     def after_search(self, search_results, search_params):

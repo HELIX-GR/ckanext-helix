@@ -48,12 +48,12 @@
     <a href="#"> <img class="" src="/images/png/favorite.png"></a>
   </div>
 
-      
+    <div>
     <h1 class="package-title">
   {{ pkg.title or pkg.name }}
   
   {% if pkg.get('state', '').startswith('draft') %}
-  <span class="label package-state label-info state-draft">{{ _('Draft') }}</span>
+  <span class="draft-state">{{ _('Draft') }}</span>
   {% elif pkg.get('state', '').startswith('deleted') %}
   <span class="label package-state label-danger state-deleted">{{ _('Deleted') }}</span>
   {% elif pkg.get('state', '').startswith('invalid') %}
@@ -67,6 +67,7 @@
   {% endblock %} {# page_heading_info #}
 
 </h1>
+</div>  
   {% block package_dates %}
     <div class="dataset-dates">
     <div class="title"> {{_('PUBLICATION:')}} </div>

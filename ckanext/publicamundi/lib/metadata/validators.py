@@ -89,7 +89,6 @@ def postprocess_dataset_for_edit(key, data, errors, context):
         raise Invalid('Unknown dataset-type: %s' %(dtype))
     
     #logger.debug('DATA IS [%s]' % ', '.join(map(str, data)) ) 
-    logger.debug('DATASET TYPE IS %s', dtype )  
     # 1. Build metadata object
 
     cls = ext_metadata.class_for_metadata(dtype)
