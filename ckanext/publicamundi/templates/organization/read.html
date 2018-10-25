@@ -9,8 +9,29 @@
 {% block page_primary_action %}
 
 {% if h.check_access('package_create', {'owner_org': c.group_dict.id}) %}
-  {% snippet 'snippets/add_dataset_button.html', group=c.group_dict.id %}
+  {% snippet 'snippets/add_dataset.html', group=c.group_dict.id %}
 {% endif %}
+{% endblock %}
+
+{% block primary_content_inner %}
+  {% block groups_search_form %}
+      
+  {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, placeholder=_('Search datasets...'), show_empty=request.params, fields=c.fields %}
+  {% endblock %}
+  {% block packages_list %}
+    {% if c.page.items %}
+      {{ h.snippet('snippets/package_list.html', packages=c.page.items) }}
+    {% endif %}
+  {% endblock %}
+  {% block page_pagination %}
+    <div class="main-results-border-bottom"> </div>
+    <div class="breadcrumbs-pagination bottom">
+      <div class=breadcrumbs>
+      {{ self.breadcrumb_content() }}
+      </div>
+      {{ c.page.pager(q=c.q) }}
+    </div>    
+  {% endblock %}
 {% endblock %}
 
 {% block content_action %}
@@ -20,10 +41,11 @@
 {% endblock %}
 
 
+
 {% block organization_facets %}
   {#{% for facet in c.facet_titles %}
     {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }} #}
-    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=false, extras={'id':c.group_dict.id}) }}
+    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=true, extras={'id':c.group_dict.id}) }}
    
   {#{% endfor %} #}
 {% endblock %}
@@ -38,15 +60,15 @@
 </div>
 {% endblock %}
 
-{% block page_pagination %}
-    <div class="main-results-border-bottom"> </div>
-    
-    
-    <div class="breadcrumbs-pagination bottom">
-      <div class=breadcrumbs>
-      {{ self.breadcrumb_content() }}
-      </div>
-      {{ c.page.pager(q=c.q) }}
-    </div>    
-     
-{% endblock %}
+
+
+
+
+
+
+
+
+{% block scripts %}
+{{ super() }}
+{% resource 'ckanext-helix-theme/facets' %}
+{% endblock %} 

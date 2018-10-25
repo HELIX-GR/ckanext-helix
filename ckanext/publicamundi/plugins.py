@@ -416,7 +416,6 @@ class ExtrametadataController(BaseController):
 
     def read(self, id, limit=10):
         oc = oController()
-        log1.debug('\nEDITOR\n')
         group_type = oc._ensure_controller_matches_group_type(
             id.split('@')[0])
 
@@ -618,7 +617,6 @@ class ExtrametadataController(BaseController):
         log1.debug('\nIN ORG EDIT group is %s, data is %s, user role %s\n', group, data, c.user_role)
         if c.user_role == 'editor':
             context['ignore_auth'] = True
-            log1.debug('\nEDITOR\n')
         try:
             oc._check_access('group_update', context)
         except NotAuthorized:

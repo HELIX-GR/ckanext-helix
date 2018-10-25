@@ -2,7 +2,7 @@
 
 {% block page_primary_action %}
 {% if h.check_access('package_create') %}
-  {% snippet 'snippets/add_dataset_button.html', group=none %}
+  {% snippet 'snippets/add_dataset.html', group=none %}
 {% endif %}
 {% endblock %}
 
@@ -72,3 +72,24 @@
       {% endblock %}
 
  
+      {% block tertiary_content %}
+          
+      {#{% block search_form %}
+        {% set sorting = [
+          (_('Name Ascending'), 'title_string asc'),
+          (_('Name Descending'), 'title_string desc'),
+          (_('Last Modified'), 'data_modified desc') ]
+        %}
+        {% snippet 'snippets/search_form.html', form_id='organization-datasets-search-form', type='dataset', query=c.q, count=c.page.item_count, sorting=sorting, sorting_selected=c.sort_by_selected, no_title=true, search_class=' ' %}
+      {% endblock %}#}
+
+      {#{% snippet 'snippets/simple_search.html', q=c.q, sort=c.sort_by_selected, placeholder=_('Search datasets...'), extra_sort=[(_('Last Modified'), 'data_modified asc')], input_class='search-normal', form_class='search-aside' %}#}
+      
+      {#{{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=false, extras={'id':c.group_dict.id}) }}#}
+      
+    {% endblock %}
+    
+    {%block secondary_content %}
+    {{ super() }}
+    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=false, extras={'id':c.group_dict.id}) }}
+    {%endblock%}
