@@ -91,5 +91,5 @@
     
     {%block secondary_content %}
     {{ super() }}
-    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers=false, extras={'id':c.group_dict.id}) }}
+    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers= true, hide_empty=true, extras={'id':c.group_dict.id}) }}
     {%endblock%}

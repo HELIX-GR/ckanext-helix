@@ -531,8 +531,7 @@ class ExtrametadataController(BaseController):
 
             # Facet titles
             oc._update_facet_titles(facets, group_type)
-
-            c.facet_titles = facets
+            
             c.user_role = authz.users_role_for_group_or_org(id, c.user) or 'member'
             #log1.debug('\n USER IS %s, context is %s, roles is %s, user role is %s\n', c.user, context, c.roles, c.user_role)
     
@@ -906,6 +905,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'organization_list_objects': self.organization_list_objects,
             'organization_dict_objects': self.organization_dict_objects,
             'update_facets': self.update_facets,
+            'dataset_facets': self.dataset_facets
         }
 
     ## IConfigurer interface ##
@@ -2012,12 +2012,31 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         if (package_type !="harvest"):
             if facets_dict['groups']:
                 del facets_dict['groups']
-                myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
-                facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
+            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
+            facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         #if package_type == 'dataset':
             # Todo Maybe reorder facets
         #    pass
+        log1.debug('Order: %s', facets_dict)
         return facets_dict
+
+    def organization_facets(self, facets_dict, organization_type, package_type):
+        '''Update the facets_dict and return it.
+        '''
+        log1.debug("In organization facet")
+        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject
+        facets_dict['res_size'] = p.toolkit._('Resource size') #add facet for Subject
+        if (package_type !="harvest"):
+            if facets_dict['groups']:
+                del facets_dict['groups']
+            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
+            facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
+        #if package_type == 'dataset':
+            # Todo Maybe reorder facets
+        #    pass
+        log1.debug('Order: %s', facets_dict)
+        c.facet_titles = facets_dict
+        return facets_dict    
 
     def update_facets(self):
 
@@ -2027,9 +2046,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         default_facet_titles = {
                 'organization': _('Organizations'),
-                'groups': _('Groups'),
+                'closed_tag_facets': _('Subject'),
                 'tags': _('Tags'),
                 'res_format': _('Formats'),
+                'res_size': _('Resource size'),
                 'license_id': _('Licenses'),
             }
 
@@ -2042,17 +2062,17 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         facets = self.dataset_facets(facets)
 
         c.facet_titles = facets
+        
         data_dict = {
                 'facet.field': facets.keys(),
                 'rows': 0,
         }
-
+        
         context = {'model': model, 'session': model.Session,
                        'user': c.user, 'for_view': True,
                        'auth_user_obj': c.userobj}
-
         query = get_action('package_search')(context, data_dict)
-        c.sort_by_selected = query['sort']
+        #c.sort_by_selected = query['sort']
         c.search_facets = query['search_facets']
 
 class PackageController(p.SingletonPlugin):

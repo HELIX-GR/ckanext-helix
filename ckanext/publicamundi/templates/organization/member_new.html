@@ -1,5 +1,8 @@
 {% ckan_extends %}
 
+
+
+
 {% block secondary_content %}
 {% snippet 'snippets/organization.html', organization=organization %}
 <div class="module module-narrow module-shallow">
@@ -10,10 +13,10 @@
   <div class="module-content">
     {% trans %}
       <p><strong>Admin:</strong> Can add/edit and delete datasets, as well as
-        manage organization.</p>
+        manage the organization.</p>
       <p><strong>Editor:</strong> Can add and edit datasets, as well as manage the
-        organization members.</p>
-      <p><strong>Member:</strong> Can add new datasets (private), and edit/delete his own</p>
+        organization's members.</p>
+      <p><strong>Member:</strong> Can add new datasets (private)</p>
     {% endtrans %}
   </div>
 {% endblock %}
