@@ -16,6 +16,10 @@ from ckanext.publicamundi.lib.metadata import (
 from ckanext.publicamundi.lib import resource_ingestion
 from ckanext.publicamundi.lib.languages import Language
 
+import logging
+log1=logging.getLogger(__name__)
+
+
 def filtered_list(l, key, value, op='eq'):
     '''Filter list items based on their value in a specific key/attr.
     '''
@@ -141,6 +145,7 @@ def pager(self, *args, **kwargs):
             symbol_first=u'<<', symbol_previous=u'<', symbol_next=u'>', symbol_last=u'>>',
             curpage_attr={'class': 'current-item'}, link_attr={'class': 'pagination-item'}
         )
+        
         return super(h.Page, self).pager(*args, **kwargs)
         
        

@@ -18,10 +18,10 @@ Examples:
 {{ form.input('title', label=_('Title'), value=data.title, error=errors.title) }}
 
 #}
-{% macro input(name, id='', label='', value='', placeholder='', type='text', error="", classes=[], attrs={'class': 'form-control'}, is_required=false) %}
+{% macro input(name, id='', label='', value='', placeholder='', type='text', error="", control_classes=[], classes=[], attrs={'class': 'form-control'}, is_required=false) %}
 {%- set extra_html = caller() if caller -%}
 
-{% call input_block(id or name, label or name, error, classes, extra_html=extra_html, is_required=is_required) %}
+{% call input_block(id or name, label or name, error, classes, control_classes, extra_html=extra_html, is_required=is_required) %}
 <input class="form-control" id="{{ id or name }}" type="{{ type }}" name="{{ name }}" value="{{ value | empty_and_escape }}" placeholder="{{ placeholder }}" {{ attributes(attrs) }} />
 {% endcall %}
 {% endmacro %}
@@ -59,7 +59,7 @@ Example:
 {% macro checkbox(name, id='', label='', value='', checked=false, placeholder='', error="", classes=[], attrs={}, is_required=false) %}
 {%- set extra_html = caller() if caller -%}
 <div class="form-group{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
-<div class="controls">
+<div class="controls {{control-class}}">
   <label class="checkbox" for="{{ id or name }}">
     <input id="{{ id or name }}" type="checkbox" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ "checked " if checked }} {{ attributes(attrs) }} />
     {{ label or name }}
@@ -445,7 +445,7 @@ options     - A list/tuple of fields to be used as <options>.
 
 
     {% if is_upload_enabled %}
-    {{ input(field_upload, label=upload_label, id='field-image-upload', type='file', placeholder='', value='', error='', classes=['control-full']) }}
+    {{ input(field_upload, label=upload_label, id='field-image-upload', type='file', placeholder='', value='', error='', classes=['control-full'],control_classes=['controls-image']) }}
     {% if is_upload %}
     {{ checkbox(field_clear, label=_('Clear Upload'), id='field-clear-upload', value='true', error='', classes=['control-full']) }}
     {% endif %}

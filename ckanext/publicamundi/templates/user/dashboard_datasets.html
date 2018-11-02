@@ -1,4 +1,4 @@
-{% extends "user/dashboard.html" %}
+{% ckan_extends %}
 
 {% block page_primary_action %}
 {% if h.check_access('package_create') %}
@@ -11,6 +11,7 @@
     {% if user_dict.datasets %}
         <div class="result-items">
             {% snippet 'snippets/package_list.html', packages=user_dict.datasets %}     
+            
         </div>    
   {% else %}
     <p class="empty">
@@ -21,9 +22,7 @@
     </p>
   {% endif %}
   
-    {% block page_pagination %}
-       {{ c.page }}
-    {% endblock %}
+    
   {% endblock %}
 
 

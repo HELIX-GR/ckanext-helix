@@ -10,6 +10,7 @@ import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 import ckan.lib.helpers as h
 import logging
+import ckan.authz as authz
 
 from ckanext.publicamundi.lib import resource_ingestion
 from ckanext.publicamundi.model.resource_ingest import(
@@ -27,6 +28,8 @@ accepted_sortings = ["status", "storer_type"]
 class UserController(BaseController):
 
     def show_dashboard_resources(self):
+
+        log.info('IN D resources')
         user_dict = self._check_access()
         user_dict = self._filter_user_dict(user_dict)
         user_dict = self._filter_deleted(user_dict)
@@ -40,6 +43,22 @@ class UserController(BaseController):
         #c.user_dict = user_dict
         log.info('\n\nUSER DICT DATASETS ARE %s\n\n',user_dict['datasets'])
         return render('user/admin_page_resources.html')
+
+    def datasets(self):
+        context = {'for_view': True, 'user': c.user,
+                   'auth_user_obj': c.userobj}
+        data_dict = {'user_obj': c.userobj, 'include_datasets': True}
+        try:
+            user_dict = logic.get_action('user_show')(context, data_dict)
+        except NotFound:
+            h.flash_error(_('Not authorized to see this page'))
+            h.redirect_to(controller='user', action='login')
+        except NotAuthorized:
+            abort(403, _('Not authorized to see this page'))
+        #log.info('\n\nUSER DICT is %s\n\n',user_dict)
+        #user_dict = self._filter_user_dict(user_dict)
+        self._setup_template_variables(user_dict)
+        return render('user/dashboard_datasets.html')
 
     def _check_access(self):
         context, data_dict = self._get_context()
@@ -136,10 +155,12 @@ class UserController(BaseController):
         c.user_dict = user_dict
         c.is_myself = user_dict['name'] == c.user
         c.about_formatted = h.render_markdown(user_dict['about'])
+        c.is_sysadmin = authz.is_sysadmin(c.user)
 
         #Resources page items
         _resources_page_items = int(config.get('ckanext.publicamundi.dashboard.resources.num_page_items', 10))
         # datasets paging
+        #log.info('\n\nUSER DICT DATASET PAGING: %s \n\n',user_dict)
         c.page = h.Page(
             collection=user_dict['datasets'],
             page=request.params.get('page', 1),

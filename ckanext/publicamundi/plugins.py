@@ -201,7 +201,7 @@ class ExtrametadataController(BaseController):
                         error_summary = {_('Error'): msg}
                         return self.new_resource(id, data, errors, error_summary)
                 # we have a resource so let them add metadata
-                log1.debug("Data is %s, resources %s", data, data['resources'])
+                #log1.debug("Data is %s, resources %s", data, data['resources'])
                 h.redirect_to(controller='ckanext.publicamundi.plugins:ExtrametadataController',
                                   action='new_metadata', id=id, data=data )
 
@@ -1035,6 +1035,12 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 'render_ingestion',
                 '/{parent}/resources/ingest/{resource_id}',
                 action='render_ingestion_template')
+
+            m.connect(
+                'datasets',
+                '/dashboard/datasets',
+                action='datasets')
+            
       
         files_controller = 'ckanext.publicamundi.controllers.files:Controller'
         
@@ -1071,11 +1077,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                   ckan_icon='pencil-square-o')
                 
         log1.debug('AFTER CONNECT')
-        #co = toolkit.c
-        #search_facets=co.search_facets
-
-        #log1.debug('toolkit.c is %s', toolkit.c.search_facets)
-       
+        
         tests_controller = 'ckanext.publicamundi.controllers.tests:Controller'
 
         mapper.connect(
@@ -1099,6 +1101,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         mapper.connect('organization_read', '/organization/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read')
         mapper.connect('organization_edit', '/organization/edit/{id}',controller='ckanext.publicamundi.plugins:ExtrametadataController', action='edit',
                   ckan_icon='pencil-square-o')
+    
+        #mapper.connect('datasets',
+        #        '/dashboard/datasets',
+        #        controller='ckanext.publicamundi.controllers.user:UserController',
+        #        action='datasets')    
         return mapper
 
     ## IActions interface ##

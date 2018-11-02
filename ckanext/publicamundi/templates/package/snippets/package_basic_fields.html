@@ -169,8 +169,8 @@
 <div class="form-group control-full" >
         <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
         <div class="controls" >
-        <select  class="select-field" id="field-dataset_category" name="dataset_category"   placeholder="The category of this dataset" >
-            <option value="" disabled selected hidden>The category of this dataset </option>
+        <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder="The category of this dataset" >
+            <option value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>The category of this dataset </option>
             {% for dataset_category in h.dataset_categories()  %}
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}

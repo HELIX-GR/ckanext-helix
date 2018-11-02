@@ -32,14 +32,16 @@
 
  
 
-     You are almost done. 
-     Press finish to complete the dataset creation and you will be notified when your dataset is publicly available for view.
-    
+     <h2 class="msg-done" >You are done! </h2>
+     <div class="msg-finish">Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation, 
+        you will be notified when your dataset is publicly available for view.
+     </div>
+
  {# {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, groups_available=groups_available %} #}
 
   <div class="form-actions">
-    <button id="btn-save-go-resources" class="btn btn-manage" name="save" value="go-resources" type="submit">{{ _('Previous') }}</button>
-    <button id="btn-save-finish" class="btn btn-primary btn-manage" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
+    <button id="btn-save-go-resources" class="btn-previous" name="save" value="go-resources" type="submit"><span class="previous"></span></button>
+    <button id="btn-save-finish" class="btn-next" name="save" value="finish" type="submit">{{ _('Finish') }}</button>
   </div> 
 
 </form>
