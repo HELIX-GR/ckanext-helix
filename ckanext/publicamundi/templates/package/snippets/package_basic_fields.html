@@ -176,12 +176,13 @@
             {% endfor %}
             <option value="" ></option>
         </select>
+        <div class="help-block">
+            {% trans %}Please select only if the dataset belongs to a special category. Learn more here {% endtrans %}
+         </div>
         </div>
 </div>  
 
-<div class="help-block">
-        {% trans %}Please select only if the dataset belongs to a special category. Learn more here {% endtrans %}
-</div>
+
 
 {# Closed tags field #}
 {% set error = errors.closed_tag %} 
@@ -194,13 +195,13 @@
       {% endfor %}
   </select>
   {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
+  <div class="help-block">
+    {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}
+   </div>
   </div>
 </div>  
 
 
-<div class="help-block">
-      {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}
-</div>
 
 
 

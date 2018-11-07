@@ -166,14 +166,14 @@ class IDataciteMetadata(IMetadata):
     #zope.interface.invariant(related_publication_empty)    
     #     
     related_publication = zope.schema.TextLine(
-        title = u'Related publication',
+        title = u'Related Publication',
         description = (u'The DOI of a related publication'),
         required = False,
         constraint=related_publication_empty)
     
     
     funding_reference = zope.schema.TextLine(
-        title = u'Funding reference',
+        title = u'Funding Reference',
         description = (u'Information about financial support for the creation of this dataset.'),
         required = False)    
     

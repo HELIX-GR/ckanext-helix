@@ -59,7 +59,7 @@ Example:
 {% macro checkbox(name, id='', label='', value='', checked=false, placeholder='', error="", classes=[], attrs={}, is_required=false) %}
 {%- set extra_html = caller() if caller -%}
 <div class="form-group{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
-<div class="controls {{control-class}}">
+<div class="controls">
   <label class="checkbox" for="{{ id or name }}">
     <input id="{{ id or name }}" type="checkbox" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ "checked " if checked }} {{ attributes(attrs) }} />
     {{ label or name }}
@@ -416,7 +416,7 @@ options     - A list/tuple of fields to be used as <options>.
   #}
   {% macro required_message() %}
   <p class="control-required-message">
-    <span class="control-required">*</span> {{ _("Fields in bold are required") }}
+    <span class="control-required">*</span> {{ _("Required fields") }}
   </p>
   {% endmacro %}
 

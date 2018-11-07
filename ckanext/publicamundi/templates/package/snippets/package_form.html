@@ -59,14 +59,6 @@ then itself be extended to add/remove blocks of functionality. #}
 
   {% block form_actions %}
   <div class="form-actions">
-      {% block disclaimer %}
-      <p class="action-info small">
-          {%- trans -%}
-          Important: By submitting content, you agree to release your contributions under the terms of the HELIX user agreement. See more at 
-          <a href="terms.hellenicdataservice.gr">terms.hellenicdataservice.gr</a>
-          {%- endtrans -%}
-      </p>
-      {% endblock %}
       
       {% block delete_button %}
       {% if h.check_access('package_delete', {'id': data.id}) and not data.state == 'deleted' %}
@@ -77,7 +69,15 @@ then itself be extended to add/remove blocks of functionality. #}
               data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
       {% endif %}
       {% endblock %}
-      <button class="btn btn-manage add" type="submit" name="save">{% block save_button_text %}{{ _('Next: Add Data') }}{% endblock %}</button>
+      <button class="btn-next" type="submit" name="save">{% block save_button_text %}{{ _('Next: Add Data') }}{% endblock %}</button>
+      {% block disclaimer %}
+      <p class="disclaimer">
+          {%- trans -%}
+          Important: By submitting content, you agree to release your contributions under the terms of the HELIX user agreement. See more at 
+          <a href="terms.hellenicdataservice.gr">terms.hellenicdataservice.gr</a>
+          {%- endtrans -%}
+      </p>
+      {% endblock %}
       {{ form.required_message() }}
   </div>
   {% endblock %}

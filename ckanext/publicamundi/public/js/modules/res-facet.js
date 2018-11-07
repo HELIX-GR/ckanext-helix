@@ -44,24 +44,26 @@ this.ckan.module('res-facet', {
         $('#ext_maxsize').val('1048576000');
         checkbox.checked = true;
       }
+      
     }
-    else if (checkBoxState === 'false'){
+    else {
       checkbox.checked = false;
     }
+    
 
     $(".res-size").change(function () {
 
       localStorage.setItem(this.value, this.checked);
       console.log('val %s, checked %s', this.value, this.checked )
+      var current = $(this); 
+      var current_val = current.val();
       if (this.checked) {
         
         if ($("#ext_minsize").length === 0) {
           $('<input type="hidden" id="ext_minsize" name="ext_minsize" value="" />').appendTo(form);
-         // $('<input type="hidden" id="ext_minsize" name="ext_minsize" value="" />').appendTo(home_form);
         }
         if ($("#ext_maxsize").length === 0) {
           $('<input type="hidden" id="ext_maxsize" name="ext_maxsize" value="" />').appendTo(form);
-          //$('<input type="hidden" id="ext_maxsize" name="ext_maxsize" value="" />').appendTo(home_form);
         }
 
         if ($(this).val() == 1) {
@@ -77,7 +79,11 @@ this.ckan.module('res-facet', {
           $('#ext_minsize').val('104857601');
           $('#ext_maxsize').val('1048576000');
         }
-
+        $.each(checkboxes, function( index ) {
+          if ($(this).val() != current_val)
+            localStorage.setItem(this.value, 'false');
+        
+        });
         $("#main-form-search").submit();
       } else {
         $('#ext_minsize').remove();
