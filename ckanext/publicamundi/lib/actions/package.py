@@ -132,13 +132,12 @@ def dataset_import(context, data_dict):
     '''
       
     # Read parameters
-
     try:
         source = data_dict['source']
     except KeyError:
         raise Invalid({'source': 'The `source` parameter is required'})
     
-    dtype = data_dict.get('dtype', 'inspire')
+    dtype = data_dict.get('dtype', 'datacite')
 
     try:
         owner_org = data_dict['owner_org']
@@ -149,7 +148,7 @@ def dataset_import(context, data_dict):
         
     allow_rename = data_dict.get('rename_if_conflict', False)
     allow_validation_errors = data_dict.get('continue_on_errors', False)
-
+    log.debug('dtype: %s, source %s, source type: %s', dtype, source, type(source) )
     # Fetch raw XML data
     
     xmldata = None
@@ -169,13 +168,16 @@ def dataset_import(context, data_dict):
     else:
         # Assume source is a file-like object
         try:
+            log.debug('source is %s',source )
             xmldata = source.read()
+            log.debug('xmldata is %s',xmldata )
         except:
             raise Invalid({'source': _('Cannot read from source')})
 
     # Parse XML data as metadata of `dtype` schema
     
     obj = make_metadata(dtype)
+    log.debug('obj is: %s',obj)
     try:
         obj = xml_serializer_for(obj).loads(xmldata)
     except AssertionError as ex:
@@ -186,6 +188,7 @@ def dataset_import(context, data_dict):
         raise Invalid({'source': _('The given XML file is malformed: %s') % (ex)})
 
     # Prepare package dict
+    log.debug('updated obj is: %s', obj)
 
     pkg_dict = {'version': '1.0'}
     pkg_dict.update(obj.deduce_fields())
@@ -195,7 +198,7 @@ def dataset_import(context, data_dict):
         'dataset_type': dtype,
         dtype: obj.to_dict(flat=False),
     })
-    
+    log.debug('pkg_dict: %s', pkg_dict)
     # If an identifier is passed, check that this is not already present.
     # Note This is no guarantee that the identifier will be available when
     # `package_create` is actually invoked.
@@ -219,6 +222,10 @@ def dataset_import(context, data_dict):
         pkg_dict['name'] = name
         pkg_dict['title'] += ' ' + name[len(basename):]
     
+    # add core fields description and subject 
+    pkg_dict['notes'] = pkg_dict['datacite']['abstract']
+    pkg_dict['closed_tag'] = pkg_dict['datacite']['subject_closed']
+    #log.debug('abstract %s', pkg_dict['datacite']['abstract'])
     # Create/Update package
     
     schema1, validation_errors, error_message = None, None, None

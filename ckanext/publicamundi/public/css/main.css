@@ -165,8 +165,7 @@ input[type='checkbox'], input[type='radio'] {
 
 .form-horizontal .control-label {
     padding-top: 0px !important;
-    vertical-align: top; /* edit for alignment*/
-    width: 140px;
+    vertical-align: top; 
 }
 
 .modal-body.form-horizontal{
@@ -175,11 +174,7 @@ input[type='checkbox'], input[type='radio'] {
 .modal-body.form-horizontal .control-label{
     text-align:left;
 }
-.form-horizontal .controls {
-    margin-left: 10px;  /* edit from 146px */
-    display: inline-block;
-    width: 75%;
-}
+
 
 .error-block {
     border-radius: 1px;

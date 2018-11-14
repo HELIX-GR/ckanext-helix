@@ -20,6 +20,7 @@ class DataciteMetadata(Metadata):
     url = None
     thematic_category = None
     tags = list
+    subject_closed = list
     contact_info = ContactInfo
     contacts = dict
     geometry = list

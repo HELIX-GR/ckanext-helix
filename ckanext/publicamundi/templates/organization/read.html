@@ -2,8 +2,9 @@
 
 {% block breadcrumb_content %}
   <a class="breadcrumbs-part" {% link_for _('PUBLISHERS'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
-  <a class="breadcrumbs-part" {% link_for c.group_dict.display_name|truncate(35), controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</a>
-{% endblock %}
+  {#<a class="breadcrumbs-part" {% link_for c.group_dict.display_name|truncate(35), controller='ckanext.publicamundi.plugins:ExtrametadataController', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</a>
+    #}
+    {% endblock %}
 
 
 {% block page_primary_action %}

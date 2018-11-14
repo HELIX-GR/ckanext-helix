@@ -27,6 +27,12 @@ class IDataciteMetadata(IMetadata):
         title = u'URL',
         required = False)
    
+    abstract = zope.schema.Text(
+        title = _(u'Dataset Abstract'),
+        description = _(u'This is a brief narrative summary of the contents of this dataset.'),
+        required = True)
+    abstract.setTaggedValue('translatable', True)
+    abstract.setTaggedValue('links-to', 'notes')
 
     thematic_category = zope.schema.Choice(
         vocabulary = SimpleVocabulary((
@@ -257,16 +263,15 @@ class IDataciteMetadata(IMetadata):
         title = u'Publication Info',
         required = True)
     
+    subject_closed = zope.schema.List(
+        title = u'Closed Tags',
+        required = True,
+        value_type = zope.schema.TextLine(
+            title = u'Closed Tag'),
+        min_length = 1,
+        max_length = 5,)
+    subject_closed.setTaggedValue('links-to', 'closed_tag')    
 
-    subject_closed = zope.schema.Choice(
-        vocabulary = SimpleVocabulary((
-            SimpleTerm('biological sciences', 'biological sciences', u'Biological sciences'),
-            SimpleTerm('english', 'english', u'English'),
-             SimpleTerm('aerodynamics', 'aerodynamics', u'Aerodynamics'))),
-        title = u'Subject',
-        required = False,)
-        #default = 'english')
-    subject_closed.setTaggedValue('links-to', 'closed-tag')    
 
     @zope.interface.invariant
     def check_tag_duplicates(obj):

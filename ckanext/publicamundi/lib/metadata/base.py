@@ -1216,6 +1216,7 @@ class Object(object):
             self.target_iface = iface
             self.name = name
             self.target_factory = adapter_registry.lookup([], iface, name)
+            #log1.debug('iface: %s, name: %s, target factory: %s', iface, name, self.target_factory)
             if not self.target_factory:
                 raise LookupError('Cannot find an implementor for %s named %r' % (
                     iface, name))

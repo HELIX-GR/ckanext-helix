@@ -2,6 +2,7 @@ import datetime
 import os
 import cgi
 import logging
+import copy
 
 from pylons import g, config, session
 
@@ -64,6 +65,7 @@ class Controller(BaseController):
         source_url = None
         source = post.get('source')
         source_upload = post.get('source-upload') 
+        
         if source:
             # Assume source is provided as a URL
             source_url = source
@@ -71,6 +73,7 @@ class Controller(BaseController):
             # Assume source is an uploaded file
             up = uploader.MetadataUpload(source_upload.filename)
             up.update_data_dict(dict(post), 'source-upload')
+            
             try:
                 up.upload(max_size=1)
             except Exception as ex:
@@ -83,14 +86,18 @@ class Controller(BaseController):
                 object_type = up.object_type,
                 name_or_id = up.filename,
                 filename = source_upload.filename)
-            # Provide a file-like object as source
             source = source_upload.file
-            log.debug('\n\n source:  %s , up is %s , source url is %s, source_upload is %s  \n\n', source, up, source_url, source_upload)
+            source.seek(0, 0)
+            # Provide a file-like object as source
+            #source = source_upload.file
+            #log.debug('\n\n source:  %s ,type: %s, up is %s , source url is %s, source_upload is %s  \n\n', source, type(source),up, source_url, source_upload)
             #log.debug('\n source_upload:  %s ,  value is %s\n\n', source_upload, source.getvalue())
             #for attr in dir(source_upload):
             #				       		log.info(" source upload.%s = %r" % (attr, getattr(source_upload, attr)))
-           
-            source.seek(0, 0)
+            
+            #for attr in dir(source):
+            # 	log.info("source.%s = %r" % (attr, getattr(source, attr)))
+            #source.seek(0, 0)
         else:
             # No source given
             session['error_summary'] = _(

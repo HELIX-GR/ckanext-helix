@@ -613,7 +613,7 @@ class ExtrametadataController(BaseController):
         c.group = group
         c.group_dict = oc._action('group_show')(context, data_dict)
         c.user_role = authz.users_role_for_group_or_org(id, c.user)
-        log1.debug('\nIN ORG EDIT group is %s, data is %s, user role %s\n', group, data, c.user_role)
+        #log1.debug('\nIN ORG EDIT group is %s, data is %s, user role %s\n', group, data, c.user_role)
         if c.user_role == 'editor':
             context['ignore_auth'] = True
         try:
@@ -1194,7 +1194,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             pass
         
         # Add dataset-type, the field that distinguishes metadata formats
-
+        log1.debug('00000')
         is_dataset_type = ext_validators.is_dataset_type
         schema['dataset_type'] = [
             default('datacite'), convert_to_extras, 
@@ -1206,7 +1206,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Note We provide a union of fields for all supported schemata.
         # Of course, not all of them will be present in a specific dataset,
         # so any "required" constraint cannot be applied here.
-
         get_field_processor = ext_validators.get_field_edit_processor
         
         for dtype in self._dataset_types:
@@ -1216,7 +1215,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 # Build chain of processors for field
                 schema[field_name] = [
                     ignore_missing, get_field_processor(field)]
-        
         # Add before/after package-level processors
 
         preprocess_dataset = ext_validators.preprocess_dataset_for_edit

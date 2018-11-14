@@ -131,6 +131,7 @@ class TableReadWidget(_common.TableReadWidget):
            'optional_title',
            'optional_description',
            'contact_email',
+           'subject_closed',
            'creator',
            'public_doi',
            'publisher',

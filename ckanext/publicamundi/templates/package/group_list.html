@@ -4,7 +4,7 @@
 {% block primary_content_inner %}
   <h2 class="hide-heading">{{ _('Groups') }}</h2>
 
-  {% if c.group_dropdown %}
+  {% if c.group_dropdown and c.userobj.sysadmin %}
     <form class="add-to-group" method="post">
       <div class="dataset-form">
       <select id="field-add_group" name="group_added" data-module="autocomplete">
@@ -12,20 +12,19 @@
           <option value="{{ option[0] }}"> {{ option[1] }}</option>
         {% endfor %}
       </select>
-      <button type="submit" class="btn btn-manage black" title="{{ _('Associate this group with this dataset') }}">{{ _('Add to group') }}</button>
+      <button type="submit" class="btn btn-manage black" title="{{ _('Associate this topic with this dataset') }}">{{ _('Add to topic') }}</button>
     </div>
     </form>
   {% endif %}
 
-  {# remove featured datasets group for general public #}
-
+ 
   {% if c.pkg_dict.groups  %}  
     {% if c.userobj.sysadmin %} {# show all groups for sysadmin#}
       <form method="post">
         {% snippet 'group/snippets/group_list.html', groups=c.pkg_dict.groups  %}
       </form>
-    {% else %}  {# filter featured-datasets#}
-      {% set filtered_groups = c.pkg_dict.groups|rejectattr('name', 'equalto','featured-datasets') | list%}
+    {% else %}  {# filter featured-datasets#} {% set filtered_groups = h.get_topics(c.pkg_dict.id)%}
+      {#{% set filtered_groups = c.pkg_dict.groups|rejectattr('name', 'equalto','featured-datasets')| list%} #}
       {% if filtered_groups  %}  
         <form method="post">
         {% snippet 'group/snippets/group_list.html', groups=filtered_groups %}

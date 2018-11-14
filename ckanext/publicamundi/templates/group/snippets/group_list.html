@@ -10,11 +10,17 @@ Example:
 #}
 {% block group_list %}
 <ul class="media-grid" data-module="media-grid">
-	{% block group_list_inner %}
-  {% for group in groups %}
-      {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
-    
-  {% endfor %}
+    {% block group_list_inner %}
+    {%if c.userobj==sysadmin%}
+        {% for group in groups %}
+            {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
+        {% endfor %}
+    {% else%}
+    {% set filtered_groups = groups|rejectattr('name', 'equalto','featured-datasets')| list%}  
+        {% for group in filtered_groups %}
+            {% snippet "group/snippets/group_item.html", group=group, position=loop.index %}
+        {% endfor %}
+    {% endif%}
   {% endblock %}
 </ul>
 {% endblock %}

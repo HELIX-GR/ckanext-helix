@@ -139,7 +139,7 @@
         is_required = false
     )        
 }}
-
+{%set groups = h.get_communities(c.userobj.name)%} 
 {# if admin enable organization field #}
 {% if h.check_access('sysadmin') %}
     {% snippet 'package/snippets/edit-organization.html', 
@@ -154,7 +154,7 @@
         form.input(
             'owner_org', 
             id = 'field-owner-org', 
-            label = _('Organization'), 
+            label = _('Publisher'), 
             classes = ['hidden'],
             value = data.owner_org, 
             error = errors.owner_org, 
@@ -170,7 +170,7 @@
         <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
         <div class="controls" >
         <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder="The category of this dataset" >
-            <option value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>The category of this dataset </option>
+            <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>The category of this dataset </option>
             {% for dataset_category in h.dataset_categories()  %}
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}
@@ -245,7 +245,7 @@
       <option value="{{ license_id }}" 
         {%- if data.get('license_id', 'notspecified') == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
         {% if loop.index == 4%}
-        <option disabled>_____________________________________________________________________________</option>
+        <option disabled>_________________________________________________________________________________________</option>
         {% endif%}
       {% endfor %}
     </select>
@@ -274,7 +274,7 @@
 {% if h.check_access('sysadmin') or is_new or is_draft %}
 
 {#{% if not orgs_available %}
-         {{ form.select('owner_org', label=_('Organization'), options=[{'name':helix, 'value': h.organization_objects(['helix']).helix.display_name}  ], selected=helix, error=errors.owner_org) }}
+         {{ form.select('owner_org', label=_('Publisher'), options=[{'name':helix, 'value': h.organization_objects(['helix']).helix.display_name}  ], selected=helix, error=errors.owner_org) }}
         
 {% else %}  #}
 {#

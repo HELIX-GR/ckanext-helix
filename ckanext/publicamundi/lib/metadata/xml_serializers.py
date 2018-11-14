@@ -14,6 +14,8 @@ from ckanext.publicamundi.lib.metadata import adapter_registry
 from ckanext.publicamundi.lib.metadata.fields import *
 from ckanext.publicamundi.lib.metadata.ibase import IXmlSerializer, IObject
 from ckanext.publicamundi.lib.metadata.base import Object, FieldContext
+import logging
+log1=logging.getLogger(__name__)
 
 __all__ = [
     'field_xml_serialize_adapter',
@@ -55,9 +57,11 @@ def serializer_for_field(field):
 def serializer_for_object(obj):
     '''Get an XML serializer for an IObject object.
     ''' 
+    
     assert IObject.providedBy(obj)
     serializer = adapter_registry.queryMultiAdapter(
         [obj], IXmlSerializer, 'serialize-xml')
+    log1.info('after')
     return serializer
 
 def serializer_factory_for_field(field_iface):
@@ -148,8 +152,13 @@ class BaseSerializer(object):
     
     def from_xml(self, e):
         qname = QName(e.tag)
+        log1.debug('qname.localname: %s, self.name: %s, qname.namespace %s, self.target_namespace: %s', qname.localname,self.name, qname.namespace, self.target_namespace)
         assert qname.localname == self.name and qname.namespace == self.target_namespace
         o = self._from_xml(e)
+        #log1.debug('e %s, o %s',e,o)
+        #for attr in dir(e):
+        #    log1.debug("e.%s = %r" % (attr, getattr(e, attr)))
+
         return o
        
     def dumps(self, o=None):
@@ -362,6 +371,7 @@ class StringFieldSerializer(BaseFieldSerializer):
         e.text = s.decode('utf-8')
 
     def _from_xml(self, e):
+        log1.debug('e.text is', )
         return e.text.encode('utf-8')
 
 @field_xml_serialize_adapter(IChoiceField)

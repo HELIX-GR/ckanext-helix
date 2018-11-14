@@ -4,6 +4,10 @@ import zope.schema
 
 adapter_registry = zope.interface.adapter.AdapterRegistry()
 
+import logging
+log1=logging.getLogger(__name__)
+
+
 # Import basic interfaces
 
 from .ibase import (
@@ -110,6 +114,7 @@ def make_metadata(dtype, pkg_dict=None):
             'unserialize-values': 'default',
         }
         obj.from_dict(pkg_dict, is_flat=True, opts=opts)  
+    log1.debug('OBJ IS %s', obj)   
     return obj
 
 # Export a (snapshot) of registered dataset types

@@ -67,8 +67,17 @@
     {% endif %} 
     ##}
     {% endblock %} {# metadata_fields #}
-    
+
+    {% if stage %}
+    {% block again_button %}
+    <div class="form-group control-medium spacing">
+      <label class="control-label  field-optional " for="field-format">{{ _('Save & add another file') }}</label>
+      <button class="btn-add-more" name="save" value="again" type="submit">+</button>
+    </div>
+      {% endblock %} 
+    {% endif %}
   <div class="form-actions">
+      
     {% block delete_button %}
       {% if data.id %}
         {% if h.check_access('resource_delete', {'id': data.id})  %}
@@ -77,14 +86,13 @@
       {% endif %}
     {% endblock %}
     {% if stage %}
+    
       {% block previous_button %}
-        <button class="btn btn-manage" name="save" value="go-dataset" type="submit">{{ _('Previous') }}</button>
+        <button class="btn-round previous" name="save" value="go-dataset" type="submit">{{ _('Previous') }}</button>
       {% endblock %}
-      {% block again_button %}
-        <button class="btn btn-manage" name="save" value="again" type="submit">{{ _('Save & add another file') }}</button>
-        {% endblock %}
+      
       {% block save_button %}
-      <button class="btn btn-manage" name="save" value="go-metadata" type="submit">{% block save_button_text %}{{ _('Finalize') }}{% endblock %}</button> 
+      <button class="btn-round" name="save" value="go-metadata" type="submit">{% block save_button_text %}{{ _('Finalize') }}{% endblock %}</button> 
        {## <button class="btn btn-primary" href="{{ extra_url }}" name="save" value="extra-metadata" type="submit">{% block save_button_text %}{{ _('Additional info') }}{% endblock %}</button> ##}
       {% endblock %}
         
