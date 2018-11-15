@@ -39,15 +39,16 @@
 
 
   <div class="package-language">
-    <a href="#"> {{pkg.datacite.languagecode|truncate(2,True, '')|upper}}</a>
+    <a href="#" > {{pkg.datacite.languagecode|truncate(2,True, '')|upper}}</a>
   </div>
   <div class="btn-save">
-    <a href="#"><img class="" src="/images/png/save.png"></a>
+    <a href="#" data-toggle="tooltip"  data-placement="bottom" title="Save"><img class="" src="/images/png/save.png"></a>
   </div>
   <div class="btn-favorite">
-    <a href="#"> <img class="" src="/images/png/favorite.png"></a>
+    <a href="" data-module="favorite" data-module-action="favorite" data-module-name="{{pkg.name}}"data-module-email="{{c.userobj.email}}" data-module-title="{{pkg.title}}" data-module-notes="{{pkg.notes}}"
+     data-toggle="tooltip" data-placement="bottom" title="Favorite"> <img class="" src="/images/png/favorite.png"></a>
   </div>
-
+  {# {{ h.favorite(email=c.userobj.email, package_name=pkg.name, title=pkg.title, notes=pkg.notes) }}#}
     <div>
     <h1 class="package-title">
   {{ pkg.title or pkg.name }}
@@ -89,7 +90,7 @@
   {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_groups', _('Topics'), id=pkg.name, icon='hashtag') }}
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
-  {{ h.build_nav_icon('dataset_apis', _('Developers'), id=pkg.name, icon='code') }}
+  {#{{ h.build_nav_icon('dataset_apis', _('Developers'), id=pkg.name, icon='code') }}#}
 
   </div>
   
@@ -115,4 +116,5 @@
 {% block scripts %}
 {{ super() }}
 {% resource 'ckanext-publicamundi/download_options' %}
+{% resource 'ckanext-publicamundi/favorite' %}
 {% endblock %}

@@ -8,6 +8,9 @@ import datetime
 import requests
 import urlparse
 import pylons
+import urllib
+import urllib2
+
 from operator import itemgetter, attrgetter
 
 import ckan.model as model
@@ -550,3 +553,35 @@ def _transform_dcat(xml_dom):
         result = unicode(result).encode('utf-8')
 
     return result
+
+def favorite(context, data_dict):
+
+    #log.debug('Data dict is %s', data_dict)
+    """Perform HTTP request"""
+    url='http://core.hellenicdataservice.gr/api/v1/favorite'
+    package_url = 'http://127.0.0.1:5000/dataset/' + data_dict['name']
+    values = {'action': 'ADD', 'email': data_dict['email'], 'catalogue':'CKAN', 'handle':data_dict['name'], \
+        'url':package_url ,'title':data_dict['title'], 'description':data_dict['notes']}
+    #log.debug('Values are %s', values)
+    data = urllib.urlencode(values)
+    headers = {'X-API-Key': '46d654c4-d9fb-46d9-ae34-beaf46d6ca38' }
+    request = urllib2.Request(url, data, headers)
+    try:
+        response = urllib2.urlopen(request)
+        log.debug('Response is %s', response)    
+    except urllib2.HTTPError, e:
+        log.debug('HTTP Error  => %s \n URL=> %s\n' % (e, url) )
+    except urllib2.URLError, e:
+        log.debug( 'URL Error , reason => %s \n URL=> %s\n' % (e.reason,url) )
+   
+    return 'success'
+
+def delete_favorite(context, data_dict):
+    """Perform HTTP request"""
+    if method == 'POST':
+        return http_post(url, request, timeout=timeout)
+    else:  # GET
+        request = urllib2.Request(url)
+        request.add_header('User-Agent', 'pycsw (http://pycsw.org/)')
+    return urllib2.urlopen(request, timeout=timeout).read()
+

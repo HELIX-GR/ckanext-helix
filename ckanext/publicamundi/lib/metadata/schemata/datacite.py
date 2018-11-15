@@ -30,7 +30,7 @@ class IDataciteMetadata(IMetadata):
     abstract = zope.schema.Text(
         title = _(u'Dataset Abstract'),
         description = _(u'This is a brief narrative summary of the contents of this dataset.'),
-        required = True)
+        required = False)
     abstract.setTaggedValue('translatable', True)
     abstract.setTaggedValue('links-to', 'notes')
 

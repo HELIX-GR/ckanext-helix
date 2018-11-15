@@ -1006,6 +1006,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 action='dataset_import',
                 conditions=dict(method=['POST']))
 
+           
+
         user_controller = 'ckanext.publicamundi.controllers.user:UserController'
 
         with SubMapper(mapper, controller=user_controller) as m:
@@ -1062,6 +1064,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             controller=package_controller,
             action='import_metadata')
         
+
         mapper.connect('dataset_new', '/dataset/new', 
             controller='ckanext.publicamundi.plugins:ExtrametadataController', action='new')
         mapper.connect('new_resource', '/dataset/new_resource/{id}',
@@ -1117,6 +1120,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'dataset_import': ext_actions.package.dataset_import,
             'dataset_export_dcat': ext_actions.package.dataset_export_dcat,
             'group_list_authz': ext_actions.group.group_list_authz,
+            'favorite': ext_actions.package.favorite,
         }
     
     ## IAuthFunctions interface ##

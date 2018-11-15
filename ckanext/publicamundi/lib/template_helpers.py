@@ -4,6 +4,7 @@ import operator
 import datetime
 import urlparse
 import urllib
+import urllib2
 
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
@@ -149,8 +150,22 @@ def pager(self, *args, **kwargs):
         return super(h.Page, self).pager(*args, **kwargs)
         
        
-            #format=u"<div class='pagination-block'>"
-            #"$link_previous ~2~ $link_next</div>",
-           
+def favorite(email, package_name, title, notes):
+    """Perform HTTP request"""
+    url='https://core.dev.hellenicdataservice.gr/api/v1/favorite'
+    package_url = 'http://127.0.0.1:5000/dataset/' + package_name
+    values = {'action': 'ADD', 'email': 'email', 'catalogue':'CKAN', 'handle':'package_name', 'url':'package_url' ,'title':'title', 'description':'notes'}
+    log1.debug('Values are %s', values)
+    return 'success'
+
+def delete_favorite(package_name_uuid, user_id):
+    """Perform HTTP request"""
+    if method == 'POST':
+        return http_post(url, request, timeout=timeout)
+    else:  # GET
+        request = urllib2.Request(url)
+        request.add_header('User-Agent', 'pycsw (http://pycsw.org/)')
+        return urllib2.urlopen(request, timeout=timeout).read()
+
 
 
