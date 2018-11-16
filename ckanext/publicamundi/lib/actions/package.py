@@ -10,6 +10,7 @@ import urlparse
 import pylons
 import urllib
 import urllib2
+import json
 
 from operator import itemgetter, attrgetter
 
@@ -559,22 +560,29 @@ def favorite(context, data_dict):
     #log.debug('Data dict is %s', data_dict)
     """Perform HTTP request"""
     url='http://core.hellenicdataservice.gr/api/v1/favorite'
-    package_url = 'http://127.0.0.1:5000/dataset/' + data_dict['name']
-    values = {'action': 'ADD', 'email': data_dict['email'], 'catalogue':'CKAN', 'handle':data_dict['name'], \
-        'url':package_url ,'title':data_dict['title'], 'description':data_dict['notes']}
-    #log.debug('Values are %s', values)
-    data = urllib.urlencode(values)
-    headers = {'X-API-Key': '46d654c4-d9fb-46d9-ae34-beaf46d6ca38' }
-    request = urllib2.Request(url, data, headers)
+    package_url = 'http://195.251.63.2:5000/dataset/' + data_dict['name']
+    values = {'action': 'ADD', 'email': data_dict['email'], 'catalog':'CKAN', 'handle':data_dict['name'], 'url':package_url ,'title':data_dict['title'], 'description':data_dict['notes']}
+
+    #values = {'action': 'LIST', 'email': data_dict['email'], 'catalog':'CKAN'}
+    #values = {'action': 'REMOVE', 'email': data_dict['email'], 'catalog':'CKAN', 'handle':data_dict['name']}
+
+    data = json.dumps(values)
+    request = urllib2.Request(url, data)
+    request.add_header('Content-Type', 'application/json')
+    request.add_header('X-API-Key', '46d654c4-d9fb-46d9-ae34-beaf46d6ca38')
     try:
         response = urllib2.urlopen(request)
-        log.debug('Response is %s', response)    
+        result = response.read() 
+        log.debug('Response is %s', result)    
     except urllib2.HTTPError, e:
         log.debug('HTTP Error  => %s \n URL=> %s\n' % (e, url) )
     except urllib2.URLError, e:
         log.debug( 'URL Error , reason => %s \n URL=> %s\n' % (e.reason,url) )
-   
-    return 'success'
+    if result['sucess'] == True:
+        return 'Added to favorites'
+    elif result['errors'].code == 'FavoriteErrorCode.HANDLE_ALREADY_EXISTS':
+        return 'Already favorited'
+    
 
 def delete_favorite(context, data_dict):
     """Perform HTTP request"""

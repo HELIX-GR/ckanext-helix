@@ -69,11 +69,11 @@ this.ckan.module('favorite', function($) {
 			var oldAction = options.action;
 			options.loading = false;
 			
-			//if (options.action == 'favorite') {
+			if (json.result == 'sucess') {
 				
-			//} else {
+			} else {
 			
-			//}
+			}
 		}
 	};
 });

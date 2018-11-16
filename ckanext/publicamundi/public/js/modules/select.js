@@ -52,7 +52,8 @@ this.ckan.module('input-select-choices', function ($, _) {
               if ($.fn.select2 && opts.select == 'select2') {
                   $el.select2({
                       width: opts.width || 'resolve', 
-                      placeholder: opts.placeholder 
+                      color: "#000000",
+                      placeholder: opts.placeholder, 
                   })
               }
   

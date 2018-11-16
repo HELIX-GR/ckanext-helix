@@ -31,9 +31,9 @@
 
 {% block pre_primary %}
   {% block resource %}
-    <section class="module module-resource">
+    <section class="module module-resource ">
       {% block resource_inner %}
-      <div class="module-content">
+      <div class="module-content resource-upper">
         <div class="actions">
           {% block resource_actions %}
           <ul>
@@ -96,7 +96,7 @@
           {% block resource_read_title %}<h1 class="resource-title">{{ h.resource_display_name(res) | truncate(50) }}</h1>{% endblock %}
           {% block resource_read_url %}
             {% if res.url and h.is_url(res.url) %}
-              <p class="text-muted ellipsis">{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
+              <p class="text-muted ellipsis resource-url">{{ _('URL:') }} <a class="resource-url-analytics" href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
             {% elif res.url %}
               <p class="text-muted break-word">{{ _('URL:') }} {{ res.url }}</p>
             {% endif %}
@@ -180,10 +180,13 @@
 
 {% block primary_content %}
   {% block resource_additional_information %}
+
+  
   {% if res %}
-  <section class="module">
+  <section class="module additional-info">
     <div class="module-content">
-      <h2>{{ _('Additional Information') }}</h2>
+      <h5 class="inline">{{ _('Additional Information') }}</h5>
+      <hr class="separator" />
       <table class="table table-striped table-bordered" 
         data-module="table-collapsible-rows"
         data-module-numcols="2"
