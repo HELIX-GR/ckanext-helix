@@ -1,11 +1,11 @@
-Publicamundi Vector Plugin
+helix Vector Plugin
 ==========================
 
 
 Overview
 --------
 
-The `publicamundi_vector` plugin allows users to upload vector geospatial data, and store and publish through OGC services.
+The `helix_vector` plugin allows users to upload vector geospatial data, and store and publish through OGC services.
 
 
 Installation
@@ -42,39 +42,39 @@ Configuration
 
 **1.  Enable**
 
-  This plugin requires `publicamundi_dataset` to be also enabled. To enable the plugin add this under `ckan.plugins` in the configuration file:
+  This plugin requires `helix_dataset` to be also enabled. To enable the plugin add this under `ckan.plugins` in the configuration file:
  
-        ckan.plugins = ... publicamundi_dataset publicamundi_vector ...
+        ckan.plugins = ... helix_dataset helix_vector ...
 
     
 **2.  Configure**
 
   The following should be set in the CKAN config:
 
-        ckanext.publicamundi.vectorstorer.temp_dir = %(cache_dir)s/vectorstorer
-        ckanext.publicamundi.vectorstorer.gdal_folder = (e.g. /usr/lib/python2.7/dist-packages)
+        ckanext.helix.vectorstorer.temp_dir = %(cache_dir)s/vectorstorer
+        ckanext.helix.vectorstorer.gdal_folder = (e.g. /usr/lib/python2.7/dist-packages)
 
 Geoserver-specific configuration
 
-        ckanext.publicamundi.vectorstorer.geoserver.url = (e.g. http://www.example.com/geoserver)
-        ckanext.publicamundi.vectorstorer.geoserver.api_url = (e.g. http://geoserver.localdomain:8080/geoserver)
-        ckanext.publicamundi.vectorstorer.geoserver.workspace = (e.g. CKAN)
-        ckanext.publicamundi.vectorstorer.geoserver.username = (e.g. admin)
-        ckanext.publicamundi.vectorstorer.geoserver.password = (e.g. geoserver)
-        ckanext.publicamundi.vectorstorer.geoserver.datastore = (e.g. ckan_datastore_default)
-        ckanext.publicamundi.vectorstorer.geoserver.reload_url = (optional e.g. http://geoserver.localdomain:5005/reload)
+        ckanext.helix.vectorstorer.geoserver.url = (e.g. http://www.example.com/geoserver)
+        ckanext.helix.vectorstorer.geoserver.api_url = (e.g. http://geoserver.localdomain:8080/geoserver)
+        ckanext.helix.vectorstorer.geoserver.workspace = (e.g. CKAN)
+        ckanext.helix.vectorstorer.geoserver.username = (e.g. admin)
+        ckanext.helix.vectorstorer.geoserver.password = (e.g. geoserver)
+        ckanext.helix.vectorstorer.geoserver.datastore = (e.g. ckan_datastore_default)
+        ckanext.helix.vectorstorer.geoserver.reload_url = (optional e.g. http://geoserver.localdomain:5005/reload)
 
 Geoserver workspace and datastore have to be created in advance. The datastore must be the same as the CKAN datastore database.
 
 Mapserver-specific configuration
 
-        ckanext.publicamundi.vectorstorer.mapserver.url = (e.g. http://ckan_services_server/cgi-bin/mapserv)
-        ckanext.publicamundi.vectorstorer.mapserver.mapfile_folder = (e.g. /var/www/mapserv/mapfiles)
-        ckanext.publicamundi.vectorstorer.mapserver.templates_folder = (e.g. /var/www/mapserv/templates)
+        ckanext.helix.vectorstorer.mapserver.url = (e.g. http://ckan_services_server/cgi-bin/mapserv)
+        ckanext.helix.vectorstorer.mapserver.mapfile_folder = (e.g. /var/www/mapserv/mapfiles)
+        ckanext.helix.vectorstorer.mapserver.templates_folder = (e.g. /var/www/mapserv/templates)
     
 If both mapserver and geoserver are both configured, default publishing server has to be specified:
 
-        ckanext.publicamundi.vectorstorer.default_publishing_server= (e.g. mapserver)
+        ckanext.helix.vectorstorer.default_publishing_server= (e.g. mapserver)
     
 If not set, `geoserver` will be used as the default publishing server.
 

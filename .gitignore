@@ -1,8 +1,8 @@
-ckanext_publicamundi.egg-info/
+ckanext_helix.egg-info/
 *.pyc
 *.swp
 build
 dist
 
-ckanext/publicamundi/public/js/scratch.js
-ckanext/publicamundi/themes/*
+ckanext/helix/public/js/scratch.js
+ckanext/helix/themes/*

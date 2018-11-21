@@ -1,0 +1,13 @@
+{% extends 'page.html' %}
+
+{% block scripts %}
+
+{{ super() }}
+
+{% resource 'vendor/jquery.ui.core.js' %}
+{% resource 'vendor/jquery.ui.widget.js' %}
+
+{% resource 'ckanext-helix/styles' %}
+{% resource 'ckanext-helix/scripts' %}
+
+{% endblock %}

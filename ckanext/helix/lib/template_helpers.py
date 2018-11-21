@@ -1,0 +1,152 @@
+# encoding: utf-8
+
+import operator
+import datetime
+import urlparse
+import urllib
+import urllib2
+
+import ckan.model as model
+import ckan.plugins.toolkit as toolkit
+import ckan.lib.helpers as h
+from webhelpers.html import HTML, literal, tags, tools
+from webhelpers import paginate
+
+from ckanext.helix.lib.metadata import (
+    fields, bound_field, markup_for_field, markup_for)
+from ckanext.helix.lib import resource_ingestion
+from ckanext.helix.lib.languages import Language
+
+import logging
+log1=logging.getLogger(__name__)
+
+
+def filtered_list(l, key, value, op='eq'):
+    '''Filter list items based on their value in a specific key/attr.
+    '''
+
+    if not l:
+        return l
+    
+    op_map = {
+        'ne': operator.ne,
+        'eq': operator.eq,
+        'le': operator.ge,
+        'lt': operator.gt,
+        'ge': operator.le,
+        'gt': operator.lt,
+        '!=': operator.ne,
+        '==': operator.eq,
+        '<=': operator.ge,
+        '<':  operator.gt,
+        '>=': operator.le,
+        '>':  operator.lt,
+        'in': operator.contains,
+        'not-in': lambda a, b: not operator.contains(a, b) 
+    }
+   
+    op = op_map.get(str(op).lower(), operator.eq)
+
+    items_are_dicts = operator.isMappingType(l[0])
+    if items_are_dicts:
+        def pred(x):
+            return op(value, x.get(key))
+    else:
+        def pred(x):
+            return op(value, getattr(x, key, None))
+    
+    return filter(pred, l)
+
+def get_organization_objects(org_names=[]):
+    '''Fetch organizations as a dict (keyed to name) of fully-loaded objects
+    '''
+    
+    context = {
+        'model': model,
+        'session': model.Session,
+        'user': toolkit.c.user,
+    }
+
+    options = { 'all_fields': True }
+    if org_names:
+        t = type(org_names[0])
+        if t is str:
+            options['organizations'] = org_names
+        elif t is dict:
+            options['organizations'] = [org['name'] for org in org_names]
+
+    orgs = toolkit.get_action('organization_list')(context, options)
+    return { org['name']: org for org in orgs }
+
+def resource_ingestion_result(resource_id):
+    return resource_ingestion.get_result(resource_id)
+
+def markup_for_translatable_text(key, value):
+    uf = markup_for_translatable_text._text_field
+    yf = bound_field(uf, key, value)
+    qa = 'read:dd.translatable'
+    return markup_for_field(qa, yf, name_prefix='')
+markup_for_translatable_text._text_field = fields.TextField()
+markup_for_translatable_text._text_field.setTaggedValue('translatable', True)
+
+_preferable_metadata_format = [
+    {'name':'inspire', 'format':'xml'},
+    {'name': 'ckan', 'format': 'json'}
+]
+
+_default_metadata_format = 'xml'
+
+def get_primary_metadata_url(links, dtype):
+    '''Returns the most suitable primary download format for each schema
+    based on _preferable_metadata_format
+    '''
+    dtype = dtype.lower()
+
+    pref_format = _default_metadata_format
+    for pref in _preferable_metadata_format:
+        if pref.get('name', '').lower() == dtype:
+            pref_format = pref.get('format')
+            break
+    url = ''
+    for link in links:
+        if link.get('title', '').lower() == dtype and link.get('format') == pref_format:
+            url = link.get('url')
+            break
+    return url
+
+def get_ingested_raster(package,resource):
+    ing_resources = []
+    for res in package.get('resources'):
+        if res.get('rasterstorer_resource') and res.get('parent_resource_id')==resource.get('id'):
+            ing_resources.append(res)
+    return ing_resources
+
+def get_ingested_vector(package,resource):
+    ing_resources = []
+    for resa in package.get('resources'):
+        # Ingested vector resources are derived from table which is derived from resource
+        # Finding all resources that are ingested from table that is created from original resource
+        if resa.get('vectorstorer_resource') and resa.get('parent_resource_id')==resource.get('id') and resa.get('format')=='data_table':
+            for resb in package.get('resources'):
+                if resb.get('vectorstorer_resource') and resb.get('parent_resource_id')==resa.get('id'):
+                    ing_resources.append(resb)
+    return ing_resources
+
+def transform_to_iso_639_2(langcode_iso_639_1):
+    
+    return Language(langcode_iso_639_1).alpha3b
+    
+    
+#override default pagination
+    
+def pager(self, *args, **kwargs):
+        kwargs.update(
+            format=u"<ul class='pagination-block'><ul>"
+            "$link_first  $link_previous ~2~ $link_next $link_last </ul></ul>",
+            symbol_first=u'<<', symbol_previous=u'<', symbol_next=u'>', symbol_last=u'>>',
+            curpage_attr={'class': 'current-item'}, link_attr={'class': 'pagination-item'}
+        )
+        
+        return super(h.Page, self).pager(*args, **kwargs)
+        
+

@@ -1,0 +1,33 @@
+{% extends 'user/snippets/ingest_templates/ingest_base.html'%}
+
+{% set resource_id = c.resource_id %}
+{% set task_result = c.task_result %}
+{% set gdal_driver = task_result.gdal_driver %}
+{% set layers = c.layers %} 
+{% set ingest_base_url= h.url_for('vector_ingest',resource_id =resource_id)%}
+{% set validation_url= h.url_for('validation_check')%}
+
+ 
+{% block ingest_content %}
+
+<form id="ingest-form" data-module="vector-ingest" data-module-ingest_base_url="{{ingest_base_url}}" data-module-validation_url="{{validation_url}}" 
+      data-module-gdal_driver="{{gdal_driver}}" data-module-layers="{{h.dump_json(layers)}}">
+
+        {% if layers|length==1 %}
+        {% snippet 'user/snippets/ingest_templates/vector/singlelayer_format.html', task_result=task_result%}
+        {% else %}
+        {% snippet 'user/snippets/ingest_templates/vector/multilayer_format.html', task_result=task_result%}
+        {% endif %}
+        </br>
+
+        <button class="btn btn-success" id="ingest_button"> {{ _('Ingest') }} </button>
+</form>
+
+ 
+{% resource 'ckanext-helix-vector/vector_ingest' %}
+{% resource 'ckanext-helix-vector/encoding_autocomplete' %}
+{% resource 'ckanext-helix-vector/projection_autocomplete' %}
+{% endblock %}
+
+  
+ 

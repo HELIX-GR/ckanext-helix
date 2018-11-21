@@ -4,19 +4,19 @@ import sys, os
 version = '1.4dev'
 
 setup(
-    name='ckanext-publicamundi',
+    name='ckanext-helix',
     version=version,
-    description="A collection of CKAN plugins developed for PublicaMundi project",
+    description="A collection of CKAN plugins developed for helix project",
     long_description="""\
     """,
     classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords='ckan catalog open-data',
     author='Michail Alexakis',
     author_email='alexakis@imis.athena-innovation.gr',
-    url='https://github.com/PublicaMundi/ckanext-publicamundi',
+    url='https://github.com/helix/ckanext-helix',
     license='GPLv3',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    namespace_packages=['ckanext', 'ckanext.publicamundi'],
+    namespace_packages=['ckanext', 'ckanext.helix'],
     include_package_data=True,
     paster_plugins=['pylons', 'ckan'],
     zip_safe=False,
@@ -28,49 +28,45 @@ setup(
     """
         [ckan.plugins]
 
-        publicamundi_dataset = ckanext.publicamundi.plugins:DatasetForm
+        helix_dataset = ckanext.helix.plugins:DatasetForm
         
-        publicamundi_extra = ckanext.publicamundi.plugins:ExtrametadataController
+        helix_multilingual_dataset = ckanext.helix.plugins:MultilingualDatasetForm
         
-        publicamundi_multilingual_dataset = ckanext.publicamundi.plugins:MultilingualDatasetForm
-        
-        publicamundi_package = ckanext.publicamundi.plugins:PackageController
+        helix_package = ckanext.helix.plugins:PackageController
 
-        publicamundi_errorware = ckanext.publicamundi.plugins:ErrorHandler
-        
-        publicamundi_geodata_theme = ckanext.publicamundi.themes.geodata.plugin:GeodataThemePlugin
+        helix_errorware = ckanext.helix.plugins:ErrorHandler
 
-        publicamundi_vector = ckanext.publicamundi.storers.vector.plugin:VectorStorer
+        helix_vector = ckanext.helix.storers.vector.plugin:VectorStorer
 
-        publicamundi_raster = ckanext.publicamundi.storers.raster.plugin:RasterStorer
+        helix_raster = ckanext.helix.storers.raster.plugin:RasterStorer
        
-        publicamundi_analytics = ckanext.publicamundi.analytics.plugin:AnalyticsPlugin
+        helix_analytics = ckanext.helix.analytics.plugin:AnalyticsPlugin
 
         [paste.paster_command]
         
-        publicamundi = ckanext.publicamundi.commands:Command
+        helix = ckanext.helix.commands:Command
         
-        #publicamundi-example1 = ckanext.publicamundi.commands:Example1
+        #helix-example1 = ckanext.helix.commands:Example1
 
         [babel.extractors]
         
-        publicamundi_extract_json = ckanext.publicamundi.lib.vocabularies.babel_extractors:extract_json
+        helix_extract_json = ckanext.helix.lib.vocabularies.babel_extractors:extract_json
         
         [fanstatic.libraries]
         
         [ckan.celery_task]
         
-        vector_tasks = ckanext.publicamundi.storers.vector.celery_import:task_imports
+        vector_tasks = ckanext.helix.storers.vector.celery_import:task_imports
     
-        raster_taks = ckanext.publicamundi.storers.raster.celery_import:task_imports
+        raster_taks = ckanext.helix.storers.raster.celery_import:task_imports
         
     """,
     # The following only stands as an example. The actual message_extractors should be defined into 
     # ckan's setup.py (from where message extraction is invoked).
     message_extractors = {
-        'ckanext/publicamundi': [
-            #('reference_data/inspire-vocabularies.json', 'publicamundi_extract_json', None),
-            ('reference_data/language-codes.json', 'publicamundi_extract_json', None),
+        'ckanext/helix': [
+            #('reference_data/inspire-vocabularies.json', 'helix_extract_json', None),
+            ('reference_data/language-codes.json', 'helix_extract_json', None),
             ('**.py', 'python', None),
             ('**.html', 'ckan', None),
             #('multilingual/solr/*.txt', 'ignore', None),

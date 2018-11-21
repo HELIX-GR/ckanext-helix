@@ -1,0 +1,68 @@
+{% import 'macros/accordion.html' as accordion -%}
+{% import 'macros/markup_helpers.html' as markup_helpers -%}
+{% import 'macros/form.html' as form -%}
+
+
+{% set grouped_fields = [
+                
+        
+        { 
+            'name': 'creator',
+            'heading': _('Creator'),
+            'subgroups': [
+                {
+                    'fields': ['creator'],
+                },
+            ],
+        },
+        { 
+            'name': 'contributor',
+            'heading': _('Contributor'),
+            'subgroups': [
+                {
+                    'fields': ['contributor'],
+                },
+            ],
+            'selected': false,
+        },
+        
+        { 
+            'name': 'date',
+            'heading': _('Date'),
+            'subgroups': [
+                {
+                    'fields': ['date'],
+                },
+            ],
+            'selected': false,
+        },
+        { 
+            'name': 'language',
+            'heading': _('Language'),
+            'subgroups': [
+                {
+                    'description': _(
+                        'Provide the language of the dataset'),
+                    'fields': ['language'],
+                },
+            ],
+        },
+        
+   ]    
+%}
+        
+{{fields['public_doi'].markup }}        
+ 
+{{fields['contact_email'].markup}}
+
+{{fields['creator'].markup }}
+
+<hr class="form-separator" />
+
+{{fields['related_publication'].markup }}
+
+{{fields['languagecode'].markup }}
+
+
+
+

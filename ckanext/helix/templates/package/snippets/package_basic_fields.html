@@ -1,0 +1,344 @@
+{% import 'macros/form.html' as form %}
+{% import 'macros/accordion.html' as accordion -%}
+
+{% set is_new = data.get('id') is none %}
+{% set is_draft = data.get('state', 'draft') == 'draft' %}
+
+{% block package_basic_fields_dataset_type %}
+{##
+{% snippet 'package/snippets/edit-dataset_type.html', 
+    data=data, is_new=is_new, is_draft=is_draft,
+    description=_('Specify the metadata schema the dataset aligns to.')
+%} 
+  ##}
+{% endblock %}  {# package_basic_fields_dataset_type #} 
+
+
+
+{% block package_basic_fields_title %}
+ 
+{{  
+    form.input(
+        'title', 
+        id = 'field-title', 
+        label = _('Title'), 
+        placeholder = _('The title of the dataset'), 
+        value = data.title, 
+        error = errors.title, 
+        classes = ['control-full '], 
+        attrs = { 'data-module': 'slug-preview-target' },
+        is_required=true
+    ) 
+}}
+
+
+{#<div class="help-block">
+      {% trans %}The title of the dataset.{% endtrans %}
+    </div>
+
+{{ form.info(_('My useful help text')) }}
+
+<i class="fa fa-info-circle icons" data-toggle="tooltip" data-placement="right" title="Tooltip on top"></i>
+#}
+    
+
+{% endblock %} {# package_basic_fields_title #}
+
+{# Optional title in Greek #}
+
+{{  
+    form.input(
+        'title_optional', 
+        id = 'field-title_optional', 
+        label = _('Τίτλος (Ελληνικά)'), 
+        placeholder = _('Ο τίτλος του συνόλου δεδομένων'), 
+        value = data.title_optional, 
+        error = errors.title_optional, 
+        classes = ['control-full'], 
+        attrs = { 'data-module': 'slug-preview-target' },
+        is_required=false
+    ) 
+}}
+
+
+{% block package_basic_fields_url %}
+  
+{% set prefix = h.url_for(controller='package', action='read', id='') %}
+{% set domain = h.url_for(controller='package', action='read', id='', qualified=true) %}
+{% set domain = domain|replace("http://", "")|replace("https://", "") %}
+ {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<dataset>'} %} 
+{{ 
+    form.input(
+        'name', 
+        id = 'field-name', 
+        label = _('Locator (URL)'), 
+        classes = ['hidden'],
+        placeholder = _('e.g. visitor-stats-2014b'), 
+        value = data.name, 
+        error = errors.name, 
+        is_required = true
+    ) 
+}}
+{{ 
+    form.input(
+        'private', 
+        id = 'field-private', 
+        label = _('Visibility'), 
+        classes = ['hidden'],
+        value = data.private, 
+        error = errors.private, 
+        is_required = false
+    ) 
+}}    
+
+{#{{ 
+    form.input(
+        'name', 
+        id = 'field-public_doi', 
+        classes = ['hidden'],
+        placeholder = _('e.g. dwaawd-awdaw-21342a-awddwa'), 
+        value = data.datacite.public_doi, 
+        error = errors.public_doi, 
+        is_required = false
+    ) 
+}}  #}
+
+
+
+  {# {{ data.name}} and id {{data.id}} and private {{data.private}} and org {{h.organizations_available('create_dataset')}} #}
+
+
+{#{% resource 'ckanext-helix/show-dataset-name' %}#} {# Force `name` input to be always visible #}
+{% endblock %} {# package_basic_fields_url #}
+
+{% block package_basic_fields_description %}
+{{ 
+    form.markdown(
+        'notes', 
+        id = 'field-notes', 
+        label = _('Description'), 
+        placeholder = _('A brief description of the dataset'), 
+        value = data.notes, 
+        error = errors.notes,
+        classes = ['control-full'], 
+        is_required = true
+    )        
+}}
+{% endblock %} {# package_basic_fields_description #}
+
+{# Optional notes in Greek #}
+{{ 
+    form.markdown(
+        'notes_optional', 
+        id = 'field-notes_optional', 
+        label = _('Περιγραφή (Ελληνικά)'), 
+        placeholder = _('Μία σύντομη περιγραφή του συνόλου δεδομένων'), 
+        value = data.notes_optional, 
+        error = errors.notes_optional,
+        classes = ['control-full'], 
+        is_required = false
+    )        
+}}
+{%set communities = h.groups_available('True')%}   {{communities}}
+
+<div class="form-group">
+    <label for="input-groups" class="control-label">
+        {{-('Communities') }}</label>
+    <div class="controls">
+        <select id="input-groups" class="input-xlarge"
+            data-module="autocomplete"
+         >
+            <option value="" {% if not value %} selected="selected" {% endif %}>
+                {{- _('Select a community...') }}</option>
+                
+                {%- for community in communities %}
+                    <option value="{{ community.id }}" {% if value == community.id %} selected="selected" {% endif %}>
+                       {{- community.name }}</option>
+                {% endfor -%}
+        </select>
+    </div>
+    <p class="help-block">{{ description }}</p>
+</div>
+
+{# if admin enable organization field #}
+{% if h.check_access('sysadmin') %}
+    {% snippet 'package/snippets/edit-organization.html', 
+        name='owner_org', 
+        value=data.group_id,
+        is_required = true,
+        orgs_available=h.organizations_available('create_dataset')
+        %}
+{# else hide organization field so it is automatically added#}        
+{% else %}
+    {{ 
+        form.input(
+            'owner_org', 
+            id = 'field-owner-org', 
+            label = _('Publisher'), 
+            classes = ['hidden'],
+            value = data.owner_org, 
+            error = errors.owner_org, 
+            is_required = true
+        ) 
+    }}   
+{% endif%}
+
+
+{# Dataset category (bio, geo etc.)#}
+
+<div class="form-group control-full" >
+        <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
+        <div class="controls" >
+        <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder="The category of this dataset" >
+            <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>The category of this dataset </option>
+            {% for dataset_category in h.dataset_categories()  %}
+              <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
+            {% endfor %}
+            <option value="" ></option>
+        </select>
+        <div class="help-block">
+            {% trans %}Please select only if the dataset belongs to a special category. Learn more here {% endtrans %}
+         </div>
+        </div>
+</div>  
+
+
+
+{# Closed tags field #}
+{% set error = errors.closed_tag %} 
+<div class="form-group control-full" >
+  <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> Subject</label>
+  <div class="controls" >
+  <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A thematic classification of this dataset" >
+      {% for closed_tag in h.closed_tags()  %}
+        <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
+      {% endfor %}
+  </select>
+  {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
+  <div class="help-block">
+    {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}
+   </div>
+  </div>
+</div>  
+
+
+
+
+
+
+
+
+{% block package_basic_fields_tags %}
+{%set tag_attrs = {
+    'data-module': 'autocomplete', 
+    'data-module-tags': '', 
+    'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} 
+%}
+
+{{ 
+    form.tag_input(
+        'tag_string', 
+        id = 'field-tags', 
+        label = _('Tags'), 
+        placeholder = _('Free keywords describing this dataset'), 
+        value = data.tag_string, 
+        error = errors.tags, 
+        classes = ['control-full'], 
+        attrs = tag_attrs) 
+}}
+{% endblock %}
+
+
+
+
+
+{% block package_basic_fields_license %}
+
+
+<div class="form-group dropdown license">
+  {% set error = errors.license_id %}
+     
+  <label class="control-label" for="field-license"><span title="This field is required" class="control-required">*</span>{{ _("License") }}</label>
+  <div class="controls">
+    <select id="field-license" name="license_id" data-module="autocomplete" class="input-xlarge">
+      {% for license_desc, license_id in licenses if license_desc  %}
+      <option value="{{ license_id }}" 
+        {%- if data.get('license_id', 'notspecified') == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
+        {% if loop.index == 4%}
+        <option disabled>_________________________________________________________________________________________</option>
+        {% endif%}
+      {% endfor %}
+    </select>
+    {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
+    {#<div class="help-block">
+      {% trans %}Check license definitions at <a href="http://opendefinition.org/licenses/" target="_blank">opendefinition.org</a>{% endtrans %}
+    </div>#}
+  </div>
+</div>
+
+<hr class="form-separator" /> {# Seperator#}
+
+
+{% endblock %}
+
+
+{% block package_basic_fields_org %}
+{# if we have a default group then this wants remembering #}
+{% if data.group_id %}
+<input type="hidden" name="groups__0__id" value="{{ data.group_id }}" />
+{% endif %}
+
+{% set is_draft = data.get('state', 'draft').startswith('draft') or data.get('state', 'none') ==  'none' %}
+
+
+{% if h.check_access('sysadmin') or is_new or is_draft %}
+
+{#{% if not orgs_available %}
+         {{ form.select('owner_org', label=_('Publisher'), options=[{'name':helix, 'value': h.organization_objects(['helix']).helix.display_name}  ], selected=helix, error=errors.owner_org) }}
+        
+{% else %}  #}
+{#
+{% snippet 'package/snippets/edit-organization.html', 
+    name='owner_org', 
+    value=data.owner_org or data.group_id,
+    required=true,
+    orgs_available=h.organizations_available('create_dataset')
+%} #}
+{% endif %} 
+
+
+
+{% endblock %} 
+
+{% block package_basic_fields_custom %}    
+    {#{{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
+        value=data.publisher, error=errors.get('publisher'), classes=['control-medium'], is_required = false) 
+    }} 
+    
+    
+    {{ form.input('publication_year', label=_('Publication year'), id='field-publication-year', placeholder=_('e.g. 2003'),
+               value=data.publication_year, error=errors.get('publication_year'), classes=['control-medium']) 
+    }}
+
+    
+
+    {{ form.input('identifier', label=_('Identifier'), id='field-identifier', placeholder=_(' Format should be “10.1234/foo” '), 
+        value=data.identifier, error=errors.get('identifier'), classes=['control-medium'], is_required = false) 
+    }} 
+    
+    
+    {{ form.input('identifier_type', label=_('Identifier type'), id='field-identifier-type', placeholder=_('e.g. DOI'),
+               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium'], is_required=false) 
+    }} #}
+    
+  {#  {% set resource_types = data.get('resource_type', [None]) %}
+    {{ form.select('resource_type', 
+        label = _('Resource type'), 
+        options = h.resource_types_options(), 
+        selected = resource_types.0, 
+        attrs = { 'data-module': 'no-autocomplete' }) 
+    }}   
+    #}
+        
+   
+{% endblock %}
