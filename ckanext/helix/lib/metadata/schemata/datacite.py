@@ -91,7 +91,15 @@ class IDataciteMetadata(IMetadata):
         required = False,
         constraint=related_publication_empty)
     
-     
+    closed_subject = zope.schema.List(
+        title = u'Closed Tags',
+        required = False,
+        value_type = zope.schema.TextLine(
+            title = u'Closed Tag'),
+        min_length = 1,
+        max_length = 5,)
+    closed_subject.setTaggedValue('links-to', 'closed_tag')    
+ 
     
     contact_email = z3c.schema.email.RFC822MailAddress(
         title = _(u'Contact e-mail'),
@@ -157,7 +165,4 @@ class IDataciteMetadata(IMetadata):
         if len(s) < len(obj.tags):
             raise zope.interface.Invalid('Tags contain duplicates')
     
-    @zope.interface.invariant
-    def check_publication_date(obj):
-        if obj.published and (obj.published < obj.created):
-            raise zope.interface.Invalid('The publication date is before creation date')
+    

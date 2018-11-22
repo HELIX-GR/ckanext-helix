@@ -11,9 +11,8 @@ log1= logging.getLogger(__name__)
 def topicsMatch(subject):
 
     absolute_path = os.path.dirname(os.path.abspath(__file__))
-    #my_map = map(str.strip, open(absolute_path + '/closed-tags.txt')))
     #open file with ANDS-FOR vocabulary
-    with open(absolute_path + '/closed-tags.txt') as f:
+    with open(absolute_path + '/closed-subject.txt') as f:
         my_list = f.read().splitlines()
     groups = []
     if(type(subject) != list): #if its a single string make it into a list
@@ -44,7 +43,7 @@ def topicsMatch(subject):
             elif tag == line and i < 912:
                 groups.append('medical-and-health-sciences')
                 break
-            elif tag == line and i < 1012:
+            elif tag == line and i < 1052:
                 groups.append('business-economics-and-law')
                 break
             elif tag == line:

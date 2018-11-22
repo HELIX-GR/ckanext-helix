@@ -42,21 +42,12 @@
   <a id="modal_close" >x</a>
 </div>
 
-  <div class="package-language">
-    <a href="#" > {{pkg.datacite.languagecode|truncate(2,True, '')|upper}}</a>
-  </div>
-  <div class="btn-save">
-    <a href="#" data-toggle="tooltip"  data-placement="bottom" title="Save"><img class="" src="/images/png/save.png"></a>
-  </div>
-  <div class="btn-favorite">
-    <a href="" id="favorite" data-module="favorite" data-module-action="favorite" data-module-name="{{pkg.name}}"data-module-email="{{c.userobj.email}}" data-module-title="{{pkg.title}}" data-module-notes="{{pkg.notes}}"
-     data-toggle="tooltip" data-placement="bottom" title="Favorite"> <img class="" src="/images/png/favorite.png"></a>
-  </div>
+
   {# {{ h.favorite(email=c.userobj.email, package_name=pkg.name, title=pkg.title, notes=pkg.notes) }}#}
     <div>
     <h1 class="package-title">
   {{ pkg.title or pkg.name }}
-  
+      </h1>
   {% if pkg.get('state', '').startswith('draft') %}
   <span class="draft-state">{{ _('Draft') }}</span>
   {% elif pkg.get('state', '').startswith('deleted') %}
@@ -70,8 +61,19 @@
   {% snippet "package/snippets/multilingual_info.html", pkg=pkg %}
   {% endif %}
   {% endblock %} {# page_heading_info #}
-
-</h1>
+  <div>
+    <div class="btn-favorite">
+      <a href="" id="favorite" data-module="favorite" data-module-action="favorite" data-module-name="{{pkg.name}}"data-module-email="{{c.userobj.email}}" data-module-title="{{pkg.title}}" data-module-notes="{{pkg.notes}}"
+       data-toggle="tooltip" data-placement="bottom" title="Favorite"> <img class="" src="/images/png/favorite.png"></a>
+    </div>
+      <div class="btn-save">
+        <a href="#" data-toggle="tooltip"  data-placement="bottom" title="Save"><img class="" src="/images/png/save.png"></a>
+      </div>
+      
+      <div class="package-language">
+        <a href="#" > {{pkg.datacite.languagecode|truncate(2,True, '')|upper}}</a>
+      </div>
+    </div>
 </div>  
   {% block package_dates %}
     <div class="dataset-dates">
@@ -85,7 +87,7 @@
     {% endblock %}
    
     {% if h.check_access('package_update', {'id':pkg.id }) %}
-    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-manage pull-right', icon='wrench' %}
+    {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-manage dataset pull-right', icon='wrench' %}
     {% endif %}
 
 

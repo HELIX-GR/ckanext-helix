@@ -19,6 +19,7 @@ class DataciteMetadata(Metadata):
     title = None
     url = None
     tags = list
+    closed_subject = list
     description = None
     dataset_category = None
     creator = Creator

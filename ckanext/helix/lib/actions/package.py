@@ -228,6 +228,7 @@ def dataset_import(context, data_dict):
     
     # add core fields description and subject 
     pkg_dict['notes'] = pkg_dict['datacite']['abstract']
+    #pkg_dict['closed_tag'] = pkg_dict['datacite']['closed_subject']
     # Create/Update package
     
     schema1, validation_errors, error_message = None, None, None
@@ -554,7 +555,6 @@ def _transform_dcat(xml_dom):
     return result
 
 def favorite(context, data_dict):
-
    
     """Perform HTTP request"""
     url='http://core.hellenicdataservice.gr/api/v1/favorite'
@@ -584,13 +584,3 @@ def favorite(context, data_dict):
         else:
             return 'An error has occured'    
     
-
-def delete_favorite(context, data_dict):
-    """Perform HTTP request"""
-    if method == 'POST':
-        return http_post(url, request, timeout=timeout)
-    else:  # GET
-        request = urllib2.Request(url)
-        request.add_header('User-Agent', 'pycsw (http://pycsw.org/)')
-    return urllib2.urlopen(request, timeout=timeout).read()
-
