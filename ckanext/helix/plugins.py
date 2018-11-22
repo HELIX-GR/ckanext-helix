@@ -1357,9 +1357,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             
             #Add subjects for solr indexing/facet use
 
-            pkg_dict['closed_tags_facets'] = []
+            pkg_dict['closed_tags'] = []
             for subject in subjects:
-                pkg_dict['closed_tags_facets'].append(subject)
+                pkg_dict['closed_tags'].append(subject)
 
         #Add resource size for solr indexing, get it from package show because resources are flattened
         context = {'model': model, 'session': model.Session,
@@ -1438,24 +1438,24 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     def dataset_facets(self, facets_dict=None, package_type=None):
         '''Update the facets_dict and return it.
         '''
-        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject
-        facets_dict['res_size'] = p.toolkit._('Resource size') #add facet for Subject
+        facets_dict['closed_tags'] = p.toolkit._('Subject') #add facet for Subject
+        facets_dict['res_size'] = p.toolkit._('Resource size') #add facet for Res size
         if (package_type !="harvest"):
             if facets_dict['groups']:
                 del facets_dict['groups']
-            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
+            myorder = ['organization', 'closed_tags', 'tags', 'res_format', 'res_size',  'license_id']
             facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         return facets_dict
 
     def organization_facets(self, facets_dict, organization_type, package_type):
         '''Update the facets_dict and return it.
         '''
-        facets_dict['closed_tags_facets'] = p.toolkit._('Subject') #add facet for Subject
+        facets_dict['closed_tags'] = p.toolkit._('Subject') #add facet for Subject
         facets_dict['res_size'] = p.toolkit._('Resource size') #add facet for Subject
         if (package_type !="harvest"):
             if facets_dict['groups']:
                 del facets_dict['groups']
-            myorder = ['organization', 'closed_tags_facets', 'tags', 'res_format', 'res_size',  'license_id']
+            myorder = ['organization', 'closed_tags', 'tags', 'res_format', 'res_size',  'license_id']
             facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         c.facet_titles = facets_dict
         return facets_dict    

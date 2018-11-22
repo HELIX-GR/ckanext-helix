@@ -1,7 +1,13 @@
 ckanext-helix
 ====================
 
-This is a CKAN extension that hosts various plugins needed for helix project!
+This is a CKAN extension that hosts various plugins needed for helix project
+
+
+Requirements
+-------
+This plugin requires an updated solr schema.xml
+
 
 Install
 -------
@@ -35,7 +41,6 @@ The most common settings are:
     # a bridge to 3rd-party plugins that expect certain fields to be present (e.g. `spatial` from `spatial_metadata`).
     ckanext.helix.extra_fields = spatial
     ckanext.helix.validation.relax_name_pattern = true
-    ckanext.helix.api_resource_formats = wms wcs wfs csw
 
 
 Configuration for other plugins:
@@ -62,17 +67,6 @@ Configuration for other plugins:
     ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
 
 
-Manage
-------
-
-The `helix` command suite provides several subcommands to help managing the extension. Retreive a full list of available subcommands (along with their help):
-
-    paster helix --config /path/to/development.ini
-
-To get help on a particular subcommand (e.g. `widget-info`):
-
-    paster helix --config /path/to/development.ini widget-info --help
-    
 Uninstall
 ---------
 

@@ -1,3 +1,0 @@
-gsconfig
-patool
-psycopg2
