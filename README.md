@@ -17,50 +17,50 @@ Update CKAN configuration
 Edit your CKAN .ini configuration file (e.g. your `development.ini`) and activate the
 plugins as usual. For now, the supported plugins are:
 
- * `helix_dataset`: Provides validation logic, storage logic and ui controls for schema-following metadata (e.g. INSPIRE).
- * `helix_multilingual_dataset`: Extend `helix_dataset` to support multilingual metadata.
+ * `helix_dataset`: Provides validation logic, storage logic and ui controls for schema-following metadata (e.g. DATACITE).
  * `helix_package`: Provides synchronization of package metadata to other databases (e.g. to the integrated CSW service, through pycsw).
- * `helix_vector`: Provide processing and services for vector-based spatial resources. See more at README-vector.md
- * `helix_raster`: Provide processing and services for raster-based spatial resources. See more at README-raster.md 
- * `helix_analytics`: Process backend logs to extract information on user requests. See more at README-analytics.md 
-
-
 Configure
 ---------
 
-Here we cover some of the configuration settings for only basic plugins of `ckanext-helix`. Settings which are specific to a _storer_ plugin (either 
-`helix_vector` or `helix_raster`) are documented in their dedicated README file.
+Here we cover some of the basic configuration settings for `ckanext-helix`.
 
 The most common settings are:
 
+
+
     # Specify which dataset types are enabled
-    ckanext.helix.dataset_types = ckan inspire datacite
-    ckanext.helix.extra_fields = spatial
-    
-    # Indicate whether a more relaxed name pattern can be used for dataset names
-    ckanext.helix.validation.relax_name_pattern = true 
-    
-    # Specify a list of formats which should be considered as services (APIs)
-    ckanext.helix.api_resource_formats = wms wcs wfs csw
+    ckanext.helix.dataset_types = datacite
 
     # Add extra top-level (i.e not contained in schema) metadata fields. This is usually needed to provide 
     # a bridge to 3rd-party plugins that expect certain fields to be present (e.g. `spatial` from `spatial_metadata`).
     ckanext.helix.extra_fields = spatial
+    ckanext.helix.validation.relax_name_pattern = true
+    ckanext.helix.api_resource_formats = wms wcs wfs csw
 
-    # Specify a list of pre-existing resource formats to be used as autocomplete suggestions
-    ckanext.helix.resource_formats = 
-    # raster file formats 
-        geotiff bitmap png jpeg
-    # vector file formats
-        shapefile sqlite gml kml
-    # services, apis
-       %(ckanext.helix.api_resource_formats)s
 
-    # Specify the path to pycsw configuration 
-    ckanext.helix.pycsw.config = %(here)s/pycsw.ini
+Configuration for other plugins:
 
-    # Specify the endpoint under which CSW service is running (if it exists)
-    ckanext.helix.pycsw.service_endpoint = %(ckan.site_url)s/csw
+    #ckanext_scheming configuration:
+
+    scheming.organization_schemas = ckanext.scheming:helix_organization_schema.json
+    scheming.group_schemas = ckanext.scheming:helix_group_schema.json
+
+
+    #ckanext-userautoadd configuration:
+
+    # The organization to which new users are added
+    ckan.userautoadd.organization_name = helix
+
+    # The role the new users will have
+    ckan.userautoadd.organization_role = member
+
+    #ckanext.spatial configuration:
+
+    ckan.spatial.srid = 4326
+    ckanext.spatial.common_map.type = custom
+    ckanext.spatial.common_map.custom.url = http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
+    ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
+
 
 Manage
 ------
@@ -78,14 +78,3 @@ Uninstall
 
     paster helix --config /path/to/development.ini cleanup
 
-Copying and License
--------------------
-
-This material is copyright (c) 2013-2016 of the helix development team.
-
-It is Free Software and Open Source Software, licensed under the GNU Affero General Public License (AGPL) v3.0
-whose full text may be found at:
-
-http://www.fsf.org/licensing/licenses/agpl-3.0.html
-
-More details at `LICENSE <https://github.com/helix/ckanext-helix/blob/master/LICENSE.txt`
