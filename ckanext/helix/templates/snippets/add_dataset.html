@@ -8,19 +8,19 @@
 {% endif %}
 
 <div class="btn-group ">
-    <a class="btn btn-primary btn-group-main btn-add-dataset" href="{{ edit_url }}"
-        >{#<i class="icon-asterisk"></i>#} {{ _('ADD DATASET') }}</a>
+    <a class="btn btn-primary btn-group-main btn-add-dataset upper" href="{{ edit_url }}"
+        >{#<i class="icon-asterisk"></i>#} {{ _('Add Dataset') }}</a>
     <button class="btn btn-primary  btn-group-toggle btn-add-dataset-toggle" data-toggle="dropdown">
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu pull-right">
         <li>
-            <a class="btn-link" href="{{ edit_url }}"
-                >&nbsp; {{ _('CREATE FROM SCRATCH') }}</a>
+            <a class="btn-link upper" href="{{ edit_url }}"
+                >&nbsp; {{ _('Create from scratch') }}</a>
         </li>
         <li>
-            <a class="btn-link" href="{{ import_url }}"
-                >&nbsp; {{ _('IMPORT EXISTING METADATA') }}</a>
+            <a class="btn-link upper" href="{{ import_url }}"
+                >&nbsp; {{ _('Import existing metadata') }}</a>
         </li>
     </ul>
 </div>
