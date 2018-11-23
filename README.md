@@ -25,6 +25,7 @@ plugins as usual. For now, the supported plugins are:
 
  * `helix_dataset`: Provides validation logic, storage logic and ui controls for schema-following metadata (e.g. DATACITE).
  * `helix_package`: Provides synchronization of package metadata to other databases (e.g. to the integrated CSW service, through pycsw).
+
 Configure
 ---------
 
@@ -41,6 +42,16 @@ The most common settings are:
     # a bridge to 3rd-party plugins that expect certain fields to be present (e.g. `spatial` from `spatial_metadata`).
     ckanext.helix.extra_fields = spatial
     ckanext.helix.validation.relax_name_pattern = true
+
+Additional plugins used:
+
+    ckanext-basiccharts
+    ckanext-geoview
+    ckanext-mapviews
+    ckanext-viewhelpers
+    ckanext-harvest
+    ckanext-spatial
+    ckanext-scheming
 
 
 Configuration for other plugins:
@@ -65,6 +76,7 @@ Configuration for other plugins:
     ckanext.spatial.common_map.type = custom
     ckanext.spatial.common_map.custom.url = http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
     ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
+
 
 
 Uninstall

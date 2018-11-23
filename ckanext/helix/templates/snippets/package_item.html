@@ -19,12 +19,13 @@ truncate_title - The length to truncate the title to (default: 80).
   {% block package_item_content %}
   
       <div class="date-of-entry">
-          {% if package.groups %}
+          {#{% if package.groups %}
           {% set group = package.groups[0] %}
           <div>{{ h.friendly_date(modified|urlize)}} @ <span> <a href={{ h.url_for(controller='group', action='read', id= group.name) }}> {{group.title|urlize }}</span></div> </a>
           {% else %}
           <div>{{ h.friendly_date(modified|urlize)}} </div>
-          {% endif %}
+          {% endif %} #}
+          <div>{{ h.render_datetime(modified, date_format='%d-%m-%Y') }}</div>
       </div>
 
       <h3 class="title">

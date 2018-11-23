@@ -3937,7 +3937,7 @@ msgstr "Αναζητήστε ανοικτά επιστημονικά δεδομ�
 msgid "Latest Datasets"
 msgstr "Τελευταία σύνολα δεδομένων"
 
-msgid "Advanced search"
+msgid "Advanced Search"
 msgstr "Σύνθετη αναζήτηση"
 
 msgid "Featured Datasets"
@@ -3946,11 +3946,21 @@ msgstr "Προτεινόμενα σύνολα δεδομένων"
 msgid "MORE"
 msgstr "ΠΕΡΙΣΣΟΤΕΡΑ"
 
+msgid "Home"
+msgstr "Αρχική"
 
+msgid "The project"
+msgstr "Το Έργο"
 
+msgid "Contact"
+msgstr "Επικοινωνία"
 
+msgid "Terms of Use"
+msgstr "Όροι Επικοινωνίας"
 
+msgid "Research"
+msgstr "Ερευνα"
 
-
-
+msgid "Topics"
+msgstr "Θεματικές"
 
