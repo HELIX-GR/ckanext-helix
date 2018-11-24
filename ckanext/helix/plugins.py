@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
 
 import re
 import datetime
@@ -13,14 +11,12 @@ import weberror
 import logging
 import string
 import urllib
-import geoalchemy
 import pylons
 
 import ckan.model as model
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
-
 
 import ckan.lib.search as search
 
@@ -39,8 +35,6 @@ import ckan.lib.base as base
 
 import cgi
 import ckan.lib.helpers as h
-
-
 
 from ckanext.helix.lib.metadata import class_for_metadata
 from ckanext.helix.lib.util import (to_json, random_name)
