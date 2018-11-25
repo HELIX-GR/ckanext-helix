@@ -2,8 +2,6 @@ import random
 import uuid
 import string
 import json
-import geojson
-import shapely
 import collections
 import itertools
 from functools import wraps
@@ -21,21 +19,6 @@ class Breakpoint(Exception):
 def to_json(o, indent=None):
     '''Convert to JSON providing our custom encoder'''
     return json.dumps(o.dict, cls=JsonEncoder, indent=indent)
-
-def geojson_to_wkt(s):
-    from shapely.geometry import shape
-    g = shape(geojson.loads(s))
-    return g.wkt
-
-def geojson_to_wkb(s):
-    from shapely.geometry import shape
-    g = shape(geojson.loads(s))
-    return g.wkb
-
-def wkt_to_geojson(s):
-    from shapely.wkt import loads as wkt_loads
-    g = geojson.Feature(geometry=wkt_loads(s))
-    return str(g.geometry)
 
 def random_name(l):
     return random.choice(string.lowercase) + \

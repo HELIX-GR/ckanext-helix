@@ -1,8 +1,5 @@
 jsonpickle
-geojson
-shapely
 pyunpack
-GeoAlchemy>=0.6
 requests>=2.20.0
 zope.interface==4.0.1
 zope.schema==4.4
@@ -15,3 +12,6 @@ pytz
 isodate
 dictdiffer
 pytidylib
+geojson
+
+#shapely
