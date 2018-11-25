@@ -39,21 +39,25 @@ app_instance_uuid = {66b9032a-43ed-4b4e-89b7-a7eb232fb9f0}
 who.config_file = %(here)s/who.ini
 who.log_level = warning
 who.log_file = %(cache_dir)s/who_log.ini
-
+# Session timeout (user logged out after period of inactivity, in seconds).
+# Inactive by default, so the session doesn't expire.
+# who.timeout = 86400
 
 ## Database Settings
-sqlalchemy.url = postgresql://ckan_default:pass@localhost/ckan_default
+sqlalchemy.url = postgresql://ckaner:ckaner@localhost/ckan
 
-ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default
-ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_default
+ckan.datastore.write_url = postgresql://ckaner:ckaner@localhost/ckan-data
+ckan.datastore.read_url = postgresql://ckan-data-reader:ckaner@localhost/ckan-data
 
 # PostgreSQL' full-text search parameters
 ckan.datastore.default_fts_lang = english
 ckan.datastore.default_fts_index_method = gist
 
+
 ## Site Settings
 
-ckan.site_url =  http://127.0.0.1:5000
+ckan.site_url = https://catalog.example.com
+
 #ckan.use_pylons_response_cleanup_middleware = true
 
 ## Authorization Settings
@@ -73,48 +77,66 @@ ckan.auth.roles_that_cascade_to_sub_groups = admin
 ## Search Settings
 
 ckan.site_id = default
-solr_url = http://127.0.0.1:8080/solr/ckan
+solr_url = http://127.0.0.1:8983/solr
 
-ckan.datasets_per_page=10
+ckan.datasets_per_page = 10
 
-#ckan.simple_search = 1
+# Controls whether the default search page (``/dataset``) should include private datasets visible to the current user or only public datasets visible to everyone.
+ckan.search.default_include_private = false
 
+## Redis Settings
+
+# URL to your Redis instance, including the database to be used.
+#ckan.redis.url = redis://localhost:6379/0
+
+## CORS Settings
+
+# If cors.origin_allow_all is true, all origins are allowed.
+# If false, the cors.origin_whitelist is used.
+# ckan.cors.origin_allow_all = true
+# cors.origin_whitelist is a space separated list of allowed domains.
+# ckan.cors.origin_whitelist = http://example1.com http://example2.com
 
 ## Plugins Settings
 
 # Note: Add ``datastore`` to enable the CKAN DataStore
 #       Add ``datapusher`` to enable DataPusher
-#       Add ``pdf_preview`` to enable the resource preview for PDFs
-#		Add ``resource_proxy`` to enable resorce proxying and get around the
-#		same origin policy
-ckan.plugins = datastore datapusher spatial_metadata spatial_query
+#       Add ``resource_proxy`` to enable resorce proxying and get around the same origin policy
+
+ckan.plugins = 
+    datastore datapusher
+    resource_proxy
+    harvest ckan_harvester
+    spatial_metadata spatial_query
+    stats text_view image_view 
+    recline_view recline_grid_view
+    recline_graph_view recline_map_view 
+    geo_view wmts_view geojson_view
+    viewhelpers
     scheming_organizations scheming_groups
     helix_theme helix_dataset helix_package 
-    userautoadd  userdatasets 
-    harvest ckan_harvester
-    stats text_view image_view 
-    recline_view recline_grid_view 
-    recline_graph_view recline_map_view  geo_view 
-    wmts_view geojson_view viewhelpers resource_proxy
-
-# Controls whether the default search page (``/dataset``) should include private datasets visible to the current user or only public datasets visible to everyone.
-ckan.search.default_include_private = false
+    userautoadd userdatasets 
+    oauth2
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
-ckan.views.default_views = image_view  recline_view geojson_view 
+ckan.views.default_views = image_view text_view recline_view geojson_view 
 
+# Customize which text formats the text_view plugin will show
+#ckan.preview.json_formats = json
+#ckan.preview.xml_formats = xml rdf rdf+xml owl+xml atom rss
+#ckan.preview.text_formats = text plain text/plain
 
 # Customize which image formats the image_view plugin will show
 #ckan.preview.image_formats = png jpeg jpg gif
 
-#ckanext scheming
-scheming.organization_schemas = ckanext.scheming:helix_organization_schema.json
-scheming.group_schemas = ckanext.scheming:helix_group_schema.json
-
-
 ## Front-End Settings
-ckan.site_title = HELIX 
+
+# Uncomment following configuration to enable using of Bootstrap 2
+#ckan.base_public_folder = public-bs2
+#ckan.base_templates_folder = templates-bs2
+
+ckan.site_title = HELIX
 ckan.site_logo = /base/images/ckan-logo.png
 ckan.site_description =
 ckan.favicon = /images/icons/favicon.ico
@@ -123,13 +145,13 @@ ckan.preview.direct = png jpg jpeg gif
 ckan.preview.loadable = html htm rdf+xml owl+xml xml n3 n-triples turtle plain atom csv tsv rss txt json
 ckan.display_timezone = server
 
+#ckan.recaptcha.publickey =
+#ckan.recaptcha.privatekey =
 
-licenses_group_url = file:///usr/lib/ckan/default/src/extensions/ckanext-helix/ckanext/helix/reference_data/licenses.json
+licenses_group_url = file:///%(here)s/licenses.json
 
-# ckan.template_footer_end =
+## Internationalisation
 
-
-## Internationalisation Settings
 ckan.locale_default = en
 ckan.locale_order = en el
 ckan.locales_offered = en el
@@ -144,18 +166,24 @@ ckan.feeds.author_link =
 
 ## Storage Settings
 
-ckan.storage_path = /var/lib/ckan
-ckan.max_resource_size = 1000
-#ckan.max_image_size = 2
+ckan.storage_path = /var/lib/ckan/default/files
+ckan.max_resource_size = 120
+ckan.max_image_size = 8
 
 ## Datapusher settings
 
 # Make sure you have set up the DataStore
 
 ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-ckan.datapusher.url = http://127.0.0.1:8800
+ckan.datapusher.url = http://127.0.0.1:8800/
 ckan.datapusher.assume_task_stale_after = 3600
 
+## Resource Proxy settings
+
+# Preview size limit, default: 1MB
+ckan.resource_proxy.max_file_size = 1048576
+# Size of chunks to read/write.
+ckan.resource_proxy.chunk_size = 4096
 
 ## Activity Streams Settings
 
@@ -165,6 +193,10 @@ ckan.activity_list_limit = 31
 #ckan.email_notifications_since = 2 days
 ckan.hide_activity_from_users = %(ckan.site_id)s
 
+## ckanext-scheming settings
+
+scheming.organization_schemas = ckanext.helix:helix_organization_schema.json
+scheming.group_schemas = ckanext.helix:helix_group_schema.json
 
 ## Email settings
 
@@ -176,14 +208,20 @@ ckan.hide_activity_from_users = %(ckan.site_id)s
 #smtp.password = your_password
 #smtp.mail_from =
 
+## OAuth2
 
-#Helix plugins variables
+ckan.oauth2.authorization_endpoint = https://accounts.google.com/o/oauth2/auth
+ckan.oauth2.token_endpoint = https://accounts.google.com/o/oauth2/token
+ckan.oauth2.profile_api_url = https://www.googleapis.com/oauth2/v1/userinfo
+ckan.oauth2.client_id = CLIENT_ID
+ckan.oauth2.client_secret = CLIENT_SECRET
+ckan.oauth2.scope = https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me
+ckan.oauth2.profile_api_user_field = email
+ckan.oauth2.profile_api_fullname_field = name
+ckan.oauth2.profile_api_mail_field = email
+ckan.oauth2.authorization_header = Authorization
 
-ckanext.helix.dataset_types = datacite
-ckanext.helix.extra_fields = spatial
-ckanext.helix.validation.relax_name_pattern = true
-ckanext.helix.api_resource_formats = wms wcs wfs csw
-
+## Spatial
 
 ckan.spatial.srid = 4326
 ckanext.spatial.common_map.type = custom
@@ -191,14 +229,12 @@ ckanext.spatial.common_map.custom.url = http://{s}.basemaps.cartocdn.com/light_a
 ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
 #ckanext.spatial.search_backend = solr-spatial
 
-#ckanext-userautoadd configuration
+## Helix
 
-# The organization to which new users are added
-ckan.userautoadd.organization_name = helix
-
-# The role the new users will have
-ckan.userautoadd.organization_role = member
-
+ckanext.helix.dataset_types = datacite
+ckanext.helix.extra_fields = spatial
+ckanext.helix.validation.relax_name_pattern = true
+ckanext.helix.api_resource_formats = wms wcs wfs csw
 
 ckanext.helix.mime_types = 
     text/plain 
@@ -216,40 +252,54 @@ ckanext.helix.mime_types =
     video/avi video/mpeg
     audio/mpeg audio/vorbis
 
+## ckanext-userautoadd configuration
 
+# The organization to which new users are added
+ckan.userautoadd.organization_name = helix
 
+# The role the new users will have
+ckan.userautoadd.organization_role = member
 
+## Harvest 
+
+ckan.harvest.mq.type = redis
 
 ## Logging configuration
+
 [loggers]
 keys = root, ckan, ckanext
 
 [handlers]
-keys = console
+keys = console, logfile
 
 [formatters]
 keys = generic
 
 [logger_root]
 level = WARNING
-handlers = console
+handlers = console, logfile
 
 [logger_ckan]
 level = INFO
-handlers = console
+handlers = console, logfile
 qualname = ckan
 propagate = 0
 
 [logger_ckanext]
-level = DEBUG
-handlers = console
+level = INFO
+handlers = console, logfile
 qualname = ckanext
 propagate = 0
 
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
-#args = ("/var/logs/ckan/ckan.log",)
+level = NOTSET
+formatter = generic
+
+[handler_logfile]
+class = logging.handlers.RotatingFileHandler
+args = ('/var/log/ckan/default/ckan.log', 'a', 131072, 14)
 level = NOTSET
 formatter = generic
 
