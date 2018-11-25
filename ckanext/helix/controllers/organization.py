@@ -1,6 +1,7 @@
 import logging
 
 from six import string_types
+from urllib import urlencode
 
 from ckan.lib.base import c, model, request, render, h
 from ckan.common import _, config, OrderedDict
