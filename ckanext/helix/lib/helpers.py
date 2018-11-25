@@ -8,12 +8,15 @@ import itertools
 import logging
 log1= logging.getLogger(__name__)
 
+from .. import reference_data
+
+
 def topicsMatch(subject):
 
-    absolute_path = os.path.dirname(os.path.abspath(__file__))
     #open file with ANDS-FOR vocabulary
-    with open(absolute_path + '/closed-subject.txt') as f:
-        my_list = f.read().splitlines()
+    closed_subjects = None
+    with open(reference_data.get_path('/closed-subject.txt')) as f:
+        closed_subjects = f.read().splitlines()
     groups = []
     if(type(subject) != list): #if its a single string make it into a list
         subjects = []
@@ -23,7 +26,7 @@ def topicsMatch(subject):
     #check match for each subject
     for tag in subjects:
         tag = tag.encode('UTF-8')
-        for i, line in enumerate(my_list):
+        for i, line in enumerate(closed_subjects):
             line = str.strip(line)
             if tag == line and i < 164:
                 groups.append('physical-chemical-and-mathematical-sciences')
