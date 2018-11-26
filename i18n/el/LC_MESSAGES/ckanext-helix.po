@@ -3150,7 +3150,7 @@ msgstr "API Καταλόγου (CSW)"
 #: ckanext/helixtheme/templates/snippets/group.html:16
 #: ckanext/helixtheme/templates/snippets/main_menu.html:5
 msgid "Topics"
-msgstr "Θέματα"
+msgstr "Θεματικές"
 
 #: ckanext/helixtheme/templates/group/index.html:15
 msgid "Search groups..."
@@ -3952,6 +3952,9 @@ msgstr "'Ερευνα"
 msgid "Subjects"
 msgstr "Κατηγορίες"
 
+msgid "Subject"
+msgstr "Κατηγορία"
+
 msgid "Resource size"
 msgstr "Μέγεθος αρχείου"
 
@@ -3991,5 +3994,28 @@ msgstr "Εκδότες"
 msgid "Publisher"
 msgstr "Εκδότης"
 
+#: Add dataset form
 
+msgid "Thematic group"
+msgstr "Θεματική ομάδα"
 
+msgid "The thematic group of this dataset"
+msgstr "Η θεματική ομάδα του συνόλου δεδομένων"
+
+msgid "A categorization of this dataset"
+msgstr "H κατηγορία του συνόλου δεδομένων"
+
+msgid "Free keywords describing this dataset"
+msgstr "Λέξεις-κλειδιά που περιγράφουν το σύνολο δεδομένων"  
+
+msgid "Email address of the contact person for this dataset"
+msgstr "Η διεύθυνση ηλεκτρονικής αλληλογραφίας του αρμόδιου προσώπου"
+
+msgid "Person or organization that has produced the dataset"
+msgstr "Άτομο ή οργανισμός που παρήγαγε αυτό το σύνολο δεδομένων"
+
+msgid "The organization of the creator"
+msgstr "Ο οργανισμός του δημιουργού"
+
+msgid "The DOI of a related publication"
+msgstr "Το ψηφιακό αναγνωριστικό μιας σχετικής δημοσίευσης"

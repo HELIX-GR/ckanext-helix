@@ -8,14 +8,14 @@ import itertools
 import logging
 log1= logging.getLogger(__name__)
 
-from .. import reference_data
+from ckanext.helix import reference_data
 
 
 def topicsMatch(subject):
 
     #open file with ANDS-FOR vocabulary
     closed_subjects = None
-    with open(reference_data.get_path('/closed-subject.txt')) as f:
+    with open(reference_data.get_path('closed-subject.txt')) as f:
         closed_subjects = f.read().splitlines()
     groups = []
     if(type(subject) != list): #if its a single string make it into a list

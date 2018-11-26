@@ -32,16 +32,6 @@
 }}
 
 
-{#<div class="help-block">
-      {% trans %}The title of the dataset.{% endtrans %}
-    </div>
-
-{{ form.info(_('My useful help text')) }}
-
-<i class="fa fa-info-circle icons" data-toggle="tooltip" data-placement="right" title="Tooltip on top"></i>
-#}
-    
-
 {% endblock %} {# package_basic_fields_title #}
 
 {# Optional title in Greek #}
@@ -187,17 +177,16 @@
 {# Dataset category (bio, geo etc.)#}
 
 <div class="form-group control-full" >
-        <label for="field-dataset_category"   class="control-label field-optional"> Thematic Category</label>
+        <label for="field-dataset_category"   class="control-label field-optional"> {{_('Thematic group')}}</label>
         <div class="controls" >
-        <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder="The category of this dataset" >
-            <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>The category of this dataset </option>
+        <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder=_('The thematic group of this dataset') >
+            <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>{{_('The thematic group of this dataset')}} </option>
             {% for dataset_category in h.dataset_categories()  %}
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}
-            <option value="" ></option>
         </select>
         <div class="help-block">
-            {% trans %}Please select only if the dataset belongs to a special category. Learn more here {% endtrans %}
+            {% trans %}_('Please select only if the dataset belongs to a special category. Learn more here') {% endtrans %}
          </div>
         </div>
 </div>  
@@ -207,9 +196,9 @@
 {# Closed tags field #}
 {% set error = errors.closed_tag %} 
 <div class="form-group control-full" >
-  <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> Subject</label>
+  <label for="field-closed_tag"   class="control-label"> <span title="This field is required" class="control-required">*</span> {{_('Subject')}}</label>
   <div class="controls" >
-  <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="A thematic classification of this dataset" >
+  <select  id="field-closed_tag" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="{{_('A categorization of this dataset')}}" >
       {% for closed_tag in h.closed_tags()  %}
         <option value="{{ closed_tag }}" {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>{{closed_tag}}</option>
       {% endfor %}
