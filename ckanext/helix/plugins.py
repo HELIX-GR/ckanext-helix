@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
 
 import re
 import datetime
@@ -13,14 +11,12 @@ import weberror
 import logging
 import string
 import urllib
-import geoalchemy
 import pylons
 
 import ckan.model as model
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
-
 
 import ckan.lib.search as search
 
@@ -31,6 +27,7 @@ import ckanext.helix.lib.actions as ext_actions
 import ckanext.helix.lib.template_helpers as ext_template_helpers
 import ckanext.helix.lib.helpers as ext_helpers
 import ckanext.helix.lib.languages as ext_languages
+import ckanext.helix.reference_data as ext_reference_data 
 #import ckanext.helix.lib.pycsw_sync as ext_pycsw_sync
 from ckan.lib.base import BaseController
 import ckan.lib.plugins
@@ -39,8 +36,6 @@ import ckan.lib.base as base
 
 import cgi
 import ckan.lib.helpers as h
-
-
 
 from ckanext.helix.lib.metadata import class_for_metadata
 from ckanext.helix.lib.util import (to_json, random_name)
@@ -148,8 +143,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         data = {'id': 'closed_tags'}
         vocab = toolkit.get_action ('vocabulary_show') (context, data)
         closed_tags = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
-        List = open('closed-subjects.txt').read().splitlines()
-        for tag in List:
+        closed_subjects = None
+        with open(ext_reference_data.get_path('closed-subject.txt')) as f: 
+            closed_subjects = f.read().splitlines()
+        for tag in closed_subjects:
             if tag not in closed_tags:
                 log1.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
                 data = {'name': tag, 'vocabulary_id': vocab['id']}
@@ -177,8 +174,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         data = {'id': 'languages'}
         vocab = toolkit.get_action ('vocabulary_show') (context, data)
         languages = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'languages'})
-        List = open('languages.txt').read().splitlines()
-        for tag in List:
+        more_languages = None 
+        with open(ext_reference_data.get_path('languages.txt')) as f: 
+            more_languages = f.read().splitlines()
+        for tag in more_languages:
             if tag not in languages:
                 log1.info("Adding tag {0} to vocab 'languages'".format(tag))
                 data = {'name': tag, 'vocabulary_id': vocab['id']}

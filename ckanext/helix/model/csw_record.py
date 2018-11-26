@@ -5,7 +5,9 @@ from sqlalchemy import (
     Table, Column, Integer, String, Text, DateTime,
     MetaData, ForeignKey, UniqueConstraint, Index)
 from sqlalchemy.orm import relation, relationship, backref
-from geoalchemy import Geometry, GeometryColumn, GeometryDDL, Polygon, Point
+
+# Fixme: geoalchemy is not used!
+#from geoalchemy import Geometry, GeometryColumn, GeometryDDL, Polygon, Point
 
 from ckan.model import Package
 

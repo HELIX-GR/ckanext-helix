@@ -16,7 +16,7 @@ setup(
     url='https://github.com/helix/ckanext-helix',
     license='GPLv3',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    namespace_packages=['ckanext', 'ckanext.helix'],
+    namespace_packages=['ckanext'],
     include_package_data=True,
     paster_plugins=['pylons', 'ckan'],
     zip_safe=False,
