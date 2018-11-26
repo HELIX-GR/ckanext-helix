@@ -29,7 +29,6 @@ class UserController(BaseController):
 
     def show_dashboard_resources(self):
 
-        log.info('IN D resources')
         user_dict = self._check_access()
         user_dict = self._filter_user_dict(user_dict)
         user_dict = self._filter_deleted(user_dict)
@@ -40,8 +39,6 @@ class UserController(BaseController):
         user_dict = self._check_access()
         user_dict = self._filter_user_dict(user_dict)
         self._setup_template_variables(user_dict)
-        #c.user_dict = user_dict
-        log.info('\n\nUSER DICT DATASETS ARE %s\n\n',user_dict['datasets'])
         return render('user/admin_page_resources.html')
 
     def datasets(self):
@@ -92,7 +89,6 @@ class UserController(BaseController):
 
     def _filter_user_dict(self, user_dict):
        
-        #log.debug('\n\n USER DICT IS %s\n\n',user_dict)
         #for attr in dir(user_dict):
         #    log.info("user_dict.%s = %r" % (attr, getattr(user_dict, attr)))
         datasets_dict = user_dict['datasets']
@@ -160,7 +156,6 @@ class UserController(BaseController):
         #Resources page items
         _resources_page_items = int(config.get('ckanext.helix.dashboard.resources.num_page_items', 10))
         # datasets paging
-        #log.info('\n\nUSER DICT DATASET PAGING: %s \n\n',user_dict)
         c.page = h.Page(
             collection=user_dict['datasets'],
             page=request.params.get('page', 1),

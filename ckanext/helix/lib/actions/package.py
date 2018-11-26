@@ -568,13 +568,13 @@ def favorite(context, data_dict):
     try:
         response = urllib2.urlopen(request)
         result = response.read() 
-        log.debug('Response is %s', result)    
+        log.debug('Response is %s', result)
+        resultJson = json.loads(result)  
+        success = resultJson['success']    
     except urllib2.HTTPError, e:
         log.debug('HTTP Error  => %s \n URL=> %s\n' % (e, url) )
     except urllib2.URLError, e:
         log.debug( 'URL Error , reason => %s \n URL=> %s\n' % (e.reason,url) )  
-    resultJson = json.loads(result)  
-    success = resultJson['success']
     if success:
         return 'Added to favorites'
     else: 

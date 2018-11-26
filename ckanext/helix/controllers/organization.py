@@ -14,6 +14,7 @@ from ckan.controllers.group import GroupController
 
 lookup_group_controller = lib_plugins.lookup_group_controller
 get_action = toolkit.get_action
+from six import string_types
 
 class Controller(GroupController):
 
