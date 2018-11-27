@@ -4002,8 +4002,14 @@ msgstr "Θεματική ομάδα"
 msgid "The thematic group of this dataset"
 msgstr "Η θεματική ομάδα του συνόλου δεδομένων"
 
+msgid "Please select only if the dataset belongs to a special category"
+msgstr "Παρακαλώ επιλέξτε μόνο αν το σύνολο δεδομένων ανήκει σε κάποια ειδική κατηγορία"
+
 msgid "A categorization of this dataset"
 msgstr "H κατηγορία του συνόλου δεδομένων"
+
+msgid "You can find the detailed classification list at "
+msgstr "Μπορείτε να βρείτε την αναλυτική λίστα κατάταξης στο "
 
 msgid "Free keywords describing this dataset"
 msgstr "Λέξεις-κλειδιά που περιγράφουν το σύνολο δεδομένων"  
@@ -4012,7 +4018,7 @@ msgid "Email address of the contact person for this dataset"
 msgstr "Η διεύθυνση ηλεκτρονικής αλληλογραφίας του αρμόδιου προσώπου"
 
 msgid "Person or organization that has produced the dataset"
-msgstr "Άτομο ή οργανισμός που παρήγαγε αυτό το σύνολο δεδομένων"
+msgstr "Το άτομο ή ο οργανισμός που παρήγαγε αυτό το σύνολο δεδομένων"
 
 msgid "The organization of the creator"
 msgstr "Ο οργανισμός του δημιουργού"

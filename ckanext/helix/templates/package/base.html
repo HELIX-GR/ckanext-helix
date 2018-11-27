@@ -21,7 +21,7 @@
     {% else %}
       <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
     {% endif %}
-    <a class="breadcrumbs-part"{{ self.breadcrumb_content_selected() }}{% link_for dataset|truncate(100), controller='package', action='read', id=pkg.name %}</a>
+    <a class="breadcrumbs-part"{{ self.breadcrumb_content_selected() }}{% link_for dataset|truncate(25), controller='package', action='read', id=pkg.name %}</a>
   {% else %}
     <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
     <a class="breadcrumbs-part" {% link_for _('Create Dataset'), controller='package', action='new' %}</a>

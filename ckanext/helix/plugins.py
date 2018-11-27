@@ -143,14 +143,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         data = {'id': 'closed_tags'}
         vocab = toolkit.get_action ('vocabulary_show') (context, data)
         closed_tags = toolkit.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
-        closed_subjects = None
         with open(ext_reference_data.get_path('closed-subject.txt')) as f: 
             closed_subjects = f.read().splitlines()
         for tag in closed_subjects:
             if tag not in closed_tags:
                 log1.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
                 data = {'name': tag, 'vocabulary_id': vocab['id']}
-        #       toolkit.get_action ('tag_create') (context, data)
+                toolkit.get_action ('tag_create') (context, data)
     
     @classmethod
     def closed_tags(cls):

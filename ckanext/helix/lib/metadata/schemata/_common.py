@@ -262,9 +262,7 @@ class ICreator(IObject):
     '''
     creator_affiliation = zope.schema.TextLine(
         title = _(u'Organization'),
-        #vocabulary = vocabularies.by_name('affiliation-type').get('vocabulary'), 
-        description=_(u'The affiliation of the creator'),
-        #default = _(u'Institutional'),
+        description=_(u'The organization of the creator'),
         required = False)
 
 class ISubject(IObject):

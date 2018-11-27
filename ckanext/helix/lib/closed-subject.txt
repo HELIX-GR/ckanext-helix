@@ -10,7 +10,7 @@ Mathematical Logic - Set Theory - Lattices and Universal Algebra
 Operator Algebras and Functional Analysis
 Ordinary Differential Equations - Difference Equations and Dynamical Systems
 Partial Differential Equations
-Real and Complex Functions incl. Several Variables-
+Real and Complex Functions incl. Several Variables
 Topology
 Pure Mathematics not elsewhere classified
 Applied Mathematics
@@ -52,7 +52,7 @@ Astronomical and Space Instrumentation
 Cosmology and Extragalactic Astronomy
 Galactic Astronomy
 General Relativity and Gravitational Waves
-High Energy Astrophysics; Cosmic Rays
+High Energy Astrophysics - Cosmic Rays
 Mesospheric - Ionospheric and Magnetospheric Physics
 Planetary Science excl. Extraterrestrial Geology
 Space and Solar Physics
@@ -62,10 +62,10 @@ Atomic - Molecular - Nuclear - Particle and Plasma Physics
 Atomic and Molecular Physics
 Nuclear Physics
 Particle Physics
-Plasma Physics; Fusion Plasmas; Electrical Discharges
+Plasma Physics - Fusion Plasmas - Electrical Discharges
 Atomic - Molecular - Nuclear - Particle and Plasma Physics not elsewhere classified
 Classical Physics
-Acoustics and Acoustical Devices; Waves
+Acoustics and Acoustical Devices - Waves
 Electrostatics and Electrodynamics
 Fluid Physics
 Thermodynamics and Statistical Physics
@@ -74,7 +74,7 @@ Condensed Matter Physics
 Condensed Matter Characterisation Technique Development
 Condensed Matter Imaging
 Condensed Matter Modelling and Density Functional Theory
-Electronic and Magnetic Properties of Condensed Matter; Superconductivity
+Electronic and Magnetic Properties of Condensed Matter - Superconductivity
 Soft Condensed Matter
 Surfaces and Structural Properties of Condensed Matter
 Condensed Matter Physics not elsewhere classified
@@ -94,7 +94,7 @@ Other Physical Sciences
 Biological Physics
 Complex Physical Systems
 Medical Physics
-Synchrotrons; Accelerators; Instruments and Techniques
+Synchrotrons -  Accelerators - Instruments and Techniques
 Physical Sciences not elsewhere classified
 Chemical Sciences
 Analytical Chemistry
@@ -140,7 +140,7 @@ Organic Chemical Synthesis
 Organic Green Chemistry
 Physical Organic Chemistry
 Organic Chemistry not elsewhere classified
-Physical Chemistry incl. Structural-
+Physical Chemistry incl. Structural
 Catalysis and Mechanisms of Reactions
 Chemical Thermodynamics and Energetics
 Colloid and Surface Chemistry
@@ -156,7 +156,7 @@ Reaction Kinetics and Dynamics
 Statistical Mechanics in Chemistry
 Theoretical and Computational Chemistry not elsewhere classified
 Other Chemical Sciences
-Environmental Chemistry incl. Atmospheric Chemistry-
+Environmental Chemistry incl. Atmospheric Chemistry
 Forensic Chemistry
 Industrial Chemistry
 Organometallic Chemistry
@@ -186,10 +186,10 @@ Igneous and Metamorphic Petrology
 Marine Geoscience
 Mineralogy and Crystallography
 Ore Deposit Petrology
-Palaeontology incl. Palynology-
+Palaeontology incl. Palynology
 Petroleum and Coal Geology
 Sedimentology
-Stratigraphy incl. Biostratigraphy and Sequence Stratigraphy-
+Stratigraphy incl. Biostratigraphy and Sequence Stratigraphy
 Structural Geology
 Tectonics
 Volcanology
@@ -357,7 +357,7 @@ Microbiology not elsewhere classified
 Physiology
 Animal Physiology - Biophysics
 Animal Physiology - Cell
-Animal Physiology – Systems
+Animal Physiology - Systems
 Comparative Physiology
 Physiology not elsewhere classified
 Plant Biology
@@ -454,7 +454,7 @@ Veterinary Surgery
 Veterinary Virology
 Veterinary Sciences not elsewhere classified
 Other Agricultural and Veterinary Sciences
-Agricultural Hydrology -Drainage - Flooding - Irrigation - Quality - etc.-
+Agricultural Hydrology - Drainage - Flooding - Irrigation - Quality etc.
 Fertilisers and Agrochemicals incl. Application
 Agricultural and Veterinary Sciences not elsewhere classified
 Information and Computing Sciences
@@ -543,7 +543,7 @@ Hypersonic Propulsion and Hypersonic Aerodynamics
 Satellite - Space Vehicle and Missile Design and Testing
 Aerospace Engineering not elsewhere classified
 Automotive Engineering
-Automotive Combustion and Fuel Engineering incl. Alternative/Renewable Fuels
+Automotive Combustion and Fuel Engineering incl. Alternative - Renewable Fuels
 Automotive Engineering Materials
 Automotive Mechatronics
 Automotive Safety Engineering
@@ -561,7 +561,7 @@ Carbon Capture Engineering excl. Sequestration
 Catalytic Process Engineering
 Chemical Engineering Design
 Membrane and Separation Technologies
-Non-automotive Combustion and Fuel Engineering incl. Alternative/Renewable Fuels
+Non-automotive Combustion and Fuel Engineering incl. Alternative - Renewable Fuels
 Powder and Particle Technology
 Process Control and Simulation
 Rheology
@@ -612,7 +612,7 @@ Photogrammetry and Remote Sensing
 Surveying incl. Hydrographic Surveying
 Geomatic Engineering not elsewhere classified
 Manufacturing Engineering
-CAD/CAM Systems
+CAD - CAM Systems
 Flexible Manufacturing Systems
 Machine Tools
 Machining
@@ -660,7 +660,7 @@ Resources Engineering and Extractive Metallurgy
 Electrometallurgy
 Geomechanics and Resources Geotechnical Engineering
 Hydrometallurgy
-Mineral Processing/Beneficiation
+Mineral Processing - Beneficiation
 Mining Engineering
 Petroleum and Reservoir Engineering
 Pyrometallurgy
@@ -709,7 +709,7 @@ Industrial Molecular Engineering of Nucleic Acids and Proteins
 Industrial Biotechnology not elsewhere classified
 Medical Biotechnology
 Gene and Molecular Therapy
-Medical Biotechnology Diagnostics incl. Biosensors-
+Medical Biotechnology Diagnostics incl. Biosensors
 Medical Molecular Engineering of Nucleic Acids and Proteins
 Regenerative Medicine incl. Stem Cells and Tissue Engineering
 Medical Biotechnology not elsewhere classified
@@ -730,7 +730,7 @@ Arithmetic and Logic Structures
 Input - Output and Data Devices
 Logic Design
 Memory Structures
-Performance Evaluation; Testing and Simulation of Reliability
+Performance Evaluation - Testing and Simulation of Reliability
 Processor Architectures
 Computer Hardware not elsewhere classified
 Nanotechnology
@@ -752,12 +752,12 @@ Other Technology
 Technology not elsewhere classified
 Medical and Health Sciences
 Medical Biochemistry and Metabolomics
-Medical Biochemistry: Amino Acids and Metabolites
-Medical Biochemistry: Carbohydrates
-Medical Biochemistry: Inorganic Elements and Compounds
-Medical Biochemistry: Lipids
-Medical Biochemistry: Nucleic Acids
-Medical Biochemistry: Proteins and Peptides incl. Medical Proteomics
+Medical Biochemistry - Amino Acids and Metabolites
+Medical Biochemistry - Carbohydrates
+Medical Biochemistry - Inorganic Elements and Compounds
+Medical Biochemistry - Lipids
+Medical Biochemistry - Nucleic Acids
+Medical Biochemistry - Proteins and Peptides incl. Medical Proteomics
 Metabolic Medicine
 Medical Biochemistry and Metabolomics not elsewhere classified
 Cardiovascular Medicine and Haematology
@@ -842,9 +842,9 @@ Sensory Systems
 Neurosciences not elsewhere classified
 Nursing
 Aged Care Nursing
-Clinical Nursing: Primary -Preventative-
-Clinical Nursing: Secondary -Acute Care-
-Clinical Nursing: Tertiary -Rehabilitative-
+Clinical Nursing - Primary  -Preventative-
+Clinical Nursing - Secondary  -Acute Care-
+Clinical Nursing - Tertiary  -Rehabilitative-
 Mental Health Nursing
 Midwifery
 Nursing not elsewhere classified
@@ -884,7 +884,8 @@ Pharmaceutical Sciences
 Pharmacogenomics
 Toxicology incl. Clinical Toxicology
 Pharmacology and Pharmaceutical Sciences not elsewhere classified
-Medical Physiology	Cell Physiology
+Medical Physiology
+Cell Physiology
 Human Biophysics
 Systems Physiology
 Medical Physiology not elsewhere classified
@@ -930,9 +931,9 @@ Industry Economics and Industrial Organisation
 International Economics and International Finance
 Labour Economics
 Macroeconomics incl. Monetary and Fiscal Theory
-Public Economics- Public Choice
-Public Economics- Publically Provided Goods
-Public Economics- Taxation and Revenue
+Public Economics - Public Choice
+Public Economics - Publically Provided Goods
+Public Economics - Taxation and Revenue
 Tourism Economics
 Transport Economics
 Urban and Regional Economics
@@ -1170,7 +1171,7 @@ Gender Specific Studies
 Studies of Aboriginal and Torres Strait Islander Society
 Studies of Asian Society
 Studies of Maori Society
-Studies of Pacific Peoples' Societies
+Studies of Pacific Peoples Societies
 Studies in Human Society not elsewhere classified
 Psychology and Cognitive Sciences
 Psychology
@@ -1364,7 +1365,7 @@ Philosophy and Religious Studies
 Applied Ethics
 Bioethics -human and animal-
 Business Ethics
-Ethical Use of New Technology -e.g. Nanotechnology - Biotechnology-
+Ethical Use of New Technology e.g. Nanotechnology - Biotechnology
 Human Rights and Justice Issues
 Legal Ethics
 Medical Ethics

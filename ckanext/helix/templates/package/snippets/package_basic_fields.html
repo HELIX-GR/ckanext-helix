@@ -185,8 +185,7 @@
               <option value="{{ dataset_category }}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category}}</option>
             {% endfor %}
         </select>
-        <div class="help-block">
-            {% trans %}_('Please select only if the dataset belongs to a special category. Learn more here') {% endtrans %}
+        <div class="help-block">{{_('Please select only if the dataset belongs to a special category') }}
          </div>
         </div>
 </div>  
@@ -205,7 +204,7 @@
   </select>
   {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
   <div class="help-block">
-    {% trans %}Check detailed classification list at <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>{% endtrans %}
+    {{_('You can find the detailed classification list at ')}} <a href="https://www.jcu.edu.au/research-services/data-and-policies/research-classification-codes/fields-of-research-for" target="_blank">vocabs.hellenicdataservice.gr </a>
    </div>
   </div>
 </div>  
