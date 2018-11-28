@@ -3618,7 +3618,7 @@ msgstr "Μορφότυποι"
 
 #: ckanext/helixtheme/templates/snippets/facet_list.html:72
 msgid "Licenses"
-msgstr "'Αδειες"
+msgstr "Άδειες"
 
 #: ckanext/helixtheme/templates/snippets/facet_list.html:77
 msgid "A...Z "
@@ -3947,7 +3947,11 @@ msgid "Home"
 msgstr "Αρχική"
 
 msgid "Research"
-msgstr "'Ερευνα"
+msgstr "Έρευνα"
+
+msgid "Partners"
+msgstr "Συνεργάτες"
+
 
 msgid "Subjects"
 msgstr "Κατηγορίες"
@@ -3986,7 +3990,7 @@ msgstr "Εκδηλώσεις"
 
 #: dataset search page
 msgid "All"
-msgstr "'Ολα"
+msgstr "Όλα"
 
 msgid "Publishers"
 msgstr "Εκδότες"
@@ -4025,3 +4029,33 @@ msgstr "Ο οργανισμός του δημιουργού"
 
 msgid "The DOI of a related publication"
 msgstr "Το ψηφιακό αναγνωριστικό μιας σχετικής δημοσίευσης"
+
+#: add resource page
+
+msgid "Select File"
+msgstr "Επιλέξτε αρχείο"
+
+msgid "Save and add another file"
+msgstr "Αποθήκευση και επιλογή νέου αρχείου"
+
+msgid "File Name"
+msgstr "Όνομα αρχείου"
+
+msgid "File Description"
+msgstr "Περιγραφή αρχείου"
+
+#: ckanext/helixtheme/templates/organization/snippets/helper.html:5
+msgid "What are Publishers?"
+msgstr "Τι είναι οι εκδότες;"
+
+msgid ""
+" HELIX publishers are used to create, manage and publish collections of "
+"datasets. Users can have different roles within a publisher, depending "
+"on their level of authorisation to create, edit and publish. "
+msgstr ""
+" Οι εκδότες του HELIX χρησιμοποιούνται για τη δημιουργία, διαχείριση και "
+"δημοσίευση συλλογών συνόλων δεδομένων. Οι χρήστες μπορούν να έχουν "
+"διαφορετικούς ρόλους μέσα σε έναν εκδότη, αναλόγως με το επίπεδο "
+"εξουσιοδότησης που έχουν αναφορικά με τη δημιουργία, επεξεργασία και "
+"δημοσίευση. "
+

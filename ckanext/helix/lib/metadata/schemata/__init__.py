@@ -59,7 +59,7 @@ class IMetadata(IBaseMetadata):
     zope.interface.taggedValue('recurse-on-invariants', False)
 
     title = zope.schema.TextLine(
-        title=u'Title', required=False, min_length=5)    
+        title=u'Title', required=False)    
     title.setTaggedValue('links-to', 'title')
     title.setTaggedValue('translatable', True)
 

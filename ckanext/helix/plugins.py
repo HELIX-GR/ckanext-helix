@@ -589,25 +589,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         default = toolkit.get_validator('default')
         from ckan.lib.navl.dictization_functions import missing, StopOnError, Invalid        
     
-        def music_title_converter_1(key, data, errors, context):
-            ''' Demo of a typical behaviour inside a validator/converter '''
-
-            ## Stop processing on this key and signal the validator with another error (an instance of Invalid) 
-            #raise Invalid('The music title (%s) is invalid' %(data.get(key,'<none>')))
-
-            ## Stop further processing on this key, but not an error
-            #raise StopOnError
-            pass
-
-        def music_title_converter_2(value, context):
-            ''' Demo of another style of validator/converter. The return value is considered as 
-            the converted value for this field. '''
-            
-            #raise Exception ('Breakpoint music_title_converter_2')
-            #raise Invalid('The music title is malformed')
-            from string import capitalize
-            return capitalize(value)
-
         def identifier_validator(value):
             ''' Demo of a typical behaviour inside a validator/converter '''
 
@@ -623,6 +604,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                  raise Invalid("Field is required")
             return value
             pass
+
+        def min_title_length(value, context):
+            '''Check minimun title length'''
+            if len(value) < 6:
+                raise Invalid("Value must be longer than 6 characters")
+            return value
+            pass        
         
         # Add dataset-type, the field that distinguishes metadata formats
         is_dataset_type = ext_validators.is_dataset_type
@@ -685,7 +673,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('not_empty') 
             ],
             'title': [
-                toolkit.get_validator('not_empty')
+
+                min_title_length,
+                toolkit.get_validator('not_empty'),
             ],
             'notes_optional': [ 
                 toolkit.get_validator('ignore_missing') ,
@@ -983,6 +973,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing')
             ],
             'title': [
+                min_title_length,
                 toolkit.get_validator('not_empty')
             ],
             'title_optional': [
