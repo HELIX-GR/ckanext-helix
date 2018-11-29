@@ -31,8 +31,13 @@ beaker.session.key = ckan
 # time it generates a config file.
 beaker.session.secret = MR6Qvmt7NB16xG5Nf4EBmpFzL
 
-# `paster make-config` generates a unique value for this each time it generates
-# a config file.
+beaker.cache.type = file
+beaker.cache.data_dir = %(cache_dir)s/cache/data
+beaker.cache.lock_dir = %(cache_dir)s/cache/lock
+beaker.cache.regions = short_term, long_term
+beaker.cache.short_term.expire = 180
+beaker.cache.long_term.expire = 3600
+
 app_instance_uuid = {66b9032a-43ed-4b4e-89b7-a7eb232fb9f0}
 
 # repoze.who config
