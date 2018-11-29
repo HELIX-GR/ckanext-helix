@@ -4274,7 +4274,7 @@ msgstr "Ενσωματώστε"
 
 #: ckan/templates/package/snippets/resource_view.html:24
 msgid "This resource view is not available at the moment."
-msgstr "Αυτή η οπτικοποίηγση πόρου δεν είναι διαθέσιμη αυτή τη στιγμή."
+msgstr "Αυτή η οπτικοποίηγη πόρου δεν είναι διαθέσιμη αυτή τη στιγμή."
 
 #: ckan/templates/package/snippets/resource_view.html:63
 msgid "Embed resource view"

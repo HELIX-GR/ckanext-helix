@@ -105,7 +105,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
 
     if not 'skip_validation' in context:
         validation_errors = md.validate(dictize_errors=True)
-        logger.debug("\n\n VALIDATION ERRORS IS: %s ,errors is %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
+        #logger.debug("\n\n VALIDATION ERRORS IS: %s ,errors is %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
         #errors[('datacite.related_publication',)] = 'Missing Value'
         #logger.debug("\n\n validation 4 is:: %s type is %s \n\n", validation_errors['creator'],  type(validation_errors['creator']), )
         # Map validation_errors to errors

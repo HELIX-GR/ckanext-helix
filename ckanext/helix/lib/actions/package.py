@@ -53,7 +53,6 @@ def dataset_export(context, data_dict):
     
     dtype = pkg.get('dataset_type')
     obj = pkg.get(dtype) if dtype else None
-    
     cached_metadata = get_cache('metadata') 
     result = None
     if obj:

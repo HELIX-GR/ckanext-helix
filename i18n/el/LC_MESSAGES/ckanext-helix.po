@@ -3989,6 +3989,7 @@ msgid "Events"
 msgstr "Εκδηλώσεις"
 
 #: dataset search page
+
 msgid "All"
 msgstr "Όλα"
 
@@ -3999,6 +4000,19 @@ msgid "Publisher"
 msgstr "Εκδότης"
 
 #: Add dataset form
+
+#: ckan/templates/package/base_form_page.html:23
+
+msgid ""
+" A dataset comprises a collection of data resources (files),  "
+"together with a description and other information, at a specified URL."
+" Datasets are what users see when searching for data."
+msgstr ""
+"Ένα σύνολο δεδομένων αποτελεί μια συλλογή πόρων (όπως αρχεία), μαζί με μια "
+"περιγραφή και άλλες πληροφορίες, διαθέσιμη σε συγκεκριμένο URL. Τα σύνολα "
+"δεδομένων παρέχονται ως αποτέλεσμα της αναζήτησης που πραγματοποιούν οι "
+"χρήστες."
+
 
 msgid "Thematic group"
 msgstr "Θεματική ομάδα"

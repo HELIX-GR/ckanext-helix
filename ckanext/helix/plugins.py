@@ -33,6 +33,8 @@ from ckan.lib.base import BaseController
 import ckan.lib.plugins
 from ckan.common import _,OrderedDict, config, json, request, c, g, response
 import ckan.lib.base as base
+from ckanext.helix.lib.helpers import min_title_length
+
 
 import cgi
 import ckan.lib.helpers as h
@@ -579,6 +581,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         '''
         return []
 
+
     def __modify_package_schema(self, schema):
         '''Define modify schema for both create/update operations.
         '''
@@ -604,13 +607,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                  raise Invalid("Field is required")
             return value
             pass
-
-        def min_title_length(value, context):
-            '''Check minimun title length'''
-            if len(value) < 6:
-                raise Invalid("Value must be longer than 6 characters")
-            return value
-            pass        
+  
         
         # Add dataset-type, the field that distinguishes metadata formats
         is_dataset_type = ext_validators.is_dataset_type
@@ -904,6 +901,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         return schema
 
     def show_package_schema(self):
+
+
         schema = super(DatasetForm, self).show_package_schema()
 
         # Don't show vocab tags mixed in with normal 'free' tags

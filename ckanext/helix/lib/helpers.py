@@ -4,9 +4,11 @@ import ckan.plugins.toolkit as toolkit
 import ckan.logic as logic
 import os
 import itertools
+from ckan.lib.navl.dictization_functions import Invalid
 
 import logging
 log1= logging.getLogger(__name__)
+
 
 from ckanext.helix import reference_data
 
@@ -60,3 +62,9 @@ def topicsMatch(subject):
     return groups
 
 
+def min_title_length(value, context):
+            '''Check minimun title length'''
+            if len(value) < 6:
+                raise Invalid("Value must be longer than 6 characters")
+            return value
+            pass
