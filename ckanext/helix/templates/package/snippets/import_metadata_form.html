@@ -46,8 +46,8 @@
     {% endwith %}
 
     <div class="form-actions">
-        <a class="btn cancel" href="{{ h.url_for('/dataset') }}">{{ _('Cancel') }}</a>
-        <button class="btn btn-primary submit" 
+        <button class="btn-round previous upper " href="{{ h.url_for('/dataset') }}">{{ _('Cancel') }}</button>
+        <button class="btn-round upper" 
             title="{{ _('Go ahead and import this dataset') }}"
           ><i class="icon-circle-arrow-right"></i> {{ _('Import') }}</button>
     </div>

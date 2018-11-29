@@ -45,9 +45,7 @@
 
   {# {{ h.favorite(email=c.userobj.email, package_name=pkg.name, title=pkg.title, notes=pkg.notes) }}#}
     <div>
-    <h1 class="package-title">
-  {{ pkg.title or pkg.name }}
-      </h1>
+    
   {% if pkg.get('state', '').startswith('draft') %}
   <span class="draft-state">{{ _('Draft') }}</span>
   {% elif pkg.get('state', '').startswith('deleted') %}
@@ -55,7 +53,9 @@
   {% elif pkg.get('state', '').startswith('invalid') %}
   <span class="label package-state label-danger state-invalid">{{ _('Invalid') }}</span>
   {% endif %} {# state #}
-  
+  <h1 class="package-title">
+      {{ pkg.title or pkg.name }}
+          </h1>
   {% block page_heading_info %}
   {% if h.is_multilingual_dataset and pkg.language and pkg.translated_to_language %}
   {% snippet "package/snippets/multilingual_info.html", pkg=pkg %}

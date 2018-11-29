@@ -17,9 +17,9 @@
             {% endfor -%}
         </select>
         {% if verbose|default(true) and description %}
-        
+        <p class="help-block">{{ description }}</p>
     </div>
-    <p class="help-block">{{ description }}</p>
+    
         {% endif %}
 </div>
 

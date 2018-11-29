@@ -3964,6 +3964,9 @@ msgstr "Μέγεθος αρχείου"
 
 #: menu items (about-news)
 
+msgid "What is HELIX"
+msgstr "Τί είναι το HELIX;"
+
 msgid "Publish Data"
 msgstr "Δημοσιέυστε Δεδομένα"
 
@@ -4004,14 +4007,15 @@ msgstr "Εκδότης"
 #: ckan/templates/package/base_form_page.html:23
 
 msgid ""
-" A dataset comprises a collection of data resources (files),  "
-"together with a description and other information, at a specified URL."
-" Datasets are what users see when searching for data."
+" A dataset comprises a collection of data resources "
+"(files), together with a description and other information, "
+"at a specified URL. Datasets are what users see when searching for data. "
+
 msgstr ""
-"Ένα σύνολο δεδομένων αποτελεί μια συλλογή πόρων (όπως αρχεία), μαζί με μια "
+" Ένα σύνολο δεδομένων αποτελεί μια συλλογή πόρων (όπως αρχεία), μαζί με μια "
 "περιγραφή και άλλες πληροφορίες, διαθέσιμη σε συγκεκριμένο URL. Τα σύνολα "
 "δεδομένων παρέχονται ως αποτέλεσμα της αναζήτησης που πραγματοποιούν οι "
-"χρήστες."
+"χρήστες. "
 
 
 msgid "Thematic group"
@@ -4038,8 +4042,17 @@ msgstr "Η διεύθυνση ηλεκτρονικής αλληλογραφία�
 msgid "Person or organization that has produced the dataset"
 msgstr "Το άτομο ή ο οργανισμός που παρήγαγε αυτό το σύνολο δεδομένων"
 
+msgid "Contact e-mail"
+msgstr "E-mail επικοινωνίας"
+
 msgid "The organization of the creator"
 msgstr "Ο οργανισμός του δημιουργού"
+
+msgid "Creator"
+msgstr "Δημιουργός"
+
+msgid "Related Publication"
+msgstr "Σχετική Δημοσίευση"
 
 msgid "The DOI of a related publication"
 msgstr "Το ψηφιακό αναγνωριστικό μιας σχετικής δημοσίευσης"
