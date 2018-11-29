@@ -18,16 +18,16 @@ this.ckan.module('breadcrumb-overflow', function ($, _) {
             bread_items.each(function () {
                 //console.log($(this).context.innerText);
                 //$(this).innerHTML = "...";
-                console.log($(this), "Hello, world2");
                 $(this).addClass('hide-overflow');
             });
             
             var first_breadcrumb = $('.breadcrumbs-part:first');
-            var txt = document.createElement("a");   // Create with DOM
-            var dots = document.createTextNode("...");
-            txt.appendChild(dots);
-            txt.className = "breadcrumbs-part";
-            first_breadcrumb.after(txt);
+            if (bread_items.length > 0)
+                var txt = document.createElement("a");   // Create with DOM
+                var dots = document.createTextNode("...");
+                txt.appendChild(dots);
+                txt.className = "breadcrumbs-part";
+                first_breadcrumb.after(txt);
             
             
 
