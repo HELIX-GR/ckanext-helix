@@ -22,13 +22,13 @@ this.ckan.module('breadcrumb-overflow', function ($, _) {
             });
             
             var first_breadcrumb = $('.breadcrumbs-part:first');
-            if (bread_items.length > 0)
+            if (bread_items.length > 0){
                 var txt = document.createElement("a");   // Create with DOM
                 var dots = document.createTextNode("...");
                 txt.appendChild(dots);
                 txt.className = "breadcrumbs-part";
                 first_breadcrumb.after(txt);
-            
+            }
             
 
             var toolbar = $('.breadcrumbs');

@@ -3973,7 +3973,7 @@ msgstr "Δημοσιέυστε Δεδομένα"
 msgid "Software"
 msgstr "Λογισμικό"
 
-msgid "Τhe project"
+msgid "The project"
 msgstr "Το έργο"
 
 msgid "Media"
@@ -4056,6 +4056,9 @@ msgstr "Σχετική Δημοσίευση"
 
 msgid "The DOI of a related publication"
 msgstr "Το ψηφιακό αναγνωριστικό μιας σχετικής δημοσίευσης"
+
+msgid "Required fields"
+msgstr "Υποχρεωτικά πεδία"
 
 #: add resource page
 
