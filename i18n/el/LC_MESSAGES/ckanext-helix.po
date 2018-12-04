@@ -4089,3 +4089,24 @@ msgstr ""
 "εξουσιοδότησης που έχουν αναφορικά με τη δημιουργία, επεξεργασία και "
 "δημοσίευση. "
 
+#: communities
+
+msgid "Communities"
+msgstr "Κοινότητες"
+
+msgid "Community"
+msgstr "Κοινότητα" 
+
+msgid "What are Communities"
+msgstr "Τι είναι οι κοινότητες" 
+
+msgid ""
+" Communities are domain or thematic-specific collections of data assets, "
+"enabling you to organize and search for data relevant to a special interest. "
+"Regardless of who published the data, or who is responsible for its production, "
+"Communities assemble thematically-focused data. "
+msgstr ""
+"Οι Κοινότητες είναι τομεακές ή θεματικές συλλογές δεδομένων που σας επιτρέπουν "
+"να οργανώνετε και να αναζητείτε δεδομένα σχετικά με το ειδικό σας ενδιαφέρον. "
+"Ανεξάρτητα από το ποιος δημοσίευσε ή ποιος είναι υπεύθυνος για την παραγωγή ενός συνόλου δεδομένων, "
+"οι Κοινότητες συγκεντρώνουν θεματικά κοντινά δεδομένα."  

@@ -1,0 +1,25 @@
+{% from 'macros/markup_helpers.html' import mark_required %}
+
+
+<div class="form-group">
+    <label for="input-{{ name }}" class="control-label">
+        {{- title or _('Community') }}{{ mark_required(required) }}</label>
+    <div class="controls">
+        <select id="input-{{ name }}" name="{{ name }}" class="input-xlarge"
+            data-module="autocomplete"
+         >
+            <option value="" {% if not value %} selected="selected" {% endif %}>
+                {{- _('Select a community...') }}</option>
+                {%- for community in communities %}
+                    <option value="{{ community.id }}" {% if value == community.id %} selected="selected" {% endif %}>
+                       {{community.name }}</option>
+                {% endfor -%}
+        </select>
+        {% if verbose|default(true) and description %}
+        <p class="help-block">{{ description }}</p>
+        {% endif %}
+    </div>
+    
+</div>
+
+    

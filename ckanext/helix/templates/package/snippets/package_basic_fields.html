@@ -129,13 +129,13 @@
         is_required = false
     )        
 }}
-{#{%set communities = h.groups_available('True')%} 
-
+{%set communities = h.groups_available('True')%} {{data}}
+{#
 <div class="form-group">
-    <label for="input-groups" class="control-label">
+    <label for="input-group_id" class="control-label">
         {{-('Communities') }}</label>
     <div class="controls">
-        <select id="input-groups" class="input-xlarge"
+        <select id="input-group_id" class="input-xlarge"
             data-module="autocomplete"
          >
             <option value="" {% if not value %} selected="selected" {% endif %}>
@@ -148,13 +148,20 @@
         </select>
     </div>
     <p class="help-block">{{ description }}</p>
-</div>
-#}
+</div>#}
+
+{% snippet 'package/snippets/edit-community.html', 
+        name='group_id', 
+        value=data.group_id,
+        communities=communities
+        %}
+
+
 {# if admin enable organization field #}
 {% if h.check_access('sysadmin') %}
     {% snippet 'package/snippets/edit-organization.html', 
         name='owner_org', 
-        value=data.group_id,
+        value=data.owner_org,
         is_required = true,
         orgs_available=h.organizations_available('create_dataset')
         %}
