@@ -3991,6 +3991,9 @@ msgstr "Όροι Χρήσης"
 msgid "Events"
 msgstr "Εκδηλώσεις"
 
+msgid "Account info"
+msgstr "Πληροφορίες λογαριασμού"
+
 #: dataset search page
 
 msgid "All"
@@ -4099,6 +4102,9 @@ msgstr "Κοινότητα"
 
 msgid "What are Communities"
 msgstr "Τι είναι οι κοινότητες" 
+
+msgid "Select a community..."
+msgstr "Επιλέξτε κοινότητα..." 
 
 msgid ""
 " Communities are domain or thematic-specific collections of data assets, "
