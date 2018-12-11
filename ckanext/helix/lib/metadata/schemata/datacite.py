@@ -66,9 +66,9 @@ class IDataciteMetadata(IMetadata):
         title =  u'Dataset type',
         description = u'Dataset type',)
 
-    contact_info = zope.schema.Object(IContactInfo,
+    '''contact_info = zope.schema.Object(IContactInfo,
         title = u'Contact Info',
-        required = True)
+        required = True)'''
     
     public_doi = zope.schema.TextLine(
         title = u'Public DOI',
@@ -111,9 +111,9 @@ class IDataciteMetadata(IMetadata):
         title = u'Creator',
         required = False)
     
-    subject = zope.schema.Object(ISubject,
+    '''subject = zope.schema.Object(ISubject,
         title = u'Subject',
-        required = False)
+        required = False) '''
     
 
     '''contributor = zope.schema.List(
