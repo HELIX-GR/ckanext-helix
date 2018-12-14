@@ -1252,16 +1252,18 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         for_view = context.get('for_view', False)
         for_edit = ( # is this package prepared for edit ?
             (rr.get('controller') == 'package' and rr.get('action') == 'edit') or
-            (rr.get('controller') == 'api' and rr.get('action') == 'action' and
+            (rr.get('controller') in DatasetForm.after_show._api_controllers and 
+                rr.get('action') == 'action' and
                 rr.get('logic_function') in DatasetForm.after_show._api_edit_actions))
         return_json = ( # do we need to return a json-friendly result ?
             context.get('return_json', False) or
-            (rr.get('controller') == 'api' and rr.get('action') == 'action' and
+            (rr.get('controller') in DatasetForm.after_show._api_controllers and 
+                rr.get('action') == 'action' and
                 rr.get('logic_function') in DatasetForm.after_show._api_actions))
 
         log1.info(
-            'Package %s is shown: for-view=%s for-edit=%s api=%s', 
-            pkg_dict.get('name'), for_view, for_edit, context.get('api_version'))
+            'Package %s is shown: for-view=%s for-edit=%s return-json=%s api=%s', 
+            pkg_dict.get('name'), for_view, for_edit, return_json, context.get('api_version'))
 
         # Determine dataset_type-related parameters for this package
         
@@ -1296,7 +1298,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Fix for json-friendly results (so json.dumps can handle them)
         
         # temporary fix for api actions (package_show) not containing c.environ
-        
+
         if return_json or rr=={}:
             # Remove flat field values (won't be needed anymore)
             key_prefix_1 = key_prefix + '.'
@@ -1305,7 +1307,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             pkg_dict[key_prefix] = md.to_json(return_string=False)
             
         return pkg_dict
-        
         
     
     after_show._api_show_actions = {
@@ -1317,6 +1318,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
     after_show._api_actions = {
         'package_create', 'package_update', 'dataset_create', 'dataset_update',
         'package_show', 'dataset_show', 'user_show' 
+    }
+    after_show._api_controllers = { 
+        'api', 
+        'ckanext.googleanalytics.controller:GAApiController' # intercepts API calls to record requests
     }
 
     def before_search(self, search_params):
