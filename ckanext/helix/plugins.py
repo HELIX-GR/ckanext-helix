@@ -510,8 +510,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         #override organization read to restrict private dataset reading for members
         mapper.connect('organization_read', '/organization/{id}',controller=organization_controller, action='read')
         mapper.connect('organization_edit', '/organization/edit/{id}',controller=organization_controller, action='edit',
-                  ckan_icon='pencil-square-o')
-                
+                  ckan_icon='pencil-square-o')     
         
         tests_controller = 'ckanext.helix.controllers.tests:Controller'
 

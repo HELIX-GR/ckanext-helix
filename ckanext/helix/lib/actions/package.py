@@ -556,7 +556,7 @@ def _transform_dcat(xml_dom):
 def favorite(context, data_dict):
    
     """Perform HTTP request"""
-    url='http://core.hellenicdataservice.gr/api/v1/favorite'
+    url='https://hellenicdataservice.gr/api/v1/favorite'
     package_url = 'http://195.251.63.2:5000/dataset/' + data_dict['name']
     values = {'action': 'ADD', 'email': data_dict['email'], 'catalog':'CKAN', 'handle':data_dict['name'], 'url':package_url ,'title':data_dict['title'], 'description':data_dict['notes']}
 
@@ -567,19 +567,19 @@ def favorite(context, data_dict):
     try:
         response = urllib2.urlopen(request)
         result = response.read() 
-        log.debug('Response is %s', result)
         resultJson = json.loads(result)  
-        success = resultJson['success']    
+        success = resultJson['success']  
+        if success:
+            return 'Added to favorites'
+        else: 
+            errors = resultJson['errors'][0]
+            if errors['code'] == 'FavoriteErrorCode.HANDLE_ALREADY_EXISTS':
+                return 'Already added to favorites'
+            else:
+                return 'An error has occured'      
     except urllib2.HTTPError, e:
         log.debug('HTTP Error  => %s \n URL=> %s\n' % (e, url) )
     except urllib2.URLError, e:
         log.debug( 'URL Error , reason => %s \n URL=> %s\n' % (e.reason,url) )  
-    if success:
-        return 'Added to favorites'
-    else: 
-        errors = resultJson['errors'][0]
-        if errors['code'] == 'FavoriteErrorCode.HANDLE_ALREADY_EXISTS':
-            return 'Already added to favorites'
-        else:
-            return 'An error has occured'    
+    
     
