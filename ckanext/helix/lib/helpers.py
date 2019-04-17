@@ -146,7 +146,7 @@ def getDataciteDoi(package):
     }
     
     data = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/doi-file.json')
-    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=('HEALLINK.DATAREP', 'B6xsRosuZOc6'))
+    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=('**', '**'))
     
     log1.debug('Doi is %s', doi)
 
