@@ -17,6 +17,8 @@ from ckanext.helix.lib.metadata import (
 from ckanext.helix.lib import resource_ingestion
 from ckanext.helix.lib.languages import Language
 
+from ckan.common import config
+
 import logging
 log1=logging.getLogger(__name__)
 
@@ -150,3 +152,9 @@ def pager(self, *args, **kwargs):
         return super(h.Page, self).pager(*args, **kwargs)
         
 
+def get_dataset_types():
+
+    dtypes = config['ckanext.helix.dataset_types'].split()
+    #log1.debug('dtypes %s, type %s', dtypes, type(dtypes))
+
+    return dtypes

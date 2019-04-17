@@ -726,7 +726,7 @@ section.tags {
     margin-top: -1px;
 }
 
-.field-qname-datacite\.public_doi{
+div[class*="public_doi"] {
     display: none;
 }
 

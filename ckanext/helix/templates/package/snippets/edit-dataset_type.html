@@ -1,39 +1,18 @@
 {% from 'macros/markup_helpers.html' import mark_required %}
-
-{% if not default_value %}{% set default_value = 'inspire' %}{% endif -%}
-
-{% if is_new %}
-
-<div class="form-group control-full">
-    <label class="control-label" for="field-dataset_type">
-        {{- title or _('Schema') }}{{ mark_required(required) }}</label>
-    <div class="controls ">      
-        <select class="input-xlarge" id="field-dataset_type" name="dataset_type" 
-            data-module="input-select2"
-         >
-            {%- for option in h.dataset_type_options() %} 
-            <option value="{{ option.value }}"
-                {%- if option.value == default_value %} selected{% endif %}>{{ option.text }}</option>
-            {% endfor -%}
-        </select>
-        {% if verbose|default(true) and description %}
-        <p class="help-block">{{ description }}</p>
-    </div>
     
-        {% endif %}
-</div>
 
-{% else %}
-
-{% with dtype = data.get('dataset_type') %}
-<input type="hidden" name="dataset_type" value="{{ dtype }}">
-<div class="form-group hide">
-    <label class="control-label">{{ _('Schema') }}</label>
-    <div class="controls ">
-        <div class="display">{{ dtype|title }}</div>
-    </div>
-</div>
-{% endwith %} {# dtype #}
-
-{% endif %} {# if is_new #}
+    <div class="form-group">
+        <label for="field-dataset_type" class="control-label">
+            {{- title or _('Schema') }}{{ mark_required(required) }}</label>
+        <div class="controls">
+            <select name="dataset_type"  class="input-xlarge" data-module="autocomplete">
+                    {%- for dtype in h.get_dataset_types() %}
+                        <option value= "{{dtype}}"> {{ dtype|capitalize}} </option>
+                    {% endfor -%}
+            </select>
+            <p class="help-block">Choose a schema. You can either select the default schema based on Datacite 
+                or an extended schema.</p>
+        </div>
+    </div>  
+    
 

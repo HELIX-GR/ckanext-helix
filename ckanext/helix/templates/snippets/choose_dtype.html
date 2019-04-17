@@ -1,0 +1,36 @@
+{% extends "package/base_form_page.html" %}
+
+
+
+{% block breadcrumb_content %}
+<a class="breadcrumbs-part" {% link_for _('Datasets'), controller='package', action='search', highlight_actions = 'new index' %}</a>
+<a class="breadcrumbs-part" {% link_for _('Choose schema'), controller='ckanext.helix.controllers.package:Controller', action='choose_schema' %}</a>
+{% endblock%}
+
+
+{% block primary_content_inner %}
+<form id="package-form" action="{{h.url_for('/dataset/new')}}">
+    <div class="dataset-form">
+    <h3 class="title"> {{ _('Choose schema') }}</h3>
+    
+    {% trans %}
+    <p class="import-help"> Choose a metadata schema. You can either select the default schema based on Datacite 
+    or an extended schema from below.</p>
+    {% endtrans %}
+    <div class="form-group">
+        <label for="input-schema" class="control-label">
+            {{- title or _('Schema') }}</label>
+        <div class="controls">
+            <select name="schema_type"  class="input-xlarge" data-module="autocomplete">
+                    {%- for dtype in h.get_dataset_types() %}
+                        <option value= "{{dtype}}"> {{ dtype|capitalize}} </option>
+                    {% endfor -%}
+            </select>
+        </div>
+    <div class="form-actions">
+        <button id="btn-new-dataset"  type="submit" class="btn btn-round" href="{{h.url_for('/dataset/new')}}">{{ _('Create Dataset') }}</button>
+      </div> 
+    </div>  
+    </div>
+</form> 
+{% endblock %}

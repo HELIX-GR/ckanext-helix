@@ -8,9 +8,9 @@ import datetime
 import requests
 import urlparse
 import pylons
-import urllib
 import urllib2
 import json
+import uuid
 
 from operator import itemgetter, attrgetter
 
@@ -180,7 +180,7 @@ def dataset_import(context, data_dict):
     # Parse XML data as metadata of `dtype` schema
     
     obj = make_metadata(dtype)
-    log.debug('obj is: %s',obj)
+    #log.debug('obj is: %s',obj)
     try:
         obj = xml_serializer_for(obj).loads(xmldata)
     except AssertionError as ex:
@@ -191,7 +191,7 @@ def dataset_import(context, data_dict):
         raise Invalid({'source': _('The given XML file is malformed: %s') % (ex)})
 
     # Prepare package dict
-    log.debug('updated obj is: %s', obj)
+    #log.debug('updated obj is: %s', obj)
 
     pkg_dict = {'version': '1.0'}
     pkg_dict.update(obj.deduce_fields())
@@ -201,7 +201,8 @@ def dataset_import(context, data_dict):
         'dataset_type': dtype,
         dtype: obj.to_dict(flat=False),
     })
-    log.debug('pkg_dict: %s', pkg_dict)
+    log.debug('updated pkg dict here: %s', pkg_dict)
+    
     # If an identifier is passed, check that this is not already present.
     # Note This is no guarantee that the identifier will be available when
     # `package_create` is actually invoked.
@@ -226,10 +227,17 @@ def dataset_import(context, data_dict):
         pkg_dict['title'] += ' ' + name[len(basename):]
     
     # add core fields description and subject 
-    pkg_dict['notes'] = pkg_dict['datacite']['abstract']
-    #pkg_dict['closed_tag'] = pkg_dict['datacite']['closed_subject']
+    pkg_dict['notes'] = pkg_dict[dtype]['abstract']
+
+    # add custom id for ckan name so we can have duplicate titles
+    new_uuid = uuid.uuid4()
+    name = new_uuid
+    pkg_dict['name'] = name
+    # set default visibility to private before admin/editor changes it to public
+    pkg_dict['private'] = 'True'
     # Create/Update package
     
+    log.debug('pkg_dict: %s', pkg_dict)
     schema1, validation_errors, error_message = None, None, None
     
     if identifier:
@@ -259,7 +267,7 @@ def dataset_import(context, data_dict):
         else:
             raise ex
 
-    assert name == pkg_dict['name']
+    #assert name == pkg_dict['name']
     assert (not identifier) or (identifier == pkg_dict['id'])
 
     return {
@@ -552,6 +560,11 @@ def _transform_dcat(xml_dom):
         result = unicode(result).encode('utf-8')
 
     return result
+
+def dataset_publish_auth(context, data_dict):
+    # sysadmins only
+    return {'success': False}
+
 
 def favorite(context, data_dict):
    

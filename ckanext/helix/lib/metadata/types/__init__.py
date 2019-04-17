@@ -245,4 +245,3 @@ from .ckan_metadata import CkanMetadata
 from .inspire_metadata import InspireMetadata
 from .datacite import DataciteMetadata
 from .baz import BazMetadata
-

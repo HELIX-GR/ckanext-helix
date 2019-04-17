@@ -83,11 +83,12 @@ def postprocess_dataset_for_edit(key, data, errors, context):
 
     #if is_new and not requested_with_api:
     #    return # only core metadata are expected
-
+    #logger.debug('data is %s', data)
     key_prefix = dtype = data[('dataset_type',)]
     if not dtype in ext_metadata.dataset_types:
         raise Invalid('Unknown dataset-type: %s' %(dtype))
     
+    #logger.debug('dtype %s', dtype)
     #logger.debug('DATA IS [%s]' % ', '.join(map(str, data)) ) 
     # 1. Build metadata object
 
@@ -99,15 +100,13 @@ def postprocess_dataset_for_edit(key, data, errors, context):
         return # failed to create (in resources form ?)
 
     data[(key_prefix,)] = md
-    
     #logger.debug('MD IS %s', md )
     # 2. Validate as an object
 
     if not 'skip_validation' in context:
         validation_errors = md.validate(dictize_errors=True)
-        #logger.debug("\n\n VALIDATION ERRORS IS: %s ,errors is %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
+        #logger.debug("\n\n VALIDATION ERRORS are: %s ,errors are %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
         #errors[('datacite.related_publication',)] = 'Missing Value'
-        #logger.debug("\n\n validation 4 is:: %s type is %s \n\n", validation_errors['creator'],  type(validation_errors['creator']), )
         # Map validation_errors to errors
         for key, value in validation_errors.items():
             #logger.debug("\n\n validation is %s, type is %s, value is %s, type is %s\n", key, type(key), value, type(value) )
@@ -116,7 +115,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                 # fix key-value for classes like Creator (contains multiple fields)
                 k = key + '.' + next(iter(value))
                 # make key compatible with errors dict (tuple)
-                k = tuple([str.encode("('datacite.%s',)" % k)])
+                k = tuple([ str.encode("('{0}.{1}',)" .format( dtype,k) )])
                 v =  value[next(iter(value))]
                 #logger.debug("\n\n key[0] is %s, value[0] is %s \n", k, v)
                 if v[0][0] == 'R':       #RequiredMissing
@@ -127,15 +126,17 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                 # fix error message displayed
                 #logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
                 if value[0][:8] == 'Required':
-                    key = tuple([str.encode("('datacite.%s',)" % key)])
+                    key = tuple([ str.encode("('{0}.{1}',)" .format( dtype,key) )])
                     errors[key] = u'Missing value'
                 elif value[0][:7] == 'related':
                     #remove duplicate error (for wrong value)
-                    key_to_remove = tuple([str.encode('datacite.%s' % key)])
-                    key = tuple([str.encode("('datacite.%s',)" % key)])
+                    #logger.debug('key %s, errors[0] %s', key, errors[0])
+                    key_to_remove = tuple([ str.encode('{0}.{1}' .format( dtype,key) )])
+                    #key = tuple([ str.encode('{0}.{1},' .format( dtype,key) )])
+                    key = tuple([ str.encode('{0}' .format(key) )])
+                    #logger.debug('key %s, key to remove %s ', key, key_to_remove)
+                    errors.pop(key_to_remove)
                     errors[key] = u'Invalid DOI value'  
-                    errors[key_to_remove] =  []
-
         #for k, v in errors.items():
         #    logger.debug("K: %s,type: %s v: %s,type %s ", k,type(k), v, type(v))      
         # Fixme Map validation_errors to errors  ! ! ! ! 
@@ -192,6 +193,7 @@ def preprocess_dataset_for_edit(key, data, errors, context):
     # requests).
    
     key_prefix = dtype = received_data.get(('dataset_type',))
+    #logger.debug('dtype %s, received data %s, unexpected data %s', dtype, received_data, unexpected_data)
     r = unexpected_data.get(dtype) if dtype else None
    
     if isinstance(r, dict) and (dtype in ext_metadata.dataset_types):

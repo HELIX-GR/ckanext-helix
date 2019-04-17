@@ -26,6 +26,16 @@ Examples:
 {% endcall %}
 {% endmacro %}
 
+
+{# input for orcid id#}
+{% macro input_orcid(name, id='', label='', value='',text_value='', placeholder='', type='text', error="", control_classes=[], classes=[], attrs={'class': 'form-control'}, is_required=false) %}
+{%- set extra_html = caller() if caller -%}
+
+{% call input_block(id or name, label or name, error, classes, control_classes, extra_html=extra_html, is_required=is_required) %}
+<input class="form-control" id="{{ id or name }}" type="{{ type }}" name="{{ name }}" value="{{text_value}}" placeholder="{{ placeholder }}" {{ attributes(attrs) }} />
+{% endcall %}
+{% endmacro %}
+
 {# Builds other input boxes #} {# added for removing class form-control#}
 
 {% macro tag_input(name, id='', label='', value='', placeholder='', type='text', error="", classes=[], attrs={'class': 'form-control'}, is_required=false) %}

@@ -15,6 +15,9 @@ import ckan.lib.helpers as h
 from ckanext.helix.lib.util import to_json
 from ckanext.helix.lib import uploader
 from ckanext.helix.lib import vocabularies
+import ckanext.helix.lib.helpers as ext_helpers
+
+import uuid
 
 log = logging.getLogger(__name__)
 
@@ -183,5 +186,34 @@ class Controller(BaseController):
         }
         result = _get_action('dataset_import')(context, data_dict)
         return result
+
+
+
+    def dataset_publish(self, id):
+
+
+        #post = request.params
+        log.debug('ID is %s', id)
+
+        
+        context = self._make_context()
+        data_dict = {
+            'id': id,
+        }
+        
+        
+        try:
+            _check_access('dataset_publish', context)
+        except logic.NotAuthorized as ex:    
+            return 'Not authorized to perform this action. '
+
+        package = _get_action('package_show')(context, data_dict)
+        log.debug('package %s', package)
+        package['private'] = False
+        if 'public_doi' not in package:   
+            doi = ext_helpers.getDataciteDoi(package)
+            package['public_doi'] = doi
+        result = _get_action('package_update')(context, package)
+        return 
 
     

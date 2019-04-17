@@ -5,6 +5,16 @@ import ckan.logic as logic
 import os
 import itertools
 from ckan.lib.navl.dictization_functions import Invalid
+import textwrap
+
+import xml.etree.ElementTree as etree
+import ckanext.helix.reference_data as ext_reference_data 
+
+import urllib2
+import json
+import requests
+import random
+import string
 
 import logging
 log1= logging.getLogger(__name__)
@@ -68,3 +78,77 @@ def min_title_length(value, context):
                 raise Invalid("Value must be longer than 6 characters")
             return value
             pass
+
+class CodeBlock():
+    def __init__(self, head, block=None):
+        self.head = head
+        self.block = block
+    def __str__(self, indent=""):
+        result = indent + self.head + "\n"
+        indent += "    "
+        if self.block:
+            for block in self.block:
+                if isinstance(block, CodeBlock):
+                    result += block.__str__(indent)
+                else:
+                    result += indent + block + "\n"
+        return result
+
+    def append(self, lines):
+        result = self.__str__()
+        for line in lines:
+            result = result + line + '\n'
+        return result
+
+
+# map fields from xsd to Helix schema
+def mapFields():
+    with open(ext_reference_data.get_path('mappings.xml')) as f: 
+        m = f.read()
+            
+    root = etree.fromstring(m) 
+
+    filtered_fields = []
+        
+    for element in root.iter():
+        if element.tag != 'map' and 'mapping' not in element.attrib:
+            filtered_fields.append(element.attrib['name'])
+    log1.debug('Filtered Elements are %s', filtered_fields)
+    
+    return filtered_fields
+
+def getDataciteDoi(package):
+    """Perform HTTP request"""
+
+    randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+        +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
+    doi = "10.0351/" + randomString 
+    # write required json file
+    filepath = os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/'
+    with open(filepath + 'doi-file.json', 'w') as f:
+        f.write('''{
+            "data": {
+                "type": "dois",
+                "attributes": {
+                    "doi": "''' + doi + '''",
+                    "titles": [
+                        {
+                            "title": ''' + package['title'] +'''
+                        }
+                    ],
+                    "state": "draft"
+                }
+            }
+            }''')
+    headers = {
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+    }
+    
+    data = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/doi-file.json')
+    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=('HEALLINK.DATAREP', 'B6xsRosuZOc6'))
+    
+    log1.debug('Doi is %s', doi)
+
+    return 
+

@@ -5,7 +5,6 @@
 {% set form_style_for_edit = c.form_style or c.action %}
 
 
-
 {# This provides a full page that renders a form for adding a dataset. It can
 then itself be extended to add/remove blocks of functionality. #}
 <form id="package-form" class="dataset-form form-horizontal" method="post" action="{{ action }}" data-module="basic-form">
@@ -21,7 +20,8 @@ then itself be extended to add/remove blocks of functionality. #}
 
   {% block errors %}
   {# Note CKAN is using error_summary here (?) #}
-  {{ markup_helpers.error_messages(errors) }}
+  {% set dtype = data.dataset_type%}
+  {{ markup_helpers.error_messages(errors, dtype) }}
   {% endblock %} {# errors #}
   
   {% if h.is_multilingual_dataset %}
@@ -50,10 +50,11 @@ then itself be extended to add/remove blocks of functionality. #}
       data=data, errors=errors, licenses=c.licenses, groups_available=c.groups_available 
    %}
   {% endblock %}
-	
+    
+  {% set schema_type = schema_type or data['dataset_type']%}
   {% block metadata_fields %}
   {#{% if form_style_for_edit == 'edit' %}   #}
-        {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, errors=errors, licenses=c.licenses, groups_available=c.groups_available %}
+        {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, schema_type=schema_type, licenses=c.licenses, groups_available=c.groups_available %}
   {#{%endif %} #} 
 
   {% endblock %}

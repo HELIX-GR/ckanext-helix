@@ -1,0 +1,14 @@
+{
+            "data": {
+                "type": "dois",
+                "attributes": {
+                    "doi": "10.0351/2afk-il5m",
+                    "titles": [
+                        {
+                            "title": test doi
+                        }
+                    ],
+                    "state": "draft"
+                }
+            }
+            }

@@ -15,12 +15,15 @@ from ._common import *
 from uuid import UUID
 _ = lambda t: t # Mock translator
 
-class relatedPubError(zope.schema.ValidationError):
-        __doc__ = _("Input is not a valid UUID")
+class InvalidDoi(zope.schema.ValidationError):
+        __doc__ = _("Input is not a valid DOI")
+
+class InvalidYear(zope.schema.ValidationError):
+        __doc__ = _("Input is not a valid year")
 
 
 class IDataciteMetadata(IMetadata):
-    
+   
     zope.interface.taggedValue('recurse-on-invariants', True)
 
     url = zope.schema.URI(
@@ -75,31 +78,54 @@ class IDataciteMetadata(IMetadata):
         required = False)
     
 
-    def related_publication_empty(value):
+    def valid_doi_check(value):
         #check for regular expression for dois
         regexDOI = re.compile('(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)')   
         if not re.match(regexDOI,value):   
-            raise relatedPubError
+            raise InvalidDoi
         return True    
 
+    def valid_publication_year(value):
+        try: 
+            pub_year = int(value)
+            if pub_year < 1950 or pub_year > 2019:
+                raise InvalidYear
+        except :
+            raise InvalidYear
+        return True
 
-    #zope.interface.invariant(related_publication_empty)    
+    #zope.interface.invariant(valid_doi_check)    
     #     
     related_publication = zope.schema.TextLine(
         title = u'Related Publication',
         description = (u'The DOI of a related publication'),
         required = False,
-        constraint=related_publication_empty)
+        constraint=valid_doi_check)
     
     closed_subject = zope.schema.List(
-        title = u'Closed Tags',
+        title = u'Subjects',
         required = False,
         value_type = zope.schema.TextLine(
-            title = u'Closed Tag'),
+            title = u'Subject'),
         min_length = 1,
-        max_length = 5,)
+        max_length = 4)
     closed_subject.setTaggedValue('links-to', 'closed_tag')    
  
+    license_id = zope.schema.TextLine(
+        title = u'License',
+        description = (u'The license of the dataset'),
+        required = False)
+    license_id.setTaggedValue('links-to', 'license_id')    
+ 
+    free_tags = zope.schema.List(
+        title= _(u'Tags'),
+        description = _(u'Free keywords'),
+        required = False,
+        value_type = zope.schema.TextLine(
+            title = u'Tag'),
+        min_length = 1,
+        max_length = 6)
+    free_tags.setTaggedValue('links-to', 'tags')  
     
     contact_email = z3c.schema.email.RFC822MailAddress(
         title = _(u'Contact e-mail'),
@@ -149,7 +175,17 @@ class IDataciteMetadata(IMetadata):
             title = _(u'Date')))
     date.setTaggedValue('format:markup', {'descend-if-dictized': True})  '''
     
+    embargo_date = zope.schema.Date(
+        title = _(u'Embargo Date'),
+        description = _(u'The date which specifies when the dataset will become public'),
+        required = False)
     
+    publication_year = zope.schema.TextLine(
+        title = _(u'Publication year'),
+        description = _(u'The year the dataset was published'),
+        required = False,
+        constraint=valid_publication_year)
+
     languagecode = zope.schema.Choice(
         title = _(u'Language'),
         vocabulary = vocabularies.by_name('languages-iso-639-2').get('vocabulary'),

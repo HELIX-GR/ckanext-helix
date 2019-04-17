@@ -1,6 +1,7 @@
 {% import 'macros/form.html' as form %}
 {% import 'macros/accordion.html' as accordion -%}
 
+
 {% set is_new = data.get('id') is none %}
 {% set is_draft = data.get('state', 'draft') == 'draft' %}
 
@@ -288,55 +289,10 @@
 
 {% set is_draft = data.get('state', 'draft').startswith('draft') or data.get('state', 'none') ==  'none' %}
 
-
-{% if h.check_access('sysadmin') or is_new or is_draft %}
-
-{#{% if not orgs_available %}
-         {{ form.select('owner_org', label=_('Publisher'), options=[{'name':helix, 'value': h.organization_objects(['helix']).helix.display_name}  ], selected=helix, error=errors.owner_org) }}
-        
-{% else %}  #}
-{#
-{% snippet 'package/snippets/edit-organization.html', 
-    name='owner_org', 
-    value=data.owner_org or data.group_id,
-    required=true,
-    orgs_available=h.organizations_available('create_dataset')
-%} #}
-{% endif %} 
-
-
-
 {% endblock %} 
 
+
+
 {% block package_basic_fields_custom %}    
-    {#{{ form.input('publisher', label=_('Publisher'), id='field-publisher', placeholder=_('e.g. World Data Center for Climate (WDCC)'), 
-        value=data.publisher, error=errors.get('publisher'), classes=['control-medium'], is_required = false) 
-    }} 
-    
-    
-    {{ form.input('publication_year', label=_('Publication year'), id='field-publication-year', placeholder=_('e.g. 2003'),
-               value=data.publication_year, error=errors.get('publication_year'), classes=['control-medium']) 
-    }}
-
-    
-
-    {{ form.input('identifier', label=_('Identifier'), id='field-identifier', placeholder=_(' Format should be “10.1234/foo” '), 
-        value=data.identifier, error=errors.get('identifier'), classes=['control-medium'], is_required = false) 
-    }} 
-    
-    
-    {{ form.input('identifier_type', label=_('Identifier type'), id='field-identifier-type', placeholder=_('e.g. DOI'),
-               value=data.identifier_type, error=errors.get('identifier_type'), classes=['control-medium'], is_required=false) 
-    }} #}
-    
-  {#  {% set resource_types = data.get('resource_type', [None]) %}
-    {{ form.select('resource_type', 
-        label = _('Resource type'), 
-        options = h.resource_types_options(), 
-        selected = resource_types.0, 
-        attrs = { 'data-module': 'no-autocomplete' }) 
-    }}   
-    #}
-        
    
 {% endblock %}

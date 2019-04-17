@@ -227,7 +227,7 @@ class BaseFieldSerializer(BaseSerializer):
                 name = field.getTaggedValue('name')
             except KeyError:
                 pass
-        
+        log1.debug('field:%s, name:%s', field, name)
         assert name, 'The field should be named'
         
         name = inflection.underscore(name)
@@ -680,9 +680,11 @@ class ListFieldSerializer(BaseFieldSerializer):
         ys = serializer_for_field(yf)
         ys.target_namespace = self.target_namespace
         
-        for p in e:
-            l.append(ys.from_xml(p))
         
+        for p in e:
+            #log1.debug(' p %s, yf %s, ys %s', p, yf, ys)
+            l.append(unicode(p.text))    
+        #log1.debug('L IS %s', l)
         return l
 
 @field_xml_serialize_adapter(IDictField)
@@ -881,7 +883,7 @@ class ObjectSerializer(BaseObjectSerializer):
         schema = self.obj.get_schema()
         factory = type(self.obj)
         obj = factory()
-        
+        #log1.debug('e is %s',e)
         # Fixme: Why dont we directly update self.obj?
 
         for p in e:
@@ -892,7 +894,7 @@ class ObjectSerializer(BaseObjectSerializer):
             yf1 = yf.bind(FieldContext(key=k, value=yf.get(self.obj)))
             ys = serializer_for_field(yf1)
             ys.target_namespace = self.target_namespace
+            #log1.debug('ys is %s, ys from xml %s\n',ys, ys.from_xml(p))
             yf.set(obj, ys.from_xml(p))
-        
         return obj
 

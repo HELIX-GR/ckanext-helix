@@ -4,7 +4,7 @@
 {% if (not errors) and error_summary %}
 <div class="alert alert-danger">{{ error_summary|safe }}</div>
 {% elif errors %}
-{{ error_messages(errors or {}, summary=error_summary, titles={}) }}
+{#{{ error_messages(errors or {}, summary=error_summary, titles={}) }}#}
 {% endif %}
 {% endblock %} 
 
@@ -12,7 +12,7 @@
 <form class="form-horizontal import-metadata-form" method="post" enctype="multipart/form-data">
 
     {% snippet 'package/snippets/edit-dataset_type.html', 
-        is_new=true, default_value='inspire', required=true, 
+        is_new=true, default_value='datacite', required=true, 
         description=_('Specify the metadata schema the dataset aligns to.')
     %}
     
@@ -20,14 +20,14 @@
         name='owner_org', 
         title=_('Publisher'),
         value=owner_org,
-        description=_('Specify the organization the dataset belongs to.'),
+        description=_('Specify the publisher of the dataset.'),
         required=true, orgs_available=h.organizations_available('create_dataset')
     %}
         
-    {% snippet 'snippets/checkbox.html', 
+    {#{% snippet 'snippets/checkbox.html', 
         label=_('Rename'), name='rename', checked=true, 
         description= _('Rename dataset, if needed.')
-    %}
+    %} #}
 
     {% snippet 'snippets/checkbox.html', 
         label=_('Force create'), name='force_create', checked=true, 

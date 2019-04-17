@@ -35,6 +35,7 @@ from ckan.common import _,OrderedDict, config, json, request, c, g, response
 import ckan.lib.base as base
 from ckanext.helix.lib.helpers import min_title_length
 
+import xml.etree.ElementTree as etree
 
 import cgi
 import ckan.lib.helpers as h
@@ -339,7 +340,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'organization_list_objects': self.organization_list_objects,
             'organization_dict_objects': self.organization_dict_objects,
             'update_facets': self.update_facets,
-            'dataset_facets': self.dataset_facets
+            'dataset_facets': self.dataset_facets,
+            'get_dataset_types': ext_template_helpers.get_dataset_types,
         }
 
     ## IConfigurer interface ##
@@ -396,7 +398,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         from ckanext.helix import cache_manager
         cache_manager.setup(config)
     
-        return
+        
 
     ## IRoutes interface ##
 
@@ -438,6 +440,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 action='dataset_import',
                 conditions=dict(method=['POST']))
 
+            m.connect(
+                '/api/helix/dataset/publish/{id}', 
+                action='dataset_publish')
            
 
         user_controller = 'ckanext.helix.controllers.user:UserController'
@@ -495,7 +500,15 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             '/dataset/import_metadata',
             controller=package_controller,
             action='import_metadata')
+
+        # to be finished
+        #mapper.connect(
+        #    '/dataset/import_schema',
+        #    controller=package_controller,
+        #    action='import_schema')    
         
+        mapper.connect('choose_schema', '/dataset/choose_schema', 
+            controller=package_controller, action='choose_schema')
         mapper.connect('dataset_new', '/dataset/new', 
             controller=package_controller, action='new')
         mapper.connect('new_resource', '/dataset/new_resource/{id}',
@@ -561,6 +574,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             # Relax the required conditions for adding to (thematic) groups    
             'member_create': ext_actions.group.member_create_check_authorized,
             'member_delete': ext_actions.group.member_delete_check_authorized,
+            'dataset_publish': ext_actions.package.dataset_publish_auth,
         }
         return funcs
 
@@ -611,7 +625,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Add dataset-type, the field that distinguishes metadata formats
         is_dataset_type = ext_validators.is_dataset_type
         schema['dataset_type'] = [
-            default('datacite'), convert_to_extras, 
+             convert_to_extras, 
             is_dataset_type,
         ]
        

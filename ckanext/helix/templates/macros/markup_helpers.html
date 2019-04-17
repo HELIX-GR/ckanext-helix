@@ -7,15 +7,16 @@
 
 {# Make titles readable #}
 
-{%- macro map_titles(titles, key) -%}  
+{%- macro map_titles(titles, key, dtype) -%}  
     {% set title =  titles.get(key, key|title) %} 
-    
-    {%if title == '('"'datacite.title'"',)' %}
+    {%if title == dtype + '('"'.title'"',)' %}
         Title
-    {% elif title == '('"'datacite.creator.creator_name'"',)' %}
+    {% elif title == dtype|capitalize + '('"'.creator.creator_name'"',)' %}
         Creator    
-    {% elif title ==  '('"'datacite.related_publication'"',)' %}
+    {% elif title == dtype|capitalize + '.related_publication' %}
         Related publication
+    {% elif title == dtype|capitalize + '.publication_year' %}
+        Publication year
     {% elif title == '('"'datacite.contact_email'"',)' %}
         Contact e-mail
     {% elif title == 'Closed_tag' %}
@@ -25,14 +26,14 @@
     {% endif%}    
     {%- endmacro -%}    
 
-{%- macro message_list(messages, key=None, titles={}) -%}
+{%- macro message_list(messages, key=None, titles={}, dtype='datacite') -%}
     {% if messages -%} 
-    {% if key %}<h4 data-key="{{ key }}" class="title">{{ map_titles(titles, key) }}</h4>{% endif %}
+    {% if key %}<h4 data-key="{{ key }}" class="title">{{ map_titles(titles, key, dtype) }}</h4>{% endif %}
     {% if messages is string %}
     <span>{{ messages }}</span>
     {% elif messages is mapping -%}
     <ul>
-        {% for k in messages -%}<li>{{ message_list(messages[k], k, titles) }}</li>{% endfor -%}
+        {% for k in messages -%}<li>{{ message_list(messages[k], k, titles, dtype) }}</li>{% endfor -%}
     </ul>
     {% elif messages is sequence -%}
     {% with n = messages|count %}
@@ -48,11 +49,11 @@
     {% endif -%} {# if messages #}
 {%- endmacro -%}
 
-{% macro error_messages(errors, summary=None, titles={}) -%}
+{% macro error_messages(errors, dtype,  summary=None, titles={}) -%}
     {% if errors or summary -%} 
     <div class="alert alert-danger errors error-messages">
         {% if summary %}<h3>{{ summary|safe }}</h3>{% endif %}
-        {% if errors %}{{ message_list(errors, key=None, titles=titles) }}{% endif %}
+        {% if errors %}{{ message_list(errors, key=None, titles=titles, dtype=dtype) }}{% endif %}
     </div>
     {% endif -%}
 {% endmacro -%}

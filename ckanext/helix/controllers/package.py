@@ -13,6 +13,7 @@ import ckan.model as model
 import ckan.lib.plugins as lib_plugins
 import ckan.plugins.toolkit as toolkit
 import ckan.lib.helpers as h
+import ckanext.helix.lib.template_helpers as ext_h
 import cStringIO
 import ckan.logic as logic
 import ckan.lib.navl.dictization_functions as dict_fns
@@ -68,7 +69,9 @@ class Controller(BaseController):
         redirect_url = _url(**uv)
 
         dtype = post.get('dataset_type')
-        if not dtype in ext_metadata.dataset_types:
+        log.debug('post %s', post)
+        log.debug('dtype: %s, dataset_types %s ', dtype, ext_h.get_dataset_types())
+        if not dtype in ext_h.get_dataset_types():
             abort(400, 'Unknown metadata schema')
 
         rename_if_conflict = post.get('rename', '') == 'y'
@@ -445,8 +448,15 @@ class Controller(BaseController):
         # return render('package/new_package_metadata.html', extra_vars=vars)
         return render('package/new_package_finish.html', extra_vars=vars)
 
+    def choose_schema(self, data=None, errors=None, error_summary=None):
+        
+        return render(u'snippets/choose_dtype.html')
+
     def new(self, data=None, errors=None, error_summary=None):
 
+        schema_type = request.params.get('schema_type')
+
+        log.debug('schema type = %s', schema_type)
         if data and 'type' in data:
             package_type = data['type']
         else:
@@ -465,6 +475,7 @@ class Controller(BaseController):
 
         if context['save'] and not data:
             pc = pController()
+            log.debug('before save new')
             return pController._save_new(pc, context, package_type=package_type)
 
         data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
@@ -503,6 +514,7 @@ class Controller(BaseController):
                      'error_summary': error_summary,
                      'action': 'new', 'stage': stage,
                      'dataset_type': package_type,
+                     'schema_type': schema_type,
                      }
         c.errors_json = h.json.dumps(errors)
 
@@ -513,4 +525,5 @@ class Controller(BaseController):
         return render(new_template,
                       extra_vars={'form_vars': form_vars,
                                   'form_snippet': form_snippet,
-                                  'dataset_type': package_type})
+                                  'dataset_type': package_type,
+                                  })

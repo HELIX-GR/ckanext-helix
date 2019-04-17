@@ -16,8 +16,8 @@
             {%endif %}
             {{ attrs|xmlattr -}}
         />
-        {% if errors -%}
+        {#{% if errors -%}
         <span class="help-inline">{{ errors|join(', ') }}</span>
-        {%- endif -%}
+        {%- endif -%}#}
     </div>
 </div>
