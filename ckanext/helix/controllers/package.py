@@ -475,7 +475,6 @@ class Controller(BaseController):
 
         if context['save'] and not data:
             pc = pController()
-            log.debug('before save new')
             return pController._save_new(pc, context, package_type=package_type)
 
         data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(

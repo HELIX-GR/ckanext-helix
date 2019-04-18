@@ -49,7 +49,6 @@
       {
         "field_name": "parent_org",
         "label": "Parent organization",
-        "display_snippet": null,
         "form_snippet": "org_hierarchy.html",
         "validators": "ignore_missing"
       }

@@ -2,13 +2,13 @@
             "data": {
                 "type": "dois",
                 "attributes": {
-                    "doi": "10.0351/2afk-il5m",
+                    "doi": "10.0351/eovi-owsz",
                     "titles": [
                         {
-                            "title": test doi
+                            "title": "test orcid"
                         }
                     ],
                     "state": "draft"
                 }
             }
-            }
+        }

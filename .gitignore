@@ -6,3 +6,4 @@ dist
 
 ckanext/helix/public/js/scratch.js
 ckanext/helix/themes/*
+ckanext/helix/reference_data/datacite_credentials.txt

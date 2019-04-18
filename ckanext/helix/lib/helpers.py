@@ -133,22 +133,26 @@ def getDataciteDoi(package):
                     "doi": "''' + doi + '''",
                     "titles": [
                         {
-                            "title": ''' + package['title'] +'''
+                            "title": "''' + package['title'] +'''"
                         }
                     ],
                     "state": "draft"
                 }
             }
-            }''')
+        }''')
     headers = {
         'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
     }
     
     data = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/doi-file.json')
-    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=('**', '**'))
-    
-    log1.debug('Doi is %s', doi)
+    api_file = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/datacite_credentials.txt')
+    lines = api_file.readlines()
+    client_id = lines[0].rstrip()
+    password = lines[1].rstrip()
+    log1.debug('user %s, pass %s',client_id, password)
+    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=(client_id, password))
+    log1.debug('response %s',response)
 
-    return 
+    return doi
 
