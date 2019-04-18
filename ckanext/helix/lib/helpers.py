@@ -150,6 +150,7 @@ def getDataciteDoi(package):
     lines = api_file.readlines()
     client_id = lines[0].rstrip()
     password = lines[1].rstrip()
+    
     response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=(client_id, password))
 
     return doi

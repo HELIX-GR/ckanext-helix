@@ -52,14 +52,15 @@ Additional plugins used:
     ckanext-harvest
     ckanext-spatial
     ckanext-scheming
+    ckanext-hierarchy
 
 
 Configuration for other plugins:
 
     #ckanext_scheming configuration:
 
-    scheming.organization_schemas = ckanext.scheming:helix_organization_schema.json
-    scheming.group_schemas = ckanext.scheming:helix_group_schema.json
+    scheming.organization_schemas = ckanext.helix:helix_organization_schema.json
+    scheming.group_schemas = ckanext.helix:helix_group_schema.json
 
 
     #ckanext-userautoadd configuration:
@@ -77,6 +78,10 @@ Configuration for other plugins:
     ckanext.spatial.common_map.custom.url = http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
     ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
 
+    #configuration for creating a new doi from datacite
+    add a new file: datacite_credentials.txt in ckanext/helix/reference_data 
+    containing 2 lines:  CLIENT_ID
+                         PASSWORD
 
 
 Uninstall
