@@ -456,7 +456,6 @@ class Controller(BaseController):
 
         schema_type = request.params.get('schema_type')
 
-        log.debug('schema type = %s', schema_type)
         if data and 'type' in data:
             package_type = data['type']
         else:
@@ -506,7 +505,7 @@ class Controller(BaseController):
         # if not h.organizations_available('create_dataset'):
 
         # add to helix org as default
-        data['owner_org'] = 'helix'
+        #data['owner_org'] = 'helix'
 
         form_snippet = self._package_form(package_type=package_type)
         form_vars = {'data': data, 'errors': errors,

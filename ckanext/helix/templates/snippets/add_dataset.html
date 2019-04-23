@@ -11,14 +11,14 @@
 {%set dtypes= h.get_dataset_types()%}  
 
 <div class="btn-group ">
-    <a class="btn btn-primary btn-group-main btn-add-dataset upper"  href="{{ add_url }}"
+    <a class="btn btn-primary btn-group-main btn-add-dataset upper"  href="{{ edit_url }}"
         >{#<i class="icon-asterisk"></i>#} {{ _('Add Dataset') }}</a>
     <button class="btn btn-primary  btn-group-toggle btn-add-dataset-toggle" data-toggle="dropdown">
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu pull-right">
         <li>
-            <a class="btn-link upper" href="{{ add_url }}"
+            <a class="btn-link upper" href="{{ edit_url }}"
                 >&nbsp; {{ _('Create from scratch') }}</a>
         </li>
         <li>

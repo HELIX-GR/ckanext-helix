@@ -161,28 +161,13 @@
     <p class="help-block">{{ description }}</p>
 </div>#}
 
-{# if admin enable organization field #}
-{% if h.check_access('sysadmin') %}
     {% snippet 'package/snippets/edit-organization.html', 
         name='owner_org', 
         value=data.owner_org,
         is_required = true,
         orgs_available=h.organizations_available('create_dataset')
-        %}
-{# else hide organization field so it is automatically added#}        
-{% else %}
-    {{ 
-        form.input(
-            'owner_org', 
-            id = 'field-owner-org', 
-            label = _('Publisher'), 
-            classes = ['hidden'],
-            value = data.owner_org, 
-            error = errors.owner_org, 
-            is_required = true
-        ) 
-    }}   
-{% endif%}
+    %}      
+
 
 
 {# Dataset category (bio, geo etc.)#}
@@ -260,13 +245,14 @@
   <label class="control-label" for="field-license"><span title="This field is required" class="control-required">*</span>{{ _("License") }}</label>
   <div class="controls">
     <select id="field-license" name="license_id" data-module="autocomplete" class="input-xlarge">
-      {% for license_desc, license_id in licenses if license_desc  %}
+     {# {% for license_desc, license_id in licenses if license_desc  %}
       <option value="{{ license_id }}" 
         {%- if data.get('license_id', 'notspecified') == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
-        {% if loop.index == 4%}
-        <option disabled>_________________________________________________________________________________________</option>
-        {% endif%}
-      {% endfor %}
+      {% endfor %} #}
+      {% set existing_license_id = data.get('license_id') %}
+            {% for license_id, license_desc in h.license_options(existing_license_id) %}
+            <option value="{{ license_id }}" {% if existing_license_id == license_id %}selected="selected"{% endif %}>{{ license_desc }}</option>
+            {% endfor %}
     </select>
     {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
     {#<div class="help-block">

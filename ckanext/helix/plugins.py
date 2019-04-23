@@ -676,9 +676,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         schema.update({
             # Make organisation field optional
-            #'owner_org': [
-            #    toolkit.get_validator('ignore_missing'),
-            #],
+            'owner_org': [
+                toolkit.get_validator('not_empty'),
+            ],
             'notes': [ 
                 toolkit.get_validator('not_empty') 
             ],
@@ -962,9 +962,9 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         schema.update({
            
             # Make organisation field optional
-            #'owner_org': [
-            #    toolkit.get_validator('ignore_missing'),
-            #],
+            'owner_org': [
+                toolkit.get_validator('not_empty')
+            ],
             'notes': [
                 toolkit.get_validator('not_empty')
             ],

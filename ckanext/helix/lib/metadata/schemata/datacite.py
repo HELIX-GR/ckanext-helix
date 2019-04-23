@@ -102,6 +102,18 @@ class IDataciteMetadata(IMetadata):
         required = False,
         constraint=valid_doi_check)
     
+    is_derived_from = zope.schema.TextLine(
+        title = u'Derived from',
+        description = (u'The publication this dataset is derived from'),
+        required = False,
+        constraint=valid_doi_check)
+
+    is_similar_to = zope.schema.TextLine(
+        title = u'Similar to',
+        description = (u'A publication this dataset is similar to'),
+        required = False,
+        constraint=valid_doi_check)
+
     closed_subject = zope.schema.List(
         title = u'Subjects',
         required = False,

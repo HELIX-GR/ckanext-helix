@@ -7,14 +7,20 @@
 
 {# Make titles readable #}
 
-{%- macro map_titles(titles, key, dtype) -%}  
-    {% set title =  titles.get(key, key|title) %} 
-    {%if title == dtype + '('"'.title'"',)' %}
+{%- macro map_titles(titles, key, dtype='datacite') -%}  
+    {% set title =  titles.get(key, key|title) %}
+    {%if title == 'Owner_org' %}
+        Organization
+    {%elif title == dtype + '('"'.title'"',)' %}
         Title
-    {% elif title == dtype|capitalize + '('"'.creator.creator_name'"',)' %}
+    {% elif title == '('"'datacite.creator.creator_name'"',)' %}
         Creator    
     {% elif title == dtype|capitalize + '.related_publication' %}
         Related publication
+    {% elif title == dtype|capitalize + '.is_derived_from' %}
+        Derived from
+    {% elif title == dtype|capitalize + '.is_similar_to' %}
+        Similar to
     {% elif title == dtype|capitalize + '.publication_year' %}
         Publication year
     {% elif title == '('"'datacite.contact_email'"',)' %}
@@ -24,7 +30,17 @@
     {% else %}
         {{title}}
     {% endif%}    
-    {%- endmacro -%}    
+    {%- endmacro -%}   
+ 
+    {%- macro map_messages(message) -%}  
+    {% if message == 'Invalid (InvalidDoi)' %}
+        Invalid DOI value
+    {% elif essage == 'Invalid (InvalidYear)' %}
+        Invalid year value
+    {% else %}
+        {{message}}
+    {% endif%}    
+    {%- endmacro -%}        
 
 {%- macro message_list(messages, key=None, titles={}, dtype='datacite') -%}
     {% if messages -%} 
@@ -38,10 +54,10 @@
     {% elif messages is sequence -%}
     {% with n = messages|count %}
     {% if n <= 1 %}
-    <span>{{ messages|first }}</span>
+    <span>{{ map_messages(messages|first) }}</span>
     {% else %}
     <ul>
-        {% for msg in messages -%}<li>{{ msg }}</li>{% endfor -%}
+        {% for msg in messages -%}<li>{{ map_messages(msg) }}</li>{% endfor -%}
     </ul>
     {% endif -%} {# if n #} 
     {% endwith %} {# with n #}

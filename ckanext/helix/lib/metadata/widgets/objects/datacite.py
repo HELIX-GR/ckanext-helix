@@ -131,6 +131,8 @@ class TableReadWidget(_common.TableReadWidget):
            'publication_year',
            'public_doi',
            'related_publication',
+           'is_derived_from',
+           'is_similar_to',
            'languagecode'
         ]
 

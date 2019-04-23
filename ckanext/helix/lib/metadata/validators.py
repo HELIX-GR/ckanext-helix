@@ -128,13 +128,12 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                 if value[0][:8] == 'Required':
                     key = tuple([ str.encode("('{0}.{1}',)" .format( dtype,key) )])
                     errors[key] = u'Missing value'
-                elif value[0][:7] == 'related':
+                elif value[0] == 'InvalidDoi ':
                     #remove duplicate error (for wrong value)
                     #logger.debug('key %s, errors[0] %s', key, errors[0])
                     key_to_remove = tuple([ str.encode('{0}.{1}' .format( dtype,key) )])
                     #key = tuple([ str.encode('{0}.{1},' .format( dtype,key) )])
                     key = tuple([ str.encode('{0}' .format(key) )])
-                    #logger.debug('key %s, key to remove %s ', key, key_to_remove)
                     errors.pop(key_to_remove)
                     errors[key] = u'Invalid DOI value'  
         #for k, v in errors.items():
