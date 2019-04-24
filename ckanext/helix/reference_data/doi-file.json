@@ -2,10 +2,10 @@
             "data": {
                 "type": "dois",
                 "attributes": {
-                    "doi": "10.0351/eovi-owsz",
+                    "doi": "10.0351/segi-h5kl",
                     "titles": [
                         {
-                            "title": "test orcid"
+                            "title": "Hello Inspire 1"
                         }
                     ],
                     "state": "draft"

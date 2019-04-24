@@ -200,19 +200,17 @@ class Controller(BaseController):
         data_dict = {
             'id': id,
         }
-        
-        
+              
         try:
             _check_access('dataset_publish', context)
         except logic.NotAuthorized as ex:    
             return 'Not authorized to perform this action. '
 
         package = _get_action('package_show')(context, data_dict)
-        log.debug('package %s', package)
         package['private'] = False
         if 'public_doi' not in package:   
             doi = ext_helpers.getDataciteDoi(package)
-            package['public_doi'] = doi
+            package['datacite.public_doi'] = doi
         result = _get_action('package_update')(context, package)
         return 
 

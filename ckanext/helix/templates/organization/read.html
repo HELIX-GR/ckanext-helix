@@ -2,7 +2,7 @@
 
 {% block breadcrumb_content %}
   <a class="breadcrumbs-part" {% link_for _('Publishers'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
-  
+  <a class="breadcrumbs-part" {% link_for c.group_dict.title|truncate(50) or org.name, controller='organization', action='read', id=c.group_dict.name %}</a>
     {% endblock %}
 
 
