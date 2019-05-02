@@ -119,12 +119,13 @@ def mapFields():
 
 def getDataciteDoi(package):
     """Perform HTTP request"""
-
+    
     randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     doi = "10.0351/" + randomString 
+    ref_data_path = ext_reference_data.get_path('')
     # write required json file
-    with open(ext_reference_data.get_path('doi-file.json'), 'w') as f:
+    with open(ref_data_path + 'doi-file.json', 'w') as f:
         f.write('''{
             "data": {
                 "type": "dois",
@@ -144,8 +145,8 @@ def getDataciteDoi(package):
         'Content-Type': 'application/vnd.api+json',
     }
     
-    data = open(ext_reference_data.get_path('doi-file.json'))
-    api_file = open(ext_reference_data.get_path('datacite_credentials.txt'))
+    data = open(ref_data_path + 'doi-file.json')
+    api_file = open(ref_data_path + 'datacite_credentials.txt')
     lines = api_file.readlines()
     client_id = lines[0].rstrip()
     password = lines[1].rstrip()
