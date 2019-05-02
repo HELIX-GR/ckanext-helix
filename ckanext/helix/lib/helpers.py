@@ -124,8 +124,7 @@ def getDataciteDoi(package):
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     doi = "10.0351/" + randomString 
     # write required json file
-    filepath = os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/'
-    with open(filepath + 'doi-file.json', 'w') as f:
+    with open(ext_reference_data.get_path('doi-file.json'), 'w') as f:
         f.write('''{
             "data": {
                 "type": "dois",
@@ -145,8 +144,8 @@ def getDataciteDoi(package):
         'Content-Type': 'application/vnd.api+json',
     }
     
-    data = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/doi-file.json')
-    api_file = open(os.pardir +'/extensions/ckanext-helix/ckanext/helix/reference_data/datacite_credentials.txt')
+    data = open(ext_reference_data.get_path('doi-file.json'))
+    api_file = open(ext_reference_data.get_path('datacite_credentials.txt'))
     lines = api_file.readlines()
     client_id = lines[0].rstrip()
     password = lines[1].rstrip()

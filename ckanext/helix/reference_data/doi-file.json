@@ -2,10 +2,10 @@
             "data": {
                 "type": "dois",
                 "attributes": {
-                    "doi": "10.0351/segi-h5kl",
+                    "doi": "10.0351/ml21-uyvq",
                     "titles": [
                         {
-                            "title": "Hello Inspire 1"
+                            "title": "Hello Foo 3"
                         }
                     ],
                     "state": "draft"
