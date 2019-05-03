@@ -243,6 +243,10 @@ ckanext.helix.extra_fields = spatial
 ckanext.helix.validation.relax_name_pattern = true
 ckanext.helix.api_resource_formats = wms wcs wfs csw
 
+ckanext.helix.datacite.api_url = https://api.test.datacite.org/dois
+ckanext.helix.datacite.client_id = username
+ckanext.helix.datacite.password = ****
+
 ckanext.helix.mime_types = 
     text/plain 
     text/html text/xml text/xhtml text/svg

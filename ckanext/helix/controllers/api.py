@@ -193,7 +193,7 @@ class Controller(BaseController):
 
 
         #post = request.params
-        log.debug('ID is %s', id)
+        #log.debug('ID is %s', id)
 
         
         context = self._make_context()

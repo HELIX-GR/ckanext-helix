@@ -43,6 +43,11 @@ The most common settings are:
     ckanext.helix.extra_fields = spatial
     ckanext.helix.validation.relax_name_pattern = true
 
+    # configuration for creating a new doi
+    ckanext.helix.datacite.api_url = https://api.test.datacite.org/dois
+    ckanext.helix.datacite.client_id = username
+    ckanext.helix.datacite.password = ****
+
 Additional plugins used:
 
     ckanext-basiccharts
@@ -57,13 +62,13 @@ Additional plugins used:
 
 Configuration for other plugins:
 
-    #ckanext_scheming configuration:
+    # ckanext_scheming configuration:
 
     scheming.organization_schemas = ckanext.helix:helix_organization_schema.json
     scheming.group_schemas = ckanext.helix:helix_group_schema.json
 
 
-    #ckanext-userautoadd configuration:
+    # ckanext-userautoadd configuration:
 
     # The organization to which new users are added
     ckan.userautoadd.organization_name = helix
@@ -71,18 +76,12 @@ Configuration for other plugins:
     # The role the new users will have
     ckan.userautoadd.organization_role = member
 
-    #ckanext.spatial configuration:
+    # ckanext.spatial configuration:
 
     ckan.spatial.srid = 4326
     ckanext.spatial.common_map.type = custom
     ckanext.spatial.common_map.custom.url = http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
     ckanext.spatial.common_map.attribution = &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a> 
-
-    #configuration for creating a new doi from datacite
-    add a new file: datacite_credentials.txt in ckanext/helix/reference_data 
-    containing 2 lines:  CLIENT_ID
-                         PASSWORD
-
 
 Uninstall
 ---------

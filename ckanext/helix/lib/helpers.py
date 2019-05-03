@@ -16,6 +16,8 @@ import requests
 import random
 import string
 
+from pylons import config
+
 import logging
 log1= logging.getLogger(__name__)
 
@@ -142,12 +144,9 @@ def getDataciteDoi(package):
         'Content-Type': 'application/vnd.api+json',
     }
     
-    ref_data_path = ext_reference_data.get_path('')
-    api_file = open(ref_data_path + 'datacite_credentials.txt')
-    lines = api_file.readlines()
-    client_id = lines[0].rstrip()
-    password = lines[1].rstrip()
-    
+    datacite_url = config.get('ckanext.helix.datacite.api_url')
+    client_id = config.get('ckanext.helix.datacite.client_id')
+    password = config.get('ckanext.helix.datacite.password')
     response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data_string, auth=(client_id, password))
 
     return doi
