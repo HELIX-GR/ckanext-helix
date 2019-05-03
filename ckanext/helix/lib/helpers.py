@@ -123,10 +123,7 @@ def getDataciteDoi(package):
     randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     doi = "10.0351/" + randomString 
-    ref_data_path = ext_reference_data.get_path('')
-    # write required json file
-    with open(ref_data_path + 'doi-file.json', 'w') as f:
-        f.write('''{
+    data_string = '''{
             "data": {
                 "type": "dois",
                 "attributes": {
@@ -139,19 +136,19 @@ def getDataciteDoi(package):
                     "state": "draft"
                 }
             }
-        }''')
+        }'''
     headers = {
         'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
     }
     
-    data = open(ref_data_path + 'doi-file.json')
+    ref_data_path = ext_reference_data.get_path('')
     api_file = open(ref_data_path + 'datacite_credentials.txt')
     lines = api_file.readlines()
     client_id = lines[0].rstrip()
     password = lines[1].rstrip()
     
-    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data, auth=(client_id, password))
+    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data_string, auth=(client_id, password))
 
     return doi
 
