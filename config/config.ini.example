@@ -118,11 +118,12 @@ ckan.plugins =
     recline_graph_view recline_map_view 
     geo_view wmts_view geojson_view
     viewhelpers
-    scheming_organizations scheming_groups
     helix_theme helix_dataset helix_package 
+    scheming_organizations scheming_groups
     userautoadd userdatasets 
+    hierarchy_display
     oauth2
-    hierarchy_display 
+     
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)
