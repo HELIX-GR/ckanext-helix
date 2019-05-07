@@ -130,6 +130,7 @@ class TableReadWidget(_common.TableReadWidget):
            'creator',
            'publication_year',
            'public_doi',
+           'embargo_date',
            'related_publication',
            'is_derived_from',
            'is_similar_to',

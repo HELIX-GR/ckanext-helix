@@ -212,6 +212,7 @@ class Controller(BaseController):
             doi = ext_helpers.getDataciteDoi(package)
             package['datacite.public_doi'] = doi
         result = _get_action('package_update')(context, package)
-        return 
+
+        return 'Dataset published'
 
     
