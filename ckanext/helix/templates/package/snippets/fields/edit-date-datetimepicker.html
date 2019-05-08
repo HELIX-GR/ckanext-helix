@@ -1,6 +1,6 @@
 {% import 'macros/markup_helpers.html' as markup_helpers -%}
 
-{%- set placeholder = placeholder or field.default -%}
+{%- set placeholder = placeholder or field.default -%} 
 {%- if input_classes is not defined %}{% set input_classes = [ 'form-control' ] %}{% endif -%}
 
 <div class="form-group{{ " error" if errors }}{{ " " ~ classes|join(' ') }}">
@@ -14,7 +14,7 @@
             <input type="text" id="{{ 'input-' ~ qname }}"  name="{{ qname }}"
                 class="{{ input_classes|join(" ") }}"
                 value="{{ value|empty_and_escape }}" 
-                placeholder="The date this dataset will become public."
+                placeholder="{{_('The date this dataset will become public.')}}"
             />
             <span class="input-group-addon">
                 <i data-date-icon="fa fa-calendar"></i>

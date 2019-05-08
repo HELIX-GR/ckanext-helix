@@ -4055,7 +4055,7 @@ msgid "Creator"
 msgstr "Δημιουργός"
 
 msgid "Related Publication"
-msgstr "Σχετική Δημοσίευση"
+msgstr "Σχετική δημοσίευση"
 
 msgid "The DOI of a related publication"
 msgstr "Το ψηφιακό αναγνωριστικό μιας σχετικής δημοσίευσης"
@@ -4124,3 +4124,24 @@ msgstr "Δημόσιο"
 
 msgid "Make private"
 msgstr "Ιδιωτικό"
+
+msgid "Derived from"
+msgstr "Προήλθε από"
+
+msgid "The publication this dataset is derived from"
+msgstr "Η δημοσίευση από την οποία προήλθε αυτό το σύνολο δεδομένων"
+
+msgid "Similar to"
+msgstr "Παρόμοιο με"
+
+msgid "A publication this dataset is similar to"
+msgstr "Το αναγνωριστικό μιας παρόμοιας δημοσίευσης"
+
+msgid "Publication year"
+msgstr "Έτος δημοσίευσης"
+
+msgid "Embargo date"
+msgstr "Άρση εμπάργκο"
+
+msgid "The date this dataset will become public."
+msgstr "Η ημερομηνία που θα δημοσιευτεί το σύνολο δεδομένων"

@@ -188,7 +188,7 @@ class IDataciteMetadata(IMetadata):
     date.setTaggedValue('format:markup', {'descend-if-dictized': True})  '''
     
     embargo_date = zope.schema.Date(
-        title = _(u'Embargo Date'),
+        title = _(u'Embargo date'),
         description = _(u'The date which specifies when the dataset will become public'),
         required = False)
     
