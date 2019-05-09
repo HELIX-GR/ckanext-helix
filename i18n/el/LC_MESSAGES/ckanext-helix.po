@@ -3986,7 +3986,7 @@ msgid "Contact"
 msgstr "Επικοινωνία"
 
 msgid "Terms of use"
-msgstr "Όροι Χρήσης"
+msgstr "Όροι χρήσης"
 
 msgid "Events"
 msgstr "Εκδηλώσεις"
@@ -4125,6 +4125,8 @@ msgstr "Δημόσιο"
 msgid "Make private"
 msgstr "Ιδιωτικό"
 
+#:: Add dataset extra fields
+
 msgid "Derived from"
 msgstr "Προήλθε από"
 
@@ -4140,8 +4142,34 @@ msgstr "Το αναγνωριστικό μιας παρόμοιας δημοσί
 msgid "Publication year"
 msgstr "Έτος δημοσίευσης"
 
+msgid "The year the dataset was published"
+msgstr "Το έτος δημοσίευσης του συνόλου δεδομένων"
+
 msgid "Embargo date"
 msgstr "Άρση εμπάργκο"
 
 msgid "The date this dataset will become public."
 msgstr "Η ημερομηνία που θα δημοσιευτεί το σύνολο δεδομένων"
+
+msgid "Important: By submitting content, you agree to release your contributions under the terms of the HELIX user agreement. See more at"
+msgstr "Σημαντικό: Με την υποβολή περιεχομένου, συμφωνείτε να αποδεσμεύσετε τις συνεισφορές σας σύμφωνα με τους όρους σύμβασης χρήσης HELIX. Δείτε περισσότερα στο"
+
+#:: publishers page
+
+msgid "Search publishers..."
+msgstr "Αναζήτηση εκδοτών..."
+
+msgid "Add Publisher"
+msgstr "Προσθήκη Εκδότη"
+
+#:: community page
+
+msgid "What are Communities?"
+msgstr "Τι είναι οι κοινότητες;"
+
+msgid "Search Communities"
+msgstr "Αναζήτηση Κοινοτήτων"
+
+msgid "Add Community"
+msgstr "Προσθήκη Κοινότητας"
+

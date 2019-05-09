@@ -75,9 +75,9 @@ then itself be extended to add/remove blocks of functionality. #}
       {% block disclaimer %}
       <p class="disclaimer">
           {%- trans -%}
-          Important: By submitting content, you agree to release your contributions under the terms of the HELIX user agreement. See more at 
-          <a href="http://core.hellenicdataservice.gr/project/page/terms-of-use" target="_blank">Terms of Use</a>
+          Important: By submitting content, you agree to release your contributions under the terms of the HELIX user agreement. See more at   
           {%- endtrans -%}
+          <a class="terms" href="http://core.hellenicdataservice.gr/project/page/terms-of-use" target="_blank">{{_('Terms of use')}}</a>
       </p>
       {% endblock %}
       {{ form.required_message() }}
