@@ -4117,6 +4117,20 @@ msgstr ""
 "Ανεξάρτητα από το ποιος δημοσίευσε ή ποιος είναι υπεύθυνος για την παραγωγή ενός συνόλου δεδομένων, "
 "οι Κοινότητες συγκεντρώνουν θεματικά κοντινά δεδομένα."  
 
+#:: add organization member
+msgid ""
+" <p><strong>Admin:</strong> Can add, edit and delete datasets, as well as "
+"manage the organization members.</p> "
+"<p><strong>Editor:</strong> Can add, edit and delete datasets, "
+"but not manage the organization members.</p> "
+"<p><strong>Member:</strong> Can add new datasets (private).</p> "
+msgstr ""
+" <p><strong>Διαχειριστής:</strong> Μπορεί να προσθέσει, επεξεργαστεί και να διαγράψει σύνολα δεδομένων όπως επίσης και να "
+"διαχειριστεί τους χρήστες του οργανισμού</p> <p><strong>Συντάκτης:</strong> Μπορεί να προσθέσει, επεξεργαστεί και να διαγράψει σύνολα δεδομένων "
+"αλλά δεν διαχειρίζεται τους χρήστες.</p> "
+"<p><strong>Μέλος:</strong> Μπορεί να προσθέσει νέα σύνολα δεδομένων (Ιδιωτικά).</p> "
+
+
 #:: bulk_process.html
 
 msgid "Make public"
