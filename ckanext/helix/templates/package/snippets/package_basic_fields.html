@@ -160,6 +160,9 @@
     </div>
     <p class="help-block">{{ description }}</p>
 </div>#}
+{% set groups = h.group_tree( type_='organization') %}
+
+{% set orgs = h.organizations_available()%}
 
     {% snippet 'package/snippets/edit-organization.html', 
         name='owner_org', 

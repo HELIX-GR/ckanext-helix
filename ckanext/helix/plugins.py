@@ -683,7 +683,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('not_empty') 
             ],
             'title': [
-
                 min_title_length,
                 toolkit.get_validator('not_empty'),
             ],
@@ -702,6 +701,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'closed_tag': [
                 toolkit.get_validator('not_empty'),
                 toolkit.get_converter('convert_to_tags')('closed_tags')
+            ],
+            'creator_organization': [ 
+                toolkit.get_validator('ignore_missing') ,
+                toolkit.get_converter('convert_to_extras')
             ],
             'language_name': [
                 toolkit.get_validator('ignore_missing'),
@@ -978,6 +981,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'language_name': [
                 toolkit.get_converter('convert_from_tags')('languages'),
+                toolkit.get_validator('ignore_missing')
+            ],
+            'creator_organization': [
+                toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],
             'featured': [

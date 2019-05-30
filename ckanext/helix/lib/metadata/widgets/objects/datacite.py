@@ -81,7 +81,6 @@ class DataciteEditWidget(EditObjectWidget):
         }
     
     def get_field_qualifiers(self):
-
         qualifiers = super(DataciteEditWidget, self).get_field_qualifiers()      
         qualifiers.update({
             'tags': 'tags'
@@ -99,12 +98,15 @@ class DataciteEditWidget(EditObjectWidget):
 class DataciteReadWidget(ReadObjectWidget):
     
     def prepare_template_vars(self, name_prefix, data):
+
+        log1.debug('HERE HERE2' )
         tpl_vars = super(DataciteReadWidget, self).prepare_template_vars(name_prefix, data)
         # Add variables
         return tpl_vars
    
     def get_field_qualifiers(self):
         
+        log1.debug('HERE HERE' )
         qualifiers = super(DataciteReadWidget, self).get_field_qualifiers()
         qualifiers['tags'] = 'tags.datacite'
         qualifiers['creator'] = 'creator.datacite'
@@ -112,6 +114,7 @@ class DataciteReadWidget(ReadObjectWidget):
         return qualifiers
     
     def get_glue_template(self):
+
         return 'package/snippets/objects/glue-read-datacite.html'
 
     def get_template(self):
@@ -133,13 +136,15 @@ class TableReadWidget(_common.TableReadWidget):
            'embargo_date',
            'related_publication',
            'is_derived_from',
-           'is_similar_to',
            'languagecode'
         ]
 
     
 
     def get_field_qualifiers(self):
+        
+
+        log1.debug('HERE HERE' )
         return OrderedDict([
             ('creator', 'creator.datacite')
         ])

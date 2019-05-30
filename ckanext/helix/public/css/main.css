@@ -730,6 +730,10 @@ div[class*="public_doi"] {
     display: none;
 }
 
+div[class*="creator_affiliation"] {
+    display: none;
+}
+
 .field-qname-datacite\.baz{
     display: none;
 }

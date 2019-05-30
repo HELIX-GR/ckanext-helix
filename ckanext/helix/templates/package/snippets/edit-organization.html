@@ -1,6 +1,7 @@
 {% from 'macros/markup_helpers.html' import mark_required %}
 
-
+{%set available_orgs_names = h.available_orgs_names() %}
+{% set top_nodes = h.group_tree(type_='organization') %} 
 <div class="form-group">
     <label for="input-{{ name }}" class="control-label">
         {{- title or _('Publisher') }}{{ mark_required(required) }}</label>
@@ -16,9 +17,22 @@
                     <option value="{{ h.organization_objects(['helix']).helix.id }}"  selected="selected" >
                        {{- h.organization_objects(['helix']).helix.display_name }}</option>
                 {% else %}
-                {%- for org_name, org in h.organization_objects(orgs_available).iteritems() %}
-                    <option value="{{ org.id }}" {% if value == org.id %} selected="selected" {% endif %}>
-                       {{- org.display_name }}</option>
+                {#{%- for org_name, org in h.organization_objects(orgs_available).iteritems() %} #}
+                  {% set top_nodes = h.group_tree(type_='organization') %} 
+                  {% for node in top_nodes recursive %}
+                    {% if node.name in available_orgs_names%}
+                        {% set depth = h.group_depth(node.name)%}
+                        {% if field == 'creator'%}
+                            <option value="{{ node.title }}" {% if value == node.title %} selected="selected" {% endif %}>
+                          {% for i in range(depth) %}&nbsp;&nbsp;&nbsp;&nbsp; {% endfor %} {{- node.title }}</option>
+                        {% else %}
+                            <option value="{{ node.id }}" {% if value == node.id %} selected="selected" {% endif %}>
+                            {% for i in range(depth) %}&nbsp;&nbsp;&nbsp;&nbsp; {% endfor %} {{- node.title }}</option>
+                        {% endif%}
+                    {% endif%}
+                    {% if node.children %}
+                        {{ loop(node.children) }}
+                    {% endif %}
                 {% endfor -%}
                 {% endif %}
         </select>

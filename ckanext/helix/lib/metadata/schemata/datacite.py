@@ -74,16 +74,18 @@ class IDataciteMetadata(IMetadata):
         required = True)'''
     
     public_doi = zope.schema.TextLine(
-        title = u'Public DOI',
+        title = u'Datacite DOI',
         required = False)
     
 
     def valid_doi_check(value):
         #check for regular expression for dois
-        regexDOI = re.compile('(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)')   
-        if not re.match(regexDOI,value):   
-            raise InvalidDoi
-        return True    
+        simpleDOI = re.compile('(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)') 
+        httpsDOI = re.compile('(https://dx.doi.org/10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)') 
+        proxyDOI = re.compile('(https://doi.org/10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)') 
+        if re.match(simpleDOI,value) or re.match(httpsDOI,value) or re.match(proxyDOI,value):   
+            return True
+        raise InvalidDoi    
 
     def valid_publication_year(value):
         try: 
@@ -105,12 +107,6 @@ class IDataciteMetadata(IMetadata):
     is_derived_from = zope.schema.TextLine(
         title = u'Derived from',
         description = (u'The publication this dataset is derived from'),
-        required = False,
-        constraint=valid_doi_check)
-
-    is_similar_to = zope.schema.TextLine(
-        title = u'Similar to',
-        description = (u'A publication this dataset is similar to'),
         required = False,
         constraint=valid_doi_check)
 

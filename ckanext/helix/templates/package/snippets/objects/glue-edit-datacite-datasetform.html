@@ -51,19 +51,29 @@
    ]    
 %}
         
+
+
+
 {{fields['public_doi'].markup }}        
  
 {{fields['contact_email'].markup}}
 
 {{fields['creator'].markup }}
 
+{% snippet 'package/snippets/edit-organization.html', 
+    name='creator_organization', 
+    title = 'Organization',
+    value = pkg_dict.creator_organization,
+    is_required = false,
+    orgs_available=h.organizations_available('create_dataset'),
+    field = 'creator'
+%}  
+
 <hr class="form-separator" />
 
 {{fields['related_publication'].markup }}
 
 {{fields['is_derived_from'].markup }}
-
-{{fields['is_similar_to'].markup }}
 
 {{fields['publication_year'].markup}}
 

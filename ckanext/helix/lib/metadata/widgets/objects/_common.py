@@ -203,6 +203,7 @@ class DlObjectReadWidget(ReadObjectWidget):
 class TdObjectReadWidget(ReadObjectWidget):
     
     def get_field_qualifiers(self):
+        
         qualifiers = super(TdObjectReadWidget, self).get_field_qualifiers()
         for key in qualifiers:
             qualifiers[key] = 'dd'
@@ -219,6 +220,15 @@ class DataTextReadWidget(ReadFieldWidget):
     
     def get_template(self):
         return 'package/snippets/fields/read-text-dd.html'
+
+
+@field_widget_adapter(ITextLineField, qualifiers=['doi'], is_fallback= False)
+class DOITextReadWidget(ReadFieldWidget):
+    
+    def get_template(self):
+        return 'package/snippets/fields/read-doi-td.html'
+
+
 
 @field_widget_adapter(ITextLineField, qualifiers=['dd.email', 'td.email'])
 @field_widget_adapter(IEmailAddressField, qualifiers=['dd', 'td'])

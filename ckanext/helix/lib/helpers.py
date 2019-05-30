@@ -124,7 +124,7 @@ def getDataciteDoi(package):
     
     randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-    doi = "10.0351/" + randomString 
+    doi = "10.0351/heal." + randomString 
     data_string = '''{
             "data": {
                 "type": "dois",

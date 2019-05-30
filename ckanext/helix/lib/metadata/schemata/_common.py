@@ -260,11 +260,17 @@ class ICreator(IObject):
         title = _(u'Creator name identifier scheme uri'),
         description=_(u'Name identifier scheme uri'), required=False)   
     '''
+    #creator_affiliation = zope.schema.TextLine(
+    #    title = _(u'Organization'),
+    #    description=_(u'The organization of the creator'),
+    #    required = False)
+
     creator_affiliation = zope.schema.TextLine(
         title = _(u'Organization'),
         description=_(u'The organization of the creator'),
         required = False)
-
+    creator_affiliation.setTaggedValue('links-to', 'creator_organization')
+    
 class ISubject(IObject):
 
     subject_name = zope.schema.TextLine(

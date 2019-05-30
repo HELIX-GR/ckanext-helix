@@ -1,4 +1,4 @@
-<span class="{{ classes|join(' ') }} text"> RELATED -
+<a class="{{ classes|join(' ') }} text">
     {%- if value -%}
     {{- value -}}
     {% elif field.default %}
@@ -6,4 +6,4 @@
     {% else %}
     <i>{{ _('n/a') }}</i>
     {%- endif -%}
-</span>
+</a>
