@@ -4082,15 +4082,14 @@ msgid "What are Publishers?"
 msgstr "Τι είναι οι εκδότες;"
 
 msgid ""
-" HELIX publishers are used to create, manage and publish collections of "
-"datasets. Users can have different roles within a publisher, depending "
-"on their level of authorisation to create, edit and publish. "
+" Publishers are sectoral, institutional, or thematic catalogues "
+"and repositories responsible for the primary and sustained provision "
+"of datasets. HELIX harvests metadata and datasets from Publishers’ services, "
+"making them available to the scientific community from a single endpoint. "
 msgstr ""
-" Οι εκδότες του HELIX χρησιμοποιούνται για τη δημιουργία, διαχείριση και "
-"δημοσίευση συλλογών συνόλων δεδομένων. Οι χρήστες μπορούν να έχουν "
-"διαφορετικούς ρόλους μέσα σε έναν εκδότη, αναλόγως με το επίπεδο "
-"εξουσιοδότησης που έχουν αναφορικά με τη δημιουργία, επεξεργασία και "
-"δημοσίευση. "
+" Οι Εκδότες είναι τομεακοί, ιδρυματικοί ή θεματικοί κατάλογοι και αποθετήρια υπεύθυνα για την πρωτογενή και  "
+"διαχρονική διάθεση δεδομένων. Το HELIX συγκεντρώνει μεταδεδομένα και σύνολα δεδομένων από τις υπηρεσίες των  "
+"Εκδοτών, προσφέροντάς τα προς την επιστημονική κοινότητα από ένα ενιαίο σημείο πρόσβασης. "
 
 #: communities
 

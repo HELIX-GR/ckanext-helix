@@ -276,16 +276,7 @@ msgstr "Φορτώνει...."
 msgid "Data API"
 msgstr "Data API"
 
-#: ckanext/datastore/templates-bs2/ajax_snippets/api_info.html:24
-msgid ""
-" Further information in the <a       "
-"href=\"http://docs.ckan.org/en/latest/maintaining/datastore.html\" "
-"target=\"_blank\">main CKAN Data API and DataStore documentation</a>.</p> "
-msgstr ""
-" Περισσότερες πληροφορίες στην <a       "
-"href=\"http://docs.ckan.org/en/latest/maintaining/datastore.html\" "
-"target=\"_blank\">κεντρική τεκμηρίωση του CKAN Data API και  του DataStore "
-"</a>.</p> "
+
 
 #: ckanext/datatablesview/plugin.py:47 ckanext/reclineview/plugin.py:128
 msgid "Table"
