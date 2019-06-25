@@ -69,10 +69,11 @@
       <div class="btn-save">
         <a href="#" data-toggle="tooltip"  data-placement="bottom" title="Save"><img class="" src="/images/png/save.png"></a>
       </div>
-      
+      {% if pkg.datacite%}
       <div class="package-language">
         <a href="#" > {{pkg.datacite.languagecode|truncate(2,True, '')|upper}}</a>
       </div>
+      {% endif%}
     </div>
 </div>  
   {% block package_dates %}

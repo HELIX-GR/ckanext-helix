@@ -4078,6 +4078,7 @@ msgid "File Description"
 msgstr "Περιγραφή αρχείου"
 
 #: ckanext/helixtheme/templates/organization/snippets/helper.html:5
+#: publishers
 msgid "What are Publishers?"
 msgstr "Τι είναι οι εκδότες;"
 
@@ -4091,6 +4092,15 @@ msgstr ""
 "διαχρονική διάθεση δεδομένων. Το HELIX συγκεντρώνει μεταδεδομένα και σύνολα δεδομένων από τις υπηρεσίες των  "
 "Εκδοτών, προσφέροντάς τα προς την επιστημονική κοινότητα από ένα ενιαίο σημείο πρόσβασης. "
 
+msgid "Search publishers..."
+msgstr "Αναζήτηση εκδοτών..."
+
+msgid "Add publisher"
+msgstr "Προσθήκη εκδότη"
+
+msgid "My Publishers"
+msgstr "Οι εκδότες μου"
+
 #: communities
 
 msgid "Communities"
@@ -4099,11 +4109,17 @@ msgstr "Κοινότητες"
 msgid "Community"
 msgstr "Κοινότητα" 
 
-msgid "What are Communities"
+msgid "What are Communities?"
 msgstr "Τι είναι οι κοινότητες" 
 
 msgid "Select a community..."
 msgstr "Επιλέξτε κοινότητα..." 
+
+msgid "Add Community"
+msgstr "Προσθήκη Κοινότητας"
+
+msgid "Search communities"
+msgstr "Αναζήτηση κοινοτήτων"
 
 msgid ""
 " Communities are domain or thematic-specific collections of data assets, "
@@ -4115,3 +4131,28 @@ msgstr ""
 "να οργανώνετε και να αναζητείτε δεδομένα σχετικά με το ειδικό σας ενδιαφέρον. "
 "Ανεξάρτητα από το ποιος δημοσίευσε ή ποιος είναι υπεύθυνος για την παραγωγή ενός συνόλου δεδομένων, "
 "οι Κοινότητες συγκεντρώνουν θεματικά κοντινά δεδομένα."  
+
+#: ckan/templates/admin/index.html:20
+#, python-format
+msgid ""
+" <p>As a sysadmin user you have full control over this CKAN instance. "
+"Proceed with care!</p> <p>For guidance on using sysadmin features, see the "
+"CKAN <a href=\"%(docs_url)s\" target=\"_blank\">sysadmin guide</a></p> "
+msgstr ""
+" <p>Σαν διαχεριστής συστήματος έχετε πλήρη έλεγχο σε αυτήν την CKAN εγκατάσταση. "
+"Λειτουργήστε με προσοχή!</p> <p>Για χρήσιμες οδηγίες δείτε τον "
+"CKAN <a href=\"%(docs_url)s\" target=\"_blank\">οδηγό διαχειριστή</a></p> "
+
+#: ckan/templates/organization/member_new.html:81
+msgid ""
+" <p><strong>Admin:</strong> Can add/edit and delete datasets, as well as "
+"manage the organization.</p> <p><strong>Editor:</strong> Can add and "
+"edit datasets, as well as manage the organization's members.</p> <p><strong>Member:</strong> "
+"Can add new datasets(private).</p> "
+msgstr ""
+" <p><strong>Διαχειριστής:</strong> Μπορεί να προσθέσει/επεξεργαστεί σύνολα "
+"δεδομένων καθώς και να διαχειριστεί τα μέλη του φορέα.</p> "
+"<p><strong>Συντάκτης:</strong> Μπορεί να προσθέσει/επεξεργαστεί σύνολα "
+"δεδομένων αλλά όχι και να διαχειριστεί τα μέλη του φορέα.</p> "
+"<p><strong>Μέλος:</strong> Μπορεί να δεί τα ιδιωτικά σύνολα δεδομένων του "
+"φορέα που ανήκει , αλλά όχι να προσθέσει νέα.</p> "

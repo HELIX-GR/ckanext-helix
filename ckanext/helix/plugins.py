@@ -1463,7 +1463,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             myorder = ['organization', 'closed_tags', 'tags', 'res_format', 'res_size',  'license_id']
             facets_dict = OrderedDict((k, facets_dict[k]) for k in myorder)
         c.facet_titles = facets_dict
-        log1.debug('myorder: %s, c.facet_titles: %s', myorder, c.facet_titles)
+        #log1.debug('myorder: %s, c.facet_titles: %s', myorder, c.facet_titles)
         return facets_dict    
 
     def update_facets(self):

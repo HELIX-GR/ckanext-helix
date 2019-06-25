@@ -68,3 +68,35 @@ def min_title_length(value, context):
                 raise Invalid("Value must be longer than 6 characters")
             return value
             pass
+
+def getDataciteDoi(package):
+    """Perform HTTP request"""
+    
+    randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+        +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
+    doi = "10.0351/heal." + randomString 
+    data_string = '''{
+            "data": {
+                "type": "dois",
+                "attributes": {
+                    "doi": "''' + doi + '''",
+                    "titles": [
+                        {
+                            "title": "''' + package['title'] +'''"
+                        }
+                    ],
+                    "state": "draft"
+                }
+            }
+        }'''
+    headers = {
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+    }
+    
+    datacite_url = config.get('ckanext.helix.datacite.api_url')
+    client_id = config.get('ckanext.helix.datacite.client_id')
+    password = config.get('ckanext.helix.datacite.password')
+    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data_string, auth=(client_id, password))
+
+    return doi
