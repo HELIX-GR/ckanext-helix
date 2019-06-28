@@ -342,6 +342,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'update_facets': self.update_facets,
             'dataset_facets': self.dataset_facets,
             'get_dataset_types': ext_template_helpers.get_dataset_types,
+            'getOrgLicenses': ext_helpers.getOrgLicenses,
+            'get_user_list': ext_helpers.get_user_list
         }
 
     ## IConfigurer interface ##

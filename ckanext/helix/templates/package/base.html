@@ -16,7 +16,7 @@
     {% set dataset = h.dataset_display_name(pkg) %}
     {% if pkg.organization %}
       {% set organization = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-      <a class="breadcrumbs-part"{% link_for _('Publishers'), controller='organization', action='index' %}</a>
+      <a class="breadcrumbs-part"{% link_for _('Institutions'), controller='organization', action='index' %}</a>
       <a class="breadcrumbs-part"{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</a>
     {% else %}
       <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>

@@ -6,7 +6,7 @@
     <hr class="separator"/>
     <div class="download-links pull-right">
       <div class="btn-download btn-group">
-        <a class="btn-group-main upper" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
+        <a class="btn-group-main upper" target= "_blank" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}" 
           > {{ _('Download') }}</a>
         {#<button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
           <span class="caret"></span>

@@ -18,6 +18,9 @@ import string
 
 from pylons import config
 
+from ckan.lib import base
+from ckan.common import c
+
 import logging
 log1= logging.getLogger(__name__)
 
@@ -151,3 +154,26 @@ def getDataciteDoi(package):
 
     return doi
 
+def getOrgLicenses(org_name):
+
+    default_licenses =  base.model.Package.get_license_options()
+    file_name = reference_data.get_path('licenses_' + org_name + '.json')
+    if os.path.isfile(file_name):
+        with open(file_name) as f:
+            data = json.load(f)
+            licenses = []
+            for license in data:
+                license_tuple = (license['title'], license['id'])
+                licenses.append(license_tuple)        
+    else: 
+        return default_licenses
+    log1.debug('default licenses %s, type %s, def[0]:%s, type %s', default_licenses, type(default_licenses), default_licenses[0], type(default_licenses[0]) )
+    log1.debug('new licenses %s', licenses)
+
+    return licenses
+
+def get_user_list():
+    
+    context = {'model': model, 'session': model.Session, 'ignore_auth': True}
+    users = logic.get_action('user_list')(context, {})    
+    return users

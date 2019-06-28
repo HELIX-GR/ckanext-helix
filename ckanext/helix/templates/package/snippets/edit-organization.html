@@ -4,7 +4,7 @@
 {% set top_nodes = h.group_tree(type_='organization') %} 
 <div class="form-group">
     <label for="input-{{ name }}" class="control-label">
-        {{- title or _('Publisher') }}{{ mark_required(required) }}</label>
+        {{- title or _('Institution') }}{{ mark_required(required) }}</label>
     <div class="controls">
         <select id="input-{{ name }}" name="{{ name }}" class="input-xlarge"
             data-module="autocomplete"

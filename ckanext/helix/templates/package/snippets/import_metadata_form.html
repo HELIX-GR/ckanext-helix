@@ -18,9 +18,9 @@
     
     {% snippet 'package/snippets/edit-organization.html', 
         name='owner_org', 
-        title=_('Publisher'),
+        title=_('Institution'),
         value=owner_org,
-        description=_('Specify the publisher of the dataset.'),
+        description=_('Specify the institution of the dataset.'),
         required=true, orgs_available=h.organizations_available('create_dataset')
     %}
         

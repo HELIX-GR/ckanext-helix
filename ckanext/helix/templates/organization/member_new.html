@@ -24,9 +24,21 @@
               <input id="username" name="username" type="text" value="{{ user.name }}"
               disabled="True" class="form-control">
             {% else %}
-                <input id="username" type="text" name="username" placeholder="{{ _('Username') }}"
+              {#  <input id="username" type="text" name="username" placeholder="{{ _('Username') }}"
               value="" class="control-medium" data-module="autocomplete"
-              data-module-source="/api/2/util/user/autocomplete?q=?">
+              data-module-source="/api/2/util/user/autocomplete?q=?"> #}
+             
+              <div class="form-group control-full" >
+                <div class="controls" >
+                <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="username"   placeholder=_('Choose user') >
+                    <option class="placeholder" value=""   hidden>{{_('Select a user')}} </option>
+                    {% for user in h.get_user_list()  %}
+                      <option value="{{ user.name }}" >{{user.name}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+              </div>  
+
             {% endif %}
           </div>
         </div>

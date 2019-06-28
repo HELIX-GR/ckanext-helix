@@ -3999,11 +3999,11 @@ msgstr "Πληροφορίες λογαριασμού"
 msgid "All"
 msgstr "Όλα"
 
-msgid "Publishers"
-msgstr "Εκδότες"
+msgid "Institutions"
+msgstr "Ιδρύματα"
 
-msgid "Publisher"
-msgstr "Εκδότης"
+msgid "Institution"
+msgstr "Ίδρυμα"
 
 #: Add dataset form
 
@@ -4078,17 +4078,17 @@ msgid "File Description"
 msgstr "Περιγραφή αρχείου"
 
 #: ckanext/helixtheme/templates/organization/snippets/helper.html:5
-msgid "What are Publishers?"
-msgstr "Τι είναι οι εκδότες;"
+msgid "What are institutions?"
+msgstr "Τι είναι τα ιδρύματα;"
 
 msgid ""
-" Publishers are used to create, manage and publish collections of "
-"datasets. Users can have different roles within a publisher, depending "
+" Institutions are used to create, manage and publish collections of "
+"datasets. Users can have different roles within an institution, depending "
 "on their level of authorization to create, edit and publish. "
 msgstr ""
-" Οι εκδότες χρησιμοποιούνται για τη δημιουργία, διαχείριση και "
+" Τα ιδρύματα χρησιμοποιούνται για τη δημιουργία, διαχείριση και "
 "δημοσίευση συλλογών συνόλων δεδομένων. Οι χρήστες μπορούν να έχουν "
-"διαφορετικούς ρόλους μέσα σε έναν εκδότη, αναλόγως με το επίπεδο "
+"διαφορετικούς ρόλους μέσα σε έναν ίδρυμα, αναλόγως με το επίπεδο "
 "εξουσιοδότησης που έχουν αναφορικά με τη δημιουργία, επεξεργασία και "
 "δημοσίευση. "
 
@@ -4170,11 +4170,11 @@ msgstr "Σημαντικό: Με την υποβολή περιεχομένου,
 
 #:: publishers page
 
-msgid "Search publishers..."
-msgstr "Αναζήτηση εκδοτών..."
+msgid "Search institutions..."
+msgstr "Αναζήτηση ιδρυμάτων..."
 
-msgid "Add Publisher"
-msgstr "Προσθήκη Εκδότη"
+msgid "Add Institution"
+msgstr "Προσθήκη Ιδρύματος"
 
 #:: community page
 
@@ -4187,3 +4187,33 @@ msgstr "Αναζήτηση Κοινοτήτων"
 msgid "Add Community"
 msgstr "Προσθήκη Κοινότητας"
 
+#: ckan/templates/admin/index.html:20
+#, python-format
+
+msgid "As a sysadmin user you have full control over this CKAN instance. Proceed with care!"
+msgstr "Σαν διαχεριστής συστήματος έχετε πλήρη έλεγχο σε αυτήν την CKAN εγκατάσταση."
+
+msgid "For guidance on using sysadmin features, see the CKAN"
+msgstr "Για χρήσιμες οδηγίες δείτε τον CKAN"
+
+msgid "sysadmin guide"
+msgstr "οδηγό διαχειριστή"
+
+#: ckan/templates/admin/config.html:33
+#, python-format
+msgid ""
+" <p><strong>Site Title:</strong> This is the title of this CKAN instance It "
+"appears in various places throughout CKAN.</p> <p><strong>Style:</strong> "
+"Choose from a list of simple variations of the main colour scheme to get a "
+"very quick custom theme working.</p> <p><strong>Site Tag Logo:</strong> This "
+"is the logo that appears in the header of all the CKAN instance templates.</"
+"p> <p><strong>About:</strong> This text will appear on this CKAN instances "
+msgstr ""
+" <p><strong>Τίτλος Ιστοσελίδας:</strong> Αυτός είναι ο τίτλος του καταλόγου. "
+"Εμφανίζεται σε διάφορα σημεία σε ολόκληρο τον ιστότοπο.</p> <p><strong>Στυλ:"
+"</strong> Επιλέξτε από μια λίστα με απλές παραλλαγές του βασικού συνδυασμού "
+"χρωμάτων, προκειμένου να έχετε άμεσα ένα προσαρμοσμένο θέμα σε λειτουργία.</"
+"p> <p><strong>Λογότυπο Ιστοσελίδας:</strong> Αυτό είναι το λογότυπο που "
+"εμφανίζεται στην κεφαλίδα όλων των προτύπων αυτής του καταλόγου.</p> "
+"<p><strong>Σχετικά:</strong> Αυτό το κείμενο θα εμφανίζεται στη <a href="
+"\"%(about_url)s\">σελίδα Σχετικά</a> του καταλόγου.</p> "

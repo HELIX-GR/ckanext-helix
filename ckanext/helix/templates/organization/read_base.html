@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content %}
-  <a class="breadcrumbs-part"{% link_for _('Publishers'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
+  <a class="breadcrumbs-part"{% link_for _('Institutions'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
     <a class="breadcrumbs-part"{% link_for c.group_dict.display_name|truncate(100), controller='ckanext.helix.controllers.organization:Controller', action='read', id=c.group_dict.name, named_route=group_type + '_read' %}</a>
 {% endblock %}
 
