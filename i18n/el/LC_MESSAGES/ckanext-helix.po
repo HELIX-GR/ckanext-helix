@@ -4002,6 +4002,9 @@ msgstr "Όλα"
 msgid "Institutions"
 msgstr "Ιδρύματα"
 
+msgid "My Institutions"
+msgstr "Τα ιδρύματα μου"
+
 msgid "Institution"
 msgstr "Ίδρυμα"
 
