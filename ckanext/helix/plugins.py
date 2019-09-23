@@ -780,10 +780,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
             ],
-            'contributor': [
-                toolkit.get_validator('ignore_missing'),
-                toolkit.get_converter('convert_to_extras')
-            ],
             'contributor_type': [
                 toolkit.get_validator('ignore_missing'),
                 toolkit.get_converter('convert_to_extras')
@@ -1071,10 +1067,6 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing')
             ],
             'subject_value_uri': [
-                toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing')
-            ],
-            'contributor': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')
             ],

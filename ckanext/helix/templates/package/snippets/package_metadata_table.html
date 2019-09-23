@@ -27,6 +27,7 @@
       </div>#}
     </div>
   </div>
+  {%set contributor = pkg_dict.extras|selectattr("key", "equalto", "contributor")|list%}
   {% with 
      data = { 
         'max_depth': 2,
@@ -44,9 +45,12 @@
             { 'key': 'identifier_type', 'title': _('Identifier type'), 'value': pkg_dict.identifier_type, 'attrs': {}, },
             
             { 'key': 'resource_type', 'title': _('Resource type'), 'value': pkg_dict.resource_type, 'attrs': {}, },
+            
+            { 'key': 'contributor', 'title': _('Contributor'), 'value': contributor[0].value if contributor, 'attrs': {}, },
         ] 
      } 
   %}
+  
   {{ h.markup_for('read:table', md, errors=none, name_prefix='', data=data) }} 
   {% endwith %}  {# data #}
 

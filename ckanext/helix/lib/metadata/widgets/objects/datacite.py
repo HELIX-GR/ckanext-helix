@@ -136,6 +136,7 @@ class TableReadWidget(_common.TableReadWidget):
            'embargo_date',
            'related_publication',
            'is_derived_from',
+           'source',
            'languagecode'
         ]
 

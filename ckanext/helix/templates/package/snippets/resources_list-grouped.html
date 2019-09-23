@@ -52,8 +52,9 @@ pkg - A package object that the resources belong to.
     {% endtrans %}
     {% else %}
     <p class="empty">
-        {{ _('This dataset has no data') }}
+        {{ _('This dataset has no data.') }} {{ _('Contact the creator to request access to it.') }} 
     </p>
+    <a class='btn btn-manage black contact' href="mailto:placeholder@mail.com">Contact</a>
     {% endif %} {# check_access #}
     {% endif %} {# not resources #}
     {% endblock %} {# resources_empty #}

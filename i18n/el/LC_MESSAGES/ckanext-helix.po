@@ -2500,8 +2500,15 @@ msgstr ""
 #: ckanext/helix/templates/package/snippets/resources_list-all.html:31
 #: ckanext/helix/templates/package/snippets/resources_list-grouped.html:53
 #: ckanext/helix/templates/package/snippets/resources_list.html:53
-msgid "This dataset has no data"
-msgstr "Αυτό το σύνολο δεδομένων δεν περιέχει δεδομένα"
+msgid "This dataset has no data."
+msgstr "Αυτό το σύνολο δεδομένων δεν περιέχει δεδομένα."
+
+#: ckanext/helix/templates/package/snippets/resources_list-all.html:31
+#: ckanext/helix/templates/package/snippets/resources_list-grouped.html:53
+#: ckanext/helix/templates/package/snippets/resources_list.html:53
+msgid "Contact the creator to request access to it."
+msgstr "Επικοινωνήστε με τον δημιουργό για να ζητήσετε πρόσβαση."
+
 
 #: ckanext/helix/templates/package/snippets/resources_list-grouped.html:63
 #: ckanext/helix/templates/package/snippets/resources_list.html:63
@@ -4220,3 +4227,6 @@ msgstr ""
 "εμφανίζεται στην κεφαλίδα όλων των προτύπων αυτής του καταλόγου.</p> "
 "<p><strong>Σχετικά:</strong> Αυτό το κείμενο θα εμφανίζεται στη <a href="
 "\"%(about_url)s\">σελίδα Σχετικά</a> του καταλόγου.</p> "
+
+msgid "There are no topics associated with this dataset"
+msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποια θεματική ομάδα"
