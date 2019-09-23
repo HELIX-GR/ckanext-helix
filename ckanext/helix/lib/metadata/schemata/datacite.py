@@ -203,6 +203,12 @@ class IDataciteMetadata(IMetadata):
     #languagecode.setTaggedValue('format:markup', {'descend-if-dictized': False})
 
 
+    source = zope.schema.TextLine(
+        title = _(u'Source'),
+        description = _(u'The source of the harvested dataset'),
+        required = False)
+
+    
     @zope.interface.invariant
     def check_tag_duplicates(obj):
         s = set(obj.tags)
