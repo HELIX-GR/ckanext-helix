@@ -105,8 +105,9 @@ def postprocess_dataset_for_edit(key, data, errors, context):
 
     if not 'skip_validation' in context:
         validation_errors = md.validate(dictize_errors=True)
-        #logger.debug("\n\n VALIDATION ERRORS are: %s ,errors are %s, type of errors is %s \n\n", validation_errors, errors, type(validation_errors) )
-        #errors[('datacite.related_publication',)] = 'Missing Value'
+        #logger.debug("\n\n VALIDATION ERRORS are: %s ,type of val errors: %s, errors are %s, type of errors is %s \n\n",
+        #     validation_errors, type(validation_errors), errors, type(validation_errors) )
+        
         # Map validation_errors to errors
         for key, value in validation_errors.items():
             #logger.debug("\n\n validation is %s, type is %s, value is %s, type is %s\n", key, type(key), value, type(value) )
@@ -118,16 +119,17 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                 k = tuple([ str.encode("('{0}.{1}',)" .format( dtype,k) )])
                 v =  value[next(iter(value))]
                 #logger.debug("\n\n key[0] is %s, value[0] is %s \n", k, v)
-                if v[0][0] == 'R':       #RequiredMissing
-                    errors[k] = u'Missing value'
+                #if v[0][0] == 'R':       #RequiredMissing
+                #    errors[k] = u'Missing value'
             else:
                 # make key compatible with errors dict (tuple)
                 #key = tuple([str.encode("('datacite.%s',)" % key)])
                 # fix error message displayed
                 #logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
                 if value[0][:8] == 'Required':
-                    key = tuple([ str.encode("('{0}.{1}',)" .format( dtype,key) )])
-                    errors[key] = u'Missing value'
+                    test = 5
+                    #key = tuple([ str.encode("('{0}.{1}',)" .format( dtype,key) )])
+                    #errors[key] = u'Missing value'
                 elif value[0] == 'InvalidDoi ':
                     #remove duplicate error (for wrong value)
                     #logger.debug('key %s, errors[0] %s', key, errors[0])
@@ -136,6 +138,7 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                     key = tuple([ str.encode('{0}' .format(key) )])
                     errors.pop(key_to_remove)
                     errors[key] = u'Invalid DOI value'  
+            #errors.update(validation_errors)
         #for k, v in errors.items():
         #    logger.debug("K: %s,type: %s v: %s,type %s ", k,type(k), v, type(v))      
         # Fixme Map validation_errors to errors  ! ! ! ! 
