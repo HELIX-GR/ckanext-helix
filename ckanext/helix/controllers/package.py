@@ -304,7 +304,11 @@ class Controller(BaseController):
                     else:
                         errors = {}
                         error_summary = {_('Error'): msg}
-                        return self.new_resource(id, data, errors, error_summary)
+                        # made resource adding optional
+                        h.redirect_to(controller='ckanext.helix.controllers.package:Controller',
+                              action='new_metadata', id=id, data=data)
+                        #return self.new_resource(id, data, errors, error_summary)
+                    
                 # we have a resource so let them add metadata
                 h.redirect_to(controller='ckanext.helix.controllers.package:Controller',
                               action='new_metadata', id=id, data=data)
