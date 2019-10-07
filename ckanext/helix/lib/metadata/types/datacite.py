@@ -38,6 +38,25 @@ class DataciteMetadata(Metadata):
     def _deduce_id(self): 
         return self.identifier
 
+    @deduce('license_id')
+    def _deduce_license(self):
+        log1.debug('license is %s',self.license_id)
+        return self.license_id
+
+    @deduce('closed_tag')
+    def _deduce_closed_subject(self):
+        return self.closed_subject    
+
+    @deduce('tags')
+    def _deduce_free_tag(self):
+        result = []
+        for kw in self.free_tags: 
+            tag = {'state':'active'}
+            tag['name'] = kw
+            result.append(tag)
+        return result 
+
+
 @xml_serializers.object_xml_serialize_adapter(IDataciteMetadata)
 class DataciteXmlSerializer(xml_serializers.ObjectSerializer):
     pass

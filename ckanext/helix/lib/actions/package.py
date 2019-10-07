@@ -59,6 +59,7 @@ def dataset_export(context, data_dict):
         # Get a proper serializer
         xser = xml_serializer_for(obj)
         xser.target_namespace = pylons.config.get('ckan.site_url') 
+        log.debug('obj: %s, xser %s', obj, xser)
         # Persist exported XML data and wrap into a URL
         name = '%(name)s@%(revision_id)s' % (pkg)
         cached = cached_metadata.get(name, createfunc=xser.dumps)

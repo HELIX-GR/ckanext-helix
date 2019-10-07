@@ -5,11 +5,17 @@ import ckan.logic as logic
 import os
 import itertools
 from ckan.lib.navl.dictization_functions import Invalid
+import textwrap
 
-import logging
-log1= logging.getLogger(__name__)
+import json
+import requests
+import random
+import string
 
+from pylons import config
 
+from ckan.lib import base
+from ckan.common import c
 from ckanext.helix import reference_data
 
 
@@ -74,7 +80,7 @@ def getDataciteDoi(package):
     
     randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-    doi = "10.0351/heal." + randomString 
+    doi = "10.0351/" + randomString 
     data_string = '''{
             "data": {
                 "type": "dois",

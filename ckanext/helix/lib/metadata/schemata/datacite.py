@@ -15,12 +15,12 @@ from ._common import *
 from uuid import UUID
 _ = lambda t: t # Mock translator
 
-class relatedPubError(zope.schema.ValidationError):
-        __doc__ = _("Input is not a valid UUID")
+class InvalidDoi(zope.schema.ValidationError):
+        __doc__ = _("Input is not a valid DOI")
 
 
 class IDataciteMetadata(IMetadata):
-    
+   
     zope.interface.taggedValue('recurse-on-invariants', True)
 
     url = zope.schema.URI(
@@ -75,31 +75,46 @@ class IDataciteMetadata(IMetadata):
         required = False)
     
 
-    def related_publication_empty(value):
+    def valid_doi_check(value):
         #check for regular expression for dois
         regexDOI = re.compile('(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)')   
         if not re.match(regexDOI,value):   
-            raise relatedPubError
+            raise InvalidDoi
         return True    
 
 
-    #zope.interface.invariant(related_publication_empty)    
+    #zope.interface.invariant(valid_doi_check)    
     #     
     related_publication = zope.schema.TextLine(
         title = u'Related Publication',
         description = (u'The DOI of a related publication'),
         required = False,
-        constraint=related_publication_empty)
+        constraint=valid_doi_check)
     
     closed_subject = zope.schema.List(
-        title = u'Closed Tags',
+        title = u'Subjects',
         required = False,
         value_type = zope.schema.TextLine(
-            title = u'Closed Tag'),
+            title = u'Subject'),
         min_length = 1,
-        max_length = 5,)
+        max_length = 4)
     closed_subject.setTaggedValue('links-to', 'closed_tag')    
  
+    license_id = zope.schema.TextLine(
+        title = u'License',
+        description = (u'The license of the dataset'),
+        required = False)
+    license_id.setTaggedValue('links-to', 'license_id')    
+ 
+    free_tags = zope.schema.List(
+        title= _(u'Tags'),
+        description = _(u'Free keywords'),
+        required = False,
+        value_type = zope.schema.TextLine(
+            title = u'Tag'),
+        min_length = 1,
+        max_length = 6)
+    free_tags.setTaggedValue('links-to', 'tags')  
     
     contact_email = z3c.schema.email.RFC822MailAddress(
         title = _(u'Contact e-mail'),
