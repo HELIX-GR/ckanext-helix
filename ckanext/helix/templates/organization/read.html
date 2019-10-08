@@ -21,9 +21,12 @@
   {% block packages_list %}
     {% if c.page.items %}
       {{ h.snippet('snippets/package_list.html', packages=c.page.items) }}
+      {% else%}
+      <h2 class="empty">{{_('No datasets found')}}</h2>
     {% endif %}
   {% endblock %}
   {% block page_pagination %}
+  {% if c.page.items %}
     <div class="main-results-border-bottom"> </div>
     <div class="breadcrumbs-pagination bottom">
       <div class=breadcrumbs>
@@ -31,6 +34,7 @@
       </div>
       {{ c.page.pager(q=c.q) }}
     </div>    
+    {% endif %}
   {% endblock %}
 {% endblock %}
 
