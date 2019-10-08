@@ -96,7 +96,7 @@
     "domain_data": false, 
     "domain_software": false, 
     "family": "", 
-    "id": "other", 
+    "id": "other-restricted", 
     "is_generic": true, 
     "maintainer": "", 
     "od_conformance": "not reviewed", 
@@ -104,7 +104,7 @@
     "is_okd_compliant": false, 
     "is_osi_compliant": false, 
     "status": "active", 
-    "title": "Other", 
+    "title": "Other (restricted)", 
     "url": ""
   }
 ]
