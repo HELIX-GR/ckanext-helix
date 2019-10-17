@@ -38,7 +38,7 @@ pkg - A package object that the resources belong to.
             {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
         {% endfor %}
         {% endblock %}
-    </v>
+    </div>
     {% endif %} {# file_resources #}
     {% endblock %} {# resource_file_list #}
     
@@ -52,9 +52,9 @@ pkg - A package object that the resources belong to.
     {% endtrans %}
     {% else %}
     <p class="empty">
-        {{ _('This dataset has no data.') }} {{ _('Contact the creator to request access to it.') }} 
+         {{ _('Contact the creator to request access to the dataset resources.') }} 
     </p>
-    <a class='btn btn-manage black contact' href="mailto:placeholder@mail.com">Contact</a>
+    {#<a class='btn btn-manage black contact' href="mailto:placeholder@mail.com">Contact</a> #}
     {% endif %} {# check_access #}
     {% endif %} {# not resources #}
     {% endblock %} {# resources_empty #}
