@@ -3934,8 +3934,8 @@ msgstr ""
 "γνωρίζουν ποιος είστε και με τι ασχολείστε. "
 
 #: ckanext/helixtheme/templates/home/snippets/search.html:12
-msgid "Search for open scientific data"
-msgstr "Αναζητήστε ανοικτά επιστημονικά δεδομένα"
+msgid "Search for open data"
+msgstr "Αναζητήστε ανοικτά δεδομένα"
 
 #: homepage
 msgid "Latest Datasets"
@@ -4172,6 +4172,9 @@ msgstr "Το έτος δημοσίευσης του συνόλου δεδομέ�
 msgid "Embargo date"
 msgstr "Άρση εμπάργκο"
 
+msgid "Contributor"
+msgstr "Συνεισφέρων"
+
 msgid "The date this dataset will become public."
 msgstr "Η ημερομηνία που θα δημοσιευτεί το σύνολο δεδομένων"
 
@@ -4230,3 +4233,16 @@ msgstr ""
 
 msgid "There are no topics associated with this dataset"
 msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποια θεματική ομάδα"
+
+# facet_list.html, advanced_search_facets.html
+msgid "View More"
+msgstr "Περισσότερα"
+
+msgid "View Less"
+msgstr "Λιγότερα"
+
+msgid "Follow Us"
+msgstr "Ακολουθήστε μας"
+
+msgid "Users"
+msgstr "Χρήστες"
