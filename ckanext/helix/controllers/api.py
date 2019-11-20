@@ -17,6 +17,8 @@ from ckanext.helix.lib import uploader
 from ckanext.helix.lib import vocabularies
 import ckanext.helix.lib.helpers as ext_helpers
 
+import os
+
 import uuid
 
 log = logging.getLogger(__name__)
@@ -214,5 +216,27 @@ class Controller(BaseController):
         result = _get_action('package_update')(context, package)
 
         return 'Dataset published'
+
+    def i18n_js_translations(self, lang):
+        ''' Patch for broken JS translations caused by Pylons to Flask
+        migration. This method patches https://github.com/ckan/ckan/blob/master/ckan/views/api.py#L467
+        :param lang: locale of the language
+        :type lang: string
+        :returns: the translated strings in a json file.
+        :rtype: json
+        '''
+        log.debug('in api lang')
+        ckan_path = os.path.join(
+            os.path.dirname(__file__), '..', '..', '..', '..', '..', 'ckan', 'ckan'
+        )
+        source = os.path.abspath(os.path.join(ckan_path, 'public',
+                                 'base', 'i18n', '%s.js' % lang))
+        log.debug('source %s', source)
+        toolkit.response.headers['Content-Type'] =\
+            'application/json;charset=utf-8'
+        if not os.path.exists(source):
+            return '{}'
+        f = open(source, 'r')
+        return(f)
 
     

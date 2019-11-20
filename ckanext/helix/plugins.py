@@ -445,7 +445,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             m.connect(
                 '/api/helix/dataset/publish/{id}', 
                 action='dataset_publish')
-           
+
+            # workaround for missing js translations
+            m.connect(
+                '/api/i18n/{lang}',
+                action='i18n_js_translations'
+            )           
+
 
         user_controller = 'ckanext.helix.controllers.user:UserController'
 
@@ -565,6 +571,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'dataset_export_dcat': ext_actions.package.dataset_export_dcat,
             #'group_list_authz': ext_actions.group.group_list_authz,
             'favorite': ext_actions.package.favorite,
+            'request_resource': ext_actions.package.request_resource
         }
     
     ## IAuthFunctions interface ##
