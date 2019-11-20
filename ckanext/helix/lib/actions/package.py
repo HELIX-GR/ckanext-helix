@@ -594,5 +594,31 @@ def favorite(context, data_dict):
         log.debug('HTTP Error  => %s \n URL=> %s\n' % (e, url) )
     except urllib2.URLError, e:
         log.debug( 'URL Error , reason => %s \n URL=> %s\n' % (e.reason,url) )  
+
+def request_resource(self, data_dict):
+    '''Sent Email with a resource request to the owner of a dataset.'''
+    import ckan.lib.mailer
+    from ckan.lib.base import c
+    creator_id = data_dict['creator_id']
+    context = {'model': model, 'session': model.Session, 'user': creator_id}
+    user_dict = _get_action('user_show')(context, {'id': creator_id})
+
+    #create request e-mail
+    email_title = 'Resource request at HEAL-Link repository'
+    email_intro = "Resource request for dataset " + data_dict['pkg_title']
+    no_reply_message = '\n\n\nDo not reply to this message, please use support@heal-link.gr for assistance.'
+    email_message = email_intro + '\n\n' + data_dict['message'] + '\n\n-----------------------------\n' + \
+        'Submitter information:\n' + data_dict['name'] \
+         + '\n' + data_dict['email'] + no_reply_message
+
+    #send e-mail    
+    try:
+        ckan.lib.mailer.mail_recipient(data_dict['name'], user_dict['email'],
+                email_title, email_message)
+    except ckan.lib.mailer.MailerException:
+        return 'Error sending e-mail'
+        #raise
+
+    return 'Mail sent!'
     
     

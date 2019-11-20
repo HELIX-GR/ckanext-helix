@@ -20,28 +20,54 @@ pkg - A package object that the resources belong to.
 {% set file_resources = h.filtered_list(resources, 'resource_type', 'api', 'ne') %}
 {% set api_resources = h.filtered_list(resources, 'resource_type', 'api', 'eq') %}
 
-<section class="package-resources {% if resources and not file_resources %}hide{% endif %}"
-    >
- <div class="section-title"><h5 class="inline">{{ _('Data and Resources') }}</h5>
- 
- <hr class="separator" />
- 
- {# {% block resource_download_ingested %}
+<section class="package-resources {% if resources and not file_resources %}hide{% endif %}">
+    <div class="section-title">
+        <h5 class="inline">{{ _('Data and Resources') }}</h5>
+        <div id="modal-request">
+            <div class="modal-heading">Contact</div>
+            <div class="modal-body">
+                <form role="form" method="post" id="request_form">
+                    <p>{{_('Send your message to the dataset owner requesting the resources, including your name and e-mail.')}}</p>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">
+                            Email</label>
+                        <input type="email" class="form-control" id="email" name="email" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">
+                            Message</label>
+                        <textarea class="form-control" type="textarea" name="message" id="message"
+                            placeholder="Your Message Here" maxlength="6000" rows="7"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-success btn-block" id="btnRequest">Send request →</button>
+                </form>
+                <p id="result-text"></p> 
+            </div>
+            <a id="modal_close">x</a>
+        </div>
+
+        <hr class="separator" />
+
+        {# {% block resource_download_ingested %}
    {% endblock %} #}
-  </div>
+    </div>
 
     {% block resource_file_list %}
     {% if file_resources %}
     <div class="package-resource-list">
         {% block resource_file_list_inner %}
         {% for resource in file_resources if not resource.format in filtered_formats %}
-            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
+        {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
         {% endfor %}
         {% endblock %}
     </div>
     {% endif %} {# file_resources #}
     {% endblock %} {# resource_file_list #}
-    
+
     {% block resources_empty %}
     {% if not resources %}
     {% if h.check_access('resource_create', pkg) %}
@@ -51,25 +77,25 @@ pkg - A package object that the resources belong to.
     </p>
     {% endtrans %}
     {% else %}
-    <p class="empty">
-         {{ _('Contact the creator to request access to the dataset resources.') }} 
+    <p class="empty"> 
+        {{ _('Contact the creator to request access to the dataset resources.') }}
     </p>
-    {#<a class='btn btn-manage black contact' href="mailto:placeholder@mail.com">Contact</a> #}
+    <a class='btn btn-manage black contact' id="request-button" data-module="request-resource"
+        data-module-action="request_resource" data-module-creator_id="{{pkg.creator_user_id}}" data-toggle="tooltip"
+        data-module-pkg_title="{{pkg.title}}" data-placement="bottom">Contact</a>
     {% endif %} {# check_access #}
     {% endif %} {# not resources #}
     {% endblock %} {# resources_empty #}
 </section>
 
-<section id="dataset-resources-apis" 
-    class="resources {% if not api_resources %}hide{% endif %}"
- >
+<section id="dataset-resources-apis" class="resources {% if not api_resources %}hide{% endif %}">
     <h3 class="inline">{{ _('Services') }}</h3>
     {% block resource_api_list %}
     {% if api_resources %}
     <ul class="resource-list">
         {% block resource_api_list_inner %}
         {% for resource in api_resources if not resource.format in filtered_formats %}
-            {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
+        {% snippet 'package/snippets/resource_item.html', pkg=pkg, res=resource %}
         {% endfor %}
         {% endblock %}
     </ul>
@@ -77,4 +103,4 @@ pkg - A package object that the resources belong to.
     {% endblock %} {# resource_api_list #}
 </section>
 
-
+{% resource 'ckanext-helix/request-resource'%}
