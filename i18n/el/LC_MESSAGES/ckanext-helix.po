@@ -2439,8 +2439,8 @@ msgid "Some useful notes about the data"
 msgstr "Χρήσιμες πληροφορίες σχετικά με τα δεδομένα"
 
 #: ckanext/helix/templates/package/snippets/resource_form.html:55
-msgid "eg. csv"
-msgstr "π.χ. csv"
+msgid "e.g. CSV, XML"
+msgstr "π.χ. CSV, XML"
 
 #: ckanext/helix/templates/package/snippets/resource_form.html:69
 msgid "eg. 2012-06-05"
@@ -3183,6 +3183,11 @@ msgstr "Θα θέλατε να δημιουργήσετε έναν/μία;"
 msgid "Activity Stream"
 msgstr "Ροή δραστηριοτήτων"
 
+#: ckan/lib/activity_streams.py:78
+msgid "{actor} updated their profile"
+msgstr "{actor} ενημέρωσε το προφίλ"
+
+
 #: ckanext/helixtheme/templates/group/read_base.html:6
 #: ckanext/helixtheme/templates/organization/read_base.html:6
 #: ckanext/helixtheme/templates/snippets/main_menu.html:20
@@ -3190,7 +3195,7 @@ msgid "About"
 msgstr "Σχετικά"
 
 #: ckanext/helixtheme/templates/group/snippets/helper.html:4
-msgid "What are Topics?"
+msgid "What are topics?"
 msgstr "Τι είναι οι Θεματικές;"
 
 #: ckanext/helixtheme/templates/group/snippets/helper.html:8
@@ -3302,6 +3307,9 @@ msgstr "Αναζήτηση Δεδομένων"
 #: ckanext/helixtheme/templates/organization/index.html:7
 msgid "Search organizations..."
 msgstr "Αναζήτηση οργανισμών..."
+
+msgid "Search topics..."
+msgstr "Αναζήτση θεματικών"
 
 #: ckanext/helixtheme/templates/organization/index.html:12
 #: ckanext/helixtheme/templates/organization/read.html:4
@@ -4031,6 +4039,30 @@ msgstr ""
 "χρήστες. "
 
 
+
+msgid "Title (English)"
+msgstr "Τίτλος (Αγγλικά)"
+
+msgid "The title of the dataset (English)"
+msgstr "Ο τίτλος του συνόλου δεδομένων (Αγγλικά)"
+
+msgid "The title of the dataset (Greek)"
+msgstr "Ο τίτλος του συνόλου δεδομένων (Ελληνικά)"
+
+msgid "A brief description of the dataset (English)"
+msgstr "Μια σύντομη περιγραφή του συνόλου δεδομένων (Αγγλικά)"
+
+msgid "A brief description of the dataset (Greek)"
+msgstr "Μια σύντομη περιγραφή του συνόλου δεδομένων (Ελληνικά)"
+
+
+
+msgid "Description (English)"
+msgstr "Περιγραφή (Αγγλικά)"
+
+msgid "Description (Greek)"
+msgstr "Περιγραφή (Ελληνικά)"
+
 msgid "Thematic group"
 msgstr "Θεματική ομάδα"
 
@@ -4075,6 +4107,9 @@ msgstr "Υποχρεωτικά πεδία"
 
 #: add resource page
 
+msgid "You can skip adding a resource and make it available later on demand."
+msgstr "Μπορείτε να παραλείψετε την εισαγωγή αρχείου και να το κάνετε διαθέσιμο αργότερα κατά ζήτηση."
+
 msgid "Select File"
 msgstr "Επιλέξτε αρχείο"
 
@@ -4110,11 +4145,14 @@ msgstr "Κοινότητες"
 msgid "Community"
 msgstr "Κοινότητα" 
 
-msgid "What are Communities"
+msgid "What are communities"
 msgstr "Τι είναι οι κοινότητες" 
 
 msgid "Select a community..."
 msgstr "Επιλέξτε κοινότητα..." 
+
+msgid "Create a community"
+msgstr "Δημιουργήστε μία κοινότητα"
 
 msgid ""
 " Communities are domain or thematic-specific collections of data assets, "
@@ -4122,10 +4160,10 @@ msgid ""
 "Regardless of who published the data, or who is responsible for its production, "
 "Communities assemble thematically-focused data. "
 msgstr ""
-"Οι Κοινότητες είναι τομεακές ή θεματικές συλλογές δεδομένων που σας επιτρέπουν "
+"Οι κοινότητες είναι τομεακές ή θεματικές συλλογές δεδομένων που σας επιτρέπουν "
 "να οργανώνετε και να αναζητείτε δεδομένα σχετικά με το ειδικό σας ενδιαφέρον. "
 "Ανεξάρτητα από το ποιος δημοσίευσε ή ποιος είναι υπεύθυνος για την παραγωγή ενός συνόλου δεδομένων, "
-"οι Κοινότητες συγκεντρώνουν θεματικά κοντινά δεδομένα."  
+"οι κοινότητες συγκεντρώνουν θεματικά κοντινά δεδομένα."  
 
 #:: add organization member
 msgid ""
@@ -4189,21 +4227,57 @@ msgstr "Αναζήτηση ιδρυμάτων..."
 msgid "Add Institution"
 msgstr "Προσθήκη Ιδρύματος"
 
+msgid "Create an institution"
+msgstr "Δημιουργήστε ένα ίδρυμα"
+
+msgid "Full name of the institution"
+msgstr "Πλήρες όνομα του ιδρύματος"
+
+msgid "A little information about the institution (English)"
+msgstr "Λίγες πληροφορίες για το ίδρυμα (Αγγλικά)"
+
+msgid "A little information about the institution (Greek)"
+msgstr "Λίγες πληροφορίες για το ίδρυμα (Ελληνικά)"
+
+msgid "Parent"
+msgstr "Μητρικό ίδρυμα"
+
+msgid "None - top level"
+msgstr "Κανένα - ανώτερο επίπεδο"
+
+msgid "Save Institution"
+msgstr "Αποθήκευση Ιδρύματος"
+
 #:: community page
 
-msgid "What are Communities?"
+msgid "What are communities?"
 msgstr "Τι είναι οι κοινότητες;"
 
-msgid "Search Communities"
-msgstr "Αναζήτηση Κοινοτήτων"
+msgid "Search communities"
+msgstr "Αναζήτηση κοινοτήτων"
 
-msgid "Add Community"
-msgstr "Προσθήκη Κοινότητας"
+msgid "Add community"
+msgstr "Προσθήκη κοινότητας"
+
+msgid "Full name of the community"
+msgstr "Πλήρες όνομα της κοινότητας"
+
+msgid "A little information about the community (English)"
+msgstr "Λίγες πληροφορίες για την κοινότητα (Αγγλικά)"
+
+msgid "A little information about the community (Greek)"
+msgstr "Λίγες πληροφορίες για την κοινότητα (Ελληνικά)"
+
+msgid "Save Community"
+msgstr "Αποθήκευση Κοινότητας"
 
 #: ckan/templates/admin/index.html:20
 #, python-format
 
-msgid "As a sysadmin user you have full control over this CKAN instance. Proceed with care!"
+msgid "Administer Catalogue"
+msgstr "Διαχείριση Καταλόγου"
+
+msgid "As a sysadmin user you have full control over this CKAN instance."
 msgstr "Σαν διαχεριστής συστήματος έχετε πλήρη έλεγχο σε αυτήν την CKAN εγκατάσταση."
 
 msgid "For guidance on using sysadmin features, see the CKAN"
@@ -4211,6 +4285,11 @@ msgstr "Για χρήσιμες οδηγίες δείτε τον CKAN"
 
 msgid "sysadmin guide"
 msgstr "οδηγό διαχειριστή"
+
+#: ckan/templates/admin/trash.html:33
+
+msgid "Purge deleted datasets forever and irreversibly."
+msgstr "Καθαρίστε τα διεγραμμένα σύνολα δεδομένων οριστικά και αμετάκλητα."
 
 #: ckan/templates/admin/config.html:33
 #, python-format
@@ -4246,3 +4325,29 @@ msgstr "Ακολουθήστε μας"
 
 msgid "Users"
 msgstr "Χρήστες"
+
+msgid " (Max file size is <b>100MB</b>, for larger files please link the file from an external source) "
+msgstr " (Μέγιστο μέγεθος <b>100MB</b>, για μεγαλύτερα αρχεία παρακαλώ προσθέστε εξωτερικό σύνδεσμο) "
+
+#: ckan/templates/macros/form.html:126
+#, python-format
+msgid ""
+"You can use <a href=\"#markdown\" title=\"Markdown quick reference\" data-"
+"target=\"popover\" data-content=\"%(markdown_tooltip)s\" data-"
+"html=\"true\">Markdown formatting</a> here"
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε μορφοποίηση <a href=\"#markdown\" "
+"title=\"Markdown quick reference\" data-target=\"popover\" data-"
+"content=\"%(markdown_tooltip)s\" data-html=\"true\">Markdown</a> εδώ"
+
+msgid "You are done!"
+msgstr "Είστε έτοιμος!"
+
+msgid ""
+" Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,"
+" you will be notified when your dataset is publicly available for view. "
+
+msgstr ""
+" Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
+" του συνόλου δεδομένων και θα ειδοποιηθείτε όταν το σύνολο δεδομένων σας είναι διαθέσιμο στο κοινό για προβολή. "
+

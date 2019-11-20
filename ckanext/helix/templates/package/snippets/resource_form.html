@@ -27,7 +27,11 @@
          is_upload_enabled=h.uploads_enabled(), is_url=data.url and not is_upload, is_upload=is_upload,
          upload_label=_('Select File'), url_label=_('URL'), placeholder=_('http://example.com/external-data.csv'), field_name='name') }}
     {% endblock %}
-    <p class="resource-help-block">(Max file size is <b>100MB</b>, for larger files please link the file from an external source)</p>
+    <p class="resource-help-block">
+        {% trans %}
+        (Max file size is <b>100MB</b>, for larger files please link the file from an external source)
+        {% endtrans%}
+    </p>
     {% block basic_fields_name %}
       {{ form.input('name', id='field-name', label=_('File Name'), placeholder=_('eg. January 2011 Gold Prices'), value=data.name, error=errors.name, classes=['control-full spacing']) }}
     {% endblock %}

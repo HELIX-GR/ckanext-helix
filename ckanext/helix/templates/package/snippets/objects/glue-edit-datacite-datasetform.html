@@ -62,7 +62,7 @@
 
 {% snippet 'package/snippets/edit-organization.html', 
     name='creator_organization', 
-    title = 'Organization',
+    title = _('Organization'),
     value = pkg_dict.creator_organization,
     is_required = false,
     orgs_available=h.organizations_available('create_dataset'),

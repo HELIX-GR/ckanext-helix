@@ -21,17 +21,17 @@
       },
       {
         "field_name": "description",
-        "label": "Description",
+        "label": "Description (English)",
         "form_snippet": "markdown.html",
-        "form_placeholder": "A little information about the institution...",
+        "form_placeholder": "A little information about the institution (English)",
         "validators": "scheming_required",
         "required": true
       },
       {
         "field_name": "description_greek",
-        "label": "Περιγραφη (Ελληνικά)",
+        "label": "Description (Greek)",
         "form_snippet": "markdown.html",
-        "form_placeholder": "Λίγες πληροφορίες για το ίδρυμα...",
+        "form_placeholder": "A little information about the institution (Greek)",
         "validators": "scheming_required",
         "required": true
       },

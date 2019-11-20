@@ -69,3 +69,4 @@ this.ckan.module('lean', function ($) {
         }
      
 });
+});
