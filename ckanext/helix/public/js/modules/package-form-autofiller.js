@@ -167,7 +167,7 @@ this.ckan.module('package-form-autofiller', function ($, _) {
 			$form.find('#field-publisher').val(data['publisher'])
 			$form.find('#field-identifier').val(data['identifier'])
 			$form.find('#field-license-uri').val(data['license_uri'])
-            $form.find('#input-datacite\\.creator\\.creator_affiliation').val(data['creator_affiliation'])
+            //$form.find('#input-datacite\\.creator\\.creator_affiliation').val(data['creator_affiliation'])
             $form.find('#input-datacite\\.creator\\.creator_name').val(data['creator_name'])
             $form.find('#input-datacite\\.contributor\\.contributor_name').val(data['contributor_name'])
             $form.find('#input-datacite\\.publication_info\\.publication_year').val(data['publication_year'])

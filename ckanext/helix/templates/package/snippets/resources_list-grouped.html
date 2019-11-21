@@ -78,7 +78,7 @@ pkg - A package object that the resources belong to.
     {% endtrans %}
     {% else %}
     <p class="empty"> 
-        {{ _('Contact the creator to request access to the dataset resources.') }}
+        {{ _('Contact the owner of the dataset to request access to the dataset resources.') }}
     </p>
     <a class='btn btn-manage black contact' id="request-button" data-module="request-resource"
         data-module-action="request_resource" data-module-creator_id="{{pkg.creator_user_id}}" data-toggle="tooltip"

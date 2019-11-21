@@ -225,7 +225,6 @@ class Controller(BaseController):
         :returns: the translated strings in a json file.
         :rtype: json
         '''
-        log.debug('in api lang')
         ckan_path = os.path.join(
             os.path.dirname(__file__), '..', '..', '..', '..', '..', 'ckan', 'ckan'
         )

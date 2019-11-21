@@ -4043,6 +4043,10 @@ msgstr ""
 msgid "Title (English)"
 msgstr "Τίτλος (Αγγλικά)"
 
+msgid "Title (Greek)"
+msgstr "Τίτλος (Ελληνικά)"
+
+
 msgid "The title of the dataset (English)"
 msgstr "Ο τίτλος του συνόλου δεδομένων (Αγγλικά)"
 
@@ -4095,6 +4099,10 @@ msgstr "Ο οργανισμός του δημιουργού"
 
 msgid "Creator"
 msgstr "Δημιουργός"
+
+msgid "Creator name"
+msgstr "Όνομα δημιουργού"
+
 
 msgid "Related Publication"
 msgstr "Σχετική δημοσίευση"
@@ -4346,8 +4354,9 @@ msgstr "Είστε έτοιμος!"
 msgid ""
 " Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,"
 " you will be notified when your dataset is publicly available for view. "
-
 msgstr ""
 " Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
 " του συνόλου δεδομένων και θα ειδοποιηθείτε όταν το σύνολο δεδομένων σας είναι διαθέσιμο στο κοινό για προβολή. "
 
+msgid "Contact the owner of the dataset to request access to the dataset resources."
+msgstr "Επικοινωνήστε με τον ιδιοκτήτη του συνόλου δεδομένων για να ζητήσετε πρόσβαση στους πόρους"
