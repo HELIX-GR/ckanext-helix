@@ -4365,3 +4365,9 @@ msgstr ""
 
 msgid "Contact the owner of the dataset to request access to the dataset resources."
 msgstr "Επικοινωνήστε με τον ιδιοκτήτη του συνόλου δεδομένων για να ζητήσετε πρόσβαση στους πόρους"
+
+msgid "Send your message to the dataset owner requesting the resources, including your name and e-mail."
+msgstr "Στείλτε το μήνυμά σας στον ιδιοκτήτη του συνόλου δεδομένων συμπεριλαμβάνοντας το όνομα και e-mail σας" 
+
+msgid "Message"
+msgstr "Μήνυμα"

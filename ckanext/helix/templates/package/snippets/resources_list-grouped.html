@@ -24,12 +24,12 @@ pkg - A package object that the resources belong to.
     <div class="section-title">
         <h5 class="inline">{{ _('Data and Resources') }}</h5>
         <div id="modal-request">
-            <div class="modal-heading">Contact</div>
+            <div class="modal-heading">{{_('Contact')}}</div>
             <div class="modal-body">
                 <form role="form" method="post" id="request_form">
                     <p>{{_('Send your message to the dataset owner requesting the resources, including your name and e-mail.')}}</p>
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">{{_('Name')}}</label>
                         <input type="text" class="form-control" id="name" name="name" maxlength="50">
                     </div>
                     <div class="form-group">
@@ -39,11 +39,11 @@ pkg - A package object that the resources belong to.
                     </div>
                     <div class="form-group">
                         <label for="name">
-                            Message</label>
+                            {{_('Message')}}</label>
                         <textarea class="form-control" type="textarea" name="message" id="message"
                             placeholder="Your Message Here" maxlength="6000" rows="7"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-success btn-block" id="btnRequest">Send request →</button>
+                    <button type="submit" class="btn btn-lg btn-success btn-block" id="btnRequest">{{_('Send')}} →</button>
                 </form>
                 <p id="result-text"></p> 
             </div>
