@@ -82,7 +82,7 @@ pkg - A package object that the resources belong to.
     </p>
     <a class='btn btn-manage black contact' id="request-button" data-module="request-resource"
         data-module-action="request_resource" data-module-creator_id="{{pkg.creator_user_id}}" data-toggle="tooltip"
-        data-module-pkg_title="{{pkg.title}}" data-placement="bottom">Contact</a>
+        data-module-pkg_title="{{pkg.title}}" data-placement="bottom">{{_('Contact')}}</a>
     {% endif %} {# check_access #}
     {% endif %} {# not resources #}
     {% endblock %} {# resources_empty #}
