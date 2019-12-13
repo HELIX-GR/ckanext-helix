@@ -230,7 +230,6 @@ class Controller(BaseController):
         )
         source = os.path.abspath(os.path.join(ckan_path, 'public',
                                  'base', 'i18n', '%s.js' % lang))
-        log.debug('source %s', source)
         toolkit.response.headers['Content-Type'] =\
             'application/json;charset=utf-8'
         if not os.path.exists(source):

@@ -3168,6 +3168,9 @@ msgstr "Αναζήτηση ομάδων..."
 msgid "Add Topic"
 msgstr "Προσθήκη θεματικής"
 
+msgid "My topic"
+msgstr "Η θεματική μου"
+
 #: ckanext/helixtheme/templates/group/index.html:37
 msgid "There are currently no groups for this site"
 msgstr "Δεν υπάρχουν ομάδες για αυτή την ιστοσελίδα"
@@ -3175,7 +3178,7 @@ msgstr "Δεν υπάρχουν ομάδες για αυτή την ιστοσε
 #: ckanext/helixtheme/templates/group/index.html:39
 #: ckanext/helixtheme/templates/organization/index.html:22
 msgid "How about creating one?"
-msgstr "Θα θέλατε να δημιουργήσετε έναν/μία;"
+msgstr "Θα θέλατε να δημιουργήσετε ένα/μία;"
 
 #: ckanext/helixtheme/templates/group/read_base.html:5
 #: ckanext/helixtheme/templates/organization/read_base.html:5
@@ -3206,6 +3209,12 @@ msgstr ""
 "Οι θεματικές περιοχές είναι συλλογές δεδομένων για ένα συγκεκριμένο θέμα "
 "και προσφέρουν έναν εύκολο τρόπο για να ανακαλύψετε και να "
 "χρησιμοποιήσετε δημοσιευμένα δεδομένα"
+
+msgid "There are currently no topics for this site."
+msgstr "Δεν υπάρχουν θεματικές για αυτή την ιστοσελίδα"
+
+msgid "Create a topic"
+msgstr "Δημιουργήστε μία θεματική"
 
 #: ckanext/helixtheme/templates/home/layout1.html:1
 #: ckanext/helixtheme/templates/home/layout_slider.html:1
@@ -3309,7 +3318,7 @@ msgid "Search organizations..."
 msgstr "Αναζήτηση οργανισμών..."
 
 msgid "Search topics..."
-msgstr "Αναζήτση θεματικών"
+msgstr "Αναζήτηση θεματικών"
 
 #: ckanext/helixtheme/templates/organization/index.html:12
 #: ckanext/helixtheme/templates/organization/read.html:4
@@ -4371,3 +4380,9 @@ msgstr "Στείλτε το μήνυμά σας στον ιδιοκτήτη το
 
 msgid "Message"
 msgstr "Μήνυμα"
+
+msgid "Link with ORCID"
+msgstr "Σύνδεση με ORCID"
+
+msgid "A little information..."
+msgstr "Λίγες πληροφορίες"

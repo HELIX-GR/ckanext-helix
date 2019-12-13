@@ -2,6 +2,7 @@ import sqlalchemy
 
 import ckan.authz as new_authz
 import ckan.logic.auth.create as create_auth
+import ckan.logic.auth as logic_auth
 import ckan.lib.dictization.model_dictize as model_dictize
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
@@ -87,11 +88,7 @@ def member_create_check_authorized(context, data_dict):
     It only deals with cases where the group is thematic, and the member 
     a package. The rest are delegated to the core authorization function.
     '''
-    
-    group = p.toolkit.get_action('group_show')(context, {
-        'id': data_dict.get('id'),
-    })
-    
+    group = logic_auth.get_group_object(context, data_dict)
     if group.get('is_organization') or not context.get('package'):
         return create_auth.member_create(context, data_dict)
     else:
