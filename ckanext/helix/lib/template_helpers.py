@@ -18,6 +18,7 @@ from ckanext.helix.lib import resource_ingestion
 from ckanext.helix.lib.languages import Language
 
 from ckan.common import config
+import ckan.logic as logic
 
 import logging
 log1=logging.getLogger(__name__)
@@ -158,3 +159,16 @@ def get_dataset_types():
     #log1.debug('dtypes %s, type %s', dtypes, type(dtypes))
 
     return dtypes
+
+def valid_org_members(org_name):
+    email_match = {'university-of-thessaly':'uth.gr', 'university-of-patras':'upatras.gr', 'university-of-peloponnese':'uop.gr',
+        'aristotle-university-of-thessaloniki': 'auth.gr' }
+    context = {'model': model, 'session': model.Session, 'ignore_auth': True}
+    users = logic.get_action('user_list')(context, {})
+    log1.debug('Org %s email match %s', org_name, email_match[org_name])
+    result = []
+    for user in users:
+        if user['name'].endswith(email_match[org_name]):
+            result.append(user)
+
+    return result

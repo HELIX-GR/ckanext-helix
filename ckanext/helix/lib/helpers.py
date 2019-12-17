@@ -154,7 +154,7 @@ def getDataciteDoi(package):
 
     return doi
 
-def getOrgLicenses(org_name):
+def get_org_licenses(org_name):
 
     default_licenses =  base.model.Package.get_license_options()
     file_name = reference_data.get_path('licenses_' + org_name + '.json')
