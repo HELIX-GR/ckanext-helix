@@ -4020,6 +4020,30 @@ msgstr ""
 "δεδομένων παρέχονται ως αποτέλεσμα της αναζήτησης που πραγματοποιούν οι "
 "χρήστες. "
 
+msgid "Title (English)"
+msgstr "Τίτλος (Αγγλικά)"
+
+msgid "Title (Greek)"
+msgstr "Τίτλος (Ελληνικά)"
+
+
+msgid "The title of the dataset (English)"
+msgstr "Ο τίτλος του συνόλου δεδομένων (Αγγλικά)"
+
+msgid "The title of the dataset (Greek)"
+msgstr "Ο τίτλος του συνόλου δεδομένων (Ελληνικά)"
+
+msgid "A brief description of the dataset (English)"
+msgstr "Μια σύντομη περιγραφή του συνόλου δεδομένων (Αγγλικά)"
+
+msgid "A brief description of the dataset (Greek)"
+msgstr "Μια σύντομη περιγραφή του συνόλου δεδομένων (Ελληνικά)"
+
+msgid "Description (English)"
+msgstr "Περιγραφή (Αγγλικά)"
+
+msgid "Description (Greek)"
+msgstr "Περιγραφή (Ελληνικά)"
 
 msgid "Thematic group"
 msgstr "Θεματική ομάδα"
@@ -4053,6 +4077,9 @@ msgstr "Ο οργανισμός του δημιουργού"
 
 msgid "Creator"
 msgstr "Δημιουργός"
+
+msgid "Creator name"
+msgstr "Όνομα δημιουργού"
 
 msgid "Related Publication"
 msgstr "Σχετική Δημοσίευση"
@@ -4156,3 +4183,30 @@ msgstr ""
 "δεδομένων αλλά όχι και να διαχειριστεί τα μέλη του φορέα.</p> "
 "<p><strong>Μέλος:</strong> Μπορεί να δεί τα ιδιωτικά σύνολα δεδομένων του "
 "φορέα που ανήκει , αλλά όχι να προσθέσει νέα.</p> "
+
+
+msgid " (Max file size is <b>100MB</b>, for larger files please link the file from an external source) "
+msgstr " (Μέγιστο μέγεθος <b>100MB</b>, για μεγαλύτερα αρχεία παρακαλώ προσθέστε εξωτερικό σύνδεσμο) "
+
+msgid ""
+"You can use <a href=\"#markdown\" title=\"Markdown quick reference\" data-"
+"target=\"popover\" data-content=\"%(markdown_tooltip)s\" data-"
+"html=\"true\">Markdown formatting</a> here"
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε μορφοποίηση <a href=\"#markdown\" "
+"title=\"Markdown quick reference\" data-target=\"popover\" data-"
+"content=\"%(markdown_tooltip)s\" data-html=\"true\">Markdown</a> εδώ"
+
+msgid "You are done!"
+msgstr "Είστε έτοιμος!"
+
+msgid ""
+" Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,"
+" you will be notified when your dataset is publicly available for view. "
+msgstr ""
+" Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
+" του συνόλου δεδομένων και θα ειδοποιηθείτε όταν το σύνολο δεδομένων σας είναι διαθέσιμο στο κοινό για προβολή. "
+
+
+msgid "There are no topics associated with this dataset"
+msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποια θεματική ομάδα"

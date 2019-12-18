@@ -32,10 +32,13 @@
 
  
 
-     <h2 class="msg-done" >You are done! </h2>
-     <div class="msg-finish">Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation, 
-        you will be notified when your dataset is publicly available for view.
-     </div>
+    <h2 class="msg-done" >{{_('You are done!')}} </h2>
+    <div class="msg-finish">
+      {% trans %}
+      Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,
+      you will be notified when your dataset is publicly available for view.
+      {% endtrans %}
+    </div>
 
  {# {% snippet 'package/snippets/package_metadata_fields.html', data=data, errors=errors, groups_available=groups_available %} #}
 

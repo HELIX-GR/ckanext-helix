@@ -21,8 +21,8 @@
     form.input(
         'title', 
         id = 'field-title', 
-        label = _('Title'), 
-        placeholder = _('The title of the dataset'), 
+        label = _('Title (English)'), 
+        placeholder = _('The title of the dataset (English)'), 
         value = data.title, 
         error = errors.title, 
         classes = ['control-full '], 
@@ -40,8 +40,8 @@
     form.input(
         'title_optional', 
         id = 'field-title_optional', 
-        label = _('Τίτλος (Ελληνικά)'), 
-        placeholder = _('Ο τίτλος του συνόλου δεδομένων'), 
+        label = _('Title (Greek)'), 
+        placeholder = _('The title of the dataset (Greek)'), 
         value = data.title_optional, 
         error = errors.title_optional, 
         classes = ['control-full'], 
@@ -106,8 +106,8 @@
     form.markdown(
         'notes', 
         id = 'field-notes', 
-        label = _('Description'), 
-        placeholder = _('A brief description of the dataset'), 
+        label = _('Description (English)'), 
+        placeholder = _('A brief description of the dataset (English)'), 
         value = data.notes, 
         error = errors.notes,
         classes = ['control-full'], 
@@ -121,8 +121,8 @@
     form.markdown(
         'notes_optional', 
         id = 'field-notes_optional', 
-        label = _('Περιγραφή (Ελληνικά)'), 
-        placeholder = _('Μία σύντομη περιγραφή του συνόλου δεδομένων'), 
+        label = _('Description (Greek)'), 
+        placeholder = _('A brief description of the dataset (Greek)'), 
         value = data.notes_optional, 
         error = errors.notes_optional,
         classes = ['control-full'], 
