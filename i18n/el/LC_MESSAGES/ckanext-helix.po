@@ -4186,6 +4186,19 @@ msgstr ""
 msgid "There are currently no communities for this site"
 msgstr "Δεν υπάρχουν κοινότητες για αυτή την ιστοσελίδα"
 
+#: add community member
+
+msgid ""
+"<p><strong>Admin:</strong> Can edit group information, as well as "
+"manage group members.</p> "
+"<p><strong>Member:</strong> Can add/remove datasets from groups</p>"
+msgstr ""
+"<p><strong>Διαχειριστής:</strong> Επεξεργάζεται τα στοιχεία της κοινότητας, "
+"και διαχειρίζεται τα μέλη της.</p> "
+"<p><strong>Μέλος:</strong> Προσθέτει/Αφαιρέι σύνολα δεδομένων από την κοινότητα</p>"
+
+
+
 
 #:: add organization member
 msgid ""

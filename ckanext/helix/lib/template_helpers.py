@@ -160,15 +160,12 @@ def get_dataset_types():
 
     return dtypes
 
-def valid_org_members(org_name):
-    email_match = {'university-of-thessaly':'uth.gr', 'university-of-patras':'upatras.gr', 'university-of-peloponnese':'uop.gr',
-        'aristotle-university-of-thessaloniki': 'auth.gr' }
+def valid_org_members(org_email_domain):
     context = {'model': model, 'session': model.Session, 'ignore_auth': True}
     users = logic.get_action('user_list')(context, {})
-    log1.debug('Org %s email match %s', org_name, email_match[org_name])
     result = []
     for user in users:
-        if user['name'].endswith(email_match[org_name]):
+        if user['name'].endswith(org_email_domain):
             result.append(user)
 
     return result

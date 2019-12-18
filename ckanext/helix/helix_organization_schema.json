@@ -36,6 +36,12 @@
         "required": true
       },
       {
+        "field_name": "email_domain",
+        "label": "E-mail domain",
+        "form_snippet": "text.html",
+        "form_placeholder": "e.g. auth.gr"
+      },
+      {
         "field_name": "image_url",
         "label": "Image URL",
         "validators": "unicode remove_whitespace",
