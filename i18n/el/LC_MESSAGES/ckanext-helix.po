@@ -4124,8 +4124,8 @@ msgstr "Υποχρεωτικά πεδία"
 
 #: add resource page
 
-msgid "You can skip adding a resource and make it available later on demand."
-msgstr "Μπορείτε να παραλείψετε την εισαγωγή αρχείου και να το κάνετε διαθέσιμο αργότερα κατά ζήτηση."
+msgid "You can create a restricted resource and make it available to specific users."
+msgstr "Μπορείτε να δημιουργήσετε έναν πόρο περιορισμένης πρόσβασης και τον κάνετε διαθέσιμο σε συγκεκριμένους χρήστες."
 
 msgid "Select File"
 msgstr "Επιλέξτε αρχείο"
@@ -4399,3 +4399,71 @@ msgstr "Σύνδεση με ORCID"
 
 msgid "A little information..."
 msgstr "Λίγες πληροφορίες"
+
+#: ckanext-restricted
+
+msgid "Request Access"
+msgstr "Αίτημα Πρόσβασης"
+
+msgid "Request Access to: "
+msgstr "Αίτημα πρόσβασης στο: "
+
+msgid "User Mail"
+msgstr "Mail Χρήστη"
+
+msgid "Contact Email"
+msgstr "Email επικοινωνίας"
+
+msgid "How to get access to data resources?"
+msgstr "Πως να αποκτήσετε πρόσβαση σε πόρους δεδομένων"
+
+msgid ""
+"Some data has restricted access due to embargo periods, sensitivity of the "
+"data, unpublished material, etc. Please fill up this form to send a mail "
+"request to the dataset maintainer indicating as detailed as possible who you "
+"are and what do you plan to use the data for."
+msgstr ""
+"Οι πόροι έχουν περιορισμένη πρόσβαση λόγω περιόδων αποκλεισμού, ευαισθησία των "
+"δεδομένων, αδημοσίευτο υλικό κλπ. Παρακαλώ συμπληρώστε αυτή τη φόρμα για να στείλετε ένα αίτημα "
+"πρόσβασης από τον συντηρητή του συνόλου δεδομένων αναφέροντας όσο το δυνατόν λεπτομερέστερα ποιος "
+"είστε και πως σκοπεύετε να χρησιμοποιήσετε τα δεδομένα."
+
+msgid "Message to request data (project, research group, planned usage, etc.)"
+msgstr "Μήνυμα για αίτημα πρόσβασης στα δεδομένα (έργο, ερευνητική ομάδα, προγραμματισμένη χρήση κλπ.)"
+
+msgid ""
+"The <i>data license</i> applies to the contents of any resource files that "
+"you request from this dataset. By submitting this form, you agree to usage "
+"restrictions under the <a href=%(license_url)s>%(license_title)s</a>."
+msgstr ""
+"Η άδεια χρήσης <i> δεδομένων </i> ισχύει για τα περιεχόμενα των αρχείων πόρων που "
+"μπορείτε να ζητήσετε από αυτό το σύνολο δεδομένων.Με την υποβολή αυτής της φόρμας, συμφωνείτε με τους "
+"περιορισμούς χρήσης στο πλαίσιο της άδειας <a href=%(license_url)s>%(license_title)s</a>."
+
+msgid "Send Request"
+msgstr "Αποστολή Αιτήματος"
+
+msgid "You can restrict access to this resource and make it available to specific users below."
+msgstr "Μπορείτε να περιορίσετε την πρόσβαση σε αυτόν τον πόρο και να τον κάνετε διαθέσιμο σε συγκεκριμένους χρήστες παρακάτω."
+
+msgid "Request Access Form Sent"
+msgstr "Το αίτημα πρόσβασης στάλθηκε"
+
+msgid "Access Request Data"
+msgstr "Στοιχεία αιτήματος πρόσβασης"
+
+msgid ""
+"WARNING: There were problems sending your request, please contact the "
+"administrator providing the information below."
+msgstr ""
+"ΠΡΟΣΟΧΗ: Συνέβη κάποιο λάθος κατά την αποστολή, παρακαλώ επικοινωνήστε "
+"με τον διαχειριστή συμπεριλαμβάνοντας τα παρακάτω στοιχεία."
+
+msgid "Your request has been sent, please check your provided mail account."
+msgstr "Το αίτημα σας σταλθηκε, παρακαλώ ελέγξτε το email σας."
+
+msgid "Close"
+msgstr "Κλείσιμο"
+
+msgid "Unauthorized"
+msgstr "Δεν έχετε δικαιώματα"
