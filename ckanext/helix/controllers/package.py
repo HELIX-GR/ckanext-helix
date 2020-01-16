@@ -260,6 +260,7 @@ class Controller(BaseController):
     def new_resource(self, id, data=None, errors=None, error_summary=None):
         ''' FIXME: This is a temporary action to allow styling of the
         forms. '''
+        
         if request.method == 'POST' and not data:
             save_action = request.params.get('save')
             data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
@@ -279,6 +280,9 @@ class Controller(BaseController):
                         and key != 'resource_type'):
                     data_provided = True
                     break
+            # convert allowed users to single string if list (multiple users workaround)    
+            if 'allowed_users' in data and isinstance(data.get('allowed_users'), list):
+                data['allowed_users'] = ','.join(data.get('allowed_users'))
 
             if not data_provided and save_action != "go-dataset-complete":
                 if save_action == 'go-dataset':
@@ -326,7 +330,6 @@ class Controller(BaseController):
             if 'size' not in data:
                 if hasattr(data['upload'], 'filesize'):
                     pkg_dict['size'] = data['upload'].filesize
-            log.debug('pkg dict resources are: %s', pkg_dict['resources'])
 
             try:
                 if resource_id:

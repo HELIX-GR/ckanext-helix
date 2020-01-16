@@ -30,7 +30,7 @@
              
               <div class="form-group control-full" >
                 <div class="controls" >
-                <select  class="input-xlarge" id="field-dataset_category"  data-module="autocomplete" name="username"   placeholder=_('Choose user') >
+                <select  class="input-xlarge" id="field-user"  data-module="autocomplete" name="username"   placeholder=_('Choose user') >
                     <option class="placeholder" value=""   hidden>{{_('Select a user')}} </option>
                     {% for user in h.valid_org_members(organization.email_domain)  %}
                       <option value="{{ user.name }}" >{{user.name}}</option>

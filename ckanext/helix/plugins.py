@@ -684,6 +684,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         # Update default validation schema (inherited from DefaultDatasetForm)
 
+        schema['resources'].update({
+            'restricted': [ignore_missing],
+            'allowed_users': [ignore_missing]
+        })
+
         schema.update({
             # Make organisation field optional
             'owner_org': [
@@ -967,6 +972,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         # Don't show vocab tags mixed in with normal 'free' tags
         # (e.g. on dataset pages, or on the search page)
         schema['tags']['__extras'].append(toolkit.get_converter('free_tags_only'))
+
+        schema['resources'].update({
+            'restricted': [toolkit.get_validator('ignore_missing')],
+            'allowed_users': [toolkit.get_validator('ignore_missing')]
+        })
 
         schema.update({
            

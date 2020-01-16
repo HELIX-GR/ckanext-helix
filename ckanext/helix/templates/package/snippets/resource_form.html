@@ -40,6 +40,25 @@
       {{ form.markdown('description', id='field-description', label=_('File Description'), placeholder=_('Some useful notes about the data'), classes=['spacing'], value=data.description, error=errors.description) }}
     {% endblock %}
 
+    {{ form.checkbox('restricted', id='field-restricted',checked=data.restricted, value = "true", label=_('Restricted access')) }}
+    <p class="resource-help-block restricted">
+      {% trans %}
+      You can restrict access to this resource and make it available to specific users below.
+      {% endtrans%}
+    </p>
+
+
+    <div class="form-group control-full" >
+      <label for="field-allowed_users" class="control-label">{{_('Allowed users')}}</label>
+      <div class="controls" >
+      <select  id="field-allowed_users" name="allowed_users"  data-module="input-select2-subject" multiple placeholder="{{_('A list of allowed users')}}" >
+          {% for user in h.get_user_list()  %}
+            <option value="{{ user.name }}" {% if user.name in data.get('allowed_users', []) %}selected="selected"{% endif %}>{{ user.name }}</option>
+          {% endfor %}
+      </select>
+      </div>
+    </div>  
+
     {% block basic_fields_format %}
       {% set format_attrs = {'data-module': 'autocomplete', 'data-module-source': '/api/2/util/resource/format_autocomplete?incomplete=?'} %}
       {% call form.tag_input('format', id='field-format', label=_('Format'), placeholder=_('e.g. CSV, XML'), value=data.format, error=errors.format, classes=['control-medium spacing'], attrs=format_attrs) %}
