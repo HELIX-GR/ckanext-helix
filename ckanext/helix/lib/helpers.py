@@ -15,9 +15,12 @@ import string
 from pylons import config
 
 from ckan.lib import base
+import ckan.lib.helpers as h
 from ckan.common import c
 from ckanext.helix import reference_data
 
+import logging
+log = logging.getLogger(__name__)
 
 def topicsMatch(subject):
 
@@ -77,21 +80,35 @@ def min_title_length(value, context):
 
 def getDataciteDoi(package):
     """Perform HTTP request"""
-    
-    randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
-        +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-    doi = "10.0351/" + randomString 
+    package_url = config.get('ckan.site_url') + h.url_for(controller='package', action='read',
+                                id=package['name'])
+    prefix = config.get('ckanext.helix.datacite.prefix') + "/"
+    #format name for datacite (first name, given name)
+    creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
     data_string = '''{
             "data": {
                 "type": "dois",
+                "event": "register",
                 "attributes": {
-                    "doi": "''' + doi + '''",
+                    "prefix": "''' + prefix + '''",
+                    "url": "''' + package_url + '''",
                     "titles": [
                         {
                             "title": "''' + package['title'] +'''"
                         }
                     ],
-                    "state": "draft"
+                    "creators": [
+                    {
+                        "name": "''' + creator_name + '''",
+                        "nameType": "Personal",
+                        "affiliation": [],
+                        "nameIdentifiers": []
+                    }],
+                    "publisher": "HELIX",
+                    "publicationYear": 2020,
+                    "types": {
+                        "resourceTypeGeneral": "Dataset"
+                    }
                 }
             }
         }'''
@@ -103,6 +120,12 @@ def getDataciteDoi(package):
     datacite_url = config.get('ckanext.helix.datacite.api_url')
     client_id = config.get('ckanext.helix.datacite.client_id')
     password = config.get('ckanext.helix.datacite.password')
-    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data_string, auth=(client_id, password))
-
+    try:
+        response = requests.post(datacite_url, headers=headers, data=data_string, auth=(client_id, password))
+        #return auto-generated doi
+        result = json.loads(response.text)
+        doi = result['data']['id']
+    except Exception as ex:
+       log.debug('Datacite request failed: %s', ex)
+    log.debug('Registered doi is %s', doi)
     return doi
