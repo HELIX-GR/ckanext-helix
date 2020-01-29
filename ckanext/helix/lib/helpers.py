@@ -19,6 +19,7 @@ import ckan.lib.helpers as h
 from ckan.common import c
 from ckanext.helix import reference_data
 
+import datetime
 import logging
 log = logging.getLogger(__name__)
 
@@ -85,6 +86,8 @@ def getDataciteDoi(package):
     prefix = config.get('ckanext.helix.datacite.prefix') + "/"
     #format name for datacite (first name, given name)
     creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
+    publication_year =  datetime.date.today().year
+    publisher = package['organization']['name']
     data_string = '''{
             "data": {
                 "type": "dois",
@@ -104,8 +107,8 @@ def getDataciteDoi(package):
                         "affiliation": [],
                         "nameIdentifiers": []
                     }],
-                    "publisher": "HELIX",
-                    "publicationYear": 2020,
+                    "publisher": "''' + publisher + '''",
+                    "publicationYear": "''' + str(publication_year) + '''"  ,
                     "types": {
                         "resourceTypeGeneral": "Dataset"
                     }
