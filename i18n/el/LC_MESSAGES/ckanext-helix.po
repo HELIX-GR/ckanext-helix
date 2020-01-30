@@ -4467,3 +4467,6 @@ msgstr "Κλείσιμο"
 
 msgid "Unauthorized"
 msgstr "Δεν έχετε δικαιώματα"
+
+msgid "to access resource"
+msgstr "για πρόσβαση"

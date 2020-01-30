@@ -20,9 +20,11 @@ from pylons import config
 
 from ckan.lib import base
 from ckan.common import c
+import ckan.lib.helpers as h
 
+import datetime
 import logging
-log1= logging.getLogger(__name__)
+log= logging.getLogger(__name__)
 
 
 from ckanext.helix import reference_data
@@ -118,27 +120,49 @@ def mapFields():
     for element in root.iter():
         if element.tag != 'map' and 'mapping' not in element.attrib:
             filtered_fields.append(element.attrib['name'])
-    log1.debug('Filtered Elements are %s', filtered_fields)
+    log.debug('Filtered Elements are %s', filtered_fields)
     
     return filtered_fields
 
 def getDataciteDoi(package):
     """Perform HTTP request"""
-    
-    randomString = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+
+    package_url = config.get('ckan.site_url') + h.url_for(controller='package', action='read',
+                                id=package['name'])
+    random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-    doi = "10.0351/heal." + randomString 
+    doi = config.get('ckanext.helix.datacite.prefix') + random_str
+    #format name for datacite (first name, given name)
+    creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
+    if 'datacite.publication_year' in package:
+        publication_year =  package['datacite.publication_year'] 
+    else:
+        publication_year =  datetime.date.today().year
+    publisher = package['organization']['name']
     data_string = '''{
             "data": {
                 "type": "dois",
                 "attributes": {
+                    "event": "publish",
                     "doi": "''' + doi + '''",
+                    "url": "''' + package_url + '''",
                     "titles": [
                         {
                             "title": "''' + package['title'] +'''"
                         }
                     ],
-                    "state": "draft"
+                    "creators": [
+                    {
+                        "name": "''' + creator_name + '''",
+                        "nameType": "Personal",
+                        "affiliation": [],
+                        "nameIdentifiers": []
+                    }],
+                    "publisher": "''' + publisher +'''",
+                    "publicationYear":"''' + str(publication_year) + '''",
+                    "types": {
+                        "resourceTypeGeneral": "Dataset"
+                    }
                 }
             }
         }'''
@@ -150,8 +174,14 @@ def getDataciteDoi(package):
     datacite_url = config.get('ckanext.helix.datacite.api_url')
     client_id = config.get('ckanext.helix.datacite.client_id')
     password = config.get('ckanext.helix.datacite.password')
-    response = requests.post('https://api.test.datacite.org/dois', headers=headers, data=data_string, auth=(client_id, password))
-
+    try:
+        response = requests.post(datacite_url, headers=headers, data=data_string, auth=(client_id, password))
+        #return auto-generated doi
+        result = json.loads(response.text)
+        #doi = result['data']['id']
+    except Exception as ex:
+       log.debug('Datacite request failed: %s', ex)
+    log.debug('Registered doi is %s', doi)
     return doi
 
 def get_org_licenses(org_name):
@@ -167,8 +197,6 @@ def get_org_licenses(org_name):
                 licenses.append(license_tuple)        
     else: 
         return default_licenses
-    log1.debug('default licenses %s, type %s, def[0]:%s, type %s', default_licenses, type(default_licenses), default_licenses[0], type(default_licenses[0]) )
-    log1.debug('new licenses %s', licenses)
 
     return licenses
 
