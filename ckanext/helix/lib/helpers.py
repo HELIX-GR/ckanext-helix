@@ -132,6 +132,7 @@ def getDataciteDoi(package):
     random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     doi = config.get('ckanext.helix.datacite.prefix') + random_str
+    event = config.get('ckanext.helix.datacite.publish')
     #format name for datacite (first name, given name)
     creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
     if 'datacite.publication_year' in package:
@@ -143,7 +144,7 @@ def getDataciteDoi(package):
             "data": {
                 "type": "dois",
                 "attributes": {
-                    "event": "publish",
+                    "event":  "''' + event + '''",
                     "doi": "''' + doi + '''",
                     "url": "''' + package_url + '''",
                     "titles": [
