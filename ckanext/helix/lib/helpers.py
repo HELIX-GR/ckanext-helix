@@ -83,7 +83,8 @@ def getDataciteDoi(package):
     """Perform HTTP request"""
     package_url = config.get('ckan.site_url') + h.url_for(controller='package', action='read',
                                 id=package['name'])
-    prefix = config.get('ckanext.helix.datacite.prefix') + "/"
+    prefix = config.get('ckanext.helix.datacite.prefix')
+    event = config.get('ckanext.helix.datacite.publish')
     #format name for datacite (first name, given name)
     creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
     publication_year =  datetime.date.today().year
@@ -91,8 +92,8 @@ def getDataciteDoi(package):
     data_string = '''{
             "data": {
                 "type": "dois",
-                "event": "register",
                 "attributes": {
+                    "event":  "''' + event + '''",
                     "prefix": "''' + prefix + '''",
                     "url": "''' + package_url + '''",
                     "titles": [
@@ -108,7 +109,7 @@ def getDataciteDoi(package):
                         "nameIdentifiers": []
                     }],
                     "publisher": "''' + publisher + '''",
-                    "publicationYear": "''' + str(publication_year) + '''"  ,
+                    "publicationYear": "''' + str(publication_year) + '''" ,
                     "types": {
                         "resourceTypeGeneral": "Dataset"
                     }
