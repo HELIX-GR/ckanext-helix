@@ -1,5 +1,6 @@
 {% import 'macros/form.html' as form %}
 
+{% if license_id=='other-restricted' %} {%set restricted = true%} {% endif%} 
 {% set data = data or {} %}
 {% set errors = errors or {} %}
 {% set action = form.action or h.url_for(controller='package', action='new_resource', id=pkg_name) %}
@@ -40,7 +41,7 @@
       {{ form.markdown('description', id='field-description', label=_('File Description'), placeholder=_('Some useful notes about the data'), classes=['spacing'], value=data.description, error=errors.description) }}
     {% endblock %}
 
-    {{ form.checkbox('restricted', id='field-restricted',checked=data.restricted, value = "true", label=_('Restricted access')) }}
+    {{ form.checkbox('restricted', id='field-restricted',checked=true if restricted else data.restricted, value = "true", label=_('Restricted access')) }}
     <p class="resource-help-block restricted">
       {% trans %}
       You can restrict access to this resource and make it available to specific users below.

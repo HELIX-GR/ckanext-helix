@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block form %}
-{% snippet 'package/snippets/resource_form.html', 
+{% snippet 'package/snippets/resource_form.html', license_id=pkg.datacite.license_id, 
     data=data, errors=errors, error_summary=error_summary, include_metadata='hide', pkg_name=pkg_name, stage=stage, allow_upload=g.ofs_impl and logged_in 
 %}
 {% endblock %}
