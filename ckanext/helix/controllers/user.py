@@ -52,8 +52,6 @@ class UserController(BaseController):
             h.redirect_to(controller='user', action='login')
         except NotAuthorized:
             abort(403, _('Not authorized to see this page'))
-        #log.info('\n\nUSER DICT is %s\n\n',user_dict)
-        #user_dict = self._filter_user_dict(user_dict)
         self._setup_template_variables(user_dict)
         return render('user/dashboard_datasets.html')
 
@@ -213,3 +211,18 @@ class UserController(BaseController):
             return render('user/snippets/ingest_templates/vector/vector.html')
         elif res_identify_obj.storer_type == ResourceStorerType.RASTER:
             return render('user/snippets/ingest_templates/raster/raster.html')
+
+
+    def restricted(self):
+        context = {'for_view': True, 'user': c.user,
+                   'auth_user_obj': c.userobj}
+        data_dict = {'user_obj': c.userobj, 'include_datasets': True}
+        try:
+            user_dict = logic.get_action('user_show')(context, data_dict)
+        except NotFound:
+            h.flash_error(_('Not authorized to see this page'))
+            h.redirect_to(controller='user', action='login')
+        except NotAuthorized:
+            abort(403, _('Not authorized to see this page'))
+        self._setup_template_variables(user_dict)
+        return render('user/dashboard_restricted.html')

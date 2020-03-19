@@ -7,13 +7,16 @@ from paste import fileapp
 from pylons import url
 
 from ckan.lib.base import (
-    c, request, response, render, abort, BaseController)
+    c, request, response, render, abort, BaseController,)
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 
 from ckanext.helix.cache_manager import get_cache
 from ckanext.helix.lib.util import to_json
 import ckanext.helix.lib.uploader as uploader
+import ckanext.restricted.model as ext_model
+
+from ckan.logic import get_action
 
 log1 = logging.getLogger(__name__)
 
@@ -36,6 +39,20 @@ class Controller(BaseController):
         elif object_type == 'metadata':
             val = get_cache('metadata').get(name_or_id)
             app = fileapp.DataApp(val, content_type='application/xml; charset=utf-8') 
+        elif object_type== 'restricted_resources':
+            resource_id = self._get_resource_id(name_or_id)
+            context = {'model': model, 'session': model.Session, 
+                      'user': c.user, 'auth_user_obj': c.userobj, 'ignore_auth': True}
+            rsc = get_action('resource_show')(context, {'id': resource_id})
+            filename = rsc['name']
+            upload = uploader.ResourceUpload(resource=rsc)
+            filepath = upload.get_path(rsc['id'])
+            headers =  [
+            ('Content-Disposition',
+             'attachment; filename='+filename),
+            ('Content-Type',
+             ''+ rsc['mimetype'] + '')]
+            app = fileapp.FileApp(filepath, headers=headers)
         else:
             abort(404, 'Unknown object-type')
         
@@ -86,3 +103,12 @@ class Controller(BaseController):
         response.headers['Content-Type'] = 'application/json'
         return [to_json(result)]
 
+    def _get_resource_id(self, download_id):
+        #download_id = ext_model.RestrictedRequest.download_id
+        try:
+            request = model.Session.query(ext_model.RestrictedRequest).filter_by(
+                download_id=download_id).one_or_none()
+            return request.resource_id
+        except:
+            abort(404, 'Not Found')
+        

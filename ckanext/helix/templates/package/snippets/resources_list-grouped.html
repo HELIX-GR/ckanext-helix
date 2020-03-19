@@ -27,21 +27,17 @@ pkg - A package object that the resources belong to.
             <div class="modal-heading">{{_('Contact')}}</div>
             <div class="modal-body">
                 <form role="form" method="post" id="request_form">
-                    <p>{{_('Send your message to the dataset owner requesting the resources, including your name and e-mail.')}}</p>
-                    <div class="form-group">
-                        <label for="name">{{_('Name')}}</label>
-                        <input type="text" class="form-control" id="name" name="name" maxlength="50">
-                    </div>
+                    <p>{% trans %}Send your message to the dataset owner requesting the resources, including your e-mail.{% endtrans %}</p>
                     <div class="form-group">
                         <label for="email">
                             Email</label>
-                        <input type="email" class="form-control" id="email" name="email" maxlength="50">
+                        <input type="email"  placeholder="{{_('Your email')}}" class="form-control" id="email" name="email" maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="name">
                             {{_('Message')}}</label>
                         <textarea class="form-control" type="textarea" name="message" id="message"
-                            placeholder={{_('Your message')}} maxlength="6000" rows="7"></textarea>
+                            placeholder="{{_('Your message')}}" maxlength="6000" rows="7"></textarea>
                     </div>
                     <button type="submit" class="btn btn-lg btn-success btn-block" id="btnRequest">{{_('Send')}} →</button>
                 </form>
@@ -76,13 +72,6 @@ pkg - A package object that the resources belong to.
         This dataset has no data, <a href="{{ url }}">why not add some?</a>
     </p>
     {% endtrans %}
-    {% else %}
-    <p class="empty"> 
-        {{ _('Contact the owner of the dataset to request access to the dataset resources.') }}
-    </p>
-    <a class='btn btn-manage black contact' id="request-button" data-module="request-resource"
-        data-module-action="request_resource" data-module-creator_id="{{pkg.creator_user_id}}" data-toggle="tooltip"
-        data-module-pkg_title="{{pkg.title}}" data-placement="bottom">{{_('Contact')}}</a>
     {% endif %} {# check_access #}
     {% endif %} {# not resources #}
     {% endblock %} {# resources_empty #}

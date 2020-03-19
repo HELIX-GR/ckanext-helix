@@ -4388,8 +4388,8 @@ msgstr ""
 msgid "Contact the owner of the dataset to request access to the dataset resources."
 msgstr "Επικοινωνήστε με τον ιδιοκτήτη του συνόλου δεδομένων για να ζητήσετε πρόσβαση στους πόρους"
 
-msgid "Send your message to the dataset owner requesting the resources, including your name and e-mail."
-msgstr "Στείλτε το μήνυμά σας στον ιδιοκτήτη του συνόλου δεδομένων συμπεριλαμβάνοντας το όνομα και e-mail σας" 
+msgid "Send your message to the dataset owner requesting the resources, including your e-mail."
+msgstr "Στείλτε το αίτημα πρόσβασής σας στον υπεύθυνο του συνόλου δεδομένων συμπεριλαμβάνοντας το e-mail σας" 
 
 msgid "Message"
 msgstr "Μήνυμα"
@@ -4408,8 +4408,8 @@ msgstr "Αίτημα Πρόσβασης"
 msgid "Request Access to: "
 msgstr "Αίτημα πρόσβασης στο: "
 
-msgid "User Mail"
-msgstr "Mail Χρήστη"
+msgid "User Email"
+msgstr "Email Χρήστη"
 
 msgid "Contact Email"
 msgstr "Email επικοινωνίας"
@@ -4470,3 +4470,35 @@ msgstr "Δεν έχετε δικαιώματα"
 
 msgid "to access resource"
 msgstr "για πρόσβαση"
+
+msgid "Restricted Resources"
+msgstr "Περιορισμένοι πόροι"
+
+msgid "Request Access to"
+msgstr "Αίτημα πρόσβασης στο"
+
+#: dashboard-restricted
+
+msgid "Requests from registered users"
+msgstr "Αιτήματα από εγγεγραμμένους χρήστες"
+
+msgid "Requests from unregistered users"
+msgstr "Αιτήματα από μη εγγεγραμμένους χρήστες"
+
+msgid "Accepted requests"
+msgstr "Αποδεκτά αιτήματα"
+
+msgid "Rejected user request"
+msgstr "Το αίτημα απορρίφθηκε"
+
+msgid "Accepted user request"
+msgstr "Το αίτημα έγινε δεκτό"
+
+msgid "Approve"
+msgstr "Αποδοχή"
+
+msgid "Reject"
+msgstr "Απόρριψη"
+
+msgid "Mail sent!"
+msgstr "Το μήνυμα στάλθηκε"

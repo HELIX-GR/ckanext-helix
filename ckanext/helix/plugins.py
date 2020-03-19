@@ -343,6 +343,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'dataset_facets': self.dataset_facets,
             'get_dataset_types': ext_template_helpers.get_dataset_types,
             'valid_org_members': ext_template_helpers.valid_org_members,
+            'logout_url': ext_template_helpers.logout_url,
             'get_org_licenses': ext_helpers.get_org_licenses,
             'get_user_list': ext_helpers.get_user_list
         }
@@ -488,6 +489,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 'datasets',
                 '/dashboard/datasets',
                 action='datasets')
+
+            m.connect(
+                'restricted',
+                '/dashboard/restricted',
+                action='restricted')
             
       
         files_controller = 'ckanext.helix.controllers.files:Controller'
@@ -571,8 +577,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'dataset_import': ext_actions.package.dataset_import,
             'dataset_export_dcat': ext_actions.package.dataset_export_dcat,
             #'group_list_authz': ext_actions.group.group_list_authz,
-            'favorite': ext_actions.package.favorite,
-            'request_resource': ext_actions.package.request_resource
+            'favorite': ext_actions.package.favorite
         }
     
     ## IAuthFunctions interface ##

@@ -3,7 +3,7 @@ this.ckan.module('request-resource', function ($) {
         /* options object can be extended using data-module-* attributes */
         options: {
             action: null,
-            creator_id: null,
+            contact_email: null,
         },
 
 		/* Initialises the module setting up elements and event listeners.
@@ -23,6 +23,7 @@ this.ckan.module('request-resource', function ($) {
 		 * Returns nothing.
 		 */
         _onClick: function (event) {
+            console.log('in onclick');
             var options = this.options;
             var btn_request = document.getElementById('btnRequest');
             btn_request.disabled = false;
@@ -81,13 +82,13 @@ this.ckan.module('request-resource', function ($) {
 
             var client = this.sandbox.client;
             var result_text = document.getElementById('result-text');
-            function _onClickLoaded (json) {
+            function _onClickLoaded(json) {
                 $('#result-text').html(json.result);
-                if (json.result == 'Mail sent!'){
+                if (json.result == 'Mail sent!') {
                     btn_request.disabled = true;
                     result_text.style.color = '#333';
                 }
-                else{
+                else {
                     result_text.style.color = 'red';
                 }
 
@@ -97,13 +98,16 @@ this.ckan.module('request-resource', function ($) {
                 var form = document.getElementById('request_form');
                 //validate form
                 var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if(form.name.value == '' || form.email.value == '' || form.message.value == "" || !(re.test(String(form.email.value))) ){
+                if (form.email.value == '' || form.message.value == "" || !(re.test(String(form.email.value)))) {
                     $(result_text).html('Please fill all fields correctly');
                     result_text.style.color = 'red';
                     return;
                 }
-                client.call('POST', 'request_resource', { name: form.name.value, email: form.email.value,
-                    message: form.message.value, pkg_title: options.pkg_title, creator_id: options.creator_id},_onClickLoaded);
+                client.call('POST', 'request_resource', {
+                    email: form.email.value, message: form.message.value, package_name: options.package_name,
+                    creator_id: options.creator_id, resource_id: options.resource_id, resource_name: options.resource_name,
+                    pkg_title: options.pkg_title, contact_email: options.contact_email
+                }, _onClickLoaded);
 
             });
         }

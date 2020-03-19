@@ -169,3 +169,10 @@ def valid_org_members(org_email_domain):
             result.append(user)
 
     return result
+
+def logout_url():
+    
+    url = config['ckanext.helix.logout_url'] + '?redirect_uri=' + config['ckan.site_url']
+    log1.debug('url %s', url)
+
+    return url
