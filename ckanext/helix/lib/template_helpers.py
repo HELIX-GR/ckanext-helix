@@ -172,7 +172,7 @@ def valid_org_members(org_email_domain):
 
 def logout_url():
     
-    url = config['ckanext.helix.logout_url'] + '?redirect_uri=' + config['ckan.site_url']
+    url = config['ckanext.helix.logout_url'] + '?redirect_uri=' + config['ckan.site_url'] + h.url_for('/user/_logout')
     log1.debug('url %s', url)
 
     return url
