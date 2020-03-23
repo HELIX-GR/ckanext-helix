@@ -95,6 +95,7 @@ this.ckan.module('request-resource', function ($) {
             };
             $(btn_request).click(function (event) {
                 event.preventDefault();
+                btn_request.disabled = true;
                 var form = document.getElementById('request_form');
                 //validate form
                 var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
