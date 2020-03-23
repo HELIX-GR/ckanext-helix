@@ -4508,3 +4508,6 @@ msgstr "Μη έγκυρη τιμή"
 
 msgid "There are no restricted requests"
 msgstr "Δεν υπάρχουν αιτήματα πρόσβασης"
+
+msgid "Dataset contact email"
+msgstr "Email επικοινωνίας συνόλου δεδομένων"
