@@ -47,11 +47,11 @@ class Controller(BaseController):
             filename = rsc['name']
             upload = uploader.ResourceUpload(resource=rsc)
             filepath = upload.get_path(rsc['id'])
+            log1.info("Downloading restricted resource: %s" % (filepath))
             headers =  [
-            ('Content-Disposition',
-             'attachment; filename='+filename),
-            ('Content-Type',
-             ''+ rsc['mimetype'] + '')]
+                ('Content-Disposition', 'attachment; filename=%s' % (str(filename))),
+                ('Content-Type', str(rsc['mimetype']))
+            ]
             app = fileapp.FileApp(filepath, headers=headers)
         else:
             abort(404, 'Unknown object-type')
