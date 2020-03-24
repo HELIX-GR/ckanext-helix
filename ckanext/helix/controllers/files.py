@@ -104,10 +104,9 @@ class Controller(BaseController):
         return [to_json(result)]
 
     def _get_resource_id(self, download_id):
-        #download_id = ext_model.RestrictedRequest.download_id
         try:
             request = model.Session.query(ext_model.RestrictedRequest).filter_by(
-                download_id=download_id).one_or_none()
+                download_id=download_id, rejected_at=None).one_or_none()
             return request.resource_id
         except:
             abort(404, 'Not Found')
