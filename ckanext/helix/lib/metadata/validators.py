@@ -149,7 +149,12 @@ def postprocess_dataset_for_edit(key, data, errors, context):
     #logger.debug("\n MD IS: %s \n", md )
 
     # add datacite fields after ckan extras
-    index = 7
+    # calculate extras length 
+    index = 0
+    for key, value in data.iteritems():
+        if 'extras' in key :
+            index = index + 1
+    index = index+1/2
     for k, v in md.to_extras():
             #logger.debug("\n Key is: %s, value is %s \n", k, v )
             data[('extras', index, 'key')] = k

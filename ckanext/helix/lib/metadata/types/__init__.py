@@ -109,6 +109,8 @@ class BaseMetadata(Object):
             if v:
                 yf = md.get_field(kp)
                 if yf.context.value == yf.missing_value:
+                    # remove trailing whitespace
+                    v = v.rstrip()
                     updates[kp] = yf.fromUnicode(v)
         if updates:
             md.from_dict(updates, is_flat=True, opts={'update': 'deep'})
