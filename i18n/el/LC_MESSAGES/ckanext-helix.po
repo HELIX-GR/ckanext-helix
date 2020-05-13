@@ -4394,8 +4394,20 @@ msgstr "Στείλτε το αίτημα πρόσβασής σας στον υπ
 msgid "Message"
 msgstr "Μήνυμα"
 
-msgid "Link with ORCID"
-msgstr "Σύνδεση με ORCID"
+msgid "Link to ORCID iD"
+msgstr "Σύνδεση με ORCID iD"
+
+msgid "By authorizing HEAL-Link's research data repository (HARDMIN) to collect your ORCID iD, you allow it to link your ORCID iD"
+msgstr "Δίνοντας άδεια στο αποθετήριο ερευνητικών δεδομένων του ΣΕΑΒ (HARDMIN)  να συλλέξει το ORCID iD σας, του δίνεται τη δυνατότητα να διασυνδέσει το ORCID iD σας"
+
+msgid "to the research data you have submitted to HARDMIN as well as to update your ORCID record with your profile url in HARDMIN."
+msgstr "με τα ερευνητικά δεδομένα που έχετε καταθέσει στο HARDMIN καθώς και να ενημερώσει την εγγραφή σας στην ORCID με το url του προφίλ σας από το HARDMIN."
+
+msgid "Use the \"Link to ORCID iD\" button to allow HARDMIN to collect and use your ORCID iD."
+msgstr "Χρησιμοποιήστε το κουμπί \"Σύνδεση με ORCID iD\" για να επιτρέψετε τη διασύνδεση και χρήση του ORCID iD σας από το HARDMIN."
+
+msgid "More info:"
+msgstr "Περισσότερες πληροφορίες:"
 
 msgid "A little information..."
 msgstr "Λίγες πληροφορίες"
