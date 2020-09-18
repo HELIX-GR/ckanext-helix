@@ -495,9 +495,6 @@ class Controller(BaseController):
         data['private'] = 'True'
         # if not h.organizations_available('create_dataset'):
 
-        # add to helix org as default
-        data['owner_org'] = 'helix'
-
         form_snippet = self._package_form(package_type=package_type)
         form_vars = {'data': data, 'errors': errors,
                      'error_summary': error_summary,

@@ -160,28 +160,12 @@
     <p class="help-block">{{ description }}</p>
 </div>#}
 
-{# if admin enable organization field #}
-{% if h.check_access('sysadmin') %}
-    {% snippet 'package/snippets/edit-organization.html', 
-        name='owner_org', 
-        value=data.owner_org,
-        is_required = true,
-        orgs_available=h.organizations_available('create_dataset')
-        %}
-{# else hide organization field so it is automatically added#}        
-{% else %}
-    {{ 
-        form.input(
-            'owner_org', 
-            id = 'field-owner-org', 
-            label = _('Publisher'), 
-            classes = ['hidden'],
-            value = data.owner_org, 
-            error = errors.owner_org, 
-            is_required = true
-        ) 
-    }}   
-{% endif%}
+{% snippet 'package/snippets/edit-organization.html', 
+    name='owner_org', 
+    value=data.owner_org,
+    is_required = true,
+    orgs_available=h.organizations_available('create_dataset')
+%}  
 
 
 {# Dataset category (bio, geo etc.)#}
