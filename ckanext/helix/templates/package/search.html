@@ -37,28 +37,3 @@
   %}
 {% endblock %} {# form #}
 
-{% block secondary_content %}
-
-<div class="main-results-advanced-search">
-
-<h4 class="header">{{_('Advanced Search')}} </h4>
-   
-   <div class="border-bottom-bar">        
-   </div>       
-   
-</div>   
-  {#Map widget #}
-  {#{% snippet "spatial/snippets/spatial_query.html", default_extent="{ \"type\":\"Polygon\", \"coordinates\": [[[20.150247097,35.1192143555],[20.150247097,41.8958331781],[28.5535736084,41.8958331781],[28.5535736084,35.1192143555],[20.150247097,35.1192143555]]] }" %}
-  #}
-  
-   {#Facets #}
- {# {% with labels = c.facet_labels or {} %}
-  {% for facet, title in c.facet_titles.items() %} #}
-  
-  {# advanced search #}
-  <div id="checkbox-list">
-    {% snippet 'snippets/facet_list.html', title=title, hide_publishers =false, hide_empty= true %}
-  </div>
-  {#{% endfor %}
-  {% endwith %} #}
-{% endblock %}  {#secondary_content #}

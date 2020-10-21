@@ -1,8 +1,8 @@
 {% ckan_extends %}
 
 {% block breadcrumb_content %}
-  <a class="breadcrumbs-part" {% link_for _('Publishers'), controller='organization', action='index', named_route=group_type + '_index' %}</a>
-  <a class="breadcrumbs-part" {% link_for c.group_dict.title|truncate(50) or org.name, controller='organization', action='read', id=c.group_dict.name %}</a>
+  <li><a class="breadcrumbs-part" {% link_for _('Publishers'), controller='organization', action='index', named_route=group_type + '_index' %}</a></li>
+  <li><a class="breadcrumbs-part" {% link_for c.group_dict.title|truncate(50) or org.name, controller='organization', action='read', id=c.group_dict.name %}</a></li>
 {% endblock %}
 
 
@@ -24,13 +24,13 @@
     {% endif %}
   {% endblock %}
   {% block page_pagination %}
-    <div class="main-results-border-bottom"> </div>
+    {#<div class="main-results-border-bottom"> </div>
     <div class="breadcrumbs-pagination bottom">
       <div class=breadcrumbs>
       {{ self.breadcrumb_content() }}
       </div>
       {{ c.page.pager(q=c.q) }}
-    </div>    
+    </div>    #}
   {% endblock %}
 {% endblock %}
 
@@ -46,7 +46,7 @@
   {#{% for facet in c.facet_titles %}
     {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet, extras={'id':c.group_dict.id}) }} #}
     
-    {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_empty=true, hide_publishers=true ) }}
+    {#{{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_empty=true, hide_publishers=true ) }} #}
    
   {#{% endfor %} #}
 {% endblock %}

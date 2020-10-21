@@ -9,7 +9,7 @@
 
 <div class="{{classes|join(' ')}}">     
     {%- if title %}<h3>{{title}}</h3>{% endif -%}
-    <table class="{{table_classes|join(' ')}}" data-module="table-collapsible-rows"
+    <table class="{{table_classes|join(' ')}}" 
         data-module-numcols="{{num_cols|int}}"
         data-module-state="{{'more' if (more is defined) else 'less'}}"
       >

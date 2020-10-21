@@ -4200,13 +4200,12 @@ msgstr ""
 msgid "You are done!"
 msgstr "Είστε έτοιμος!"
 
-msgid ""
-" Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,"
-" you will be notified when your dataset is publicly available for view. "
-msgstr ""
-" Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
-" του συνόλου δεδομένων και θα ειδοποιηθείτε όταν το σύνολο δεδομένων σας είναι διαθέσιμο στο κοινό για προβολή. "
+msgid "Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation."
+msgstr "Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία."
 
 
 msgid "There are no topics associated with this dataset"
 msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποια θεματική ομάδα"
+
+msgid "Users"
+msgstr "Χρήστες"

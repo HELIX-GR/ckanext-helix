@@ -16,15 +16,15 @@
     {% set dataset = h.dataset_display_name(pkg) %}
     {% if pkg.organization %}
       {% set organization = h.get_translated(pkg.organization, 'title') or pkg.organization.name %}
-      <a class="breadcrumbs-part"{% link_for _('Publishers'), controller='organization', action='index' %}</a>
-      <a class="breadcrumbs-part"{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</a>
+      <li><a class="breadcrumbs-part"{% link_for _('Publishers'), controller='organization', action='index' %}</a></li>
+        <li><a class="breadcrumbs-part"{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</a></li>
     {% else %}
-      <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
+    <li><a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a></li>
     {% endif %}
-    <a class="breadcrumbs-part"{{ self.breadcrumb_content_selected() }}{% link_for dataset|truncate(25), controller='package', action='read', id=pkg.name %}</a>
+    <li><a class="breadcrumbs-part"{{ self.breadcrumb_content_selected() }}{% link_for dataset|truncate(25), controller='package', action='read', id=pkg.name %}</a></li>
   {% else %}
-    <a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a>
-    <a class="breadcrumbs-part" {% link_for _('Create Dataset'), controller='package', action='new' %}</a>
+  <li><a class="breadcrumbs-part"{% link_for _('Datasets'), controller='package', action='search' %}</a></li>
+    <li><a class="breadcrumbs-part" {% link_for _('Create Dataset'), controller='package', action='new' %}</a></li>
   {% endif %}
 {% endblock %}
 

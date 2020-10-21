@@ -23,7 +23,7 @@ this.ckan.module('checkbox-state', {
 
     initialize: function () {
         var _this = this;
-
+        console.log('IN CHECKBOX STATE')
         var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
             $checkboxes = $("#checkbox-list :checkbox");
 

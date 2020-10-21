@@ -1,14 +1,11 @@
 <section class="additional-info">
   {%- with md = pkg_dict.get(pkg_dict.dataset_type) -%}
- 
-    <h5 class="inline table-title">{{ _('Metadata') }}</h5>
-    
-    <hr class="separator"/>
-    <div class="download-links pull-right">
-      <div class="btn-download btn-group">
-        <a class="btn-group-main upper" href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
-          > {{ _('Download') }}</a>
-        {#<button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
+
+  <h2>{{ _('Metadata') }}</h2>
+  <a href="{{ h.get_primary_metadata_url(pkg_dict.download_links, (pkg_dict.dataset_type|title)) }}"
+    class="btn btn--simple gratter576">{{ _('Download') }}</a>
+
+  {#<button class="btn btn-primary dropdown-toggle btn-group-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -25,8 +22,6 @@
       <div class="metadata-label pull-left">
         <span>{{ pkg_dict.dataset_type|title|upper }}</span> <i class="icon-ok-sign"></i>
       </div>#}
-    </div>
-  </div>
   {% with 
      data = { 
         'max_depth': 2,
@@ -47,10 +42,10 @@
         ] 
      } 
   %}
-  {{ h.markup_for('read:table', md, errors=none, name_prefix='', data=data) }} 
-  {% endwith %}  {# data #}
+  <div class="page__content__default__table">
+    {{ h.markup_for('read:table', md, errors=none, name_prefix='', data=data) }}
+  </div>
+  {% endwith %} {# data #}
 
   {%- endwith -%} {# md #}
-
 </section>
-

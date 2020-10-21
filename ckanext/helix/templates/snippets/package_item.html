@@ -15,59 +15,59 @@ truncate_title - The length to truncate the title to (default: 80).
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
 {% set modified = package.metadata_modified %}
 
-<div class="result-item data">
+<div class="data__item">
   {% block package_item_content %}
   
-      <div class="date-of-entry">
+  <div class="data__item__info">
           {#{% if package.groups %}
           {% set group = package.groups[0] %}
           <div>{{ h.friendly_date(modified|urlize)}} @ <span> <a href={{ h.url_for(controller='group', action='read', id= group.name) }}> {{group.title|urlize }}</span></div> </a>
           {% else %}
           <div>{{ h.friendly_date(modified|urlize)}} </div>
           {% endif %} #}
-          <div>{{ h.render_datetime(modified, date_format='%d-%m-%Y') }}</div>
+          {{ h.render_datetime(modified, date_format='%d-%m-%Y') }}
       </div>
-
-      <h3 class="title">
+      <div class="data__item__title">
         {% if package.private %}
-          <span class="dataset-private label label-inverse">
-           {{_('Private') }}
+        <span class="btn--simple dataset-private label label-inverse">
+          {{ _('Private') }}
         </span>
         {% endif %}
-        
-          {{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }} 
-          {#<div class="pill data">
-                DATA
-          </div> #}
+    
+        {{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}
+      </div>
+      {#<div class="pill data">
+                    DATA
+              </div> #}
         {% if package.get('state', '').startswith('draft') %}
           <span class="label label-info">{{ _('Draft') }}</span>
         {% elif package.get('state', '').startswith('deleted') %}
           <span class="label label-important">{{ _('Deleted') }}</span>
         {% endif %}
         {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
-      </h3>
+    
       {% if banner %}
         <span class="banner">{{ _('Popular') }}</span>
       {% endif %}
         
 
       {% if package.organization %}
-      <div class="service">
+      <div class="data__item__info">
           <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize|upper }}</a>
       </div>
       {% endif %}
  
     {% block package_item_resources %}
     {% if package.resources and not hide_resources %}
-      <div class="tags-list">
+      <ul>
         {% for resource in package.resources %}
-          <a class="tag-box"
+          <li><a class="btn btn--simple btn--noback"
             href="{{ h.url_for(controller='package', action='resource_read', id=package.name, resource_id=resource.id) }}"
             data-format="{{ resource.format }}"
-           >{{ resource.format|upper }}</a>
+           >{{ resource.format|upper }}</a></li>
 
         {% endfor %}
-      </div>
+      </ul>
     {% endif %} {# package.resources #}
     {% endblock %} {# package_item_resources #}
 
