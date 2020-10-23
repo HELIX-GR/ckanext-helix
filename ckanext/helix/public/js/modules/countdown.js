@@ -4,7 +4,6 @@
 this.ckan.module('countdown', {
 
     initialize: function () {
-        console.log('In module initialize');
         var $el = $(this.el)
         if ($.fn.countdown) {
             console.log('Countdown imported successfuly');
@@ -19,7 +18,6 @@ this.ckan.module('countdown', {
             initialized: false,
 
             init() {
-                console.log('In init');
                 if (!$('.climate-clock').length) { return; }
                 //this.fullScreen();
                 this.initCountDown();
@@ -85,9 +83,7 @@ this.ckan.module('countdown', {
 
 
         }
-        console.log('before init');
         climateClock.init();
-        console.log('after init');
     }
 
 });

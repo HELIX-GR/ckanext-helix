@@ -4209,3 +4209,44 @@ msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποι
 
 msgid "Users"
 msgstr "Χρήστες"
+
+
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+msgid "Targets"
+msgstr "Στόχοι"
+
+msgid "Management Committee"
+msgstr "Διοικούσα Επιτροπή"
+
+msgid "Scientific Committee"
+msgstr "Επιστημονική Επιτροπή"
+
+msgid "Work Packages"
+msgstr "Πακέτα Εργασίας"
+
+msgid "Deliverables"
+msgstr "Παραδοτέα"
+
+msgid "Core"
+msgstr "Μέλη"
+
+msgid "Associates"
+msgstr "Συνεργάτες"
+
+msgid "Join"
+msgstr "Συμμετοχή"
+
+msgid "Tools"
+msgstr "Εργαλεία"
+
+msgid "Workshops"
+msgstr "Εργαστήρια"
+
+msgid "Other Events"
+msgstr "Αλλες Εκδηλώσεις"
+
+msgid "Dialogue Forum"
+msgstr "Φόρουμ Διαλόγου"
+
