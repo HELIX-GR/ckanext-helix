@@ -495,7 +495,13 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 '/dashboard/restricted',
                 action='restricted')
             
+        home_controller = 'ckanext.helix.controllers.home:Controller'
       
+        mapper.connect(
+            '/faq',
+            controller=home_controller,
+            action='faq')
+
         files_controller = 'ckanext.helix.controllers.files:Controller'
         
         with SubMapper(mapper, controller=files_controller) as m:
