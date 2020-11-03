@@ -4112,6 +4112,13 @@ msgstr "Δημιουργός"
 msgid "Creator name"
 msgstr "Όνομα δημιουργού"
 
+msgid "Creator (first name)"
+msgstr "Δημιουργός (Όνομα)"
+
+msgid "Creator (last name)"
+msgstr "Δημιουργός (Επώνυμο)"
+
+
 
 msgid "Related Publication"
 msgstr "Σχετική δημοσίευση"
@@ -4376,13 +4383,13 @@ msgstr ""
 "content=\"%(markdown_tooltip)s\" data-html=\"true\">Markdown</a> εδώ"
 
 msgid "You are done!"
-msgstr "Είστε έτοιμος!"
+msgstr "Είστε έτοιμος/η!"
 
 msgid ""
-" Review your Dataset. When ready, press <b>finish</b> to complete the dataset creation,"
+" Press <b>finish</b> to complete the dataset creation, and"
 " you will be notified when your dataset is publicly available for view. "
 msgstr ""
-" Ελέγξτε το σύνολο δεδομένων σας. Όταν είστε έτοιμοι, πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
+" Πατήστε <b>ολοκλήρωση</b>  για να ολοκληρωθεί η δημιουργία  "
 " του συνόλου δεδομένων και θα ειδοποιηθείτε όταν το σύνολο δεδομένων σας είναι διαθέσιμο στο κοινό για προβολή. "
 
 msgid "Contact the owner of the dataset to request access to the dataset resources."
