@@ -1,0 +1,12 @@
+{% trans %} Ένα νέο σύνολο δεδομένων δημιουργήθηκε στον οργανισμό σας, {{ organization_name }}. {% endtrans %}
+* {% trans %}Μπορείτε να το δείτε στο σύνδεσμο:{% endtrans %} {{ dataset_url }} 
+
+{% trans %} Για να το αποδεχτείτε και να γίνει δημόσιο μεταβείτε στον σύνδεσμο {{organization_edit_url}}{% endtrans %}
+
+{% trans %}Με εκτίμηση,{% endtrans %}
+{% trans %}Διαχειριστής {{ site_title }}{% endtrans %}
+
+
+{% trans %}Αυτο είναι ένα αυτοματοποιημένο email, μην απαντήσετε σε αυτή τη διεύθυνση.{% endtrans %}
+
+{% trans %}Το μήνυμα στάλθηκε από το {{ site_title }} ({{ site_url }}){% endtrans %}
