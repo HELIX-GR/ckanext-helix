@@ -692,7 +692,8 @@ class CreatorEditWidget(EditObjectWidget):
 
     def get_field_qualifiers(self):
         return OrderedDict([
-            ('creator_name', None),
+            ('creator_first_name', None),
+            ('creator_last_name', None),
             #('creator_name_type', None),
             #('creator_name_identifier', None),
             #('creator_name_identifier_scheme', None),
@@ -702,8 +703,12 @@ class CreatorEditWidget(EditObjectWidget):
     
     def get_field_template_vars(self):
         return {
-            'creator_name': {
-                'title': _('Creator'),
+            'creator_first_name': {
+                'title': _('Creator (first name)'),
+                
+            },
+            'creator_last_name': {
+                'title': _('Creator (last name)'),
                 
             },
             'creator_name_type': {
@@ -734,21 +739,26 @@ class CreatorReadWidget(ReadObjectWidget):
     
     def get_field_qualifiers(self):
         return OrderedDict([
-            ('creator_name', None),
+            ('creator_first_name', None),
+            ('creator_last_name', None),
             ('creator_affiliaton', None),
         ])
     
     def get_field_order(self):
         return[
-            'creator_name',
+            'creator_first_name',
+            'creator_last_name',
             'creator_affiliation',
         ]
             
 
     def get_field_template_vars(self):
         return {
-            'creator_name': {
-                'title': _('Creator'),
+            'creator_first_name': {
+                'title': _('Creator (first name)'),
+            },
+            'creator_last_name': {
+                'title': _('Creator (last name)'),
             },
             'creator_affiliation': {
                 'title': _('Creator affiliation'),

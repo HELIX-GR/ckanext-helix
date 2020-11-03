@@ -147,7 +147,8 @@ class Creator(Object):
     
     zope.interface.implements(ICreator)
 
-    creator_name = None
+    creator_first_name = None
+    creator_last_name = None
     #creator_name_type = None
     #creator_name_identifier = None
     #creator_name_identifier_scheme = None

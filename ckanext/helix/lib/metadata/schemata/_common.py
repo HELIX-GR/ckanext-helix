@@ -236,9 +236,14 @@ class IConformity(IObject):
 
 class ICreator(IObject):
 
-    creator_name = zope.schema.TextLine(
-        title = _(u'Creator name'),
-        description=_(u'Person or organization that has produced the dataset'), 
+    creator_first_name = zope.schema.TextLine(
+        title = _(u'Creator (first name)'),
+        description=_(u'Person or organization that has produced the dataset (first name)'), 
+        required=True)
+
+    creator_last_name = zope.schema.TextLine(
+        title = _(u'Creator (last name)'),
+        description=_(u'Person or organization that has produced the dataset (last name)'), 
         required=True)
     '''
     creator_name_type = zope.schema.Choice(
