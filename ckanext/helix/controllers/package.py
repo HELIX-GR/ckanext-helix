@@ -22,7 +22,7 @@ from ckan.controllers.package import PackageController  as pController
 from ckanext.helix.lib import uploader
 from ckanext.helix.lib import actions as ext_actions
 from ckanext.helix.lib import metadata as ext_metadata
-
+import ckanext.helix.lib.helpers as ext_helpers
 
 from ._helpers import authenticated
 
@@ -437,6 +437,10 @@ class Controller(BaseController):
                 h.redirect_to(h.url_for(controller='package',
                                         action='edit', id=id))
 
+            # notify organizations admins for new dataset
+            pkg = logic.get_action('package_show')(context, {'id': id})
+            ext_helpers.notify_admins(pkg)
+            
             h.redirect_to(
                 h.url_for(controller='package', action='read', id=id))
 

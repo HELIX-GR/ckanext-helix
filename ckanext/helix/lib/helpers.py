@@ -1,3 +1,5 @@
+# coding: utf8
+
 import ckan.model as model
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
@@ -19,8 +21,11 @@ import string
 from pylons import config
 
 from ckan.lib import base
-from ckan.common import c
+from ckan.common import c, config, _
 import ckan.lib.helpers as h
+
+from ckan.lib.mailer import mail_recipient
+from ckan.lib.mailer import MailerException
 
 import datetime
 import logging
@@ -206,3 +211,53 @@ def get_user_list():
     context = {'model': model, 'session': model.Session, 'ignore_auth': True}
     users = logic.get_action('user_list')(context, {})    
     return users
+
+def notify_admins(pkg):
+    admins = []
+    context_copy = {'model': model, 'session': model.Session,
+                    'user': c.user or c.author, 'auth_user_obj': c.userobj, 'ignore_auth': True}
+
+    organization = logic.get_action('organization_show')(
+        context_copy, {'id': pkg['organization']['id'], 'include_users': True})
+    for user in organization['users']:
+        if user['capacity'] == 'admin':
+            admins.append(user['name'])
+    extra_vars = {'dataset_url': config.get('ckan.site_url') + '/dataset/' + pkg['id'],
+                  'site_title': config.get('ckan.site_title'),
+                  'site_url': config.get('ckan.site_url'),
+                  'organization_name': organization.get('name'),
+                  'organization_edit_url': config.get('ckan.site_url') + '/organization/bulk_process/' + organization.get('id'),
+                  'dataset_title': pkg['title']}
+    body = base.render_jinja2(
+        'emails/new_dataset_text.txt', extra_vars)
+    subject = _('Νέο σύνολο δεδομένων {0}').format(pkg['title'])
+    for admin in admins:
+        try:
+            mail_recipient("user", admin,
+                           subject, body)
+        except MailerException:
+            success = False
+            # return 'Error sending e-mail'
+
+
+def notify_users(datasets):
+    context_copy = {'model': model, 'session': model.Session,
+                    'user': c.user or c.author, 'auth_user_obj': c.userobj, 'ignore_auth': True}
+    for id in datasets:
+        dataset = logic.get_action('package_show')(context_copy, {'id': id})
+        user = logic.get_action('user_show')(
+            context_copy, {'id': dataset['creator_user_id']})
+        extra_vars = {'dataset_url': config.get('ckan.site_url') + '/dataset/' + id,
+                      'site_title': config.get('ckan.site_title'),
+                      'site_url': config.get('ckan.site_url'),
+                      'dataset_title': dataset.get('title')}
+        body = base.render_jinja2(
+            'emails/dataset_accepted_text.txt', extra_vars)
+        subject =_('Αποδοχή συνόλου δεδομένων {0}').format(dataset.get('title'))
+        try:
+            mail_recipient("user", user['name'],
+                           subject, body)
+        except MailerException:
+            success = False
+            # return 'Error sending e-mail'
+    return
