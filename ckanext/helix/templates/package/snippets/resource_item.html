@@ -2,7 +2,7 @@
 {% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
 {% set url = h.url_for(controller='package', action=url_action, id=pkg.name, resource_id=res.id) %}
 
-<li class="resource-component clearfix" data-id="{{ res.id }}">
+<li class="resource-component clearfix" data-id="{{ res.id }}"> 
     {% block resource_item_header %}
    
         {% block resource_item_title %}
@@ -81,6 +81,6 @@
 
     {% endblock %} {# resource_item
         _description #}
-
+        <div class="description"><p>{{_('Views')}}: {{res.tracking_summary.total}}</p></div>
 </li>
     

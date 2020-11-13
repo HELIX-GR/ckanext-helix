@@ -84,7 +84,8 @@
            
     <div class="title"> {{_('Last revision:') }} </div> 
            <div class="date"> {{ pkg.metadata_modified.split('T')[0]|upper or pkg.metadata_modified|upper or  _('NEVER') }}</div>
-           
+    <div class="title">{{_('Views')}}: </div>
+            <div class="date"> {{pkg.tracking_summary.total}}</div>
     </div>
     {% endblock %}
    
@@ -109,6 +110,8 @@
 
 
 {% block package_additional_info %}
+
+
   {# This is a replacement for "package/snippets/additional_info.html" -#}
   {% snippet "package/snippets/package_metadata_table.html", pkg_dict=pkg %}
 {% endblock %}

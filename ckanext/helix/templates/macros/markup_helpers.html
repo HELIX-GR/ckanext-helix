@@ -65,7 +65,7 @@
     {% endif -%} {# if messages #}
 {%- endmacro -%}
 
-{% macro error_messages(errors, dtype,  summary=None, titles={}) -%}
+{% macro error_messages(errors, dtype='datacite',  summary=None, titles={}) -%}
     {% if errors or summary -%} 
     <div class="alert alert-danger errors error-messages">
         {% if summary %}<h3>{{ summary|safe }}</h3>{% endif %}
