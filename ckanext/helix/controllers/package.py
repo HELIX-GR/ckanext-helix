@@ -24,6 +24,8 @@ from ckanext.helix.lib import actions as ext_actions
 from ckanext.helix.lib import metadata as ext_metadata
 import ckanext.helix.lib.helpers as ext_helpers
 
+import ckanext.orcid.helpers as orcid_helpers
+
 from ._helpers import authenticated
 
 log = logging.getLogger(__name__)
@@ -513,6 +515,11 @@ class Controller(BaseController):
         data['name'] = new_uuid
         # set default visibility to private before admin/editor changes it to public
         data['private'] = 'True'
+
+        # add creator orcid id
+        orcid = orcid_helpers.get_orcid_user_info(c.userobj.id)
+        data['creator_orcid_id'] = orcid.get('url')
+
         # if not h.organizations_available('create_dataset'):
 
         # add to helix org as default

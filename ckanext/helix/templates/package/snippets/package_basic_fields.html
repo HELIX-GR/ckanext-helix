@@ -82,6 +82,18 @@
     ) 
 }}    
 
+{{ 
+    form.input(
+        'creator_orcid_id', 
+        id = 'field-orcid_id', 
+        label = _('creator_orcid id'), 
+        classes = ['hidden'],
+        value = data.creator_orcid_id, 
+        error = errors.creator_orcid_id, 
+        is_required = false
+    ) 
+}}    
+
 {#{{ 
     form.input(
         'name', 

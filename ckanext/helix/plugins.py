@@ -728,6 +728,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('not_empty'),
                 toolkit.get_converter('convert_to_tags')('closed_tags')
             ],
+            'creator_orcid_id': [ 
+                toolkit.get_validator('ignore_missing') ,
+                toolkit.get_converter('convert_to_extras')
+            ],
             'creator_organization': [ 
                 toolkit.get_validator('ignore_missing') ,
                 toolkit.get_converter('convert_to_extras')
@@ -1039,6 +1043,10 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             #    toolkit.get_converter('convert_from_extras'),
                 #check_empty
             #],
+            'creator_orcid_id': [ 
+                toolkit.get_converter('convert_from_extras'),
+                toolkit.get_validator('ignore_missing') ,
+            ],
             'identifier_type': [
                 toolkit.get_converter('convert_from_extras'),
                 toolkit.get_validator('ignore_missing')

@@ -131,6 +131,7 @@ class TableReadWidget(_common.TableReadWidget):
            'contact_email',
            'closed_subject',
            'creator',
+           'creator_orcid_id',
            'publication_year',
            'public_doi',
            'embargo_date',

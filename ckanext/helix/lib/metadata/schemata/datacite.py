@@ -202,6 +202,11 @@ class IDataciteMetadata(IMetadata):
         default = 'eng')
     #languagecode.setTaggedValue('format:markup', {'descend-if-dictized': False})
 
+    creator_orcid_id = zope.schema.TextLine(
+        title = _(u'Orcid ID'),
+        description = _(u'The orcid id of the dataset creator'),
+        required = False)
+    creator_orcid_id.setTaggedValue('links-to', 'creator_orcid_id')
 
     source = zope.schema.TextLine(
         title = _(u'Source'),
