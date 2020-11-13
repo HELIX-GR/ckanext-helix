@@ -5,12 +5,19 @@
     "fields": [
       {
         "field_name": "title",
-        "label": "Name",
+        "label": "Name (English)",
         "required": true,
         "validators": "scheming_required unicode",
         "form_snippet": "large_text.html",
         "form_attrs": {"data-module": "slug-preview-target"},
         "form_placeholder": "Full name of the institution"
+      },
+      {
+        "field_name": "title_greek",
+        "label": "Name (Greek)",
+        "validators": "unicode",
+        "form_snippet": "large_text.html",
+        "form_placeholder": "Full name of the institution (Greek)"
       },
       {
         "field_name": "name",
@@ -39,7 +46,7 @@
         "field_name": "email_domain",
         "label": "E-mail domain",
         "form_snippet": "text.html",
-        "form_placeholder": "e.g. auth.gr"
+        "form_placeholder": "e.g. domain.com"
       },
       {
         "field_name": "image_url",
