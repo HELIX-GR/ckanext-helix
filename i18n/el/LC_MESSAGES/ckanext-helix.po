@@ -3121,8 +3121,8 @@ msgstr "Αφήστε τα σχόλιά σας"
 #: ckanext/helixtheme/templates/applications/index.html:3
 #: ckanext/helixtheme/templates/applications/index.html:6
 #: ckanext/helixtheme/templates/applications/index.html:47
-msgid "Applications"
-msgstr ""
+#msgid "Applications"
+#msgstr ""
 
 #: ckanext/helixtheme/templates/applications/index.html:18
 #: ckanext/helixtheme/templates/package/snippets/developers/mapping_api.html:13
@@ -4229,6 +4229,9 @@ msgstr "Πακέτα Εργασίας"
 msgid "Deliverables"
 msgstr "Παραδοτέα"
 
+msgid "Network"
+msgstr "Το Δίκτυο"
+
 msgid "Core"
 msgstr "Μέλη"
 
@@ -4241,6 +4244,9 @@ msgstr "Συμμετοχή"
 msgid "Tools"
 msgstr "Εργαλεία"
 
+msgid "News & Events"
+msgstr "Νέα και δράσεις"
+
 msgid "Workshops"
 msgstr "Εργαστήρια"
 
@@ -4250,3 +4256,5 @@ msgstr "Αλλες Εκδηλώσεις"
 msgid "Dialogue Forum"
 msgstr "Φόρουμ Διαλόγου"
 
+msgid "Applications"
+msgstr "Εφαρμογές"
