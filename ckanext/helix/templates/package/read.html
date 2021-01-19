@@ -80,11 +80,10 @@
   </div>
   {% block package_dates %}
   <section class="page__content__default__details">
-    <p> {{_('Publication:')}} {{ pkg.metadata_created.split('T')[0]|upper or pkg.metadata_created|upper or _('NEVER')}}
+    <p> {{_('Publication:')}} {{ h.render_datetime(pkg.metadata_created, date_format='%d-%m-%Y') }}
     </p>
 
-    <p> {{_('Last revision:') }}
-      {{ pkg.metadata_modified.split('T')[0]|upper or pkg.metadata_modified|upper or  _('NEVER') }}</p>
+    <p> {{_('Last revision:') }} {{ h.render_datetime(pkg.metadata_modified, date_format='%d-%m-%Y')}}</p>
 
 
   </section>
