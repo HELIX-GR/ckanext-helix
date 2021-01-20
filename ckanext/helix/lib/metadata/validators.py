@@ -128,12 +128,12 @@ def postprocess_dataset_for_edit(key, data, errors, context):
                 #logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
                 if value[0][:8] == 'Required':
                     key = tuple([str.encode("('datacite.%s',)" % key)])
-                    errors[key] = u'Missing value'
+                    errors[key] = _('Missing value')
                 elif value[0][:7] == 'related':
                     #remove duplicate error (for wrong value)
                     key_to_remove = tuple([str.encode('datacite.%s' % key)])
                     key = tuple([str.encode("('datacite.%s',)" % key)])
-                    errors[key] = u'Invalid DOI value'  
+                    errors[key] = _('Invalid DOI value')  
                     errors[key_to_remove] =  []
 
         #for k, v in errors.items():

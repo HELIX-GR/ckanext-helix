@@ -17,24 +17,7 @@
 
 {% block package_basic_fields_title %}
  
-{{  
-    form.input(
-        'title', 
-        id = 'field-title', 
-        label = _('Title (English)'), 
-        placeholder = _('The title of the dataset (English)'), 
-        value = data.title, 
-        error = errors.title, 
-        classes = ['control-full '], 
-        attrs = { 'data-module': 'slug-preview-target' },
-        is_required=true
-    ) 
-}}
-
-
-{% endblock %} {# package_basic_fields_title #}
-
-{# Optional title in Greek #}
+{# title in Greek #}
 
 {{  
     form.input(
@@ -46,9 +29,26 @@
         error = errors.title_optional, 
         classes = ['control-full'], 
         attrs = { 'data-module': 'slug-preview-target' },
+        is_required=true
+    ) 
+}}
+{{  
+    form.input(
+        'title', 
+        id = 'field-title', 
+        label = _('Title (English)'), 
+        placeholder = _('The title of the dataset (English)'), 
+        value = data.title, 
+        error = errors.title, 
+        classes = ['control-full '], 
+        attrs = { 'data-module': 'slug-preview-target' },
         is_required=false
     ) 
 }}
+
+
+{% endblock %} {# package_basic_fields_title #}
+
 
 
 {% block package_basic_fields_url %}
@@ -102,21 +102,8 @@
 {% endblock %} {# package_basic_fields_url #}
 
 {% block package_basic_fields_description %}
-{{ 
-    form.markdown(
-        'notes', 
-        id = 'field-notes', 
-        label = _('Description (English)'), 
-        placeholder = _('A brief description of the dataset (English)'), 
-        value = data.notes, 
-        error = errors.notes,
-        classes = ['control-full'], 
-        is_required = true
-    )        
-}}
-{% endblock %} {# package_basic_fields_description #}
 
-{# Optional notes in Greek #}
+{# Notes in Greek #}
 {{ 
     form.markdown(
         'notes_optional', 
@@ -126,9 +113,24 @@
         value = data.notes_optional, 
         error = errors.notes_optional,
         classes = ['control-full'], 
+        is_required = true
+    )        
+}}
+{{ 
+    form.markdown(
+        'notes', 
+        id = 'field-notes', 
+        label = _('Description (English)'), 
+        placeholder = _('A brief description of the dataset (English)'), 
+        value = data.notes, 
+        error = errors.notes,
+        classes = ['control-full'], 
         is_required = false
     )        
 }}
+{% endblock %} {# package_basic_fields_description #}
+
+
 {#{%set communities = h.groups_available('True')%} #}
 {%set communities = h.get_communities(c.userobj.id)%} 
 

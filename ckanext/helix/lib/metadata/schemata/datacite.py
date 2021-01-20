@@ -45,16 +45,17 @@ class IDataciteMetadata(IMetadata):
     tags.setTaggedValue('allow-partial-update', False)
     tags.setTaggedValue('format', { 'descend-if-dictized': False, 'extra-opts': {}, })
 
+    # not optional anymore!
     optional_title = zope.schema.TextLine(
-        required = False,
-        title = u"Τίτλος (Ελληνικά)",
+        required = True,
+        title = u"Τίτλος",
         description = u'Optional title in Greek',)
     optional_title.setTaggedValue('links-to', 'title_optional')
 
-
+    # not optional anymore!
     optional_description = zope.schema.Text(
-        required = False,
-        title = u"Περιγραφή (Ελληνικά)",
+        required = True,
+        title = u"Περιγραφή",
         description = u'Optional notes in greek',)
     optional_description.setTaggedValue('links-to', 'notes_optional')
 

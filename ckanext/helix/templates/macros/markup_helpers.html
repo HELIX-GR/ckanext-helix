@@ -11,23 +11,27 @@
     {% set title =  titles.get(key, key|title) %} 
     
     {%if title == '('"'datacite.title'"',)' %}
-        Title
+        {{_('Title')}}
+    {% elif title == '('"'datacite.optional_title'"',)' %}
+        {{_('Title')}}
+    {% elif title == '('"'datacite.optional_description'"',)' %}
+        {{_('Description')}}
     {% elif title == '('"'datacite.creator.creator_name'"',)' %}
-        Creator    
+        {{_('Creator' )}}   
     {% elif title ==  '('"'datacite.related_publication'"',)' %}
-        Related publication
+        {{_('Related publication')}}
     {% elif title == '('"'datacite.contact_email'"',)' %}
-        Contact e-mail
+        {{_('Contact e-mail')}}
     {% elif title == 'Closed_tag' %}
-        Subject
+        {{_('Subject')}}
     {% else %}
         {{title}}
-    {% endif%}    
+    {% endif%}:
     {%- endmacro -%}    
 
 {%- macro message_list(messages, key=None, titles={}) -%}
     {% if messages -%} 
-    {% if key %}<h4 data-key="{{ key }}" class="title">{{ map_titles(titles, key) }}</h4>{% endif %}
+    {% if key %}<h4 style="display:inline-block" data-key="{{ key }}" class="title">{{ map_titles(titles, key) }}</h4>{% endif %}
     {% if messages is string %}
     <span>{{ messages }}</span>
     {% elif messages is mapping -%}

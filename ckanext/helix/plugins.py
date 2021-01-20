@@ -670,15 +670,15 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             ],
             'title': [
 
-                min_title_length,
-                toolkit.get_validator('not_empty'),
+                #min_title_length,
+                toolkit.get_validator('ignore_missing'),
             ],
             'notes_optional': [ 
-                toolkit.get_validator('ignore_missing') ,
+                toolkit.get_validator('not_empty') ,
                 toolkit.get_converter('convert_to_extras')
             ],
             'title_optional': [
-                toolkit.get_validator('ignore_missing'),
+                toolkit.get_validator('not_empty'),
                 toolkit.get_converter('convert_to_extras')
             ],
             'dataset_category': [
@@ -952,7 +952,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             #    toolkit.get_validator('ignore_missing'),
             #],
             'notes': [
-                toolkit.get_validator('not_empty')
+                toolkit.get_validator('ignore_missing')
             ],
             'closed_tag': [
                 toolkit.get_converter('convert_from_tags')('closed_tags'),
@@ -971,16 +971,16 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
                 toolkit.get_validator('ignore_missing')
             ],
             'title': [
-                min_title_length,
-                toolkit.get_validator('not_empty')
+                #min_title_length,
+                toolkit.get_validator('ignore_missing')
             ],
             'title_optional': [
                 toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing')
+                toolkit.get_validator('not_empty')
             ],
             'notes_optional': [
                 toolkit.get_converter('convert_from_extras'),
-                toolkit.get_validator('ignore_missing')
+                toolkit.get_validator('not_empty')
             ],
             # Add our extra field to the dataset schema.
             'title_type': [

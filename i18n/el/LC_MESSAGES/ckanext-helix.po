@@ -4258,3 +4258,6 @@ msgstr "Φόρουμ Διαλόγου"
 
 msgid "Applications"
 msgstr "Εφαρμογές"
+
+msgid "Missing value"
+msgstr "Απαραίτητο πεδίο"

@@ -50,7 +50,7 @@
     </span>
     {% endif %}
     <h1 class="package-title">
-      {{ pkg.title or pkg.name }}
+      {{ pkg.title_optional or pkg.title }}
     </h1>
     {% if h.check_access('package_update', {'id':pkg.id }) %}
     {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-manage pull-right', icon='wrench' %}
