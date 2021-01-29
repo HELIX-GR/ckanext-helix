@@ -518,7 +518,8 @@ class Controller(BaseController):
 
         # add creator orcid id
         orcid = orcid_helpers.get_orcid_user_info(c.userobj.id)
-        data['creator_orcid_id'] = orcid.get('url')
+        if orcid:
+            data['creator_orcid_id'] = orcid.get('url')
 
         # if not h.organizations_available('create_dataset'):
 

@@ -139,7 +139,7 @@ def getDataciteDoi(package):
     doi = config.get('ckanext.helix.datacite.prefix') + random_str
     event = config.get('ckanext.helix.datacite.publish')
     #format name for datacite (first name, given name)
-    creator_name = package['datacite.creator.creator_name'].replace(" ", ", ", 1)
+    creator_name = package['datacite.creator.creator_first_name'] + ' ' + package['datacite.creator.creator_last_name']
     if 'datacite.publication_year' in package:
         publication_year =  package['datacite.publication_year'] 
     else:
