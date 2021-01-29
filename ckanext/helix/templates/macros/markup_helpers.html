@@ -10,23 +10,27 @@
 {%- macro map_titles(titles, key, dtype='datacite') -%}  
     {% set title =  titles.get(key, key|title) %}
     {%if title == 'Owner_org' %}
-        Organization
+        {{_('Institution')}}
+    {%elif title == 'Notes' %}
+        {{_('Description (English)')}}   
     {%elif title == dtype + '('"'.title'"',)' %}
         Title
-    {% elif title == '('"'datacite.creator.creator_name'"',)' %}
-        Creator    
+    {% elif title == '('"'datacite.creator_first_name'"',)' %}
+        {{_('Creator (first name)')}}   
+    {% elif title == '('"'datacite.creator_last_name'"',)' %}
+        {{_('Creator (last name)')}}      
     {% elif title == dtype|capitalize + '.related_publication' %}
-        Related publication
+        {{_('Related publication')}}
     {% elif title == dtype|capitalize + '.is_derived_from' %}
-        Derived from
+        {{_('Derived from')}}
     {% elif title == dtype|capitalize + '.is_similar_to' %}
-        Similar to
+        {{_('Similar to')}}
     {% elif title == dtype|capitalize + '.publication_year' %}
-        Publication year
+        {{_('Publication year')}}
     {% elif title == '('"'datacite.contact_email'"',)' %}
-        Contact e-mail
+        {{_('Contact Email')}}
     {% elif title == 'Closed_tag' %}
-        Subject
+        {{_('Subject')}}
     {% else %}
         {{title}}
     {% endif%}    
@@ -34,9 +38,9 @@
  
     {%- macro map_messages(message) -%}  
     {% if message == 'Invalid (InvalidDoi)' %}
-        Invalid DOI value
-    {% elif essage == 'Invalid (InvalidYear)' %}
-        Invalid year value
+        {{_('Invalid DOI value')}}
+    {% elif message == 'Invalid (InvalidYear)' %}
+        {{_('Invalid year')}}
     {% else %}
         {{message}}
     {% endif%}    

@@ -114,30 +114,25 @@ def postprocess_dataset_for_edit(key, data, errors, context):
             #key = "('datacite.{}',)".format(key)
             if not isinstance(value, list) :
                 # fix key-value for classes like Creator (contains multiple fields)
-                k = key + '.' + next(iter(value))
-                # make key compatible with errors dict (tuple)
-                k = tuple([ str.encode("('{0}.{1}',)" .format( dtype,k) )])
-                v =  value[next(iter(value))]
-                #logger.debug("\n\n key[0] is %s, value[0] is %s \n", k, v)
-                #if v[0][0] == 'R':       #RequiredMissing
-                #    errors[k] = u'Missing value'
+                for k, v in value.items():
+                    # make key compatible with errors dict (tuple)
+                    k = tuple([ str.encode("('{0}.{1}',)" .format( dtype,k) )])
+                    if v[0][:8] == 'Required':       #RequiredMissing
+                        errors[k] = _('Missing value')
             else:
                 # make key compatible with errors dict (tuple)
                 #key = tuple([str.encode("('datacite.%s',)" % key)])
                 # fix error message displayed
-                #logger.debug("\n\n value in validation is value[0] %s, type is %s, key is %s\n", value[0], type(value[0]), key )
                 if value[0][:8] == 'Required':
-                    test = 5
-                    #key = tuple([ str.encode("('{0}.{1}',)" .format( dtype,key) )])
-                    #errors[key] = u'Missing value'
+                    k = tuple([ str.encode("{0}" .format( key) )])
+                    errors[k] = _('Missing value')
                 elif value[0] == 'InvalidDoi ':
                     #remove duplicate error (for wrong value)
-                    #logger.debug('key %s, errors[0] %s', key, errors[0])
                     key_to_remove = tuple([ str.encode('{0}.{1}' .format( dtype,key) )])
                     #key = tuple([ str.encode('{0}.{1},' .format( dtype,key) )])
                     key = tuple([ str.encode('{0}' .format(key) )])
                     errors.pop(key_to_remove)
-                    errors[key] = u'Invalid DOI value'  
+                    errors[key] = _('Invalid DOI value')  
             #errors.update(validation_errors)
         #for k, v in errors.items():
         #    logger.debug("K: %s,type: %s v: %s,type %s ", k,type(k), v, type(v))      

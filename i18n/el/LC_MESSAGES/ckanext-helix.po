@@ -4125,7 +4125,7 @@ msgstr "Δημιουργός (Επώνυμο)"
 
 
 
-msgid "Related Publication"
+msgid "Related publication"
 msgstr "Σχετική δημοσίευση"
 
 msgid "The DOI of a related publication"
@@ -4529,6 +4529,13 @@ msgstr "Το μήνυμα στάλθηκε"
 
 msgid "Invalid value"
 msgstr "Μη έγκυρη τιμή"
+
+msgid "Invalid DOI value"
+msgstr "Μη έγκυρη τιμή DOI"
+
+msgid "Invalid year"
+msgstr "Μη έγκυρη χρονιά"
+
 
 msgid "There are no restricted requests"
 msgstr "Δεν υπάρχουν αιτήματα πρόσβασης"

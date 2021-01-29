@@ -143,7 +143,7 @@ class IDataciteMetadata(IMetadata):
     creator = zope.schema.Object(ICreator,
         description = (u'The researcher involved in producing the data'),
         title = u'Creator',
-        required = False)
+        required = True)
     
     '''subject = zope.schema.Object(ISubject,
         title = u'Subject',
