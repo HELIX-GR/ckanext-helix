@@ -122,9 +122,9 @@ class TableReadWidget(_common.TableReadWidget):
 
     def get_field_order(self):
         return [
-           'title',
            'optional_title',
-           'optional_description',
+           'title',
+           'abstract',
            'contact_email',
            'closed_subject',
            'creator',

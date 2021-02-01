@@ -28,7 +28,7 @@ class IDataciteMetadata(IMetadata):
         required = False)
    
     abstract = zope.schema.Text(
-        title = _(u'Dataset Abstract'),
+        title = _(u'Description (English)'),
         description = _(u'This is a brief narrative summary of the contents of this dataset.'),
         required = False)
     abstract.setTaggedValue('translatable', True)
@@ -48,14 +48,14 @@ class IDataciteMetadata(IMetadata):
     # not optional anymore!
     optional_title = zope.schema.TextLine(
         required = True,
-        title = u"Τίτλος",
+        title = u"Title",
         description = u'Optional title in Greek',)
     optional_title.setTaggedValue('links-to', 'title_optional')
 
     # not optional anymore!
     optional_description = zope.schema.Text(
         required = True,
-        title = u"Περιγραφή",
+        title = u"Description",
         description = u'Optional notes in greek',)
     optional_description.setTaggedValue('links-to', 'notes_optional')
 
