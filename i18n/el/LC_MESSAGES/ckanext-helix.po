@@ -4261,3 +4261,6 @@ msgstr "Εφαρμογές"
 
 msgid "Missing value"
 msgstr "Απαραίτητο πεδίο"
+
+msgid "Save Publisher"
+msgstr "Αποθήκευση Εκδότη"

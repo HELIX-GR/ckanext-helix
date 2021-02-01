@@ -90,10 +90,10 @@
   {% endblock %}
 
   {% block package_notes %}
-  {% if pkg.notes %}
+  {% if pkg.notes_optional %}
   <section>
     <h2>{{_('Description')}}</h2>
-    <p>{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</p>
+    <p>{{ h.render_markdown(h.get_translated(pkg, 'notes_optional')) }}</p>
   </section>
   {% endif %}
   {% endblock %}

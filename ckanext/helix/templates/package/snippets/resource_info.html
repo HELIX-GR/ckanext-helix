@@ -1,17 +1,21 @@
 {#
 Displays a sidebard module with information for given resource
 
-res    - The respource dict
+res - The respource dict
 
 #}
-<div class="module context-info">
-  <div class="module-content">
-    <h1 class="heading">{{ res.name or res.id }}</h1>
-    <div class="nums">
-      <dl>
-        <dt>{{ _('Format') }}</dt>
-        <dd>{{ res.format|upper }}</dd>
-      </dl>
+<div class="page__sidebar page__sidebar--padding-top page__sidebar--mobileflex">
+  <div class="page__sidebar__section">
+    <div class="module context-info">
+      <div class="module-content">
+        <h1 class="heading">{{ res.name or res.id }}</h1>
+        <div class="nums">
+          <dl>
+            <dt>{{ _('Format') }}</dt>
+            <dd>{{ res.format|upper }}</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </div>
