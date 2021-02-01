@@ -90,6 +90,8 @@
     {% endblock %}
     
     {%block secondary_content %}
+    <div class="page__sidebar page__sidebar--padding-top page__sidebar--mobileflex"> 
     {{ super() }}
     {{ h.snippet('snippets/facet_list.html', title=title, name=facet, hide_publishers= true, hide_empty=true, extras={'id':c.group_dict.id}) }}
+    </div>
     {%endblock%}

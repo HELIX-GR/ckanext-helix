@@ -74,6 +74,7 @@
 
 
 {% block secondary_content %}
+<div class="page__sidebar page__sidebar--padding-top page__sidebar--mobileflex"> 
 {% snippet 'snippets/organization.html', organization=organization %}
 <div class='alt-side-style'>
 <div class="module module-narrow module-shallow">
@@ -90,5 +91,7 @@
       <p><strong>Member:</strong> Can add new datasets (private).</p>
     {% endtrans %}
   </div>
+</div>
+</div>
 </div>
 {% endblock %}
