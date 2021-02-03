@@ -16,7 +16,7 @@
                 transform="translate(0 43.714)" fill="#971035" />
         </svg>
     </div>
-    <div class="page__content__default__attachment__main">
+    <div class="page__content__default__attachment__main {% if in_resource %} in-resource {% endif%} ">
         <div class="page__content__default__attachment__filename">
             <a class="resource-title" href="{{ url }}" title="{{ res.name or res.description }}"> 
                 {{ h.resource_display_name(res) }}</a>
