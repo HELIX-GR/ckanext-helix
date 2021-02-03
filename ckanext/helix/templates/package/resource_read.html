@@ -149,6 +149,7 @@
                 {% endif %}
               {% else %}
                 {# Views not created #}
+                {# disable temporarily 
                 <div class="data-viewer-info">
                   <p>{{ _("There are no views created for this resource yet.") }}</p>
                   {% if h.check_access('resource_view_create', {'resource_id': c.resource.id}) %}
@@ -167,7 +168,7 @@
                       </ul>
                     </div>
                   {% endif %}
-                </div>
+                </div> #}
               {% endif %}
             </div>
           {% endblock %}
