@@ -545,6 +545,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
         mapper.connect('organization_read', '/organization/{id}',controller=organization_controller, action='read')
         mapper.connect('organization_edit', '/organization/edit/{id}',controller=organization_controller, action='edit',
                   ckan_icon='pencil-square-o')     
+        mapper.connect('organizations_index', '/organization', controller=organization_controller, action='index')
         
         tests_controller = 'ckanext.helix.controllers.tests:Controller'
 
