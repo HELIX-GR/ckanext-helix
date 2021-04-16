@@ -160,12 +160,14 @@ def get_dataset_types():
 
     return dtypes
 
-def valid_org_members(org_email_domain):
+def valid_org_members(organization):
     context = {'model': model, 'session': model.Session, 'ignore_auth': True}
-    users = logic.get_action('user_list')(context, {})
+    all_users = logic.get_action('user_list')(context, {})
+    org_users = logic.get_action('member_list')(context, {'id':organization['id']})
     result = []
-    for user in users:
-        if user['name'].endswith(org_email_domain):
+    for user in all_users:
+        # if not already a member
+        if not [i for i in org_users if user['id'] in i] and user['name'].endswith('@' + organization['email_domain']):
             result.append(user)
 
     return result

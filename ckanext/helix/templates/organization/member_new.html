@@ -32,7 +32,7 @@
                 <div class="controls" >
                 <select  class="input-xlarge" id="field-user"  data-module="autocomplete" name="username"   placeholder=_('Choose user') >
                     <option class="placeholder" value=""   hidden>{{_('Select a user')}} </option>
-                    {% for user in h.valid_org_members(organization.email_domain)  %}
+                    {% for user in h.valid_org_members(organization)  %} 
                       <option value="{{ user.name }}" >{{user.name}}</option>
                     {% endfor %}
                 </select>
