@@ -167,8 +167,13 @@ def valid_org_members(organization):
     result = []
     for user in all_users:
         # if not already a member
-        if not [i for i in org_users if user['id'] in i] and user['name'].endswith('@' + organization['email_domain']):
-            result.append(user)
+        if not [i for i in org_users if user['id'] in i]:
+            email_parts = user['name'].split("@")
+            if len(email_parts) == 2:
+                domain = organization['email_domain'].split(".")
+                # check all cases (@auth.gr, @lib.auth.gr, @auth.edu.gr etc)
+                if (organization['email_domain'] == email_parts[1] or '.' + organization['email_domain'] in email_parts[1]) or domain[0] + '.edu.' + domain[1] in email_parts[1]:
+                    result.append(user)
 
     return result
 
