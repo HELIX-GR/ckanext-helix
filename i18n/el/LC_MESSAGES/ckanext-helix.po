@@ -4210,6 +4210,8 @@ msgstr "Το σύνολο δεδομένων δεν ανήκει σε κάποι
 msgid "Users"
 msgstr "Χρήστες"
 
+msgid "About the project"
+msgstr "Το πρόγραμμα CLIMPACT"
 
 msgid "Overview"
 msgstr "Επισκόπηση"
@@ -4232,8 +4234,11 @@ msgstr "Παραδοτέα"
 msgid "Network"
 msgstr "Το Δίκτυο"
 
-msgid "Core"
-msgstr "Μέλη"
+msgid "Research Groups"
+msgstr "Ερευνητικές ομάδες"
+
+msgid "Affiliated Members"
+msgstr "Συνδεδεμένα μέλη"
 
 msgid "Associates"
 msgstr "Συνεργάτες"
@@ -4244,7 +4249,7 @@ msgstr "Συμμετοχή"
 msgid "Tools"
 msgstr "Εργαλεία"
 
-msgid "News & Events"
+msgid "News and Events"
 msgstr "Νέα και δράσεις"
 
 msgid "Workshops"
@@ -4259,8 +4264,38 @@ msgstr "Φόρουμ Διαλόγου"
 msgid "Applications"
 msgstr "Εφαρμογές"
 
+msgid "Press Releases"
+msgstr "Δελτία τύπου"
+
 msgid "Missing value"
 msgstr "Απαραίτητο πεδίο"
 
+msgid "Announcements"
+msgstr "Ανακοινώσεις"
+
+msgid "Climpact in the Media"
+msgstr "Το climpact στα MME"
+
 msgid "Save Publisher"
 msgstr "Αποθήκευση Εκδότη"
+
+msgid "Do you want to become a member of the CLIMPACT Network?"
+msgstr "Θέλετε να γίνετε μέλος του Δικτύου για την Κλιμακτική Αλλαγή?"
+
+msgid "Participation is open to scientific organizations in Greece"
+msgstr "Η συμμετοχή ειναι ανοικτή σε επιστημονικούς οργανισμούς της Ελλάδας"
+
+msgid "PARTICIPATION"
+msgstr "ΣΥΜΜΕΤΟΧΗ"
+
+msgid "CONTACT"
+msgstr "ΕΠΙΚΟΙΝΩΝΙΑ"
+
+msgid "TERMS AND CONDITIONS"
+msgstr "ΟΡΟΙ ΧΡΗΣΗΣ"
+
+msgid "© 2020 • CLIMPACT • NATIONAL NETWORK FOR CLIMATE CHANGE AND ITS IMPACT •"
+msgstr "© 2020 • CLIMPACT • Εθνικο Δικτυο για την Κλιματικη Αλλαγη και τις επιπτωσεις της •"
+
+msgid "Climpact network has produced and offers freely a series of datasets about climate change"
+msgstr "Το δίκτυο Climpact έχει παράξει και προσφέρει ελεύθερα μια σειρα από δεδομένα για την κλιματική αλλαγή"
