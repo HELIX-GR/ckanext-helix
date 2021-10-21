@@ -3954,6 +3954,35 @@ msgstr ""
 msgid "Search for open data"
 msgstr "Αναζητήστε ανοικτά δεδομένα"
 
+msgid "Hardmin supports your research..."
+msgstr "Το HARDMIN υποστηρίζει την έρευνά σας..."
+
+#: homepage middle panel
+
+msgid "Search & discover"
+msgstr "Αναζήτηση & ανακάλυψη"
+
+msgid "Search & discover data and materials to support your research project"
+msgstr "Αναζήτηση & ανακάλυψη δεδομένων και υλικόυ για να στηρίξετε το ερευνητικό σας έργο"
+
+msgid "Data submission"
+msgstr "Υποβολή δεδομένων"
+
+msgid "Secure storage of your research data with simultaneous DOI attribution"
+msgstr "Ασφαλής αποθήκευση των ερευνητικών δεδομένων σας με ταυτόχρονη απόδοση DOI"
+
+msgid "Data access control"
+msgstr "Έλεγχος πρόσβασης στα δεδομένα"
+
+msgid "Multiple licenses / open access or controlled access"
+msgstr "Πολυτυπία αδειών χρήσης / ανοιχτής πρόσβασης ή ελεγχόμενης πρόσβασης"
+
+msgid "Data reference"
+msgstr "Ετεροαναφορά δεδομένων"
+
+msgid "By storing your data in HARDMIN you promote the discovery of your data!"
+msgstr "Αποθηκεύοντας τα δεδομένα σας στο HARDMIN προωθείτε την ανακάλυψη των δεδομένων σας!"
+
 #: homepage
 msgid "Latest Datasets"
 msgstr "Τελευταία σύνολα δεδομένων"
