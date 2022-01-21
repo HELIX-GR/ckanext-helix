@@ -50,7 +50,11 @@
     </span>
     {% endif %}
     <h1 class="package-title">
-      {{ pkg.title_optional or pkg.title }}
+      {% if h.lang()=='el'%}
+        {{ pkg.title_optional or pkg.title }}
+      {% elif h.lang()=='en'%}
+      {{ pkg.title or pkg.title_optional }}
+      {% endif %}
     </h1>
     {% if h.check_access('package_update', {'id':pkg.id }) %}
     {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn btn-manage pull-right', icon='wrench' %}
@@ -93,7 +97,11 @@
   {% if pkg.notes_optional %}
   <section>
     <h2>{{_('Description')}}</h2>
-    <p>{{ h.render_markdown(h.get_translated(pkg, 'notes_optional')) }}</p>
+    {% if h.lang()=='el'%}
+      <p>{{ h.render_markdown(h.get_translated(pkg, 'notes_optional')) }}</p>
+    {% elif h.lang()=='en'%}
+      <p>{{ h.render_markdown(h.get_translated(pkg, 'notes')) }}</p>
+    {% endif%}
   </section>
   {% endif %}
   {% endblock %}
