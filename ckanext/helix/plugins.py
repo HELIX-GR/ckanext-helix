@@ -339,7 +339,8 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'organization_list_objects': self.organization_list_objects,
             'organization_dict_objects': self.organization_dict_objects,
             'update_facets': self.update_facets,
-            'dataset_facets': self.dataset_facets
+            'dataset_facets': self.dataset_facets,
+        'get_org_greek_title': ext_template_helpers.get_org_greek_title
         }
 
     ## IConfigurer interface ##

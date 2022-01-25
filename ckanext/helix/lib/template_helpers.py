@@ -149,4 +149,10 @@ def pager(self, *args, **kwargs):
         
         return super(h.Page, self).pager(*args, **kwargs)
         
+def get_org_greek_title(id):
+    org = toolkit.get_action('organization_show')({}, {'id': id})
+    if (org.get('title_greek')):
+        return org.get('title_greek')
+    else:
+         return org.get('title')
 

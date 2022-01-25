@@ -4,13 +4,22 @@
     "about_url": "http://github.com/ckan/ckanext-scheming",
     "fields": [
       {
-        "field_name": "title",
+        "field_name": "title_greek",
         "label": "Name",
         "required": true,
         "validators": "scheming_required unicode",
         "form_snippet": "large_text.html",
         "form_attrs": {"data-module": "slug-preview-target"},
-        "form_placeholder": "My Organization full name"
+        "form_placeholder": "Full name of the publisher"
+      },
+      {
+        "field_name": "title",
+        "label": "Name (English)",
+        "required": true,
+        "validators": "scheming_required unicode",
+        "form_snippet": "large_text.html",
+        "form_attrs": {"data-module": "slug-preview-target"},
+        "form_placeholder": "Full name of the publisher (English)"
       },
       {
         "field_name": "name",
@@ -20,18 +29,18 @@
         "form_placeholder": "my-organization"
       },
       {
-        "field_name": "description",
+        "field_name": "description_greek",
         "label": "Description",
         "form_snippet": "markdown.html",
-        "form_placeholder": "A little information about my organization...",
+        "form_placeholder": "A little information about the publisher",
         "validators": "scheming_required",
         "required": true
       },
       {
-        "field_name": "description_greek",
-        "label": "Περιγραφη (Ελληνικά)",
+        "field_name": "description",
+        "label": "Description (English)",
         "form_snippet": "markdown.html",
-        "form_placeholder": "Λίγες πληροφορίες για τον εκδότη...",
+        "form_placeholder": "A little information about the publisher (English)",
         "validators": "scheming_required",
         "required": true
       },
