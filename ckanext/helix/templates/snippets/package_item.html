@@ -55,9 +55,14 @@ truncate_title - The length to truncate the title to (default: 80).
       {% endif %}
         
 
-      {% if package.organization %}
+      {% if package.organization %} 
+        {% if h.lang()=='el' %}
+          {% set org_name = h.get_org_greek_title(package.organization.name) %}
+        {% elif h.lang()=='en'%}
+          {% set org_name = package.organization.title %}  
+        {% endif %}
       <div class="data__item__info">
-          <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ package.organization.title|urlize|upper }}</a>
+          <a href={{ h.url_for(controller='organization', action='read', id= package.organization.name)}} > {{ org_name|urlize|upper }}</a>
       </div>
       {% endif %}
  
