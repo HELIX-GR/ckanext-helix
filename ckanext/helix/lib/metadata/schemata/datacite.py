@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import re
+import datetime
 import zope.interface
 import zope.schema
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -90,7 +91,7 @@ class IDataciteMetadata(IMetadata):
     def valid_publication_year(value):
         try: 
             pub_year = int(value)
-            if pub_year < 1950 or pub_year > 2019:
+            if pub_year < 1950 or pub_year > datetime.datetime.now().year:
                 raise InvalidYear
         except :
             raise InvalidYear
