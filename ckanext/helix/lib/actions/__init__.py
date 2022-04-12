@@ -39,4 +39,5 @@ class Invalid(toolkit.ValidationError):
 from . import package
 from . import autocomplete
 from . import group
+from . import organization
 

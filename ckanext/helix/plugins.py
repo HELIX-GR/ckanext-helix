@@ -597,6 +597,7 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             'member_create': ext_actions.group.member_create_check_authorized,
             'member_delete': ext_actions.group.member_delete_check_authorized,
             'dataset_publish': ext_actions.package.dataset_publish_auth,
+            'organization_create': ext_actions.organization.organization_create_auth,
         }
         return funcs
 
