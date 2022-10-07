@@ -10,6 +10,7 @@ from ckan.lib.base import (
     c, request, response, render, abort, BaseController,)
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
+import ckan.lib.helpers as h
 
 from ckanext.helix.cache_manager import get_cache
 from ckanext.helix.lib.util import to_json
@@ -44,6 +45,9 @@ class Controller(BaseController):
             context = {'model': model, 'session': model.Session, 
                       'user': c.user, 'auth_user_obj': c.userobj, 'ignore_auth': True}
             rsc = get_action('resource_show')(context, {'id': resource_id})
+            # if file is linked (url_type is not upload)
+            if rsc['url_type'] == None:
+                h.redirect_to(rsc['url'])
             filename = rsc['name']
             upload = uploader.ResourceUpload(resource=rsc)
             filepath = upload.get_path(rsc['id'])
