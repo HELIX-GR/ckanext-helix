@@ -16,6 +16,7 @@ from ckanext.helix.lib.util import to_json
 from ckanext.helix.lib import uploader
 from ckanext.helix.lib import vocabularies
 import ckanext.helix.lib.helpers as ext_helpers
+import ckanext.restricted.model as ext_model
 
 import os
 
@@ -236,5 +237,40 @@ class Controller(BaseController):
             return '{}'
         f = open(source, 'r')
         return(f)
+    
+    def get_restricted_requests(self, owner_id, category):
+        result = []
+        #context = {'model': model, 'session': model.Session, 'user': c.user}
+        context = self._make_context()
+        log.info('get_restricted_requests, owner id:"{0}", category:{1}'.format(owner_id, category))
+        download_id = ext_model.RestrictedRequest.download_id
+        if category == 'registered':
+            requests = model.Session.query(ext_model.RestrictedRequest).filter_by(
+                owner_id=owner_id, request_email=None, rejected_at=None, download_id=None)
+            #log.info('Requests: {}'.format(requests))
+        elif category == 'unregistered':
+            requests = model.Session.query(ext_model.RestrictedRequest).filter_by(
+                owner_id=owner_id, user_id=None, rejected_at=None,  download_id=None)
+        elif category == 'accepted':
+            requests = model.Session.query(
+                ext_model.RestrictedRequest).filter_by(owner_id=owner_id,rejected_at=None).filter(download_id!=None)
+        for request in requests:
+            log.info('resource id: {}'.format(request.resource_id))
+            resource = logic.get_action('resource_show')(
+                context, {'id': request.resource_id})
+            log.info('resource: {0}, request: {1}'.format(resource, request))
+            result.append({
+                'resource_name': resource['name'],
+                'resource_id': resource['id'],
+                'package_id': resource['package_id'],
+                'request_id': request.request_id,
+                'user_id': request.user_id,
+                'download_id': request.download_id,
+                'message': request.message,
+                'request_email': request.request_email,
+                'state': 'true' if request.download_id else 'false'
+            })
+        log.info('get_restricted_requests: requests: "{}"'.format(result))
+        return result
 
     

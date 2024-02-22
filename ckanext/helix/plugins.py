@@ -452,7 +452,11 @@ class DatasetForm(p.SingletonPlugin, toolkit.DefaultDatasetForm):
             m.connect(
                 '/api/i18n/{lang}',
                 action='i18n_js_translations'
-            )           
+            )
+
+            m.connect(
+                '/api/helix/get_restricted_requests/{owner_id}/{category}',
+                action='get_restricted_requests')
 
 
         user_controller = 'ckanext.helix.controllers.user:UserController'
